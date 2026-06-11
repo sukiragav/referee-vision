@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -92,7 +92,7 @@ const VIDEO_COLS = [
   {
     heading: "FIBA 3 PERSON MECHANICS",
     videos: [
-      { link: "https://youtu.be/IA3xtlSfb-g" },
+      { link: "https://youtu.be/IA3xtlSfb-g", thumbnail: "https://img.youtube.com/vi/IA3xtlSfb-g/0.jpg" },
       { link: "https://youtu.be/0abCxzDsoxY" },
       { link: "https://youtu.be/6_ZfrVAa8q0" },
     ],
@@ -112,6 +112,19 @@ const VIDEO_COLS = [
   },
 ];
 
+// ─── Responsive hook ──────────────────────────────────────────────────────────
+function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return width;
+}
+
 // ─── Shared hook: hover state ────────────────────────────────────────────────
 function useHover() {
   const [on, set] = useState(false);
@@ -119,7 +132,108 @@ function useHover() {
 }
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
-function Sidebar({ active, onSelect }: { active: Tab; onSelect: (t: Tab) => void }) {
+function Sidebar({
+  active,
+  onSelect,
+  open,
+  onClose,
+  isMobile,
+}: {
+  active: Tab;
+  onSelect: (t: Tab) => void;
+  open: boolean;
+  onClose: () => void;
+  isMobile: boolean;
+}) {
+  if (isMobile) {
+    return (
+      <>
+        {/* Backdrop */}
+        {open && (
+          <div
+            onClick={onClose}
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(0,0,0,0.6)",
+              zIndex: 200,
+              backdropFilter: "blur(2px)",
+            }}
+          />
+        )}
+        {/* Drawer */}
+        <aside
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: 260,
+            height: "100vh",
+            background: T.charcoal,
+            borderRight: `1px solid ${T.border}`,
+            borderLeft: `3px solid ${T.orange}`,
+            zIndex: 300,
+            display: "flex",
+            flexDirection: "column",
+            overflowY: "auto",
+            transform: open ? "translateX(0)" : "translateX(-100%)",
+            transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
+            boxShadow: open ? "4px 0 24px rgba(0,0,0,0.5)" : "none",
+          }}
+        >
+          {/* Header with close */}
+          <div
+            style={{
+              padding: "28px 20px 16px",
+              borderBottom: `1px solid ${T.border}`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontWeight: 800,
+                fontSize: 26,
+                color: T.orange,
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+              }}
+            >
+              REFEREES
+            </span>
+            <button
+              onClick={onClose}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: T.inactive,
+                fontSize: 22,
+                cursor: "pointer",
+                lineHeight: 1,
+                padding: 4,
+              }}
+            >
+              ✕
+            </button>
+          </div>
+          <div style={{ paddingTop: 0 }}>
+            {TABS.map((tab) => (
+              <SidebarItem
+                key={tab}
+                tab={tab}
+                active={tab === active}
+                onSelect={(t) => { onSelect(t); onClose(); }}
+              />
+            ))}
+          </div>
+        </aside>
+      </>
+    );
+  }
+
+  // Desktop sidebar
   return (
     <aside
       style={{
@@ -127,7 +241,6 @@ function Sidebar({ active, onSelect }: { active: Tab; onSelect: (t: Tab) => void
         flexShrink: 0,
         background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
-        // 3px orange left edge
         borderLeft: `3px solid ${T.orange}`,
         position: "sticky",
         top: 0,
@@ -247,7 +360,7 @@ function SectionBadge({ label }: { label: string }) {
 }
 
 // ─── Document row ─────────────────────────────────────────────────────────────
-function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
+function DocRow({ doc, isMobile }: { doc: (typeof DOCS)[number]; isMobile: boolean }) {
   const h = useHover();
   const isFourth = doc.label === "4TH_REFEREE";
   const Tag = doc.link ? "a" : "button";
@@ -256,11 +369,13 @@ function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
     <div
       style={{
         display: "flex",
-        alignItems: "center",
+        alignItems: isMobile ? "flex-start" : "center",
+        flexDirection: isMobile ? "column" : "row",
         justifyContent: "space-between",
-        height: 56,
-        padding: "0 8px",
+        minHeight: 56,
+        padding: isMobile ? "12px 8px" : "0 8px",
         borderBottom: `1px solid ${T.border}`,
+        gap: isMobile ? 8 : 0,
       }}
     >
       {/* Document name */}
@@ -268,7 +383,7 @@ function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
         style={{
           fontFamily: DM,
           fontWeight: 500,
-          fontSize: 15,
+          fontSize: isMobile ? 13 : 15,
           color: T.dimText,
           flex: 1,
           minWidth: 0,
@@ -283,7 +398,7 @@ function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
           doc.label
         )}
         {"  "}
-        <span style={{ color: T.mutedText, fontSize: 13, fontWeight: 400 }}>({doc.version})</span>
+        <span style={{ color: T.mutedText, fontSize: isMobile ? 11 : 13, fontWeight: 400 }}>({doc.version})</span>
       </span>
 
       {/* Download button */}
@@ -307,9 +422,10 @@ function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
           cursor: "pointer",
           transition: "background 0.15s, color 0.15s",
           flexShrink: 0,
-          marginLeft: 16,
+          marginLeft: isMobile ? 0 : 16,
           textTransform: "uppercase",
           textDecoration: "none",
+          alignSelf: isMobile ? "flex-start" : "center",
         }}
       >
         ↓ DOWNLOAD
@@ -341,6 +457,7 @@ function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
         justifyContent: "center",
         zIndex: 1000,
         backdropFilter: "blur(4px)",
+        padding: "16px",
       }}
     >
       {/* Close button */}
@@ -348,8 +465,8 @@ function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
         onClick={onClose}
         style={{
           position: "absolute",
-          top: 20,
-          right: 24,
+          top: 16,
+          right: 20,
           background: "transparent",
           border: "none",
           color: T.white,
@@ -367,7 +484,7 @@ function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          width: "min(900px, 90vw)",
+          width: "min(900px, 95vw)",
           aspectRatio: "16 / 9",
           background: "#000",
           border: `2px solid ${T.orange}`,
@@ -396,8 +513,29 @@ const THUMB_SHADES = [
   "#1E1E16",
 ];
 
-function VideoThumb({ index, link, onPlay }: { index: number; link?: string; onPlay?: () => void }) {
+function getYouTubeId(url: string): string | null {
+  const shortMatch = url.match(/youtu\.be\/([\w-]+)/);
+  if (shortMatch) return shortMatch[1];
+  const longMatch = url.match(/[?&]v=([\w-]+)/);
+  if (longMatch) return longMatch[1];
+  return null;
+}
+
+function VideoThumb({
+  index,
+  link,
+  thumbnail,
+  onPlay,
+}: {
+  index: number;
+  link?: string;
+  thumbnail?: string;
+  onPlay?: () => void;
+}) {
   const h = useHover();
+
+  const ytId = link ? getYouTubeId(link) : null;
+  const resolvedThumbnail = thumbnail || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null);
 
   return (
     <div
@@ -414,16 +552,33 @@ function VideoThumb({ index, link, onPlay }: { index: number; link?: string; onP
         justifyContent: "center",
         cursor: link ? "pointer" : "default",
         transition: "border-color 0.15s, filter 0.15s",
-        filter: h.on && link ? "brightness(1.25)" : "brightness(1)",
+        filter: h.on && link ? "brightness(1.15)" : "brightness(1)",
         position: "relative",
         overflow: "hidden",
       }}
     >
+      {resolvedThumbnail && (
+        <img
+          src={resolvedThumbnail}
+          alt="Video thumbnail"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: 0.6,
+            transition: "transform 0.3s ease, opacity 0.3s ease",
+            transform: h.on ? "scale(1.05)" : "scale(1)",
+          }}
+        />
+      )}
+
       {/* Subtle grid lines to suggest a court diagram */}
       <svg
         width="100%"
         height="100%"
-        style={{ position: "absolute", opacity: 0.15 }}
+        style={{ position: "absolute", opacity: 0.15, zIndex: 1 }}
         preserveAspectRatio="none"
       >
         <line x1="50%" y1="0" x2="50%" y2="100%" stroke={T.orange} strokeWidth="1" />
@@ -444,7 +599,7 @@ function VideoThumb({ index, link, onPlay }: { index: number; link?: string; onP
           alignItems: "center",
           justifyContent: "center",
           transition: "background 0.15s",
-          zIndex: 1,
+          zIndex: 2,
           flexShrink: 0,
         }}
       >
@@ -467,6 +622,7 @@ function VideoThumb({ index, link, onPlay }: { index: number; link?: string; onP
             letterSpacing: "1.5px",
             color: T.mutedText,
             textTransform: "uppercase",
+            zIndex: 2,
           }}
         >
           Coming soon
@@ -481,13 +637,15 @@ function VideoColumn({
   heading,
   videos,
   onPlay,
+  isMobile,
 }: {
   heading: string;
-  videos: { link?: string }[];
+  videos: { link?: string; thumbnail?: string }[];
   onPlay: (url: string) => void;
+  isMobile: boolean;
 }) {
   return (
-    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+    <div style={{ flex: isMobile ? "unset" : 1, width: isMobile ? "100%" : undefined, display: "flex", flexDirection: "column" }}>
       {/* Heading */}
       <div
         style={{
@@ -515,6 +673,7 @@ function VideoColumn({
             key={i}
             index={i}
             link={vid.link}
+            thumbnail={vid.thumbnail}
             onPlay={vid.link ? () => onPlay(vid.link!) : undefined}
           />
         ))}
@@ -524,7 +683,7 @@ function VideoColumn({
 }
 
 // ─── Playlist button ──────────────────────────────────────────────────────────
-function PlaylistButton({ label, filled, onPlay }: { label: string; filled: boolean; onPlay?: () => void }) {
+function PlaylistButton({ label, filled, onPlay, isMobile }: { label: string; filled: boolean; onPlay?: () => void; isMobile?: boolean }) {
   const h = useHover();
   return (
     <button
@@ -537,14 +696,15 @@ function PlaylistButton({ label, filled, onPlay }: { label: string; filled: bool
         color: filled || h.on ? T.white : T.orange,
         fontFamily: BARLOW,
         fontWeight: 600,
-        fontSize: 14,
+        fontSize: isMobile ? 13 : 14,
         letterSpacing: "2px",
         textTransform: "uppercase",
-        padding: "14px 40px",
+        padding: isMobile ? "12px 20px" : "14px 40px",
         borderRadius: 0,
         cursor: "pointer",
         transition: "background 0.15s, color 0.15s",
-        minWidth: 320,
+        minWidth: isMobile ? 0 : 320,
+        width: isMobile ? "100%" : undefined,
         textAlign: "center",
       }}
     >
@@ -554,7 +714,7 @@ function PlaylistButton({ label, filled, onPlay }: { label: string; filled: bool
 }
 
 // ─── Mechanics content ────────────────────────────────────────────────────────
-function MechanicsContent() {
+function MechanicsContent({ isMobile }: { isMobile: boolean }) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   return (
@@ -569,7 +729,7 @@ function MechanicsContent() {
       {/* Documents */}
       <div style={{ marginTop: 36 }}>
         {DOCS.map((doc, i) => (
-          <DocRow key={i} doc={doc} />
+          <DocRow key={i} doc={doc} isMobile={isMobile} />
         ))}
       </div>
 
@@ -577,13 +737,21 @@ function MechanicsContent() {
       <div style={{ height: 2, background: T.orange, marginTop: 48 }} />
 
       {/* Video grid */}
-      <div style={{ display: "flex", gap: 24, marginTop: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: isMobile ? 16 : 24,
+          marginTop: 24,
+        }}
+      >
         {VIDEO_COLS.map((col) => (
           <VideoColumn
             key={col.heading}
             heading={col.heading}
             videos={col.videos}
             onPlay={(url) => setActiveVideo(url)}
+            isMobile={isMobile}
           />
         ))}
       </div>
@@ -593,14 +761,14 @@ function MechanicsContent() {
         style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: isMobile ? "stretch" : "center",
           gap: 16,
           marginTop: 48,
           paddingBottom: 8,
         }}
       >
-        <PlaylistButton label="▶ WATCH MECHANICS PLAYLIST" filled={true} onPlay={() => setActiveVideo("https://youtu.be/GJKj5KOzSl0")} />
-        <PlaylistButton label="▶ WATCH GUESSING PLAYLIST" filled={false} onPlay={() => setActiveVideo("https://youtu.be/tqDVuO6uUoo")} />
+        <PlaylistButton label="▶ WATCH MECHANICS PLAYLIST" filled={true} onPlay={() => setActiveVideo("https://youtu.be/GJKj5KOzSl0")} isMobile={isMobile} />
+        <PlaylistButton label="▶ WATCH GUESSING PLAYLIST" filled={false} onPlay={() => setActiveVideo("https://youtu.be/tqDVuO6uUoo")} isMobile={isMobile} />
       </div>
     </div>
   );
@@ -683,13 +851,20 @@ const DUTIES_COLS = [
   { heading: "ARTICLE", type: "article" as const },
 ];
 
-function DutiesContent() {
+function DutiesContent({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionBadge label="DUTIES" />
 
       {/* Three-column grid */}
-      <div style={{ display: "flex", gap: 24, marginTop: 36 }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: isMobile ? 16 : 24,
+          marginTop: 36,
+        }}
+      >
         {DUTIES_COLS.map((col, i) => (
           <div key={col.heading} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
             {/* Column heading */}
@@ -736,24 +911,26 @@ const FITNESS_ITEMS: { label: string; action: "play" | "download" | "watch" }[] 
   { label: "FIBA FITNESS TESTS - DECODED", action: "download" },
 ];
 
-function FitnessRow({ item }: { item: { label: string; action: "play" | "download" | "watch" } }) {
+function FitnessRow({ item, isMobile }: { item: { label: string; action: "play" | "download" | "watch" }; isMobile?: boolean }) {
   const h = useHover();
   return (
     <div
       style={{
         display: "flex",
-        alignItems: "center",
+        alignItems: isMobile ? "flex-start" : "center",
+        flexDirection: isMobile ? "column" : "row",
         justifyContent: "space-between",
-        height: 56,
-        padding: "0 8px",
+        minHeight: 56,
+        padding: isMobile ? "12px 8px" : "0 8px",
         borderBottom: `1px solid ${T.border}`,
+        gap: isMobile ? 8 : 0,
       }}
     >
       <span
         style={{
           fontFamily: DM,
           fontWeight: 500,
-          fontSize: 15,
+          fontSize: isMobile ? 13 : 15,
           color: T.dimText,
           flex: 1,
           minWidth: 0,
@@ -777,11 +954,12 @@ function FitnessRow({ item }: { item: { label: string; action: "play" | "downloa
           cursor: "pointer",
           transition: "background 0.15s, color 0.15s",
           flexShrink: 0,
-          marginLeft: 16,
+          marginLeft: isMobile ? 0 : 16,
           textTransform: "uppercase",
           display: "flex",
           alignItems: "center",
           gap: 6,
+          alignSelf: isMobile ? "flex-start" : "center",
         }}
       >
         {item.action === "play" ? (
@@ -807,13 +985,13 @@ function FitnessRow({ item }: { item: { label: string; action: "play" | "downloa
   );
 }
 
-function FitnessTestsContent() {
+function FitnessTestsContent({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionBadge label="FITNESS TESTS" />
       <div style={{ marginTop: 36 }}>
         {FITNESS_ITEMS.map((item, i) => (
-          <FitnessRow key={i} item={item} />
+          <FitnessRow key={i} item={item} isMobile={isMobile} />
         ))}
       </div>
     </div>
@@ -831,13 +1009,13 @@ const PHYSICAL_TRAINING_ITEMS: { label: string; action: "play" | "download" }[] 
   { label: "PHYSICAL TRAINING, NUTRITION AND SLEEP DURING SELF-QUARANTINE  (Version 1.0)", action: "download" },
 ];
 
-function PhysicalTrainingContent() {
+function PhysicalTrainingContent({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionBadge label="PHYSICAL TRAINING" />
       <div style={{ marginTop: 36 }}>
         {PHYSICAL_TRAINING_ITEMS.map((item, i) => (
-          <FitnessRow key={i} item={item} />
+          <FitnessRow key={i} item={item} isMobile={isMobile} />
         ))}
       </div>
     </div>
@@ -926,18 +1104,20 @@ function ExerciseCard({ label, index }: { label: string; index: number }) {
   );
 }
 
-function WarmUpExercisesContent() {
+function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
   const hNba = useHover();
+  const cols = isMobile ? 2 : isTablet ? 3 : 4;
+
   return (
     <div>
       <SectionBadge label="WARM UP EXERCISES" />
 
-      {/* 4-column grid */}
+      {/* Responsive grid */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 20,
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gap: isMobile ? 12 : 20,
           marginTop: 36,
         }}
       >
@@ -1019,13 +1199,13 @@ const MENTAL_ITEMS: { label: string; action: "play" | "download" }[] = [
   { label: "KEEPING MOTIVATION, PASSION & ENTHUSIASM FOR OFFICIATING (Version 2.0)", action: "download" },
 ];
 
-function MentalPreparationContent() {
+function MentalPreparationContent({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionBadge label="MENTAL PREPARATION" />
       <div style={{ marginTop: 36 }}>
         {MENTAL_ITEMS.map((item, i) => (
-          <FitnessRow key={i} item={item} />
+          <FitnessRow key={i} item={item} isMobile={isMobile} />
         ))}
       </div>
     </div>
@@ -1048,13 +1228,13 @@ const IMPROVE_YOURSELF_ITEMS: { label: string; action: "play" | "download" | "wa
   { label: "BUILDING SELF-DISCIPLINE (Version 1.0)", action: "download" },
 ];
 
-function ImproveYourselfContent() {
+function ImproveYourselfContent({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionBadge label="IMPROVE YOURSELF" />
       <div style={{ marginTop: 36 }}>
         {IMPROVE_YOURSELF_ITEMS.map((item, i) => (
-          <FitnessRow key={i} item={item} />
+          <FitnessRow key={i} item={item} isMobile={isMobile} />
         ))}
       </div>
     </div>
@@ -1075,13 +1255,13 @@ const FIBA_LICENSING_ITEMS: { label: string; action: "play" | "download" | "watc
   { label: "COMBINED WORLD RANKING (4\u1d57\u02b0 October 2022)", action: "download" },
 ];
 
-function FibaLicensingContent() {
+function FibaLicensingContent({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionBadge label="FIBA LICENSING" />
       <div style={{ marginTop: 36 }}>
         {FIBA_LICENSING_ITEMS.map((item, i) => (
-          <FitnessRow key={i} item={item} />
+          <FitnessRow key={i} item={item} isMobile={isMobile} />
         ))}
       </div>
     </div>
@@ -1348,7 +1528,9 @@ function AssistCard({
   );
 }
 
-function AssistArticlesContent() {
+function AssistArticlesContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const cols = isMobile ? 3 : isTablet ? 5 : 8;
+
   return (
     <div>
       <SectionBadge label="ASSIST ARTICLES" />
@@ -1366,15 +1548,15 @@ function AssistArticlesContent() {
           textTransform: "uppercase",
         }}
       >
-        ( HOVER OVER THE IMAGE TO SEE THE ARTICLES WITHIN )
+        {isMobile ? "( TAP AN ISSUE TO SEE ARTICLES )" : "( HOVER OVER THE IMAGE TO SEE THE ARTICLES WITHIN )"}
       </div>
 
-      {/* 8-column grid */}
+      {/* Responsive grid */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(8, 1fr)",
-          gap: 12,
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gap: isMobile ? 8 : 12,
           marginTop: 28,
         }}
       >
@@ -1415,6 +1597,16 @@ function PlaceholderContent({ tab }: { tab: Tab }) {
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function Referees() {
   const [activeTab, setActiveTab] = useState<Tab>("MECHANICS");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const width = useWindowWidth();
+
+  const isMobile = width < 640;
+  const isTablet = width < 1024;
+
+  // Close sidebar when resizing to desktop
+  useEffect(() => {
+    if (!isMobile && sidebarOpen) setSidebarOpen(false);
+  }, [isMobile, sidebarOpen]);
 
   return (
     <div
@@ -1426,38 +1618,112 @@ export default function Referees() {
         fontFamily: DM,
       }}
     >
+      {/* Mobile top bar */}
+      {isMobile && (
+        <div
+          style={{
+            background: T.charcoal,
+            borderBottom: `1px solid ${T.border}`,
+            borderTop: `3px solid ${T.orange}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "12px 16px",
+            position: "sticky",
+            top: 0,
+            zIndex: 100,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: BARLOW,
+              fontWeight: 800,
+              fontSize: 22,
+              color: T.orange,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+            }}
+          >
+            REFEREES
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontSize: 13,
+                color: T.inactive,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                maxWidth: 160,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {activeTab}
+            </span>
+            <button
+              onClick={() => setSidebarOpen(true)}
+              style={{
+                background: "transparent",
+                border: `1px solid ${T.border}`,
+                color: T.white,
+                cursor: "pointer",
+                padding: "6px 10px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                borderRadius: 2,
+              }}
+              aria-label="Open menu"
+            >
+              <span style={{ display: "block", width: 18, height: 2, background: T.orange }} />
+              <span style={{ display: "block", width: 18, height: 2, background: T.orange }} />
+              <span style={{ display: "block", width: 18, height: 2, background: T.orange }} />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Two-column body */}
       <div style={{ display: "flex", flex: 1, alignItems: "stretch" }}>
-        <Sidebar active={activeTab} onSelect={setActiveTab} />
+        <Sidebar
+          active={activeTab}
+          onSelect={setActiveTab}
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          isMobile={isMobile}
+        />
 
         {/* Main content */}
         <main
           style={{
             flex: 1,
             background: "var(--off-white)",
-            padding: "48px 56px",
+            padding: isMobile ? "24px 16px" : isTablet ? "32px 28px" : "48px 56px",
             minHeight: "100%",
             boxSizing: "border-box",
+            overflowX: "hidden",
           }}
         >
           {activeTab === "MECHANICS" ? (
-            <MechanicsContent />
+            <MechanicsContent isMobile={isMobile} />
           ) : activeTab === "DUTIES" ? (
-            <DutiesContent />
+            <DutiesContent isMobile={isMobile} />
           ) : activeTab === "FITNESS TESTS" ? (
-            <FitnessTestsContent />
+            <FitnessTestsContent isMobile={isMobile} />
           ) : activeTab === "PHYSICAL TRAINING" ? (
-            <PhysicalTrainingContent />
+            <PhysicalTrainingContent isMobile={isMobile} />
           ) : activeTab === "WARM UP EXERCISES" ? (
-            <WarmUpExercisesContent />
+            <WarmUpExercisesContent isMobile={isMobile} isTablet={isTablet} />
           ) : activeTab === "MENTAL PREPARATION" ? (
-            <MentalPreparationContent />
+            <MentalPreparationContent isMobile={isMobile} />
           ) : activeTab === "IMPROVE YOURSELF" ? (
-            <ImproveYourselfContent />
+            <ImproveYourselfContent isMobile={isMobile} />
           ) : activeTab === "FIBA LICENSING" ? (
-            <FibaLicensingContent />
+            <FibaLicensingContent isMobile={isMobile} />
           ) : activeTab === "ASSIST ARTICLES" ? (
-            <AssistArticlesContent />
+            <AssistArticlesContent isMobile={isMobile} isTablet={isTablet} />
           ) : (
             <PlaceholderContent tab={activeTab} />
           )}
