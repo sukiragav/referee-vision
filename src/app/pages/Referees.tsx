@@ -9,7 +9,7 @@ const T = {
   grey: "#888888",
   border: "#2A2A2A",
   inactive: "#AAAAAA",
-  dimText: "#DDDDDD",
+  dimText: "#E8651A",
   breadcrumbBg: "#0D0D0D",
   hoverBg: "#1F1F1F",
   mutedText: "#666666",
@@ -28,7 +28,7 @@ type Tab =
   | "PHYSICAL TRAINING"
   | "WARM UP EXERCISES"
   | "MENTAL PREPARATION"
-  | "IMPROVE YOUR"
+  | "IMPROVE YOURSELF"
   | "FIBA LICENSING"
   | "ASSIST ARTICLES";
 
@@ -40,7 +40,7 @@ const TABS: Tab[] = [
   "PHYSICAL TRAINING",
   "WARM UP EXERCISES",
   "MENTAL PREPARATION",
-  "IMPROVE YOUR",
+  "IMPROVE YOURSELF",
   "FIBA LICENSING",
   "ASSIST ARTICLES",
 ];
@@ -80,7 +80,7 @@ function Sidebar({ active, onSelect }: { active: Tab; onSelect: (t: Tab) => void
         // 3px orange left edge
         borderLeft: `3px solid ${T.orange}`,
         position: "sticky",
-        top: 0, 
+        top: 0,
         height: "100vh",
         overflowY: "auto",
         display: "flex",
@@ -99,7 +99,7 @@ function Sidebar({ active, onSelect }: { active: Tab; onSelect: (t: Tab) => void
           style={{
             fontFamily: BARLOW,
             fontWeight: 800,
-            fontSize: 11,
+            fontSize: 30,
             color: T.orange,
             letterSpacing: "3px",
             textTransform: "uppercase",
@@ -180,7 +180,7 @@ function SectionBadge({ label }: { label: string }) {
       <div
         style={{
           background: T.orange,
-          color: T.white,
+          color: "var(--off-white)",
           fontFamily: BARLOW,
           fontWeight: 800,
           fontSize: 22,
@@ -432,6 +432,488 @@ function MechanicsContent() {
   );
 }
 
+// ─── Article thumbnail ────────────────────────────────────────────────────────
+function ArticleThumb() {
+  const h = useHover();
+  return (
+    <div
+      onMouseEnter={h.onMouseEnter}
+      onMouseLeave={h.onMouseLeave}
+      style={{
+        flex: 1,
+        aspectRatio: "7.14 / 4",
+        background: h.on ? "#F0EDE8" : "#FFFFFF",
+        border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+        cursor: "pointer",
+        transition: "border-color 0.15s, background 0.15s",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      {/* Orange header bar */}
+      <div style={{ height: 6, background: T.orange, flexShrink: 0 }} />
+      {/* Document lines */}
+      <div style={{ padding: "12px 14px", flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+        {Array.from({ length: 10 }).map((_, i) => (
+          <div
+            key={i}
+            style={{
+              height: 6,
+              background: i === 0 ? T.orange : i % 4 === 0 ? "#CCCCCC" : "#E0E0E0",
+              borderRadius: 2,
+              width: i % 3 === 2 ? "60%" : "100%",
+            }}
+          />
+        ))}
+      </div>
+      {/* Hover overlay */}
+      {h.on && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(232,101,26,0.08)",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: BARLOW,
+              fontWeight: 700,
+              fontSize: 13,
+              letterSpacing: "2px",
+              color: T.orange,
+              textTransform: "uppercase",
+              border: `1px solid ${T.orange}`,
+              padding: "6px 16px",
+              background: "white",
+            }}
+          >
+            VIEW
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Duties content ───────────────────────────────────────────────────────────
+const DUTIES_COLS = [
+  { heading: "START OF THE GAME", type: "video" as const, count: 1 },
+  { heading: "DUTIES OF OFFICIALS", type: "video" as const, count: 1 },
+  { heading: "ARTICLE", type: "article" as const },
+];
+
+function DutiesContent() {
+  return (
+    <div>
+      <SectionBadge label="DUTIES" />
+
+      {/* Three-column grid */}
+      <div style={{ display: "flex", gap: 24, marginTop: 36 }}>
+        {DUTIES_COLS.map((col, i) => (
+          <div key={col.heading} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            {/* Column heading */}
+            <div
+              style={{
+                background: T.charcoal,
+                border: `2px solid ${T.orange}`,
+                fontFamily: BARLOW,
+                fontWeight: 800,
+                fontSize: 17,
+                color: T.white,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                textAlign: "center",
+                padding: "16px 12px",
+                marginBottom: 8,
+              }}
+            >
+              {col.heading}
+            </div>
+
+            {/* Content */}
+            <div style={{ display: "flex", gap: 6 }}>
+              {col.type === "video" ? (
+                <VideoThumb index={i} />
+              ) : (
+                <ArticleThumb />
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Fitness Tests content ──────────────────────────────────────────────────
+const FITNESS_ITEMS: { label: string; action: "play" | "download" | "watch" }[] = [
+  { label: "FIBA BASIC FITNESS TEST (Audio)", action: "play" },
+  { label: "FIBA YO YO ELITE FITNESS TEST (Audio)", action: "play" },
+  { label: "FIBA YO YO ELITE FITNESS TEST SETUP GUIDELINES (Video)", action: "play" },
+  { label: "FIBA BASIC FITNESS TEST (Version 4.0)", action: "download" },
+  { label: "FIBA YO YO ELITE FITNESS TEST (Version 2.0 - June 2020)", action: "download" },
+  { label: "FIBA FITNESS TESTS - DECODED", action: "download" },
+];
+
+function FitnessRow({ item }: { item: { label: string; action: "play" | "download" | "watch" } }) {
+  const h = useHover();
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        height: 56,
+        padding: "0 8px",
+        borderBottom: `1px solid ${T.border}`,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: DM,
+          fontWeight: 500,
+          fontSize: 15,
+          color: T.dimText,
+          flex: 1,
+          minWidth: 0,
+        }}
+      >
+        {item.label}
+      </span>
+      <button
+        onMouseEnter={h.onMouseEnter}
+        onMouseLeave={h.onMouseLeave}
+        style={{
+          background: h.on ? T.orange : "transparent",
+          border: `1px solid ${T.orange}`,
+          color: h.on ? T.white : T.orange,
+          fontFamily: BARLOW,
+          fontWeight: 600,
+          fontSize: 13,
+          letterSpacing: "2px",
+          padding: "8px 20px",
+          borderRadius: 0,
+          cursor: "pointer",
+          transition: "background 0.15s, color 0.15s",
+          flexShrink: 0,
+          marginLeft: 16,
+          textTransform: "uppercase",
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+        }}
+      >
+        {item.action === "play" ? (
+          <>
+            <svg width="10" height="10" viewBox="0 0 10 12" fill="currentColor">
+              <polygon points="0,0 10,6 0,12" />
+            </svg>
+            PLAY
+          </>
+        ) : item.action === "watch" ? (
+          <>
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="currentColor">
+              <rect x="0" y="0" width="12" height="10" rx="1" fill="none" stroke="currentColor" strokeWidth="1.2"/>
+              <polygon points="4.5,2.5 9,5 4.5,7.5" />
+            </svg>
+            WATCH
+          </>
+        ) : (
+          <>↓ DOWNLOAD</>
+        )}
+      </button>
+    </div>
+  );
+}
+
+function FitnessTestsContent() {
+  return (
+    <div>
+      <SectionBadge label="FITNESS TESTS" />
+      <div style={{ marginTop: 36 }}>
+        {FITNESS_ITEMS.map((item, i) => (
+          <FitnessRow key={i} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Physical Training content ──────────────────────────────────────────────────
+const PHYSICAL_TRAINING_ITEMS: { label: string; action: "play" | "download" }[] = [
+  { label: "IMPROVE YOUR MOBILITY (June 2024)", action: "download" },
+  { label: "IMPROVE YOUR SPECIFIC TRAINING (Version 1.0)", action: "download" },
+  { label: "PHYSICAL TRAINING MANUAL (Version 5.0)", action: "download" },
+  { label: "PHYSCIAL DEMANDS & PROFILE (Version 1.0)", action: "download" },
+  { label: "IMPROVE YOUR GAME WARMUP & STRETCHING (Version 2.0)", action: "download" },
+  { label: "IMPROVE YOUR JET LAG (Version 2.0)", action: "download" },
+  { label: "PHYSICAL TRAINING, NUTRITION AND SLEEP DURING SELF-QUARANTINE  (Version 1.0)", action: "download" },
+];
+
+function PhysicalTrainingContent() {
+  return (
+    <div>
+      <SectionBadge label="PHYSICAL TRAINING" />
+      <div style={{ marginTop: 36 }}>
+        {PHYSICAL_TRAINING_ITEMS.map((item, i) => (
+          <FitnessRow key={i} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Warm Up Exercises content ──────────────────────────────────────────────────
+const WARMUP_EXERCISES = [
+  "ACTIVE STRETCHING",
+  "BACK KICKS",
+  "FOOTWORK ACTIVATION",
+  "HALF COURT ACTIVATION",
+  "HIGH KNEES",
+  "KARAOKE",
+  "SIDE TO SIDE",
+  "SIDE TO SIDE SPRINT",
+  "NO LOOK SPRINTS",
+  "SUICIDES",
+  "TURN AROUND SPRINT",
+  "LAST 2 MIN SPRINT",
+];
+
+function ExerciseCard({ label, index }: { label: string; index: number }) {
+  const h = useHover();
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {/* Title box */}
+      <div
+        style={{
+          border: `2px solid ${T.orange}`,
+          background: T.charcoal,
+          fontFamily: BARLOW,
+          fontWeight: 800,
+          fontSize: 15,
+          color: T.white,
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+          textAlign: "center",
+          padding: "10px 8px",
+        }}
+      >
+        {label}
+      </div>
+      {/* Thumbnail */}
+      <div
+        onMouseEnter={h.onMouseEnter}
+        onMouseLeave={h.onMouseLeave}
+        style={{
+          aspectRatio: "9 / 16",
+          maxWidth: 100,
+          margin: "0 auto",
+          width: "100%",
+          background: THUMB_SHADES[index % THUMB_SHADES.length],
+          border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          transition: "border-color 0.15s",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <svg width="100%" height="100%" style={{ position: "absolute", opacity: 0.15 }} preserveAspectRatio="none">
+          <line x1="50%" y1="0" x2="50%" y2="100%" stroke={T.orange} strokeWidth="1" />
+          <circle cx="50%" cy="50%" r="18%" stroke={T.orange} strokeWidth="1" fill="none" />
+        </svg>
+        <div
+          style={{
+            width: 24,
+            height: 24,
+            background: h.on ? T.orange : "rgba(232,101,26,0.7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1,
+            transition: "background 0.15s",
+          }}
+        >
+          <svg width="8" height="10" viewBox="0 0 10 12" fill="none">
+            <polygon points="0,0 10,6 0,12" fill="white" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WarmUpExercisesContent() {
+  const hNba = useHover();
+  return (
+    <div>
+      <SectionBadge label="WARM UP EXERCISES" />
+
+      {/* 4-column grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 20,
+          marginTop: 36,
+        }}
+      >
+        {WARMUP_EXERCISES.map((ex, i) => (
+          <ExerciseCard key={ex} label={ex} index={i} />
+        ))}
+      </div>
+
+      {/* NBA Referee Fitness section */}
+      <div style={{ marginTop: 40, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+        <div
+          style={{
+            border: `2px solid ${T.orange}`,
+            background: T.charcoal,
+            fontFamily: BARLOW,
+            fontWeight: 800,
+            fontSize: 17,
+            color: T.white,
+            letterSpacing: "1px",
+            textTransform: "uppercase",
+            textAlign: "center",
+            padding: "12px 48px",
+          }}
+        >
+          NBA REFEREE FITNESS
+        </div>
+        <div
+          onMouseEnter={hNba.onMouseEnter}
+          onMouseLeave={hNba.onMouseLeave}
+          style={{
+            width: 90,
+            aspectRatio: "16 / 9",
+            background: THUMB_SHADES[4],
+            border: hNba.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            transition: "border-color 0.15s",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              width: 24,
+              height: 24,
+              background: hNba.on ? T.orange : "rgba(232,101,26,0.7)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "background 0.15s",
+            }}
+          >
+            <svg width="8" height="10" viewBox="0 0 10 12" fill="none">
+              <polygon points="0,0 10,6 0,12" fill="white" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Mental Preparation content ──────────────────────────────────────────────────
+const MENTAL_ITEMS: { label: string; action: "play" | "download" }[] = [
+  { label: "GENERAL GUIDELINES (Version 2.0)", action: "download" },
+  { label: "FOR COMPETITIONS (Version 2.0)", action: "download" },
+  { label: "PRE-GAME (Version 2.0)", action: "download" },
+  { label: "POST-GAME EVALUATION (Version 2.0)", action: "download" },
+  { label: "FACING UNCERTAINTY (Version 1.0)", action: "download" },
+  { label: "GOAL-SETTING (Version 2.0)", action: "download" },
+  { label: "CONCENTRATION & ATTENTION (Version 2.0)", action: "download" },
+  { label: "AROUSAL CONTROL (Version 2.0)", action: "download" },
+  { label: "VISUALISATION & IMAGERY (Version 2.0)", action: "download" },
+  { label: "SELF-TALK (Version 2.0)", action: "download" },
+  { label: "INJURY & RECOVERY (Version 2.0)", action: "download" },
+  { label: "FACING STRESSFUL & CHALLENGING SITUATIONS (Version 2.0)", action: "download" },
+  { label: "KEEPING MOTIVATION, PASSION & ENTHUSIASM FOR OFFICIATING (Version 2.0)", action: "download" },
+];
+
+function MentalPreparationContent() {
+  return (
+    <div>
+      <SectionBadge label="MENTAL PREPARATION" />
+      <div style={{ marginTop: 36 }}>
+        {MENTAL_ITEMS.map((item, i) => (
+          <FitnessRow key={i} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Improve Yourself content ──────────────────────────────────────────────────
+const IMPROVE_YOURSELF_ITEMS: { label: string; action: "play" | "download" | "watch" }[] = [
+  { label: "ROTATIONS (Version 1.0) 💥", action: "download" },
+  { label: "HEAD COACH'S CHALLENGE (Version 2.1)", action: "download" },
+  { label: "REFEREEING THE HELP DEFENDER (Version 1.0)", action: "download" },
+  { label: "TIMING OF THE WHISTLE (Version 1.0)", action: "download" },
+  { label: "OUT-OF-BOUNDS DECISIONS (Version 1.0)", action: "download" },
+  { label: "MOBILITY (Version 1.0)", action: "download" },
+  { label: "EMOTIONAL INTELLIGENCE (Version 1.0)", action: "download" },
+  { label: "FIRST IMPRESSION (Version 1.0)", action: "download" },
+  { label: "SEASON'S SELF-EVALUATION (Version 1.0)", action: "download" },
+  { label: "GROWTH MINDSET (Version 1.0)", action: "download" },
+  { label: "CONTROL THE CONTROLLABLE (Version 1.0)", action: "download" },
+  { label: "BUILDING SELF-DISCIPLINE (Version 1.0)", action: "download" },
+];
+
+function ImproveYourselfContent() {
+  return (
+    <div>
+      <SectionBadge label="IMPROVE YOURSELF" />
+      <div style={{ marginTop: 36 }}>
+        {IMPROVE_YOURSELF_ITEMS.map((item, i) => (
+          <FitnessRow key={i} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── FIBA Licensing content ──────────────────────────────────────────────────
+const FIBA_LICENSING_ITEMS: { label: string; action: "play" | "download" | "watch" }[] = [
+  { label: "GUIDELINES TO NATIONAL FEDERATIONS (Version 1.0 October 2022)", action: "download" },
+  { label: "LICENSING 2023-25 INTRODUCTION", action: "watch" },
+  { label: "FIBA GOL 2023-25 Referees\u2019 Physical Training Plan", action: "download" },
+  { label: "FIBA GOL 2023-25 Entry Form", action: "download" },
+  { label: "FIBA GOL 2023-25 Fitness Test Result", action: "download" },
+  { label: "FIBA GOL 2023-25 Fitness Test Consent Form", action: "download" },
+  { label: "FIBA GOL 2023-25 Medical Certificate", action: "download" },
+  { label: "FIBA GOL 2023-25 MAP (FIBA Management & Administration Platform) User Guidelines", action: "download" },
+  { label: "LIST OF NATIONAL FEDERATIONS (27\u1d57\u02b0 January 2017)", action: "download" },
+  { label: "COMBINED WORLD RANKING (4\u1d57\u02b0 October 2022)", action: "download" },
+];
+
+function FibaLicensingContent() {
+  return (
+    <div>
+      <SectionBadge label="FIBA LICENSING" />
+      <div style={{ marginTop: 36 }}>
+        {FIBA_LICENSING_ITEMS.map((item, i) => (
+          <FitnessRow key={i} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Placeholder tab content ──────────────────────────────────────────────────
 function PlaceholderContent({ tab }: { tab: Tab }) {
   return (
@@ -475,7 +957,7 @@ export default function Referees() {
         <main
           style={{
             flex: 1,
-            background: T.bg,
+            background: "var(--off-white)",
             padding: "48px 56px",
             minHeight: "100%",
             boxSizing: "border-box",
@@ -483,6 +965,20 @@ export default function Referees() {
         >
           {activeTab === "MECHANICS" ? (
             <MechanicsContent />
+          ) : activeTab === "DUTIES" ? (
+            <DutiesContent />
+          ) : activeTab === "FITNESS TESTS" ? (
+            <FitnessTestsContent />
+          ) : activeTab === "PHYSICAL TRAINING" ? (
+            <PhysicalTrainingContent />
+          ) : activeTab === "WARM UP EXERCISES" ? (
+            <WarmUpExercisesContent />
+          ) : activeTab === "MENTAL PREPARATION" ? (
+            <MentalPreparationContent />
+          ) : activeTab === "IMPROVE YOURSELF" ? (
+            <ImproveYourselfContent />
+          ) : activeTab === "FIBA LICENSING" ? (
+            <FibaLicensingContent />
           ) : (
             <PlaceholderContent tab={activeTab} />
           )}
