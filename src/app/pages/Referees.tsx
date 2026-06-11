@@ -914,6 +914,309 @@ function FibaLicensingContent() {
   );
 }
 
+// ─── Assist Articles content ──────────────────────────────────────────────────
+const ASSIST_ARTICLES_DATA = [
+  { id: 1, title: "ARGENTINA'S MAN-TO-MAN PLAYS", articles: ["Rubén Magnano's offensive sets", "Man-to-man spacing concepts", "Transition break structures"] },
+  { id: 2, title: "SHOOTERS: MORE EFFICIENCY & LESS TURNOVERS", articles: ["Three-point shooting drills", "Reducing turnovers under pressure", "Screening for shooters"] },
+  { id: 3, title: "KENTUCKY MAN-TO-MAN OFFENSE", articles: ["Kentucky Play '40' breakdown", "High-low offensive entry", "Creating mismatch opportunities"] },
+  { id: 4, title: "AUSTRALIAN WORLD JUNIOR CHAMPION DEFENSE", articles: ["Full court pressure defense", "Rotations on baseline drives", "Contesting the perimeter shooter"] },
+  { id: 5, title: "THE GAME PHILOSOPHY OF THE SPURS", articles: ["Gregg Popovich's offensive flow", "Ball movement & extra passes", "Pick & roll defense concepts"] },
+  { id: 6, title: "ZONE DEFENSE CONCEPTS", articles: ["Match-up zone strategies", "Defending the high post", "Box and one variations"] },
+  { id: 7, title: "BASIC DEFENSE OF THE CROATIAN TEAM", articles: ["Croatian national team defense", "Denying the wings", "Help and recover technique"] },
+  { id: 8, title: "SAN ANTONIO SPURS OFFENSE", articles: ["Motion offense systems", "Corner screen variations", "Spurs half-court sets"] },
+  { id: 9, title: "FAST BREAK ATTACK SYSTEMS", articles: ["Transition lane spacing", "Secondary break options", "Quick hitter plays"] },
+  { id: 10, title: "DEFENSIVE ROTATIONS & HELPS", articles: ["Strong-side help rules", "Recovering from traps", "Defending lob passes"] },
+  { id: 11, title: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)", articles: ["Referee court coverage", "Lead and trail responsibilities", "Correct angle of view"] },
+  { id: 12, title: "WAKE FOREST OFFENSE", articles: ["Flex offense variations", "High post feeding options", "Backdoor cut sets"] },
+  { id: 13, title: "RETROGRADE DEFENSE SYSTEMS", articles: ["Slowing down transition", "Guarding the outlet pass", "Defensive balance rules"] },
+  { id: 14, title: "ZONE OFFENSE DRILLS & PLAYS", articles: ["Breaking 2-3 zone defense", "High-low post execution", "Short corner passing"] },
+  { id: 15, title: "3-PERSON MECHANICS ADVANCED", articles: ["Rotations in 3PO", "Switching after fouls", "Coverage of the paint"] },
+  { id: 16, title: "SAN ANTONIO SPURS DEFENSIVE SETS", articles: ["Spurs pick & roll coverage", "Protecting the paint", "Communicating on screens"] },
+  { id: 17, title: "OFFICIATING UNDER PRESSURE", articles: ["Mental preparation tips", "Handling game tension", "Conflict resolution on court"] },
+  { id: 18, title: "TRANSITION GAME SECRETS", articles: ["Fast break execution", "Outlet pass accuracy", "Rim run optimization"] },
+  { id: 19, title: "SCREENING COVERS & DEFENSE", articles: ["Defending off-ball screens", "Switching vs. pushing through", "Hedge and recover drills"] },
+  { id: 20, title: "FIBA OFFICIAL INTERPRETATIONS", articles: ["Unsportsmanlike foul criteria", "Travel rule clarifications", "Cylinder principle guides"] },
+  { id: 21, title: "WORLD GAME 2006: ONE GLOBE, ONE GOAL", articles: ["Global basketball development", "Coaching education pathways", "Officiating standardizations"] },
+  { id: 22, title: "INDIVIDUAL SKILL DEVELOPMENT", articles: ["Ball handling fundamentals", "Footwork in the post", "Shooting off the dribble"] },
+  { id: 23, title: "THE ART OF SCREENING", articles: ["Setting legal block screens", "Pick and roll angles", "Down screen execution"] },
+  { id: 24, title: "REBOUNDING PRINCIPLES", articles: ["Box out techniques", "Offensive rebound positioning", "Transition off rebound"] },
+  { id: 25, title: "RUSSIA'S TEAM DEFENSIVE PLAYS", articles: ["Aggressive ball pressure", "Denial of passing lanes", "Russia's zone press"] },
+  { id: 26, title: "OUT OF BOUNDS SETS (OB)", articles: ["Baseline out of bounds plays", "Sideline out of bounds entries", "Last second shot setups"] },
+  { id: 27, title: "TEX WINTER'S TRIANGLE OFFENSE", articles: ["Triangle spacing positions", "Post feed options", "Blind pig entry cuts"] },
+  { id: 28, title: "DEFENDING THE PICK & ROLL", articles: ["Drop coverage execution", "Show and recover technique", "Blitzing the screen"] },
+  { id: 29, title: "PHYSICAL TRAINING FOR OFFICIALS", articles: ["Aerobic capacity building", "Agility and footwork drills", "Recovery between games"] },
+  { id: 30, title: "YOUTH BASKETBALL PHILOSOPHY", articles: ["Coaching mini-basketball", "Fundamental skill focus", "Keeping it fun for kids"] },
+  { id: 31, title: "PRESSING DEFENSE SYSTEMS", articles: ["1-2-1-1 full court press", "Trapping the corners", "Safety position rules"] },
+  { id: 32, title: "REFEREE COMMUNICATION METHODS", articles: ["Signal clarity & timing", "Pre-game referee meetings", "Interacting with coaches"] },
+  { id: 34, title: "SPECIAL SITUATION PLAYS", articles: ["Defending with seconds left", "Free throw rebound plays", "Jump ball scenarios"] },
+  { id: 35, title: "DOUBLE TEAM TRAPPING SECRETS", articles: ["Baseline trap rotation", "Wing trap containment", "Stealing the outlet pass"] },
+  { id: 36, title: "BUILDING CHAMPIONSHIP CULTURE", articles: ["Team chemistry exercises", "Leadership development", "Setting team standards"] },
+  { id: 37, title: "DEFENDING THE INTERIOR PAINT", articles: ["Post defense positioning", "Rotations from weak side", "Blocking out tall players"] },
+  { id: 38, title: "YOUTH FITNESS & ATHLETICISM", articles: ["Strength basics for youth", "Coordination exercises", "Injury prevention tips"] },
+  { id: 39, title: "SHOOTING METRIC PERCENTAGES", articles: ["Effective field goal rate", "Shot selection optimization", "Tracking shot analytics"] },
+  { id: 40, title: "EUROPEAN ZONE OFFENSE", articles: ["Continuous screening sets", "Ball reversal speed", "Attacking the seams"] },
+  { id: 41, title: "MENTAL TOUGHNESS & PREPARATION", articles: ["Visualisation before games", "Self-talk techniques", "Overcoming mistakes"] },
+  { id: 42, title: "COOPERATION OF OFFICIALS", articles: ["Eye contact on court", "Dual coverage decisions", "Correcting score mistakes"] },
+  { id: 43, title: "BFI NATIONAL REFEREE SYSTEM", articles: ["India licensing guidelines", "Fitness testing protocols", "BFI referee pathways"] },
+  { id: 44, title: "PREPARATION FOR TOURNAMENTS", articles: ["Nutrition prep for tournaments", "Scouting team plays", "Managing sleep schedule"] },
+];
+
+function AssistCard({
+  issueNumber,
+  title,
+  articles,
+}: {
+  issueNumber: number;
+  title: string;
+  articles: string[];
+}) {
+  const h = useHover();
+  const formattedNum = String(issueNumber).padStart(2, "0");
+
+  // Choose a distinct color stripe for the left border based on issue number
+  const stripeColors = ["#0056B3", "#FFC107", "#DC3545", "#28A745", "#6C757D", "#E8651A"];
+  const stripeColor = stripeColors[(issueNumber - 1) % stripeColors.length];
+
+  return (
+    <div
+      onMouseEnter={h.onMouseEnter}
+      onMouseLeave={h.onMouseLeave}
+      style={{
+        aspectRatio: "3 / 4",
+        background: T.charcoal,
+        border: h.on ? `1.5px solid ${T.orange}` : `1.5px solid ${T.border}`,
+        position: "relative",
+        display: "flex",
+        cursor: "pointer",
+        overflow: "hidden",
+        transition: "border-color 0.15s, transform 0.15s",
+        transform: h.on ? "translateY(-4px)" : "none",
+        boxSizing: "border-box",
+      }}
+    >
+      {/* Left vertical color bar */}
+      <div
+        style={{
+          width: 28,
+          background: stripeColor,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "12px 0",
+          flexShrink: 0,
+          borderRight: `1px solid ${T.border}`,
+          boxSizing: "border-box",
+        }}
+      >
+        {/* Small FIBA-like basket logo icon at the top of stripe */}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          <path d="M2 12h20" />
+        </svg>
+
+        {/* Rotated text "ASSIST XX" */}
+        <div
+          style={{
+            transform: "rotate(-90deg) translate(-2px, 0px)",
+            fontFamily: BARLOW,
+            fontWeight: 800,
+            fontSize: 10,
+            color: T.white,
+            letterSpacing: "1.5px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          ASSIST{formattedNum}
+        </div>
+
+        <div /> {/* Spacer */}
+      </div>
+
+      {/* Main Cover area */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          padding: 12,
+          position: "relative",
+          background: `linear-gradient(135deg, #232323 0%, #151515 100%)`,
+          boxSizing: "border-box",
+          overflow: "hidden",
+        }}
+      >
+        {/* Subtle court graphic background */}
+        <svg
+          width="100%"
+          height="100%"
+          style={{ position: "absolute", inset: 0, opacity: 0.05, pointerEvents: "none" }}
+          preserveAspectRatio="none"
+        >
+          <line x1="50%" y1="0" x2="50%" y2="100%" stroke="white" strokeWidth="1" />
+          <circle cx="50%" cy="50%" r="30" stroke="white" strokeWidth="1" fill="none" />
+        </svg>
+
+        {/* FIBA ASSIST header inside cover */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", zIndex: 1 }}>
+          <span style={{ fontFamily: BARLOW, fontSize: 8, fontWeight: 700, color: T.grey, letterSpacing: "1px" }}>
+            FIBA TECH
+          </span>
+          <span style={{ fontFamily: BARLOW, fontSize: 8, fontWeight: 700, color: stripeColor, letterSpacing: "1px" }}>
+            N° {formattedNum}
+          </span>
+        </div>
+
+        {/* Issue title */}
+        <div style={{ zIndex: 1, marginTop: 4, flex: 1, display: "flex", alignItems: "center" }}>
+          <h4
+            style={{
+              fontFamily: BARLOW,
+              fontWeight: 800,
+              fontSize: 12,
+              lineHeight: "1.2",
+              color: T.white,
+              letterSpacing: "0.5px",
+              margin: 0,
+              textTransform: "uppercase",
+              display: "-webkit-box",
+              WebkitLineClamp: 4,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {title}
+          </h4>
+        </div>
+
+        {/* Small decorative details at the bottom of the card */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 1, marginTop: 4 }}>
+          <span style={{ fontSize: 8, color: T.grey, fontFamily: DM, letterSpacing: "0.5px" }}>
+            COACH & REF
+          </span>
+          {/* Tiny arrow */}
+          <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke={stripeColor} strokeWidth="2">
+            <path d="M1 9l8-8M1 1h8v8" />
+          </svg>
+        </div>
+
+        {/* Hover overlay: reveals the list of articles within */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(17, 17, 17, 0.96)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: 12,
+            opacity: h.on ? 1 : 0,
+            transition: "opacity 0.2s ease-in-out",
+            zIndex: 2,
+            pointerEvents: h.on ? "auto" : "none",
+            borderLeft: `3px solid ${stripeColor}`,
+            boxSizing: "border-box",
+          }}
+        >
+          <div>
+            <div
+              style={{
+                fontFamily: BARLOW,
+                fontSize: 11,
+                fontWeight: 800,
+                color: stripeColor,
+                letterSpacing: "1px",
+                marginBottom: 6,
+                textTransform: "uppercase",
+              }}
+            >
+              IN THIS ISSUE:
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+              {articles.map((art, idx) => (
+                <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: 4 }}>
+                  <span style={{ color: stripeColor, fontSize: 8, marginTop: 1 }}>•</span>
+                  <span style={{ fontFamily: DM, fontSize: 10, color: T.white, lineHeight: "1.2" }}>
+                    {art}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            style={{
+              width: "100%",
+              background: stripeColor,
+              border: "none",
+              color: T.white,
+              fontFamily: BARLOW,
+              fontWeight: 700,
+              fontSize: 10,
+              letterSpacing: "1px",
+              padding: "5px 0",
+              cursor: "pointer",
+              textAlign: "center",
+              textTransform: "uppercase",
+              transition: "opacity 0.15s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            READ ARTICLE
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AssistArticlesContent() {
+  return (
+    <div>
+      <SectionBadge label="ASSIST ARTICLES" />
+
+      {/* Subtitle */}
+      <div
+        style={{
+          fontFamily: BARLOW,
+          fontSize: 14,
+          fontWeight: 700,
+          color: T.orange,
+          letterSpacing: "1px",
+          textAlign: "center",
+          marginTop: 12,
+          textTransform: "uppercase",
+        }}
+      >
+        ( HOVER OVER THE IMAGE TO SEE THE ARTICLES WITHIN )
+      </div>
+
+      {/* 8-column grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(8, 1fr)",
+          gap: 12,
+          marginTop: 28,
+        }}
+      >
+        {ASSIST_ARTICLES_DATA.map((issue) => (
+          <AssistCard
+            key={issue.id}
+            issueNumber={issue.id}
+            title={issue.title}
+            articles={issue.articles}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Placeholder tab content ──────────────────────────────────────────────────
 function PlaceholderContent({ tab }: { tab: Tab }) {
   return (
@@ -979,6 +1282,8 @@ export default function Referees() {
             <ImproveYourselfContent />
           ) : activeTab === "FIBA LICENSING" ? (
             <FibaLicensingContent />
+          ) : activeTab === "ASSIST ARTICLES" ? (
+            <AssistArticlesContent />
           ) : (
             <PlaceholderContent tab={activeTab} />
           )}
