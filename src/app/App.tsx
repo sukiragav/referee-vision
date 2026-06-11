@@ -45,7 +45,7 @@ export default function App() {
           </a>
           <a href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05" target="_blank" rel="noopener noreferrer">
             <MessageCircle className="w-[22px] h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
-          </a> 
+          </a>
         </div>
       </header>
 
@@ -510,7 +510,7 @@ export default function App() {
       </section>
 
       {/* FROM THE DESK */}
-      <section style={{ backgroundColor: 'var(--pure-white)' }} className="relative pt-30 pb-50">
+      <section style={{ backgroundColor: 'var(--off-white)' }} className="relative pt-30 pb-50">
         <div style={{ backgroundColor: 'var(--orange)' }} className="h-[3px] w-full absolute top-0"></div>
 
         {/* Court Arc Decoration */}
