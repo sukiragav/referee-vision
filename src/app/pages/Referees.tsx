@@ -46,20 +46,70 @@ const TABS: Tab[] = [
 ];
 
 const DOCS = [
-  { label: "3PO (NATIONAL REFEREE)", version: "Version 1.0 – Valid as of 2025" },
-  { label: "2PO (NATIONAL REFEREE)", version: "Version 1.0a – Valid as of 2024" },
-  { label: "3PO BASIC", version: "Version 2.5 – Valid as of December 2024" },
-  { label: "3PO ADVANCED", version: "Version 2.0 – Valid as of March 2023" },
-  { label: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)", version: "Version 2.5 – Valid as of December 2024" },
-  { label: "BASIC OFFICIATING TERMINOLOGY", version: "Version 2.1 – Valid as of May 2023" },
-  { label: "4TH_REFEREE", version: "Version 1.0 – Valid as of January 2024" }, // special-cased below
-  { label: "PROTOCOL CHECKLIST FOR REFEREES", version: "Version 1.0 – Valid as of June 2025" },
+  {
+    label: "3PO (NATIONAL REFEREE)",
+    version: "Version 1.0 – Valid as of 2025",
+    link: "https://library.fibairef.basketball/images/documents/a5f1318a9da314d13f1c0004959b8677/2025_FIBA_NF_3PO_Manual_v1_0.pdf",
+  },
+  {
+    label: "2PO (NATIONAL REFEREE)",
+    version: "Version 1.0a – Valid as of 2024",
+    link: "https://library.fibairef.basketball/images/documents/846f47339b197f3869f51e8d23b08afa/2024_FIBA_2PO_Manual_v1_0a.pdf",
+  },
+  {
+    label: "3PO BASIC",
+    version: "Version 2.5 – Valid as of December 2024",
+    link: "https://library.fibairef.basketball/images/documents/cbde37864ccb7e20599fe7a6b63df25f/FIBA_Referee_Manual_Basic_3PO_v2_5_Dec2024_en.pdf",
+  },
+  {
+    label: "3PO ADVANCED",
+    version: "Version 2.0 – Valid as of March 2023",
+    link: "https://library.fibairef.basketball/images/documents/f3a38bbb2971eeee81d535bce21bec94/FIBA_Ref_Manual_Advanced_3PO_v2_0_Mar2023_en.pdf",
+  },
+  {
+    label: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)",
+    version: "Version 2.5 – Valid as of December 2024",
+    link: "https://library.fibairef.basketball/images/documents/94e19c5823bd011e94ddf74fff3b9ccf/FIBA_Referee_Manual_IOT_v2_5_Dec2024_en.pdf",
+  },
+  {
+    label: "BASIC OFFICIATING TERMINOLOGY",
+    version: "Version 2.1 – Valid as of May 2023",
+    link: "https://library.fibairef.basketball/images/documents/9b7fddf61a2dd90f7fca2f1f93fc2456/FIBA_Glossary_v2_1_May2023_en.pdf",
+  },
+  {
+    label: "4TH_REFEREE",
+    version: "Version 1.0 – Valid as of January 2024",
+    link: "https://library.fibairef.basketball/images/documents/ea7a19dbbf2921897ab684cf7fed2c44/FIBA_4th_Referee_Guide_JAN2024_v1.pdf",
+  }, // special-cased below
+  {
+    label: "PROTOCOL CHECKLIST FOR REFEREES",
+    version: "Version 1.0 – Valid as of June 2025",
+    link: "https://library.fibairef.basketball/doc/MHNKeHJOdzE5RkMzRENzM0phQmNUUT09",
+  },
 ];
 
 const VIDEO_COLS = [
-  { heading: "FIBA 3 PERSON MECHANICS", count: 3 },
-  { heading: "MOVEMENT OF OFFICIALS", count: 1 },
-  { heading: "COURT COVERAGE", count: 2 },
+  {
+    heading: "FIBA 3 PERSON MECHANICS",
+    videos: [
+      { link: "https://youtu.be/IA3xtlSfb-g" },
+      { link: "https://youtu.be/0abCxzDsoxY" },
+      { link: "https://youtu.be/6_ZfrVAa8q0" },
+    ],
+  },
+  {
+    heading: "MOVEMENT OF OFFICIALS",
+    videos: [
+      { link: "https://youtu.be/bYojWYt8rkc" },
+    ],
+  },
+  {
+    heading: "COURT COVERAGE",
+    videos: [
+      { link: "https://youtu.be/1waAdTN7pDs" },
+      { link: "https://youtu.be/U-eZv3iDTnQ" },
+    ],
+  },
 ];
 
 // ─── Shared hook: hover state ────────────────────────────────────────────────
@@ -80,7 +130,7 @@ function Sidebar({ active, onSelect }: { active: Tab; onSelect: (t: Tab) => void
         // 3px orange left edge
         borderLeft: `3px solid ${T.orange}`,
         position: "sticky",
-        top: 0, 
+        top: 0,
         height: "100vh",
         overflowY: "auto",
         display: "flex",
@@ -200,6 +250,7 @@ function SectionBadge({ label }: { label: string }) {
 function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
   const h = useHover();
   const isFourth = doc.label === "4TH_REFEREE";
+  const Tag = doc.link ? "a" : "button";
 
   return (
     <div
@@ -236,10 +287,14 @@ function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
       </span>
 
       {/* Download button */}
-      <button
+      <Tag
         onMouseEnter={h.onMouseEnter}
         onMouseLeave={h.onMouseLeave}
+        {...(doc.link ? { href: doc.link, target: "_blank", rel: "noopener noreferrer" } : {})}
         style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
           background: h.on ? T.orange : "transparent",
           border: `1px solid ${T.orange}`,
           color: h.on ? T.white : T.orange,
@@ -254,10 +309,79 @@ function DocRow({ doc }: { doc: (typeof DOCS)[number] }) {
           flexShrink: 0,
           marginLeft: 16,
           textTransform: "uppercase",
+          textDecoration: "none",
         }}
       >
         ↓ DOWNLOAD
+      </Tag>
+    </div>
+  );
+}
+
+// ─── Video modal ─────────────────────────────────────────────────────────────
+function getYouTubeEmbedUrl(url: string): string {
+  // Handles youtu.be/ID and youtube.com/watch?v=ID formats
+  const shortMatch = url.match(/youtu\.be\/([\w-]+)/);
+  if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}?autoplay=1`;
+  const longMatch = url.match(/[?&]v=([\w-]+)/);
+  if (longMatch) return `https://www.youtube.com/embed/${longMatch[1]}?autoplay=1`;
+  return url;
+}
+
+function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,0.85)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        backdropFilter: "blur(4px)",
+      }}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 24,
+          background: "transparent",
+          border: "none",
+          color: T.white,
+          fontSize: 32,
+          cursor: "pointer",
+          lineHeight: 1,
+          opacity: 0.8,
+          zIndex: 1001,
+        }}
+      >
+        ✕
       </button>
+
+      {/* Modal content – stop propagation so clicking video doesn't close */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: "min(900px, 90vw)",
+          aspectRatio: "16 / 9",
+          background: "#000",
+          border: `2px solid ${T.orange}`,
+          boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+          position: "relative",
+        }}
+      >
+        <iframe
+          src={getYouTubeEmbedUrl(url)}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+        />
+      </div>
     </div>
   );
 }
@@ -272,12 +396,14 @@ const THUMB_SHADES = [
   "#1E1E16",
 ];
 
-function VideoThumb({ index }: { index: number }) {
+function VideoThumb({ index, link, onPlay }: { index: number; link?: string; onPlay?: () => void }) {
   const h = useHover();
+
   return (
     <div
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
+      onClick={link ? onPlay : undefined}
       style={{
         flex: 1,
         aspectRatio: "16 / 9",
@@ -286,9 +412,9 @@ function VideoThumb({ index }: { index: number }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        cursor: "pointer",
+        cursor: link ? "pointer" : "default",
         transition: "border-color 0.15s, filter 0.15s",
-        filter: h.on ? "brightness(1.25)" : "brightness(1)",
+        filter: h.on && link ? "brightness(1.25)" : "brightness(1)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -311,7 +437,9 @@ function VideoThumb({ index }: { index: number }) {
         style={{
           width: 32,
           height: 32,
-          background: h.on ? T.orange : "rgba(232,101,26,0.7)",
+          background: link
+            ? h.on ? T.orange : "rgba(232,101,26,0.7)"
+            : "rgba(100,100,100,0.4)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -324,12 +452,40 @@ function VideoThumb({ index }: { index: number }) {
           <polygon points="0,0 10,6 0,12" fill="white" />
         </svg>
       </div>
+
+      {/* "Coming soon" label for thumbnails without a link */}
+      {!link && (
+        <span
+          style={{
+            position: "absolute",
+            bottom: 6,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            fontFamily: BARLOW,
+            fontSize: 10,
+            letterSpacing: "1.5px",
+            color: T.mutedText,
+            textTransform: "uppercase",
+          }}
+        >
+          Coming soon
+        </span>
+      )}
     </div>
   );
 }
 
 // ─── Video column ─────────────────────────────────────────────────────────────
-function VideoColumn({ heading, count }: { heading: string; count: number }) {
+function VideoColumn({
+  heading,
+  videos,
+  onPlay,
+}: {
+  heading: string;
+  videos: { link?: string }[];
+  onPlay: (url: string) => void;
+}) {
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       {/* Heading */}
@@ -354,8 +510,13 @@ function VideoColumn({ heading, count }: { heading: string; count: number }) {
 
       {/* Thumbnails */}
       <div style={{ display: "flex", gap: 6 }}>
-        {Array.from({ length: count }).map((_, i) => (
-          <VideoThumb key={i} index={i} />
+        {videos.map((vid, i) => (
+          <VideoThumb
+            key={i}
+            index={i}
+            link={vid.link}
+            onPlay={vid.link ? () => onPlay(vid.link!) : undefined}
+          />
         ))}
       </div>
     </div>
@@ -393,8 +554,15 @@ function PlaylistButton({ label, filled }: { label: string; filled: boolean }) {
 
 // ─── Mechanics content ────────────────────────────────────────────────────────
 function MechanicsContent() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div>
+      {/* YouTube video modal */}
+      {activeVideo && (
+        <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />
+      )}
+
       <SectionBadge label="MECHANICS" />
 
       {/* Documents */}
@@ -410,7 +578,12 @@ function MechanicsContent() {
       {/* Video grid */}
       <div style={{ display: "flex", gap: 24, marginTop: 24 }}>
         {VIDEO_COLS.map((col) => (
-          <VideoColumn key={col.heading} heading={col.heading} count={col.count} />
+          <VideoColumn
+            key={col.heading}
+            heading={col.heading}
+            videos={col.videos}
+            onPlay={(url) => setActiveVideo(url)}
+          />
         ))}
       </div>
 
