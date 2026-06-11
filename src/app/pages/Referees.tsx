@@ -524,12 +524,13 @@ function VideoColumn({
 }
 
 // ─── Playlist button ──────────────────────────────────────────────────────────
-function PlaylistButton({ label, filled }: { label: string; filled: boolean }) {
+function PlaylistButton({ label, filled, onPlay }: { label: string; filled: boolean; onPlay?: () => void }) {
   const h = useHover();
   return (
     <button
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
+      onClick={onPlay}
       style={{
         background: filled ? (h.on ? "#CC5514" : T.orange) : h.on ? T.orange : "transparent",
         border: `2px solid ${T.orange}`,
@@ -598,8 +599,8 @@ function MechanicsContent() {
           paddingBottom: 8,
         }}
       >
-        <PlaylistButton label="▶ WATCH MECHANICS PLAYLIST" filled={true} />
-        <PlaylistButton label="▶ WATCH GUESSING PLAYLIST" filled={false} />
+        <PlaylistButton label="▶ WATCH MECHANICS PLAYLIST" filled={true} onPlay={() => setActiveVideo("https://youtu.be/GJKj5KOzSl0")} />
+        <PlaylistButton label="▶ WATCH GUESSING PLAYLIST" filled={false} onPlay={() => setActiveVideo("https://youtu.be/tqDVuO6uUoo")} />
       </div>
     </div>
   );
@@ -793,7 +794,7 @@ function FitnessRow({ item }: { item: { label: string; action: "play" | "downloa
         ) : item.action === "watch" ? (
           <>
             <svg width="12" height="10" viewBox="0 0 12 10" fill="currentColor">
-              <rect x="0" y="0" width="12" height="10" rx="1" fill="none" stroke="currentColor" strokeWidth="1.2"/>
+              <rect x="0" y="0" width="12" height="10" rx="1" fill="none" stroke="currentColor" strokeWidth="1.2" />
               <polygon points="4.5,2.5 9,5 4.5,7.5" />
             </svg>
             WATCH
