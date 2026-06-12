@@ -444,7 +444,10 @@ function getYouTubeEmbedUrl(url: string): string {
   return url;
 }
 
-function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
+function VideoModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
+  const isMp3 = url.endsWith(".mp3") || url.includes(".mp3?");
+  const isMp4 = url.endsWith(".mp4") || url.includes(".mp4?");
+
   return (
     <div
       onClick={onClose}
@@ -480,24 +483,79 @@ function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
         ✕
       </button>
 
-      {/* Modal content – stop propagation so clicking video doesn't close */}
+      {/* Modal content – stop propagation so clicking content doesn't close */}
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{
-          width: "min(900px, 95vw)",
-          aspectRatio: "16 / 9",
-          background: "#000",
-          border: `2px solid ${T.orange}`,
-          boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
-          position: "relative",
-        }}
+        style={
+          isMp3
+            ? {
+              width: "min(500px, 90vw)",
+              background: T.charcoal,
+              border: `2px solid ${T.orange}`,
+              boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+              position: "relative",
+              padding: "40px 24px 32px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 24,
+            }
+            : {
+              width: "min(900px, 95vw)",
+              aspectRatio: "16 / 9",
+              background: "#000",
+              border: `2px solid ${T.orange}`,
+              boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+              position: "relative",
+            }
+        }
       >
-        <iframe
-          src={getYouTubeEmbedUrl(url)}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          style={{ width: "100%", height: "100%", border: "none", display: "block" }}
-        />
+        {isMp3 ? (
+          <>
+            <div style={{ color: T.orange, display: "flex", justifyContent: "center" }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" fill="currentColor" />
+                <circle cx="18" cy="16" r="3" fill="currentColor" />
+              </svg>
+            </div>
+            {title && (
+              <div
+                style={{
+                  fontFamily: BARLOW,
+                  fontWeight: 700,
+                  fontSize: 18,
+                  color: T.white,
+                  textAlign: "center",
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                }}
+              >
+                {title}
+              </div>
+            )}
+            <audio
+              src={url}
+              controls
+              autoPlay
+              style={{ width: "100%", display: "block" }}
+            />
+          </>
+        ) : isMp4 ? (
+          <video
+            src={url}
+            controls
+            autoPlay
+            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+          />
+        ) : (
+          <iframe
+            src={getYouTubeEmbedUrl(url)}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+          />
+        )}
       </div>
     </div>
   );
@@ -846,14 +904,21 @@ function ArticleThumb() {
 
 // ─── Duties content ───────────────────────────────────────────────────────────
 const DUTIES_COLS = [
-  { heading: "START OF THE GAME", type: "video" as const, count: 1 },
-  { heading: "DUTIES OF OFFICIALS", type: "video" as const, count: 1 },
+  { heading: "START OF THE GAME", type: "video" as const, link: "https://youtu.be/7_7VkJloKtM" },
+  { heading: "DUTIES OF OFFICIALS", type: "video" as const, link: "https://youtu.be/AaMsOlo7JxE" },
   { heading: "ARTICLE", type: "article" as const },
 ];
 
 function DutiesContent({ isMobile }: { isMobile: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div>
+      {/* YouTube video modal */}
+      {activeVideo && (
+        <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />
+      )}
+
       <SectionBadge label="DUTIES" />
 
       {/* Three-column grid */}
@@ -889,7 +954,11 @@ function DutiesContent({ isMobile }: { isMobile: boolean }) {
             {/* Content */}
             <div style={{ display: "flex", gap: 6 }}>
               {col.type === "video" ? (
-                <VideoThumb index={i} />
+                <VideoThumb
+                  index={i}
+                  link={col.link}
+                  onPlay={col.link ? () => setActiveVideo(col.link) : undefined}
+                />
               ) : (
                 <ArticleThumb />
               )}
@@ -900,19 +969,41 @@ function DutiesContent({ isMobile }: { isMobile: boolean }) {
     </div>
   );
 }
-
 // ─── Fitness Tests content ──────────────────────────────────────────────────
-const FITNESS_ITEMS: { label: string; action: "play" | "download" | "watch" }[] = [
-  { label: "FIBA BASIC FITNESS TEST (Audio)", action: "play" },
-  { label: "FIBA YO YO ELITE FITNESS TEST (Audio)", action: "play" },
-  { label: "FIBA YO YO ELITE FITNESS TEST SETUP GUIDELINES (Video)", action: "play" },
-  { label: "FIBA BASIC FITNESS TEST (Version 4.0)", action: "download" },
-  { label: "FIBA YO YO ELITE FITNESS TEST (Version 2.0 - June 2020)", action: "download" },
-  { label: "FIBA FITNESS TESTS - DECODED", action: "download" },
+const FITNESS_ITEMS: { label: string; action: "play" | "download" | "watch"; link?: string }[] = [
+  {
+    label: "FIBA BASIC FITNESS TEST (Audio)",
+    action: "play",
+    link: "https://library.fibairef.basketball/images/documents/35bd8c8b5c831b242ae0b77b61088378/GOL2021_23__FIBA_Referees_Basic_Fitness_Test.mp3",
+  },
+  {
+    label: "FIBA YO YO ELITE FITNESS TEST (Audio)",
+    action: "play",
+    link: "https://library.fibairef.basketball/images/documents/568b699453a1a2c1d415a6187e9a685f/FIBA_Yo_Yo_Elite_Test_May_2019.mp3",
+  },
+  {
+    label: "FIBA YO YO ELITE FITNESS TEST SETUP GUIDELINES (Video)",
+    action: "watch",
+    link: "https://library.fibairef.basketball/images/documents/cf943473ff20941a653bc7b48b74c666/FIBA_Elite_YoYo_FitnessTest__Set_up_Guidelines_low.mp4",
+  },
+  { label: "FIBA BASIC FITNESS TEST (Version 4.0)", action: "download", link: "https://drive.google.com/file/d/1qU6tg3rlTOk06lVfiEpwkD0oh_SNb56O/view" },
+  { label: "FIBA YO YO ELITE FITNESS TEST (Version 2.0 - June 2020)", action: "download", link: "https://drive.google.com/file/d/1MqUx9ruNXlpez0-kzLJ2fBUNJM9NR62R/view" },
+  { label: "FIBA FITNESS TESTS - DECODED", action: "download", link: "https://drive.google.com/file/d/1e6EqEOa3DwByIIIvFTChUP7xNdpuHlCx/view" }
 ];
 
-function FitnessRow({ item, isMobile }: { item: { label: string; action: "play" | "download" | "watch" }; isMobile?: boolean }) {
+function FitnessRow({
+  item,
+  isMobile,
+  onAction,
+}: {
+  item: { label: string; action: "play" | "download" | "watch"; link?: string };
+  isMobile?: boolean;
+  onAction?: () => void;
+}) {
   const h = useHover();
+  const isDownload = item.action === "download";
+  const Tag = isDownload && item.link ? "a" : "button";
+
   return (
     <div
       style={{
@@ -938,10 +1029,15 @@ function FitnessRow({ item, isMobile }: { item: { label: string; action: "play" 
       >
         {item.label}
       </span>
-      <button
+      <Tag
         onMouseEnter={h.onMouseEnter}
         onMouseLeave={h.onMouseLeave}
+        onClick={Tag === "button" ? onAction : undefined}
+        {...(Tag === "a" ? { href: item.link, target: "_blank", rel: "noopener noreferrer" } : {})}
         style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
           background: h.on ? T.orange : "transparent",
           border: `1px solid ${T.orange}`,
           color: h.on ? T.white : T.orange,
@@ -951,7 +1047,7 @@ function FitnessRow({ item, isMobile }: { item: { label: string; action: "play" 
           letterSpacing: "2px",
           padding: "8px 20px",
           borderRadius: 0,
-          cursor: "pointer",
+          cursor: (isDownload ? item.link : true) ? "pointer" : "default",
           transition: "background 0.15s, color 0.15s",
           flexShrink: 0,
           marginLeft: isMobile ? 0 : 16,
@@ -960,6 +1056,8 @@ function FitnessRow({ item, isMobile }: { item: { label: string; action: "play" 
           alignItems: "center",
           gap: 6,
           alignSelf: isMobile ? "flex-start" : "center",
+          textDecoration: "none",
+          opacity: (isDownload && !item.link) ? 0.5 : 1,
         }}
       >
         {item.action === "play" ? (
@@ -980,18 +1078,38 @@ function FitnessRow({ item, isMobile }: { item: { label: string; action: "play" 
         ) : (
           <>↓ DOWNLOAD</>
         )}
-      </button>
+      </Tag>
     </div>
   );
 }
 
 function FitnessTestsContent({ isMobile }: { isMobile: boolean }) {
+  const [activeMedia, setActiveMedia] = useState<{ url: string; title: string } | null>(null);
+
   return (
     <div>
+      {/* Media popup modal */}
+      {activeMedia && (
+        <VideoModal
+          url={activeMedia.url}
+          title={activeMedia.title}
+          onClose={() => setActiveMedia(null)}
+        />
+      )}
+
       <SectionBadge label="FITNESS TESTS" />
       <div style={{ marginTop: 36 }}>
         {FITNESS_ITEMS.map((item, i) => (
-          <FitnessRow key={i} item={item} isMobile={isMobile} />
+          <FitnessRow
+            key={i}
+            item={item}
+            isMobile={isMobile}
+            onAction={() => {
+              if (item.link) {
+                setActiveMedia({ url: item.link, title: item.label });
+              }
+            }}
+          />
         ))}
       </div>
     </div>
@@ -999,14 +1117,14 @@ function FitnessTestsContent({ isMobile }: { isMobile: boolean }) {
 }
 
 // ─── Physical Training content ──────────────────────────────────────────────────
-const PHYSICAL_TRAINING_ITEMS: { label: string; action: "play" | "download" }[] = [
-  { label: "IMPROVE YOUR MOBILITY (June 2024)", action: "download" },
-  { label: "IMPROVE YOUR SPECIFIC TRAINING (Version 1.0)", action: "download" },
-  { label: "PHYSICAL TRAINING MANUAL (Version 5.0)", action: "download" },
-  { label: "PHYSCIAL DEMANDS & PROFILE (Version 1.0)", action: "download" },
-  { label: "IMPROVE YOUR GAME WARMUP & STRETCHING (Version 2.0)", action: "download" },
-  { label: "IMPROVE YOUR JET LAG (Version 2.0)", action: "download" },
-  { label: "PHYSICAL TRAINING, NUTRITION AND SLEEP DURING SELF-QUARANTINE  (Version 1.0)", action: "download" },
+const PHYSICAL_TRAINING_ITEMS: { label: string; action: "play" | "download" | "watch"; link?: string }[] = [
+  { label: "IMPROVE YOUR MOBILITY (June 2024)", action: "download", link: "https://library.fibairef.basketball/images/documents/4fe8808c90a5a977c8a51f720e2ac726/FIBA_IY_Mobility_2024_en_.pdf" },
+  { label: "IMPROVE YOUR SPECIFIC TRAINING (Version 1.0)", action: "download", link: "https://drive.google.com/file/d/1fRMN9sIqCzupPQKp5PxHXcgMa63y38gQ/view" },
+  { label: "PHYSICAL TRAINING MANUAL (Version 5.0)", action: "download", link: "https://drive.google.com/file/d/1MFwJqlmPaQ2ki_M3vWJkUmwMkvR_IXoG/view" },
+  { label: "PHYSCIAL DEMANDS & PROFILE (Version 1.0)", action: "download", link: "https://drive.google.com/file/d/1B_x3raUpIbQxo2rS_f9ZA6CtdmF4b82-/view" },
+  { label: "IMPROVE YOUR GAME WARMUP & STRETCHING (Version 2.0)", action: "download", link: "https://drive.google.com/file/d/1tP0LFiKWFgvLwLwSpi_7qJsLuzeYNTUe/view" },
+  { label: "IMPROVE YOUR JET LAG (Version 2.0)", action: "download", link: "https://drive.google.com/file/d/1hldU_ePDjM01T5AQ8AlCxOud3C9GSeee/view" },
+  { label: "PHYSICAL TRAINING, NUTRITION AND SLEEP DURING SELF-QUARANTINE  (Version 1.0)", action: "download", link: "https://drive.google.com/file/d/1nHsu7FUNYf1sTbI4NOQGn2DrJxjrVRz4/view" }
 ];
 
 function PhysicalTrainingContent({ isMobile }: { isMobile: boolean }) {
@@ -1023,23 +1141,34 @@ function PhysicalTrainingContent({ isMobile }: { isMobile: boolean }) {
 }
 
 // ─── Warm Up Exercises content ──────────────────────────────────────────────────
-const WARMUP_EXERCISES = [
-  "ACTIVE STRETCHING",
-  "BACK KICKS",
-  "FOOTWORK ACTIVATION",
-  "HALF COURT ACTIVATION",
-  "HIGH KNEES",
-  "KARAOKE",
-  "SIDE TO SIDE",
-  "SIDE TO SIDE SPRINT",
-  "NO LOOK SPRINTS",
-  "SUICIDES",
-  "TURN AROUND SPRINT",
-  "LAST 2 MIN SPRINT",
+const WARMUP_EXERCISES: { label: string; link?: string }[] = [
+  { label: "ACTIVE STRETCHING", link: "https://youtu.be/Cf0VGIWa5eM" },
+  { label: "BACK KICKS", link: "https://youtu.be/5YHldELDQsU" },
+  { label: "FOOTWORK ACTIVATION", link: "https://youtu.be/JmA2aeFqyXk" },
+  { label: "HALF COURT ACTIVATION", link: "https://youtu.be/_u7hWjA_jSA" },
+  { label: "HIGH KNEES", link: "https://youtu.be/swd3bYNRe8k " },
+  { label: "KARAOKE", link: "https://youtu.be/TmVWBcTs2OE" },
+  { label: "SIDE TO SIDE", link: "https://youtu.be/lR6-eS-fMf4" },
+  { label: "SIDE TO SIDE SPRINT", link: "https://youtu.be/AVueE8lAc4E" },
+  { label: "NO LOOK SPRINTS", link: "https://youtu.be/CSN7LeM-0sk" },
+  { label: "SUICIDES", link: "https://youtu.be/2bmK0idBMHA" },
+  { label: "TURN AROUND SPRINT", link: "https://youtu.be/94onVkqlpJE" },
+  { label: "LAST 2 MIN SPRINT", link: "https://youtu.be/21QL3mZZwhQ" },
 ];
 
-function ExerciseCard({ label, index }: { label: string; index: number }) {
+function ExerciseCard({
+  item,
+  index,
+  onPlay,
+}: {
+  item: { label: string; link?: string };
+  index: number;
+  onPlay?: () => void;
+}) {
   const h = useHover();
+  const ytId = item.link ? getYouTubeId(item.link) : null;
+  const thumbnail = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null;
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       {/* Title box */}
@@ -1057,12 +1186,13 @@ function ExerciseCard({ label, index }: { label: string; index: number }) {
           padding: "10px 8px",
         }}
       >
-        {label}
+        {item.label}
       </div>
       {/* Thumbnail */}
       <div
         onMouseEnter={h.onMouseEnter}
         onMouseLeave={h.onMouseLeave}
+        onClick={item.link ? onPlay : undefined}
         style={{
           aspectRatio: "9 / 16",
           maxWidth: 100,
@@ -1073,13 +1203,30 @@ function ExerciseCard({ label, index }: { label: string; index: number }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          cursor: "pointer",
-          transition: "border-color 0.15s",
+          cursor: item.link ? "pointer" : "default",
+          transition: "border-color 0.15s, filter 0.15s",
+          filter: h.on && item.link ? "brightness(1.15)" : "brightness(1)",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        <svg width="100%" height="100%" style={{ position: "absolute", opacity: 0.15 }} preserveAspectRatio="none">
+        {thumbnail && (
+          <img
+            src={thumbnail}
+            alt="Video thumbnail"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              opacity: 0.6,
+              transition: "transform 0.3s ease, opacity 0.3s ease",
+              transform: h.on ? "scale(1.05)" : "scale(1)",
+            }}
+          />
+        )}
+        <svg width="100%" height="100%" style={{ position: "absolute", opacity: 0.15, zIndex: 1 }} preserveAspectRatio="none">
           <line x1="50%" y1="0" x2="50%" y2="100%" stroke={T.orange} strokeWidth="1" />
           <circle cx="50%" cy="50%" r="18%" stroke={T.orange} strokeWidth="1" fill="none" />
         </svg>
@@ -1087,11 +1234,13 @@ function ExerciseCard({ label, index }: { label: string; index: number }) {
           style={{
             width: 24,
             height: 24,
-            background: h.on ? T.orange : "rgba(232,101,26,0.7)",
+            background: item.link
+              ? h.on ? T.orange : "rgba(232,101,26,0.7)"
+              : "rgba(100,100,100,0.4)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            zIndex: 1,
+            zIndex: 2,
             transition: "background 0.15s",
           }}
         >
@@ -1099,17 +1248,43 @@ function ExerciseCard({ label, index }: { label: string; index: number }) {
             <polygon points="0,0 10,6 0,12" fill="white" />
           </svg>
         </div>
+
+        {!item.link && (
+          <span
+            style={{
+              position: "absolute",
+              bottom: 6,
+              left: 0,
+              right: 0,
+              textAlign: "center",
+              fontFamily: BARLOW,
+              fontSize: 9,
+              letterSpacing: "1px",
+              color: T.mutedText,
+              textTransform: "uppercase",
+              zIndex: 2,
+            }}
+          >
+            Soon
+          </span>
+        )}
       </div>
     </div>
   );
 }
 
 function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const hNba = useHover();
   const cols = isMobile ? 2 : isTablet ? 3 : 4;
 
   return (
     <div>
+      {/* Video Modal popup */}
+      {activeVideo && (
+        <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />
+      )}
+
       <SectionBadge label="WARM UP EXERCISES" />
 
       {/* Responsive grid */}
@@ -1121,8 +1296,17 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
           marginTop: 36,
         }}
       >
-        {WARMUP_EXERCISES.map((ex, i) => (
-          <ExerciseCard key={ex} label={ex} index={i} />
+        {WARMUP_EXERCISES.map((item, i) => (
+          <ExerciseCard
+            key={item.label}
+            item={item}
+            index={i}
+            onPlay={() => {
+              if (item.link) {
+                setActiveVideo(item.link);
+              }
+            }}
+          />
         ))}
       </div>
 
@@ -1147,6 +1331,7 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
         <div
           onMouseEnter={hNba.onMouseEnter}
           onMouseLeave={hNba.onMouseLeave}
+          onClick={() => setActiveVideo("https://youtu.be/ZN4LpKA_ym4")}
           style={{
             width: 90,
             aspectRatio: "16 / 9",
@@ -1156,11 +1341,35 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
-            transition: "border-color 0.15s",
+            transition: "border-color 0.15s, filter 0.15s",
+            filter: hNba.on ? "brightness(1.15)" : "brightness(1)",
             position: "relative",
             overflow: "hidden",
           }}
         >
+          {(() => {
+            const ytId = getYouTubeId("https://youtu.be/ZN4LpKA_ym4");
+            return ytId && (
+              <img
+                src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
+                alt="NBA Referee Fitness thumbnail"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  opacity: 0.6,
+                  transition: "transform 0.3s ease, opacity 0.3s ease",
+                  transform: hNba.on ? "scale(1.05)" : "scale(1)",
+                }}
+              />
+            );
+          })()}
+          <svg width="100%" height="100%" style={{ position: "absolute", opacity: 0.15, zIndex: 1 }} preserveAspectRatio="none">
+            <line x1="50%" y1="0" x2="50%" y2="100%" stroke={T.orange} strokeWidth="1" />
+            <circle cx="50%" cy="50%" r="18%" stroke={T.orange} strokeWidth="1" fill="none" />
+          </svg>
           <div
             style={{
               width: 24,
@@ -1169,6 +1378,7 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              zIndex: 2,
               transition: "background 0.15s",
             }}
           >
@@ -1183,20 +1393,20 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
 }
 
 // ─── Mental Preparation content ──────────────────────────────────────────────────
-const MENTAL_ITEMS: { label: string; action: "play" | "download" }[] = [
-  { label: "GENERAL GUIDELINES (Version 2.0)", action: "download" },
-  { label: "FOR COMPETITIONS (Version 2.0)", action: "download" },
-  { label: "PRE-GAME (Version 2.0)", action: "download" },
-  { label: "POST-GAME EVALUATION (Version 2.0)", action: "download" },
-  { label: "FACING UNCERTAINTY (Version 1.0)", action: "download" },
-  { label: "GOAL-SETTING (Version 2.0)", action: "download" },
-  { label: "CONCENTRATION & ATTENTION (Version 2.0)", action: "download" },
-  { label: "AROUSAL CONTROL (Version 2.0)", action: "download" },
-  { label: "VISUALISATION & IMAGERY (Version 2.0)", action: "download" },
-  { label: "SELF-TALK (Version 2.0)", action: "download" },
-  { label: "INJURY & RECOVERY (Version 2.0)", action: "download" },
-  { label: "FACING STRESSFUL & CHALLENGING SITUATIONS (Version 2.0)", action: "download" },
-  { label: "KEEPING MOTIVATION, PASSION & ENTHUSIASM FOR OFFICIATING (Version 2.0)", action: "download" },
+const MENTAL_ITEMS: { label: string; action: "play" | "download" | "watch"; link?: string }[] = [
+  { label: "GENERAL GUIDELINES (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/c2bcc1344039e9d31a43efd6bc13dddd/FIBA_Mental_Preparation_General_Guidelines_v2.0_June2020_en.pdf" },
+  { label: "FOR COMPETITIONS (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/859a32d67beea3aebbfdc49c5a021f9f/FIBA_Mental_Preparation_for_Competitions_v2.0_June2020_en.pdf" },
+  { label: "PRE-GAME (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/23dbe88c53c2119fdf513c7e81aa8c77/FIBA_IY_Mental_Preparation_Pre_Game_v2.0_June2020_en.pdf" },
+  { label: "POST-GAME EVALUATION (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/1f483ee55f7885e9ec721774665a767e/FIBA_IY_Mental_Preparation_Post_Game_Evaluation_v2.0_June2020_en.pdf" },
+  { label: "FACING UNCERTAINTY (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/4eff2246a7604778c2213281285b20c7/FIBA_Mental_Preparation_Facing_Uncertainty_v1.0_Apr2020_en.pdf" },
+  { label: "GOAL-SETTING (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/46c914672d2c73361a5fdce2ea336feb/FIBA_IY_Mental_Preparation_Goal_setting_v2.0_July2020_en.pdf" },
+  { label: "CONCENTRATION & ATTENTION (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/6d8d915862ee06dc7759723a2c45f3b3/FIBA_IY_Mental_Preparation_Concentration_and_Attention_v2.0_July2020_en.pdf" },
+  { label: "AROUSAL CONTROL (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/27ac54d95ce84c54b98bcaa15642213e/FIBA_IY_Arousal_control_v2.0_July2020_en.pdf" },
+  { label: "VISUALISATION & IMAGERY (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/4de7933e469d1f96b8f6611a26cf26a2/FIBA_IY_Mental_Preparation_Visualisation_and_imagery_v2.0_July2020_en.pdf" },
+  { label: "SELF-TALK (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/a5b66ca3516a9206a8f4096a5f4e3348/FIBA_IY_Mental_Preparation_Self_talk_v2.0_July2020_en.pdf" },
+  { label: "INJURY & RECOVERY (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/6ec67849843ab93377be0c06ef2b707c/FIBA_IY_Mental_Preparation_during_injury_and_recovery_v2.0_July2020_en.pdf" },
+  { label: "FACING STRESSFUL & CHALLENGING SITUATIONS (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/1ee2d6d431a40d3133f2215b1a9e43c9/FIBA_IY_Mental_Preparation_Facing_stressful__challenging_situations_v2.0_July2020_en.pdf" },
+  { label: "KEEPING MOTIVATION, PASSION & ENTHUSIASM FOR OFFICIATING (Version 2.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/6e285d7da5e783ce5dcefcfa1adc3e20/FIBA_IY_Mental_Preparation_Keeping_motivationpassion_and_enthusiasm_for_officiating_v2.0_July2020_en.pdf" }
 ];
 
 function MentalPreparationContent({ isMobile }: { isMobile: boolean }) {
@@ -1213,19 +1423,19 @@ function MentalPreparationContent({ isMobile }: { isMobile: boolean }) {
 }
 
 // ─── Improve Yourself content ──────────────────────────────────────────────────
-const IMPROVE_YOURSELF_ITEMS: { label: string; action: "play" | "download" | "watch" }[] = [
-  { label: "ROTATIONS (Version 1.0) 💥", action: "download" },
-  { label: "HEAD COACH'S CHALLENGE (Version 2.1)", action: "download" },
-  { label: "REFEREEING THE HELP DEFENDER (Version 1.0)", action: "download" },
-  { label: "TIMING OF THE WHISTLE (Version 1.0)", action: "download" },
-  { label: "OUT-OF-BOUNDS DECISIONS (Version 1.0)", action: "download" },
-  { label: "MOBILITY (Version 1.0)", action: "download" },
-  { label: "EMOTIONAL INTELLIGENCE (Version 1.0)", action: "download" },
-  { label: "FIRST IMPRESSION (Version 1.0)", action: "download" },
-  { label: "SEASON'S SELF-EVALUATION (Version 1.0)", action: "download" },
-  { label: "GROWTH MINDSET (Version 1.0)", action: "download" },
-  { label: "CONTROL THE CONTROLLABLE (Version 1.0)", action: "download" },
-  { label: "BUILDING SELF-DISCIPLINE (Version 1.0)", action: "download" },
+const IMPROVE_YOURSELF_ITEMS: { label: string; action: "play" | "download" | "watch"; link?: string }[] = [
+  { label: "ROTATIONS (Version 1.0) 💥", action: "download", link: "https://library.fibairef.basketball/doc/dlg0aFFPZUhrUzFxWnI2Wm12b3pGZz09" },
+  { label: "HEAD COACH'S CHALLENGE (Version 2.1)", action: "download", link: "https://library.fibairef.basketball/doc/bHYzalg3N04xUmRzZmdhL1QyQzd5Zz09" },
+  { label: "REFEREEING THE HELP DEFENDER (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/63388408072964d0b3407fdad25c011a/FIBA_IY_HelpDefender_v1_0_Feb2026.pdf" },
+  { label: "TIMING OF THE WHISTLE (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/414590e206f47a135687c2fcc2f30e95/FIBA_IY_WhistleTiming_v1_0_July2025.pdf" },
+  { label: "OUT-OF-BOUNDS DECISIONS (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/doc/T0dQQkRtWVhCdmVNcGFYbjJaUG8vUT09" },
+  { label: "MOBILITY (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/4fe8808c90a5a977c8a51f720e2ac726/FIBA_IY_Mobility_2024_en_.pdf" },
+  { label: "EMOTIONAL INTELLIGENCE (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/9c0315e865b13ea3e29bd1ccace2067f/FIBA_IY_Emotional_Intelligence_v1_0_May2022_en.pdf" },
+  { label: "FIRST IMPRESSION (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/b565e5aecf464c8ac451a9d7395bda1f/FIBA_IY_First_Impression_v1_0_May2022_en.pdf" },
+  { label: "SEASON'S SELF-EVALUATION (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/c010d906cbb4749b187fab71c3498392/FIBA_IY_Seasons_Self_Evaluation_v1_0_en.pdf" },
+  { label: "GROWTH MINDSET (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/86e6c151a1bb65a64a1e89b3a22d47d7/FIBA_IY_Growth_Mindset_v1_0_Feb2022_en.pdf" },
+  { label: "CONTROL THE CONTROLLABLE (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/3abdfe35d014373daeb216dade6ed17a/FIBA_IY_Control_Controllable_v1_0_Feb2022_en.pdf" },
+  { label: "BUILDING SELF-DISCIPLINE (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/14f1908d9b52e6483c485b9a3fc8e28a/FIBA_IY_Self_Discipline_v1_0_Feb2022_en.pdf" }
 ];
 
 function ImproveYourselfContent({ isMobile }: { isMobile: boolean }) {
@@ -1242,26 +1452,46 @@ function ImproveYourselfContent({ isMobile }: { isMobile: boolean }) {
 }
 
 // ─── FIBA Licensing content ──────────────────────────────────────────────────
-const FIBA_LICENSING_ITEMS: { label: string; action: "play" | "download" | "watch" }[] = [
-  { label: "GUIDELINES TO NATIONAL FEDERATIONS (Version 1.0 October 2022)", action: "download" },
-  { label: "LICENSING 2023-25 INTRODUCTION", action: "watch" },
-  { label: "FIBA GOL 2023-25 Referees\u2019 Physical Training Plan", action: "download" },
-  { label: "FIBA GOL 2023-25 Entry Form", action: "download" },
-  { label: "FIBA GOL 2023-25 Fitness Test Result", action: "download" },
-  { label: "FIBA GOL 2023-25 Fitness Test Consent Form", action: "download" },
-  { label: "FIBA GOL 2023-25 Medical Certificate", action: "download" },
-  { label: "FIBA GOL 2023-25 MAP (FIBA Management & Administration Platform) User Guidelines", action: "download" },
-  { label: "LIST OF NATIONAL FEDERATIONS (27\u1d57\u02b0 January 2017)", action: "download" },
-  { label: "COMBINED WORLD RANKING (4\u1d57\u02b0 October 2022)", action: "download" },
+const FIBA_LICENSING_ITEMS: { label: string; action: "play" | "download" | "watch"; link?: string }[] = [
+  { label: "GUIDELINES TO NATIONAL FEDERATIONS (Version 1.0 October 2022)", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/nf-guidelines.pdf" },
+  { label: "LICENSING 2023-25 INTRODUCTION", action: "watch", link: "https://youtu.be/hcfdn3tQoyM" },
+  { label: "FIBA GOL 2023-25 Referees’ Physical Training Plan", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/referees-physical-training-plan.pdf" },
+  { label: "FIBA GOL 2023-25 Entry Form", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/entry-form.pdf" },
+  { label: "FIBA GOL 2023-25 Fitness Test Result", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/fitness-test-results.pdf" },
+  { label: "FIBA GOL 2023-25 Fitness Test Consent Form", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/fitness-test-consent-form.pdf" },
+  { label: "FIBA GOL 2023-25 Medical Certificate", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/medical-certificate.pdf" },
+  { label: "FIBA GOL 2023-25 MAP (FIBA Management & Administration Platform) User Guidelines", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/map-guidelines.pdf" },
+  { label: "LIST OF NATIONAL FEDERATIONS (27ᵗʰ January 2017)", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/nf-list.pdf" },
+  { label: "COMBINED WORLD RANKING (4ᵗʰ October 2022)", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/world-ranking.pdf" }
 ];
 
 function FibaLicensingContent({ isMobile }: { isMobile: boolean }) {
+  const [activeMedia, setActiveMedia] = useState<{ url: string; title: string } | null>(null);
+
   return (
     <div>
+      {/* Media popup modal */}
+      {activeMedia && (
+        <VideoModal
+          url={activeMedia.url}
+          title={activeMedia.title}
+          onClose={() => setActiveMedia(null)}
+        />
+      )}
+
       <SectionBadge label="FIBA LICENSING" />
       <div style={{ marginTop: 36 }}>
         {FIBA_LICENSING_ITEMS.map((item, i) => (
-          <FitnessRow key={i} item={item} isMobile={isMobile} />
+          <FitnessRow
+            key={i}
+            item={item}
+            isMobile={isMobile}
+            onAction={() => {
+              if (item.link) {
+                setActiveMedia({ url: item.link, title: item.label });
+              }
+            }}
+          />
         ))}
       </div>
     </div>
