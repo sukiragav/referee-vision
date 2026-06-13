@@ -1052,8 +1052,6 @@ function FitnessRow({
           flexShrink: 0,
           marginLeft: isMobile ? 0 : 16,
           textTransform: "uppercase",
-          display: "flex",
-          alignItems: "center",
           gap: 6,
           alignSelf: isMobile ? "flex-start" : "center",
           textDecoration: "none",

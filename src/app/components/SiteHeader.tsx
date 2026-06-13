@@ -53,12 +53,29 @@ export default function SiteHeader() {
         <div className="flex items-center h-full pl-8 gap-8">
           {NAV_LINKS.map((item) => {
             const isReferees = item === 'REFEREES';
-            const isActive = isReferees ? location.pathname === '/referees' : location.hash === `#${item.toLowerCase()}`;
+            const isBooks = item === 'BOOKS';
+            const isVideos = item === 'VIDEOS';
+            
+            let isActive = false;
+            let toPath = `/#${item.toLowerCase()}`;
+            
+            if (isReferees) {
+              isActive = location.pathname === '/referees';
+              toPath = '/referees';
+            } else if (isBooks) {
+              isActive = location.pathname === '/books';
+              toPath = '/books';
+            } else if (isVideos) {
+              isActive = location.pathname === '/videos';
+              toPath = '/videos';
+            } else {
+              isActive = location.hash === `#${item.toLowerCase()}`;
+            }
             
             return (
               <Link
                 key={item}
-                to={isReferees ? '/referees' : `/#${item.toLowerCase()}`}
+                to={toPath}
                 onMouseEnter={() => setHoveredNav(item)}
                 onMouseLeave={() => setHoveredNav(null)}
                 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, letterSpacing: '2px' }}
