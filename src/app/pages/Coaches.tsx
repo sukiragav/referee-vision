@@ -643,6 +643,716 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
   );
 }
 
+// ─── WABC Content ─────────────────────────────────────────────────────────────
+type WabcSubTab = "GENERAL" | "DRILLS" | "OFFENSE" | "DEFENSE";
+const WABC_SUBTABS: WabcSubTab[] = ["GENERAL", "DRILLS", "OFFENSE", "DEFENSE"];
+
+const WABC_DATA = {
+  GENERAL: [
+    { title: "NBA Locker Room", presenter: "Maurizio Gherardini" },
+    { title: "Young Players' Practice Principles", presenter: "Don Showalter" },
+    { title: "Planning in Basketball", presenter: "Fabrizio Frates" },
+    { title: "Communication in Basketball", presenter: "Evangelos \"Vangelis\" Angelou" },
+    { title: "Modern Basketball", presenter: "Duško Vujošević" },
+    { title: "Modern Basketball", presenter: "John Calipari" },
+    { title: "Young Leader's perspective on the Youth Leadership Seminar", presenter: "Ruby Ang" },
+    { title: "Player Coach Relationship On and Off the Court", presenter: "Ademola Okulaja" },
+    { title: "NBA Coaching Experiences", presenter: "Jay Larranaga" },
+    { title: "Approach to Coaching", presenter: "Boza Maljkovic" },
+    { title: "Game Principles", presenter: "Zach Guthrie" },
+    { title: "Physical preparation in the pre-competitive period", presenter: "Toni Caparros" },
+    { title: "The team work", presenter: "Ettore Messina" },
+    { title: "Coach and player development", presenter: "Patrick Mutombo" },
+    { title: "Developing your club system", presenter: "Rosas Gersson" },
+    { title: "Experience in Coaching Top Teams", presenter: "Natalia Hejkova" },
+    { title: "Trends of International Basketball", presenter: "Patrick Hunt" },
+    { title: "The Importance of Speed And Stance In Basketball", presenter: "Francesco Cuzzolin" },
+    { title: "3X3 BASKETBALL", presenter: "Regan Kama" },
+    { title: "3X3 BASKETBALL", presenter: "Anthony Corban" },
+    { title: "Building the team", presenter: "Svetislav Pesic" },
+    { title: "Develop Players' Decision Making", presenter: "Allison McNeill" },
+    { title: "Practice in Competition Period", presenter: "Željko Obradović" }
+  ],
+  DRILLS: [
+    { title: "Various Drills to Improve Offence", presenter: "Brian Goorjian" },
+    { title: "Drills for Development and Team Game", presenter: "Andrea Trinchieri" },
+    { title: "Shooting (Technique and Drills)", presenter: "Sandy Brondello" },
+    { title: "Top Basketball Drills", presenter: "Ettore Messina" },
+    { title: "BC Red Star Practice During Competition Period", presenter: "Dejan Radonjic" },
+    { title: "Improving the Basic Skills of Inside Players", presenter: "Ganon Baker" },
+    { title: "Big Men Workout", presenter: "Vlade Djurovic" },
+    { title: "Set of Drills for Individual Development", presenter: "Boza Maljkovic" },
+    { title: "Player Development", presenter: "Adam Tatalovich" },
+    { title: "Defensive Drills", presenter: "Lionel Hollins" },
+    { title: "Footwork", presenter: "Rick Carlisle" },
+    { title: "Shooting", presenter: "Rick Carlisle" },
+    { title: "Big man practice", presenter: "Zan Tabak" },
+    { title: "Gameday shoot around", presenter: "Sasa Obradovic" },
+    { title: "Guards individual practice shooting workout", presenter: "Dimitris Itoudis" },
+    { title: "Simple drills for developing juniors", presenter: "Brendan Joyce" },
+    { title: "Drills for guards", presenter: "Igor Kokoskov" },
+    { title: "Drills to develop ball screen offense", presenter: "Paul Henare" },
+    { title: "Water break drills", presenter: "Scott Brooks" },
+    { title: "Power exercises for developing power of first step", presenter: "Tomaz Brinec" },
+    { title: "1-1-3 matchup zone as a pressing defense full court", presenter: "Zafer Aktas" },
+    { title: "Small Group Development Drills", presenter: "Patrick Mutombo" },
+    { title: "Drills to Develop Team Defense", presenter: "Jim Boylen" },
+    { title: "Set of Drills for Defense", presenter: "Igor Kokoskov" },
+    { title: "Offense & Warm Up Drills", presenter: "Bryan Gates" },
+    { title: "Defensive Drills", presenter: "Joacquin Ruiz Lorente" },
+    { title: "Drills for Shooting, Passing and Spacing", presenter: "Joacquin Ruiz Lorente" },
+    { title: "Drills to Teach Players Offense", presenter: "Ettore Messina" },
+    { title: "Individual Improvement Skills", presenter: "Tara Van der Veer" },
+    { title: "Big Man Workout", presenter: "Juan Antonio Orenga" },
+    { title: "Individual Workout", presenter: "Ganon Baker" },
+    { title: "Individual Development Drills", presenter: "Jama Mahlalela" },
+    { title: "Drills for Transition Defense", presenter: "Andrej Lemanis" },
+    { title: "Offensive and Defensive Individual Footwork", presenter: "Brent Matehaere" },
+    { title: "Various Drills to Improve Basketball Technique", presenter: "Vlade Djurovic" },
+    { title: "Shooting for Girls Full Court Transition Shooting Drills", presenter: "Sean Fuller" },
+    { title: "The Shooting and Drills", presenter: "Juan Orenga" },
+    { title: "Transition Drills", presenter: "Jamie Carey" },
+    { title: "Defensive Drills", presenter: "Elijas Zuros" },
+    { title: "Pre-session Practice of Panathinaikos", presenter: "Dimitris Itoudis" },
+    { title: "Drills For Improvement Of Play", presenter: "Dusan Ivkovic" },
+    { title: "Teaching Fundamental Drills", presenter: "Kennedy Hamilton" },
+    { title: "Simplicity and Specificity Drills", presenter: "Carrie Graf" },
+    { title: "Cutthroat Defense Drill", presenter: "Brett Brown" },
+    { title: "Fundamental Drills", presenter: "Aik Ho" },
+    { title: "Transition Game Drills", presenter: "Luca Banchi" },
+    { title: "Conditioning Drills and Skills", presenter: "Kennedy Hamilton" },
+    { title: "Shooting Drills", presenter: "Jim Foster" },
+    { title: "Gran Canaria Practice", presenter: "Pedro Martinez" },
+    { title: "Shooting and Defensive Drills", presenter: "Brendan Joyce" }
+  ],
+  OFFENSE: [
+    { title: "Match-Up Offense", presenter: "Željko Obradović" },
+    { title: "Transition Offense and Early Flow Plays", presenter: "Brian Goorjian" },
+    { title: "Special Situations and Out of Bounds Plays", presenter: "Željko Obradović" },
+    { title: "Spacing and Different Options in Pn'R Offence", presenter: "Željko Obradović" },
+    { title: "Efficiency in Moving", presenter: "Filip Mihajlovic" },
+    { title: "Golden State Warriors' Cutting Drills and Transition Defense", presenter: "Ron Adams" },
+    { title: "Building an Offense", presenter: "Chus Mateo" },
+    { title: "Half-Court Offense with Pick n' Roll", presenter: "Fabrizio Frates" },
+    { title: "Attacking the Switching Defense", presenter: "Evangelos \"Vangelis\" Angelou" },
+    { title: "Half-Court M2M Sets", presenter: "Gary Waters" },
+    { title: "Passing and Catching the Ball", presenter: "Patrick Mutombo" },
+    { title: "Zone Offense", presenter: "Patrick Hunt" },
+    { title: "Using the Off-Ball Screen", presenter: "Joan Plaza" },
+    { title: "Corner Offense", presenter: "Chris Finch" },
+    { title: "Fundamental Skills for Offense", presenter: "Don Showalter" },
+    { title: "Fundamentals of Zone Offense", presenter: "Ettore Messina" },
+    { title: "San Antonio Spurs' Basic Offensive Concepts", presenter: "James Borrego" },
+    { title: "Early Offense Flow", presenter: "Mike Brown" },
+    { title: "Zone Offense", presenter: "Sergio Scariolo" },
+    { title: "Guards Offensive Improvement", presenter: "Kevin Boyle" },
+    { title: "Various Set Plays against Zone and M2M Defense", presenter: "Kevin Boyle" },
+    { title: "Transition Offense", presenter: "Ibon Navarro" },
+    { title: "Transition into Early Offense", presenter: "Scott Brooks" },
+    { title: "Early Offense Options", presenter: "Rick Barnes" },
+    { title: "Offensive Tendencies in European Basketball", presenter: "Pablo Laso" },
+    { title: "Individual Offensive Development", presenter: "Jamahl Mosley and Ryan Saunders" },
+    { title: "Fundamentals of Half-Court Offense", presenter: "Don Showalter" },
+    { title: "Transition Offense and Secondary Fastbreak", presenter: "Jill Schneider" },
+    { title: "Early Offense", presenter: "Aleksandar Dzikic" },
+    { title: "Transition Offense", presenter: "Svetislav Pesic" },
+    { title: "Individual tactics in close-out situations", presenter: "Ivan Rudez" },
+    { title: "Passing Skills Improvements", presenter: "Luca Banchi" },
+    { title: "Spacing in set offense and weakside movement", presenter: "Aleksandar Dzikic" },
+    { title: "How to create a playmaker", presenter: "Slavko Trninic" },
+    { title: "Attacking the switch", presenter: "Ettore Messina" },
+    { title: "Spacing & timing", presenter: "Ettore Messina" },
+    { title: "Full court man to man press break and set continuation", presenter: "Fotis Katsikaris" },
+    { title: "Single tag offense & defense", presenter: "Igor Kokoskov" },
+    { title: "Transition offense", presenter: "Igor Kokoskov" },
+    { title: "The Position of the post player on offense", presenter: "Ivan Sunara" },
+    { title: "Transition offense and defense", presenter: "Kennedy Kereama" },
+    { title: "Offense vs. multiple defense", presenter: "Luca Banchi" },
+    { title: "Motion offense", presenter: "Matteo Boniciolli" },
+    { title: "Special situations", presenter: "Mike Longabardi" },
+    { title: "Attacking the zone defense", presenter: "Paco Garcia" },
+    { title: "Fundamental individual offensive skills", presenter: "Paul Henare" },
+    { title: "Shooting for beginners, mid and high level", presenter: "Richard Billant" },
+    { title: "Low post rules", presenter: "Sito Alonso" },
+    { title: "Late Game Plays", presenter: "Brian Hill" },
+    { title: "Low Post Offense", presenter: "Fotios Katsikaris" },
+    { title: "Ball Screen Offense", presenter: "Dino Gaudio" },
+    { title: "Read and Respond P&R", presenter: "Michal Jezdik" },
+    { title: "Transition Concept", presenter: "Ekrem Memnin" },
+    { title: "How to Teach Fast Break", presenter: "Marian Svoboda" },
+    { title: "Building the Half-Court Offense", presenter: "Don Showalter" },
+    { title: "Receivers Principles from Dribble Penetration", presenter: "Paul Goriss" },
+    { title: "Out of Bounds Plays", presenter: "Anne Donovan" },
+    { title: "Half-Court Offense: 2 Men & 3 Men Game", presenter: "Rob Beveridge" },
+    { title: "Screening The Zone Defense & Motion Offense With No Screens", presenter: "Patrick Hunt" },
+    { title: "Early Offenses", presenter: "Bernie Bickerstaff" },
+    { title: "Special Situations", presenter: "Fotios Katsikaris" },
+    { title: "Set Play Against Zone 2-3", presenter: "Jasmin Repesa" },
+    { title: "Offensive Concepts", presenter: "Dean Cooper" },
+    { title: "Special Situations in Offense", presenter: "Brian Hill" },
+    { title: "Spurs Philosophy System Basics", presenter: "Gregg Popovich" },
+    { title: "The Spanish Way Offense", presenter: "Juan Orenga" },
+    { title: "Teaching Methods & Techniques for Coaching Offensive Fundamentals", presenter: "Damian Cotter" },
+    { title: "Transition In Offense", presenter: "Steve Robinson" },
+    { title: "Short Man Game", presenter: "Kevin Boyle" },
+    { title: "Lakers Offense", presenter: "Ettore Messina" },
+    { title: "Three Point Shot", presenter: "Nelson Isley" },
+    { title: "Offensive Principles Of Play", presenter: "Patrick Hunt" },
+    { title: "Cooperation With The Low Post", presenter: "Dusko Vujosevic" },
+    { title: "Pick and Roll Offense", presenter: "Željko Obradović" },
+    { title: "Building An Offense", presenter: "Nenad Vucinic" },
+    { title: "The Dribble Penetration Game", presenter: "Guy Molloy" },
+    { title: "Offensive Skills", presenter: "Augusto Antonio Pastore" },
+    { title: "Corner Offense", presenter: "Terry Porter" },
+    { title: "Passing, Shooting and Competition", presenter: "Torsten Loibl" },
+    { title: "Dribble Drive Motion Offense", presenter: "Vance Walberg" },
+    { title: "Pick 'n' Roll Spacing", presenter: "Andrea Trinchieri" },
+    { title: "Pick 'n' Roll Offense", presenter: "Lawrence Frank" },
+    { title: "Offensive Plays of a Team with Leading Player", presenter: "Romeo Sacchetti" },
+    { title: "Transition Offense", presenter: "Kestutis Kemzura" },
+    { title: "Pick 'n' Roll Offense and Defense", presenter: "Alfred Julbe and Ricard Casas" },
+    { title: "Are You Sure We Teach the Shooting", presenter: "Holger Geschwindner" },
+    { title: "Developing Young Guards", presenter: "Arik Shivek" },
+    { title: "Transition Game Collaboration and Spacing", presenter: "Luca Banchi" },
+    { title: "Dribble Drive Motion Skills", presenter: "Vance Walberg" },
+    { title: "Perimeter Players Improvement", presenter: "Mike Dunlap" },
+    { title: "Transition Basketball", presenter: "Nenad Vucinic" },
+    { title: "Moves for Centers Following Picks", presenter: "Jasmin Repeša" },
+    { title: "Match-Up Offense", presenter: "Željko Obradović" }
+  ],
+  DEFENSE: [
+    { title: "Building a team defense", presenter: "Willie Green" },
+    { title: "Defensive principles of play", presenter: "Ronald Nored" },
+    { title: "Offensive Rebounding & Transition defense", presenter: "Charles Lee" },
+    { title: "Pick & Roll defense, Paint switching", presenter: "Quinton Crawford" },
+    { title: "Ball handling and defense", presenter: "Mike Weiner" },
+    { title: "Close out", presenter: "Marlon Garnett" },
+    { title: "Closing out and defensive footwwork", presenter: "Deanne Butler" },
+    { title: "Communication in Half Court Defense", presenter: "Cheryl Chambers" },
+    { title: "Models of Aggressive Pn'R Defence", presenter: "Pedro Martinez" },
+    { title: "I-3-1 Zone Defense Presentation", presenter: "Konstantinos Keramidas" },
+    { title: "Pick and Roll Defense", presenter: "Chus Mateo" },
+    { title: "How to Box Out and Rebound", presenter: "Robert Bauer" },
+    { title: "Basic Defensive Principles", presenter: "Lloyd Pierce" },
+    { title: "Closeout Defense", presenter: "Dan Burke" },
+    { title: "Individual Defense", presenter: "Gordon McLeod" },
+    { title: "Defending the Pick and Roll", presenter: "Damian Cotter" },
+    { title: "M2M Defensive Principles", presenter: "Dennis Felton" },
+    { title: "Pick & Roll Defense of the Boston Celtics", presenter: "Jamie Young" },
+    { title: "I-3-1 Zone Defense", presenter: "Dennis Felton" },
+    { title: "Matchup Defense", presenter: "Arik Shivek" },
+    { title: "Transition Defense", presenter: "Don Showalter" },
+    { title: "Fundamentals of Half-Court Defense", presenter: "Jim Boylan" },
+    { title: "Team M2M Defense", presenter: "Torsten Loibl" },
+    { title: "Individual Defensive Improvement", presenter: "John Patrick" },
+    { title: "Basic Principles of M2M Defense", presenter: "Evgeniy Pashutin" },
+    { title: "I-1-3 Matchup Zone", presenter: "Mike Dunlap" },
+    { title: "2-2-1 Zone Press and Half-Court Zone Defense", presenter: "Aleksandar Dzikic Partizan" },
+    { title: "Transition Defense", presenter: "Svetislav Pesic" },
+    { title: "Pick and Roll Defense", presenter: "Mike Longabardi" },
+    { title: "General Rules of Team Defense", presenter: "Aleksandar Dzikic Partizan" },
+    { title: "I-3-1 Zone-Defense", presenter: "Lucas Mondelo" },
+    { title: "Defensive Concept of Real Madrid", presenter: "Pablo Laso" },
+    { title: "Full-Court Man to Man Trapping Defense", presenter: "Dean Demopoulos" },
+    { title: "Building team defense", presenter: "George Dikeoulakos" },
+    { title: "Off-screen defense", presenter: "Aleksandar Dzikic" },
+    { title: "Team defense", presenter: "Donaldas Kairys" },
+    { title: "Close-out defense in modern basketball", presenter: "Vangelis Angelou" },
+    { title: "Defensive rotation off dribble penetration", presenter: "Aaron Fearne" },
+    { title: "Defensive principles", presenter: "Ed Pinckney" },
+    { title: "Defense on middle pick and roll", presenter: "Ettore Messina" },
+    { title: "Switching defense", presenter: "Fotis Katsikaris" },
+    { title: "Half court man to man defense", presenter: "Ivan Sunara" },
+    { title: "Defensive principles", presenter: "Kenny Atkinson" },
+    { title: "Defending the middle P & R", presenter: "Terry Porter" },
+    { title: "Developing Team Man-To-Man Defense", presenter: "Dwayne Casey" },
+    { title: "Coordination of Individual and Team Defense", presenter: "Jonas Kazlauskas" },
+    { title: "Half Court Man-To-Man Defense", presenter: "Jill Schneider" },
+    { title: "Zone Defense 2-2-1", presenter: "Jasmin Repesa" },
+    { title: "Building the Defensive Philosophy", presenter: "Jan Stirling" },
+    { title: "Full Court Trapping Defense", presenter: "Judd Flavell" },
+    { title: "Switching in Pick and Roll Defense", presenter: "Zoran Lukic" },
+    { title: "Pick & Roll Defense", presenter: "Ron Adams" },
+    { title: "Rebounding", presenter: "Chris Lowery" },
+    { title: "Fundamentals for Pressing Defense", presenter: "Deslea Wrathall" },
+    { title: "Defense", presenter: "Xavi Pascual" },
+    { title: "Transition Defense", presenter: "Tim Floyd" },
+    { title: "Man To Man Defense", presenter: "Patrick Hunt" },
+    { title: "Match Up Zone", presenter: "Veselin Matic" },
+    { title: "Man To Man Defense", presenter: "Mahmuti Oktay" },
+    { title: "Aggressive Defense", presenter: "Dejan Radonjic" },
+    { title: "Pick And Roll Defense", presenter: "Svetislav Pesic" },
+    { title: "Half Court Press", presenter: "Marissa Fillipou" },
+    { title: "Defending Screens", presenter: "Patrick Hunt" },
+    { title: "Off Ball Screen Defense", presenter: "Zan Tabak" },
+    { title: "Pick 'n' Roll Defense", presenter: "Kaleb Canales" },
+    { title: "Aggressive Defense", presenter: "Lionel Hollins" },
+    { title: "Transition Defense", presenter: "Zmago Sagadin" },
+    { title: "Zone Defense", presenter: "Mahmuti Oktay" },
+    { title: "How to Build a Defensive System", presenter: "Jim Boylen" },
+    { title: "Rebounding and Defensive Footwork", presenter: "Torsten Loibl" },
+    { title: "Defending on Ball Screens", presenter: "Pablo Laso" },
+    { title: "Defensive Transition", presenter: "Andrej Lemanis" }
+  ]
+};
+
+// ─── FIBA Europe Content ──────────────────────────────────────────────────────
+type FibaEuropeSubTab = "GENERAL" | "DEFENSE" | "OFFENSE" | "MISCELLANEOUS";
+const FIBA_EUROPE_SUBTABS: FibaEuropeSubTab[] = ["GENERAL", "DEFENSE", "OFFENSE", "MISCELLANEOUS"];
+
+const FIBA_EUROPE_DATA = {
+  GENERAL: [
+    { title: "Improvement of Fundamentals in Youth Basketball through Specific Drills", presenter: "Nenad Trunic" },
+    { title: "The Role of Position 4 in Modern Basketball", presenter: "Janez Drvaric" },
+    { title: "Connecting I on I Game and Specific Physical Preparation", presenter: "Nenad Trunic" },
+    { title: "Connecting Specific Physical Preparation and Shooting", presenter: "Nenad Trunic" },
+    { title: "Inside Players", presenter: "Nenad Trunic" },
+    { title: "Player Profiles", presenter: "Nenad Trunic" },
+    { title: "Rhythm of Basketball", presenter: "Svetislav Pesic" },
+    { title: "Big Men", presenter: "Juan Orenga" },
+    { title: "Building a National Team Programme", presenter: "Henrik Dettmann" },
+    { title: "Practice Organisation for U16", presenter: "Veselin Matic" },
+    { title: "Developing Game Understanding", presenter: "Damian Cotter" },
+    { title: "Guard Development", presenter: "Damian Cotter" },
+    { title: "Team Management", presenter: "Pablo Laso" }
+  ],
+  DEFENSE: [
+    { title: "Transition Defense", presenter: "Svetislav Pesic" },
+    { title: "Defensive Fundamentals On and Off the Ball", presenter: "Janez Drvaric" },
+    { title: "Mutant / Amoeba Defence", presenter: "Juan Orenga" },
+    { title: "Methodology of Building Aggressive Half-court Defense", presenter: "Nenad Trunic" },
+    { title: "One Pass Away Defense", presenter: "Zan Tabak" },
+    { title: "Building Team Defense Through Situation Drills", presenter: "Nenad Trunic" },
+    { title: "Defending On Ball Screens", presenter: "Pablo Laso" },
+    { title: "Defensive Concept", presenter: "Pablo Laso" }
+  ],
+  OFFENSE: [
+    { title: "Secondary Break Options in Youth Programmes with Screens", presenter: "Nenad Trunic" },
+    { title: "Passing and Receiving", presenter: "Janez Drvaric" },
+    { title: "Spacing & Angles", presenter: "Giannis Sfairopoulos" },
+    { title: "Developing the European 4", presenter: "Gordon Herbert" },
+    { title: "Transition Offense", presenter: "Svetislav Pesic" },
+    { title: "Low Post Individual Technique", presenter: "Damian Cotter" },
+    { title: "3 on 3 Offensive Play Basic and Advanced", presenter: "Janez Drvaric" },
+    { title: "Motion Offense in Youth Development", presenter: "Trine Tims" },
+    { title: "Building an Offence Part I", presenter: "Chus Mateo" },
+    { title: "Building an Offence Part II", presenter: "Chus Mateo" },
+    { title: "Zone Offense against 2-3", presenter: "Murat Ozyer" },
+    { title: "Passing", presenter: "Damian Cotter" },
+    { title: "Point Guard", presenter: "Pablo Laso" },
+    { title: "Transition Offense", presenter: "Pablo Laso" },
+    { title: "Fastbreak", presenter: "Nenad Trunic" },
+    { title: "Movement without the ball", presenter: "Nenad Trunic" },
+    { title: "Secondary Break", presenter: "Nenad Trunic" },
+    { title: "Individual Tactics Passing", presenter: "Nenad Trunic" },
+    { title: "Fast Break", presenter: "Juan Orenga" },
+    { title: "Offensive Concept", presenter: "Zan Tabak" }
+  ],
+  MISCELLANEOUS: {
+    GENERAL: [
+      { title: "Improving and maintaining individual techniques before and during a season", presenter: "Aleksandar Trifunovic" },
+      { title: "Connecting basketball skills and specific physical preparation in U14", presenter: "Nenad Trunic" }
+    ],
+    DEVELOPMENT: [
+      { title: "A Development Program for Players and Coaches", presenter: "Carlos Frade & Michael Schwarz" },
+      { title: "Strength & Conditioning in Youth Basketball", presenter: "Nenad Trunic & Michael Schwarz" },
+      { title: "Develop youth players to senior level - A masterplan", presenter: "Nenad Trunic" },
+      { title: "How teaching and learning takes place", presenter: "Aysim Altay" }
+    ],
+    OFFENSE: [
+      { title: "Low Post actions", presenter: "Arik Shivek" },
+      { title: "Moving without the ball", presenter: "Arik Shivek" },
+      { title: "Offensive concept with dominant low post players", presenter: "Zan Tabak" },
+      { title: "Offensive Transition", presenter: "Aleksandar Trifunovic" },
+      { title: "Motion Offense", presenter: "Neven Spahija" },
+      { title: "Pick & Roll Offense and Quick Hitters", presenter: "Björn Harmsen" },
+      { title: "Offensive Youth Concept", presenter: "Matthias Zollner" },
+      { title: "Penetrate & Pass", presenter: "Nenad Trunic" },
+      { title: "Offensive Concept", presenter: "Chris Fleming" },
+      { title: "Offensive Youth Concept", presenter: "Matthias Zollner" }
+    ],
+    DEFENSE: [
+      { title: "Defensive strategies on using low post trap situations", presenter: "Arik Shivek" },
+      { title: "Methodology of half court defensive principles including specific drills", presenter: "Nenad Trunic" },
+      { title: "Switching Defense", presenter: "Arik Shivek" },
+      { title: "Defensive principles & adaptations in foul situations", presenter: "Björn Harmsen" },
+      { title: "Pick and Roll Defense", presenter: "Chus Mateo" }
+    ]
+  }
+};
+
+function FibaEuropeRow({
+  item,
+  isMobile,
+  showWatch = true,
+}: {
+  item: { title: string; presenter: string };
+  isMobile: boolean;
+  showWatch?: boolean;
+}) {
+  const h = useHover();
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : showWatch ? "5.5fr 4.5fr 120px" : "5.5fr 4.5fr",
+        background: "transparent",
+        alignItems: "center",
+        padding: "8px 0",
+      }}
+    >
+      {/* Title */}
+      <span
+        style={{
+          fontFamily: DM,
+          fontSize: 16,
+          color: T.orange,
+          paddingRight: 16,
+        }}
+      >
+        {item.title}
+      </span>
+
+      {/* Presenter */}
+      <span
+        style={{
+          fontFamily: DM,
+          fontSize: 15,
+          color: T.orange,
+          paddingRight: 16,
+          marginTop: isMobile ? 4 : 0,
+        }}
+      >
+        {item.presenter}
+      </span>
+
+      {/* Watch Button */}
+      {showWatch && (
+        <div style={{ display: "flex", justifyContent: isMobile ? "flex-start" : "flex-end", marginTop: isMobile ? 8 : 0 }}>
+          <button
+            onMouseEnter={h.onMouseEnter}
+            onMouseLeave={h.onMouseLeave}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: h.on ? T.orange : "transparent",
+              border: `1px solid ${T.orange}`,
+              color: h.on ? T.white : T.orange,
+              fontFamily: BARLOW,
+              fontWeight: 700,
+              fontSize: 13,
+              letterSpacing: "1.5px",
+              padding: "6px 18px",
+              borderRadius: 0,
+              cursor: "pointer",
+              transition: "background 0.15s, color 0.15s",
+              gap: 6,
+            }}
+          >
+            <span>WATCH</span>
+            <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
+              <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on ? T.white : T.orange} />
+              <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on ? T.white : T.orange} />
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
+  const [activeSubTab, setActiveSubTab] = useState<FibaEuropeSubTab>("GENERAL");
+
+  return (
+    <div>
+      <SectionBadge label="FIBA EUROPE" />
+
+      {/* Sub-tab bar */}
+      <div style={{ display: "flex", flexWrap: "wrap", marginTop: 24, background: T.orange }}>
+        {FIBA_EUROPE_SUBTABS.map((tab) => {
+          const isActive = tab === activeSubTab;
+          return (
+            <button
+              key={tab}
+              onClick={() => setActiveSubTab(tab)}
+              style={{
+                flex: 1,
+                padding: "10px 16px",
+                fontFamily: BARLOW,
+                fontWeight: 700,
+                fontSize: 14,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                background: isActive ? "#555555" : "transparent",
+                color: isActive ? T.white : "#000000",
+                border: "none",
+                cursor: "pointer",
+                borderRadius: 0,
+                transition: "background 0.15s, color 0.15s",
+              }}
+            >
+              {tab}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Sub-tab content */}
+      <div style={{ marginTop: 28 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
+          <div
+            style={{
+              background: T.orange,
+              color: T.white,
+              fontFamily: BARLOW,
+              fontWeight: 800,
+              fontSize: 18,
+              letterSpacing: "2px",
+              padding: "8px 48px",
+              textTransform: "uppercase",
+            }}
+          >
+            {activeSubTab}
+          </div>
+        </div>
+
+        {activeSubTab === "MISCELLANEOUS" ? (
+          <div>
+            {/* Introductory Text Box */}
+            <div
+              style={{
+                background: "rgba(232, 101, 26, 0.08)",
+                borderLeft: `4px solid ${T.orange}`,
+                padding: "16px 20px",
+                marginBottom: 32,
+                fontFamily: DM,
+                fontSize: 15,
+                lineHeight: "1.6",
+                color: "#333333",
+              }}
+            >
+              <p style={{ margin: 0, fontWeight: 700, color: T.orange, fontSize: 16 }}>
+                The below videos are from FIBA Europe Coaching Website ({" "}
+                <a
+                  href="http://coaching.fibaeurope.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: T.orange, textDecoration: "underline" }}
+                >
+                  http://coaching.fibaeurope.com
+                </a>
+                ).
+              </p>
+              <p style={{ margin: "8px 0 16px" }}>
+                Please register on the site to access these videos. The videos are available under the Coaching Clinics section.
+              </p>
+              <p style={{ margin: "0 0 6px", fontWeight: 600 }}>
+                The Practice Section in the site has the following which are of immense help:
+              </p>
+              <ul style={{ margin: 0, paddingLeft: 20, listStyleType: "square" }}>
+                <li>Fundamentals</li>
+                <li>Drills</li>
+                <li>Plays</li>
+                <li>Playbooks</li>
+                <li>Tactics & Execution</li>
+              </ul>
+            </div>
+
+            {/* Miscellaneous Sub-Sections */}
+            {(["GENERAL", "DEVELOPMENT", "OFFENSE", "DEFENSE"] as const).map((subSec) => {
+              const list = FIBA_EUROPE_DATA.MISCELLANEOUS[subSec];
+              return (
+                <div key={subSec} style={{ marginBottom: 36 }}>
+                  {/* Subsection Badge */}
+                  <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 16 }}>
+                    <div
+                      style={{
+                        border: `2.5px solid ${T.orange}`,
+                        background: "transparent",
+                        fontFamily: BARLOW,
+                        fontWeight: 800,
+                        fontSize: 16,
+                        color: T.orange,
+                        letterSpacing: "2px",
+                        textTransform: "uppercase",
+                        padding: "6px 28px",
+                        borderRadius: 20,
+                      }}
+                    >
+                      {subSec}
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    {list.map((item, i) => (
+                      <FibaEuropeRow key={i} item={item} isMobile={isMobile} showWatch={false} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {(FIBA_EUROPE_DATA[activeSubTab as keyof Omit<typeof FIBA_EUROPE_DATA, "MISCELLANEOUS">] || []).map((item, i) => (
+              <FibaEuropeRow key={i} item={item} isMobile={isMobile} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function WabcContent({ isMobile }: { isMobile: boolean }) {
+  const [activeSubTab, setActiveSubTab] = useState<WabcSubTab>("GENERAL");
+
+  const items = WABC_DATA[activeSubTab as keyof typeof WABC_DATA] || [];
+
+  return (
+    <div>
+      <SectionBadge label="WABC" />
+
+      {/* Sub-tab bar */}
+      <div style={{ display: "flex", flexWrap: "wrap", marginTop: 24, background: T.orange }}>
+        {WABC_SUBTABS.map((tab) => {
+          const isActive = tab === activeSubTab;
+          return (
+            <button
+              key={tab}
+              onClick={() => setActiveSubTab(tab)}
+              style={{
+                flex: 1,
+                padding: "10px 16px",
+                fontFamily: BARLOW,
+                fontWeight: 700,
+                fontSize: 14,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                background: isActive ? "#555555" : "transparent",
+                color: isActive ? T.white : "#000000",
+                border: "none",
+                cursor: "pointer",
+                borderRadius: 0,
+                transition: "background 0.15s, color 0.15s",
+              }}
+            >
+              {tab}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Sub-tab content */}
+      <div style={{ marginTop: 28 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
+          <div
+            style={{
+              background: T.orange,
+              color: T.white,
+              fontFamily: BARLOW,
+              fontWeight: 800,
+              fontSize: 18,
+              letterSpacing: "2px",
+              padding: "8px 48px",
+              textTransform: "uppercase",
+            }}
+          >
+            {activeSubTab}
+          </div>
+        </div>
+
+        {items.length > 0 ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {items.map((item, i) => (
+              <WabcRow key={i} item={item} isMobile={isMobile} />
+            ))}
+          </div>
+        ) : (
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 96 }}>
+            <span style={{ fontFamily: DM, fontSize: 16, color: T.placeholderText }}>
+              Content coming soon
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function WabcRow({ item, isMobile }: { item: { title: string; presenter: string }; isMobile: boolean }) {
+  const h = useHover();
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "5.5fr 4.5fr 120px",
+        background: "transparent",
+        alignItems: "center",
+        padding: "8px 0",
+      }}
+    >
+      {/* Title */}
+      <span
+        style={{
+          fontFamily: DM,
+          fontSize: 16,
+          color: T.orange,
+          paddingRight: 16,
+        }}
+      >
+        {item.title}
+      </span>
+
+      {/* Presenter */}
+      <span
+        style={{
+          fontFamily: DM,
+          fontSize: 15,
+          color: T.orange,
+          paddingRight: 16,
+          marginTop: isMobile ? 4 : 0,
+        }}
+      >
+        {item.presenter}
+      </span>
+
+      {/* Watch Button */}
+      <div style={{ display: "flex", justifyContent: isMobile ? "flex-start" : "flex-end", marginTop: isMobile ? 8 : 0 }}>
+        <button
+          onMouseEnter={h.onMouseEnter}
+          onMouseLeave={h.onMouseLeave}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: h.on ? T.orange : "transparent",
+            border: `1px solid ${T.orange}`,
+            color: h.on ? T.white : T.orange,
+            fontFamily: BARLOW,
+            fontWeight: 700,
+            fontSize: 13,
+            letterSpacing: "1.5px",
+            padding: "6px 18px",
+            borderRadius: 0,
+            cursor: "pointer",
+            transition: "background 0.15s, color 0.15s",
+            gap: 6,
+          }}
+        >
+          <span>WATCH</span>
+          <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
+            <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on ? T.white : T.orange} />
+            <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on ? T.white : T.orange} />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ─── Placeholder tab content ──────────────────────────────────────────────────
 function PlaceholderContent({ tab }: { tab: Tab }) {
   return (
@@ -790,7 +1500,7 @@ export default function Coaches() {
         <main
           style={{
             flex: 1,
-            background: activeTab === "DRILLS FOR YOUNG PLAYERS" ? T.bg : "var(--off-white)",
+            background: "var(--off-white)",
             padding: isMobile
               ? "24px 16px"
               : isTablet
@@ -812,6 +1522,10 @@ export default function Coaches() {
               <BooksContent isMobile={isMobile} />
             ) : activeTab === "DRILLS FOR YOUNG PLAYERS" ? (
               <DrillsContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "WABC" ? (
+              <WabcContent isMobile={isMobile} />
+            ) : activeTab === "FIBA EUROPE" ? (
+              <FibaEuropeContent isMobile={isMobile} />
             ) : (
               <PlaceholderContent tab={activeTab} />
             )}

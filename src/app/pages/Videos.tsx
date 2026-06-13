@@ -773,7 +773,7 @@ function DocCard({ label, cols = 1 }: { label?: string; cols?: number }) {
 }
 
 // Placeholder video card (no actual YouTube)
-function VideoCard({ index }: { index: number }) {
+function VideoCard({ index, activeColor = T.orange }: { index: number; activeColor?: string }) {
   const h = useHover();
   const shades = ["#1A2416", "#16201A", "#1E1A16", "#161E20", "#1A161E", "#1E1E16"];
   return (
@@ -784,7 +784,7 @@ function VideoCard({ index }: { index: number }) {
         width: 90,
         aspectRatio: "16 / 9",
         background: shades[index % shades.length],
-        border: `1px solid ${h.on ? T.orange : T.border}`,
+        border: `1px solid ${h.on ? activeColor : T.border}`,
         borderRadius: 3,
         display: "flex",
         alignItems: "center",
@@ -795,8 +795,22 @@ function VideoCard({ index }: { index: number }) {
         position: "relative",
       }}
     >
-      <div style={{ width: 24, height: 24, background: h.on ? T.orange : "rgba(232,101,26,0.7)", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", zIndex: 2 }}>
-        <svg width="8" height="10" viewBox="0 0 10 12" fill="none"><polygon points="0,0 10,6 0,12" fill="white" /></svg>
+      <div
+        style={{
+          width: 24,
+          height: 24,
+          background: activeColor,
+          opacity: h.on ? 1 : 0.7,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transition: "background 0.15s, opacity 0.15s",
+          zIndex: 2,
+        }}
+      >
+        <svg width="8" height="10" viewBox="0 0 10 12" fill="none">
+          <polygon points="0,0 10,6 0,12" fill="white" />
+        </svg>
       </div>
     </div>
   );
@@ -1231,6 +1245,128 @@ function CylinderPrincipleContent({
   );
 }
 
+// ─── 3X3 Content ─────────────────────────────────────────────────────────────
+
+function ThreeXThreeContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="3X3" />
+
+      {/* PLAYER NOT IN POSSESSION OF THE BALL */}
+      <SubSectionBadge label="PLAYER NOT IN POSSESSION OF THE BALL" />
+      <div style={{ display: "flex", justifyContent: "center", margin: "0 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>HOLDING/GRABBING</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
+      </div>
+
+      {/* PLAYER IN POSSESSION OF THE BALL (NOT IN THE ACT OF SHOOTING) */}
+      <SubSectionBadge label="PLAYER IN POSSESSION OF THE BALL (NOT IN THE ACT OF SHOOTING)" />
+      <div style={{ display: "flex", justifyContent: "center", margin: "0 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>HOLDING/GRABBING</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        <VideoCard index={12} />
+      </div>
+
+      {/* PLAYER IN POSSESSION OF THE BALL (ACT OF SHOOTING) */}
+      <SubSectionBadge label="PLAYER IN POSSESSION OF THE BALL (ACT OF SHOOTING)" />
+      <div style={{ display: "flex", justifyContent: "center", margin: "0 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>CONTACT ON A LAY-UP ATTEMPT</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 7 }).map((_, i) => <VideoCard key={i} index={13 + i} />)}
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", margin: "16px 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>PROTECTION OF THE SHOOTER - LANDING SPACE</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 6 }).map((_, i) => <VideoCard key={i} index={20 + i} />)}
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", margin: "16px 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>PROTECTION OF THE SHOOTER - CONTACT ON ARM</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        <VideoCard index={26} />
+      </div>
+
+      {/* UNSPORTSMANLIKE & DISQUALIFYING FOULS */}
+      <SubSectionBadge label="UNSPORTSMANLIKE & DISQUALIFYING FOULS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={27 + i} />)}
+      </div>
+
+      {/* TECHNICAL FOUL */}
+      <SubSectionBadge label="TECHNICAL FOUL" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={29 + i} />)}
+      </div>
+
+      {/* SCREENING */}
+      <SubSectionBadge label="SCREENING" />
+      <div style={{ display: "flex", justifyContent: "center", margin: "0 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>ON-BALL SCREEN: EXTENDING ARMS</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={31 + i} />)}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        <VideoCard index={39} />
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", margin: "16px 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>ON-BALL SCREEN: MOVING SCREEN</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={40 + i} />)}
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", margin: "16px 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>ON-BALL SCREEN: HOLDING/GRABBING</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={42 + i} />)}
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", margin: "16px 0 12px" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>OFF-BALL SCREEN: PUSH-OFF</span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        <VideoCard index={44} />
+      </div>
+
+      {/* NO-CLEAR VIOLATION */}
+      <SubSectionBadge label="NO-CLEAR VIOLATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={45 + i} />)}
+      </div>
+
+      {/* DELAY OF THE GAME - WARNING/TECHNICAL FOUL */}
+      <SubSectionBadge label="DELAY OF THE GAME - WARNING/TECHNICAL FOUL" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        <VideoCard index={47} />
+      </div>
+
+      {/* STALLING */}
+      <SubSectionBadge label="STALLING" />
+      <div style={{ display: "flex", justifyContent: "center", margin: "12px 0 20px", padding: "0 16px" }}>
+        <span style={{ fontFamily: DM, fontWeight: 700, fontSize: 15, color: T.orange, textAlign: "center", letterSpacing: "0.5px", textTransform: "uppercase" }}>
+          AS PER LATEST RULE, STALLING IS 3 SECONDS AND NOT 5 SECONDS AS SHOWN IN THE VIDEOS BELOW.
+        </span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+        {Array.from({ length: 3 }).map((_, i) => <VideoCard key={i} index={48 + i} />)}
+      </div>
+    </div>
+  );
+}
+
 // ─── Generic placeholder tab content ─────────────────────────────────────────
 
 function PlaceholderTabContent({ tab }: { tab: Tab }) {
@@ -1320,6 +1456,8 @@ export default function Videos() {
               <TableOfficialsContent isMobile={isMobile} />
             ) : activeTab === "CYLINDER PRINCIPLE" ? (
               <CylinderPrincipleContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "3X3" ? (
+              <ThreeXThreeContent isMobile={isMobile} isTablet={isTablet} />
             ) : (
               <PlaceholderTabContent tab={activeTab} />
             )}
