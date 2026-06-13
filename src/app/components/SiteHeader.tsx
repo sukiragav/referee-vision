@@ -11,46 +11,46 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header style={{ backgroundColor: 'var(--black)' }} className="h-[100px] px-8 flex items-center justify-between">
+      <header style={{ backgroundColor: 'var(--black)' }} className="md:h-[100px] py-4 md:py-0 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
         {/* Logo Block */}
-        <Link to="/" className="flex items-center gap-4">
-          <img src={logoImage} alt="Basketball Logo" className="h-[65px] w-auto" />
-          <div className="flex flex-col">
+        <Link to="/" className="flex items-center gap-3 md:gap-4">
+          <img src={logoImage} alt="Basketball Logo" className="h-[45px] md:h-[65px] w-auto" />
+          <div className="flex flex-col text-left">
             <h1 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, letterSpacing: '-0.5px' }}
-              className="text-[36px] text-white uppercase leading-none">
+              className="text-[26px] md:text-[36px] text-white uppercase leading-none">
               REFEREE VISION
             </h1>
             <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic' }}
-              className="text-[15px] text-[#AAAAAA]">
+              className="text-[13px] md:text-[15px] text-[#AAAAAA]">
               One Stop to Rule Them All
             </p>
           </div>
         </Link>
 
         {/* Social Icons */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6">
           <a href="https://www.youtube.com/@refereevision5209" target="_blank" rel="noopener noreferrer">
-            <Youtube className="w-[22px] h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            <Youtube className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
           </a>
           <a href="https://www.facebook.com/people/Referee-Vision/61577189406633/" target="_blank" rel="noopener noreferrer">
-            <Facebook className="w-[22px] h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            <Facebook className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
           </a>
           <a href="https://www.instagram.com/refereevision/" target="_blank" rel="noopener noreferrer">
-            <Instagram className="w-[22px] h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            <Instagram className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
           </a>
           <a href="https://x.com/refereevision/" target="_blank" rel="noopener noreferrer">
-            <Twitter className="w-[22px] h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            <Twitter className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
           </a>
           <a href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05" target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="w-[22px] h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            <MessageCircle className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
           </a>
         </div>
       </header>
 
       {/* NAVIGATION BAR */}
-      <nav style={{ backgroundColor: 'var(--charcoal)' }} className="h-[52px] sticky top-0 z-50 relative">
-        <div style={{ backgroundColor: 'var(--orange)' }} className="absolute left-0 top-0 w-[4px] h-full"></div>
-        <div className="flex items-center h-full pl-8 gap-8">
+      <nav style={{ backgroundColor: 'var(--charcoal)' }} className="h-auto md:h-[52px] sticky top-0 z-50 relative w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div style={{ backgroundColor: 'var(--orange)' }} className="absolute left-0 top-0 w-[4px] h-full hidden md:block"></div>
+        <div className="flex items-center h-[52px] md:h-full px-4 md:pl-8 gap-6 md:gap-8 min-w-max">
           {NAV_LINKS.map((item) => {
             const isReferees = item === 'REFEREES';
             const isActive = isReferees ? location.pathname === '/referees' : location.hash === `#${item.toLowerCase()}`;
@@ -62,7 +62,7 @@ export default function SiteHeader() {
                 onMouseEnter={() => setHoveredNav(item)}
                 onMouseLeave={() => setHoveredNav(null)}
                 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, letterSpacing: '2px' }}
-                className={`text-[14px] uppercase relative pb-1 transition-colors ${
+                className={`text-[14px] uppercase relative pb-1 transition-colors whitespace-nowrap ${
                   isActive || hoveredNav === item ? 'text-[var(--orange)]' : 'text-white'
                 }`}
               >
