@@ -447,6 +447,7 @@ function getYouTubeEmbedUrl(url: string): string {
 function VideoModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
   const isMp3 = url.endsWith(".mp3") || url.includes(".mp3?");
   const isMp4 = url.endsWith(".mp4") || url.includes(".mp4?");
+  const isImage = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(url);
 
   return (
     <div
@@ -454,34 +455,36 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.85)",
+        background: "rgba(0,0,0,0.82)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 1000,
         backdropFilter: "blur(4px)",
-        padding: "16px",
+        padding: isImage ? "32px 16px" : "16px",
       }}
     >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        style={{
-          position: "absolute",
-          top: 16,
-          right: 20,
-          background: "transparent",
-          border: "none",
-          color: T.white,
-          fontSize: 32,
-          cursor: "pointer",
-          lineHeight: 1,
-          opacity: 0.8,
-          zIndex: 1001,
-        }}
-      >
-        ✕
-      </button>
+      {/* Close button – only shown outside the modal for non-image types */}
+      {!isImage && (
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: 16,
+            right: 20,
+            background: "transparent",
+            border: "none",
+            color: T.white,
+            fontSize: 32,
+            cursor: "pointer",
+            lineHeight: 1,
+            opacity: 0.8,
+            zIndex: 1001,
+          }}
+        >
+          ✕
+        </button>
+      )}
 
       {/* Modal content – stop propagation so clicking content doesn't close */}
       <div
@@ -500,14 +503,27 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
               alignItems: "center",
               gap: 24,
             }
-            : {
-              width: "min(900px, 95vw)",
-              aspectRatio: "16 / 9",
-              background: "#000",
-              border: `2px solid ${T.orange}`,
-              boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
-              position: "relative",
-            }
+            : isImage
+              ? {
+                width: "min(860px, 92vw)",
+                maxHeight: "88vh",
+                background: "#ffffff",
+                boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                overflowY: "auto",
+                overflowX: "hidden",
+                borderRadius: 2,
+              }
+              : {
+                width: "min(900px, 95vw)",
+                aspectRatio: "16 / 9",
+                background: "#000",
+                border: `2px solid ${T.orange}`,
+                boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+                position: "relative",
+              }
         }
       >
         {isMp3 ? (
@@ -538,6 +554,40 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
               src={url}
               controls
               autoPlay
+              style={{ width: "100%", display: "block" }}
+            />
+          </>
+        ) : isImage ? (
+          <>
+            {/* Close button inside white modal */}
+            <button
+              onClick={onClose}
+              style={{
+                position: "sticky",
+                top: 0,
+                alignSelf: "flex-end",
+                zIndex: 10,
+                background: T.orange,
+                border: "none",
+                color: "#fff",
+                fontSize: 22,
+                fontWeight: 700,
+                width: 40,
+                height: 40,
+                cursor: "pointer",
+                lineHeight: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                marginBottom: -40,
+              }}
+            >
+              ✕
+            </button>
+            <img
+              src={url}
+              alt={title || "Article"}
               style={{ width: "100%", display: "block" }}
             />
           </>
@@ -833,12 +883,13 @@ function MechanicsContent({ isMobile }: { isMobile: boolean }) {
 }
 
 // ─── Article thumbnail ────────────────────────────────────────────────────────
-function ArticleThumb() {
+function ArticleThumb({ onClick }: { onClick?: () => void }) {
   const h = useHover();
   return (
     <div
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
+      onClick={onClick}
       style={{
         flex: 1,
         aspectRatio: "7.14 / 4",
@@ -847,7 +898,7 @@ function ArticleThumb() {
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
-        cursor: "pointer",
+        cursor: onClick ? "pointer" : "default",
         transition: "border-color 0.15s, background 0.15s",
         overflow: "hidden",
         position: "relative",
@@ -906,7 +957,7 @@ function ArticleThumb() {
 const DUTIES_COLS = [
   { heading: "START OF THE GAME", type: "video" as const, link: "https://youtu.be/7_7VkJloKtM" },
   { heading: "DUTIES OF OFFICIALS", type: "video" as const, link: "https://youtu.be/AaMsOlo7JxE" },
-  { heading: "ARTICLE", type: "article" as const },
+  { heading: "ARTICLE", type: "view" as const, link: "https://www.refereevision.com/duties_art_new.jpg" },
 ];
 
 function DutiesContent({ isMobile }: { isMobile: boolean }) {
@@ -960,7 +1011,7 @@ function DutiesContent({ isMobile }: { isMobile: boolean }) {
                   onPlay={col.link ? () => setActiveVideo(col.link) : undefined}
                 />
               ) : (
-                <ArticleThumb />
+                <ArticleThumb onClick={col.link ? () => setActiveVideo(col.link) : undefined} />
               )}
             </div>
           </div>
