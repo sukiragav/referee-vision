@@ -55,6 +55,8 @@ export default function SiteHeader() {
             const isReferees = item === 'REFEREES';
             const isBooks = item === 'BOOKS';
             const isVideos = item === 'VIDEOS';
+            const isWebinars = item === 'WEBINARS';
+            const isCoaches = item === 'COACHES';
             
             let isActive = false;
             let toPath = `/#${item.toLowerCase()}`;
@@ -68,9 +70,16 @@ export default function SiteHeader() {
             } else if (isVideos) {
               isActive = location.pathname === '/videos';
               toPath = '/videos';
+            } else if (isWebinars) {
+              isActive = location.pathname === '/webinars';
+              toPath = '/webinars';
+            } else if (isCoaches) {
+              isActive = location.pathname === '/coaches';
+              toPath = '/coaches';
             } else {
               isActive = location.hash === `#${item.toLowerCase()}`;
             }
+
             
             return (
               <Link
