@@ -1498,7 +1498,7 @@ function FibaLicensingContent({ isMobile }: { isMobile: boolean }) {
 
 // ─── Assist Articles content ──────────────────────────────────────────────────
 const ASSIST_ARTICLES_DATA = [
-  { id: 1, title: "ARGENTINA'S MAN-TO-MAN PLAYS", articles: ["Rubén Magnano's offensive sets", "Man-to-man spacing concepts", "Transition break structures"] },
+  { id: 1, title: "ARGENTINA'S MAN-TO-MAN PLAYS", link: "https://www.refereevision.com/Referees/01_Ref.pdf", articles: ["Rubén Magnano's offensive sets", "Man-to-man spacing concepts", "Transition break structures"] },
   { id: 2, title: "SHOOTERS: MORE EFFICIENCY & LESS TURNOVERS", articles: ["Three-point shooting drills", "Reducing turnovers under pressure", "Screening for shooters"] },
   { id: 3, title: "KENTUCKY MAN-TO-MAN OFFENSE", articles: ["Kentucky Play '40' breakdown", "High-low offensive entry", "Creating mismatch opportunities"] },
   { id: 4, title: "AUSTRALIAN WORLD JUNIOR CHAMPION DEFENSE", articles: ["Full court pressure defense", "Rotations on baseline drives", "Contesting the perimeter shooter"] },
@@ -1547,10 +1547,12 @@ function AssistCard({
   issueNumber,
   title,
   articles,
+  link,
 }: {
   issueNumber: number;
   title: string;
   articles: string[];
+  link?: string;
 }) {
   const h = useHover();
   const formattedNum = String(issueNumber).padStart(2, "0");
@@ -1729,9 +1731,13 @@ function AssistCard({
             </div>
           </div>
 
-          <button
+          <a
+            href={link || "#"}
+            target={link ? "_blank" : undefined}
+            rel={link ? "noopener noreferrer" : undefined}
             style={{
               width: "100%",
+              display: "block",
               background: stripeColor,
               border: "none",
               color: T.white,
@@ -1740,16 +1746,19 @@ function AssistCard({
               fontSize: 10,
               letterSpacing: "1px",
               padding: "5px 0",
-              cursor: "pointer",
+              cursor: link ? "pointer" : "default",
               textAlign: "center",
               textTransform: "uppercase",
+              textDecoration: "none",
               transition: "opacity 0.15s",
+              opacity: link ? 1 : 0.5,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            onMouseEnter={(e) => link && (e.currentTarget.style.opacity = "0.9")}
+            onMouseLeave={(e) => link && (e.currentTarget.style.opacity = "1")}
+            onClick={(e) => { if (!link) e.preventDefault(); }}
           >
-            READ ARTICLE
-          </button>
+            {link ? "READ ARTICLE" : "COMING SOON"}
+          </a>
         </div>
       </div>
     </div>
@@ -1794,6 +1803,7 @@ function AssistArticlesContent({ isMobile, isTablet }: { isMobile: boolean; isTa
             issueNumber={issue.id}
             title={issue.title}
             articles={issue.articles}
+            link={issue.link}
           />
         ))}
       </div>
