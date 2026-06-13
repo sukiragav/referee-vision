@@ -52,22 +52,22 @@ const CURRICULUM_DOCS = [
   {
     label: "INTRODUCTION TO LEVEL 1",
     version: "Version 2.0, 2021",
-    link: "https://library.fibairef.basketball/",
+    link: "https://www.refereevision.com/2020_FIBA_RefereeCurriculum_L1_Introduction_v2.pdf",
   },
   {
     label: "REFEREE COURSE - LEVEL 1",
     version: "Version 2.0, 2021",
-    link: "https://library.fibairef.basketball/",
+    link: "https://www.refereevision.com/2020_FIBA_RefereeCurriculum_L1_v2.pdf",
   },
   {
     label: "REFEREE COURSE - LEVEL 2",
     version: "Version 2.0, 2021",
-    link: "https://library.fibairef.basketball/",
+    link: "https://www.refereevision.com/2020_FIBA_RefereeCurriculum_L2_v2.pdf",
   },
   {
     label: "REFEREE COURSE - LEVEL 3",
     version: "Version 2.0, 2021",
-    link: "https://library.fibairef.basketball/",
+    link: "https://www.refereevision.com/2020_FIBA_RefereeCurriculum_L3_v2.pdf",
   },
 ];
 
@@ -75,72 +75,72 @@ const FIVE_ON_FIVE_DOCS = [
   {
     label: "OFFICIAL BASKETBALL RULES",
     version: "Version 1.0 - Valid as of 15 October 2024",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://library.fibairef.basketball/images/documents/f667de451e91e3b83f2ab049a34d957b/FIBAOfficialBasketballRules2024_v1_0a.pdf",
   },
   {
     label: "OFFICIAL INTERPRETATIONS",
     version: "Version 1.0 - Valid as of 1 October 2024",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://library.fibairef.basketball/images/documents/e2ca4b954785b6723533f88ad6f32bd4/FIBAOfficialInterpretations2024_v1_0a_yellow_.pdf",
   },
   {
     label: "OFFICIAL BASKETBALL RULE CHANGES 2024",
     version: "Version 2.0 - Valid as of 15 October 2024",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://library.fibairef.basketball/cdn/OBR_Changes2024",
   },
   {
     label: "FIBA MANUAL FOR TABLE OFFICIALS",
     version: "Version 6.6a - Valid as of January 2026",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://library.fibairef.basketball/images/documents/0e57934b6d0acff4759ea0b0503367cd/FIBA_Table_Officials_Manual_v6_6a_2025_en.pdf",
   },
   {
     label: "IRS MANUAL",
     version: "Version 10.1 - Valid as of March 2026",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://library.fibairef.basketball/images/documents/f9df19a7c6bb3ebd6c824d019334a3b6/FIBA_IRS_Manual_Mar2026_v10_1.pdf",
   },
   {
     label: "IRS - COMMUNICATION GUIDELINES FOR REFEREES",
     version: "Version 2.0a - Valid as of February 2025",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://library.fibairef.basketball/images/documents/ca16079ae324ce0e1ce048992f65f1b5/FIBA_IRS_Communication_Guidelines_FEB2025_v2a.pdf",
   },
   {
     label: "FIBA UNIFORM APPROVAL GUIDELINES",
     version: "January 2021",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://drive.google.com/file/d/1f8RdoqDCeDMgqbH0auzqdCQX0Q40c92v/view",
   },
   {
     label: "FIBA UNIFORMS & ACCESSORIES GUIDELINES - MEN",
     version: "Version 2.0 - 2022-23",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://www.refereevision.com/Uniform_Guidelines_2022-23_Men_v2.0.pdf",
   },
   {
     label: "FIBA UNIFORMS & ACCESSORIES GUIDELINES - WOMEN",
     version: "Version 2.0 - 2022-23",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://www.refereevision.com/Uniform_Guidelines_2022-23_Female_v2.0.pdf",
   },
   {
-    label: "JUNIOR & YOUTH BASKETBALL RULES (for NBA)",
+    label: "JUNIOR & YOUTH BASKETBALL RULES (for TNBA)",
     version: "NBA",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://drive.google.com/file/d/1E5YSOcUShnYgSXAgKOPmS2gXu6YlgtsX/view",
   },
   {
     label: "SUB JUNIOR BASKETBALL RULES (for TNBA)",
     version: "TNBA",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://drive.google.com/file/d/1nRm109UwXZMc9Cr2sPkomq3zekT9nqzd/view",
   },
   {
     label: "SUB JUNIOR BASKETBALL RULES (for BFI)",
     version: "BFI",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://drive.google.com/file/d/1PqDSg5LFsbzehzDKcAYMs7nyXIUN52dC/view",
   },
   {
     label: "FIBA STATISTICIANS' MANUAL 2024",
     version: "Version 1.0",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-statisticians-manual-2024.pdf",
   },
   {
     label: "FIBA MANUAL FOR COMMISSIONERS - TABLE OFFICIALS WORK",
     version: "Version 3.0 - Valid as of November 2024",
-    link: "https://www.fiba.basketball/documents",
+    link: "https://library.fibairef.basketball/images/documents/e7c564d8b26f6f4b6d4141dc8614431f/FIBA_Commissioners_Manual_v3_0_2024__en.pdf",
   },
 ];
 
@@ -667,7 +667,7 @@ function DocRow({
 // ─── Cover Card for 3x3 Rules ─────────────────────────────────────────────────
 function CoverCard({ isMobile }: { isMobile: boolean }) {
   const h = useHover();
-  
+
   return (
     <div
       style={{
@@ -698,7 +698,7 @@ function CoverCard({ isMobile }: { isMobile: boolean }) {
         >
           OFFICIAL RULES OF THE GAME - FIBA 3X3
         </h3>
-        
+
         {/* Cover image or SVG fallback */}
         <div
           style={{
@@ -850,7 +850,7 @@ function ThreeOnThreeContent({ isMobile }: { isMobile: boolean }) {
             <DocRow key={i} doc={doc} isMobile={isMobile} />
           ))}
         </div>
-        
+
         {/* Side Cover Card */}
         <CoverCard isMobile={isMobile} />
       </div>
@@ -1159,7 +1159,7 @@ function GuideCard({
   isMobile: boolean;
 }) {
   const h = useHover();
-  
+
   return (
     <div
       onMouseEnter={h.onMouseEnter}
@@ -1209,7 +1209,7 @@ function GuideCard({
           {title}
         </span>
       </div>
-      
+
       {/* Visual area below */}
       <div
         style={{
@@ -1264,11 +1264,11 @@ function GuideCard({
 
 function OnCourtOffCourtGuideContent({ isMobile }: { isMobile: boolean }) {
   const [activeSubTab, setActiveSubTab] = useState<SubTab>("LIFE SKILLS");
-  
+
   return (
     <div>
       <SectionBadge label="ON-COURT & OFF-COURT GUIDE" />
-      
+
       {/* Sub tabs nav bar */}
       <div
         style={{
@@ -1307,7 +1307,7 @@ function OnCourtOffCourtGuideContent({ isMobile }: { isMobile: boolean }) {
           );
         })}
       </div>
-      
+
       {/* Cards list */}
       <div
         style={{
@@ -1484,8 +1484,8 @@ export default function Books() {
             padding: isMobile
               ? "24px 16px"
               : isTablet
-              ? "32px 28px"
-              : "48px 56px",
+                ? "32px 28px"
+                : "48px 56px",
             minHeight: "100%",
             boxSizing: "border-box",
             display: "flex",
