@@ -260,7 +260,7 @@ export default function Home() {
           </p>
 
           <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, letterSpacing: '-1px' }}
-            className="text-[96px] md:text-[96px] sm:text-[52px] text-white uppercase leading-[1.0] mb-5">
+            className="text-[52px] md:text-[96px] text-white uppercase leading-[1.0] mb-5">
             ONE STOP TO RULE THEM ALL
           </h2>
 
@@ -285,8 +285,8 @@ export default function Home() {
       <section id="about" style={{ backgroundColor: 'var(--off-white)' }} className="relative">
         <div style={{ backgroundColor: 'var(--orange)' }} className="h-[2px] w-full"></div>
 
-        <div className="max-w-[1200px] mx-auto px-[60px] py-20">
-          <div className="grid grid-cols-2 gap-16">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-[60px] py-12 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
             {/* Left Column */}
             <div>
               <div className="flex items-start gap-4 mb-8">
@@ -403,10 +403,10 @@ export default function Home() {
         <div style={{ backgroundColor: 'var(--orange)' }} className="h-[3px] w-full"></div>
         <div style={{ backgroundColor: '#E8E8E8' }} className="h-[1px] w-full"></div>
 
-        <div className="max-w-[1100px] mx-auto px-8 py-20">
-          <div className="text-center mb-16">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-8 py-12 md:py-20">
+          <div className="text-center mb-12 md:mb-16">
             <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, color: 'var(--dark-text)' }}
-              className="text-[56px] uppercase mb-4">
+              className="text-[42px] md:text-[56px] uppercase mb-4">
               PROGRAMS & RESOURCES
             </h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif" }}
@@ -415,7 +415,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
             {[
               { icon: <Book className="w-6 h-6" />, title: 'PHYSICAL & MENTAL BOOKS', desc: 'Comprehensive guides covering referee fitness, nutrition, psychology, and peak performance' },
               { icon: <FileText className="w-6 h-6" />, title: 'RULE BOOKS', desc: 'Latest FIBA rules, BFI regulations, and official interpretations for Indian referees' },
@@ -446,7 +446,7 @@ export default function Home() {
       </section>
 
       {/* FROM THE DESK */}
-      <section style={{ backgroundColor: 'var(--off-white)' }} className="relative pt-30 pb-50">
+      <section style={{ backgroundColor: 'var(--off-white)' }} className="relative pt-20 pb-32 md:pt-30 md:pb-50 overflow-hidden">
         <div style={{ backgroundColor: 'var(--orange)' }} className="h-[3px] w-full absolute top-0"></div>
 
         {/* Court Arc Decoration */}
@@ -576,7 +576,7 @@ export default function Home() {
 
           <div>
             <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', color: 'var(--dark-text)' }}
-              className="text-[56px] mb-2">
+              className="text-[42px] md:text-[56px] mb-2">
               K. Ajoy Lawrence
             </p>
             <p style={{ fontFamily: "'DM Sans', sans-serif" }} className="text-[14px] text-[#888888]">
@@ -590,8 +590,8 @@ export default function Home() {
       <footer style={{ backgroundColor: 'var(--black)' }} className="relative">
         <div style={{ backgroundColor: 'var(--orange)' }} className="h-[3px] w-full"></div>
 
-        <div className="max-w-[1200px] mx-auto px-[60px] py-12">
-          <div className="grid grid-cols-3 gap-12 mb-8">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-[60px] py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 mb-8">
             {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-4">
