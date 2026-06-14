@@ -1022,7 +1022,7 @@ const SUB_TABS: SubTab[] = [
 
 const ON_COURT_GUIDE_DATA = {
   "LIFE SKILLS": [
-    { title: "CULTURAL AWARENESS", icon: "globe", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/cultural-awareness" },
+    { title: "CULTURAL AWARENESS", icon: "globe", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/cultural-awareness", image: "https://www.refereevision.com/Cultural_Awareness.jpg" },
     { title: "PRESENTATION SKILLS", icon: "presentation", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/presentation-skills" },
     { title: "PROFESSIONALISM", icon: "award", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/professionalism" },
     { title: "CONFLICT RESOLUTION", icon: "handshake", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/conflict-resolution" },
@@ -1557,7 +1557,7 @@ export default function Books() {
             justifyContent: "space-between",
             padding: "12px 16px",
             position: "sticky",
-            top: 52, // Below the SiteHeader navigation which is sticky
+            top: 0, // Sticks to the top of the screen on mobile
             zIndex: 100,
           }}
         >

@@ -1410,7 +1410,7 @@ export default function Coaches() {
             justifyContent: "space-between",
             padding: "12px 16px",
             position: "sticky",
-            top: 52, // Below sticky header
+            top: 0, // Sticks to the top of the screen on mobile
             zIndex: 100,
           }}
         >

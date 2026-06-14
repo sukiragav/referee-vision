@@ -48,7 +48,7 @@ export default function SiteHeader() {
       </header>
 
       {/* NAVIGATION BAR */}
-      <nav style={{ backgroundColor: 'var(--charcoal)' }} className="h-auto md:h-[52px] sticky top-0 z-50 relative w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <nav style={{ backgroundColor: 'var(--charcoal)' }} className="h-auto md:h-[52px] sticky top-0 z-50 w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div style={{ backgroundColor: 'var(--orange)' }} className="absolute left-0 top-0 w-[4px] h-full hidden md:block"></div>
         <div className="flex items-center h-[52px] md:h-full px-4 md:pl-8 gap-6 md:gap-8 min-w-max">
           {NAV_LINKS.map((item) => {
