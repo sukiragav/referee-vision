@@ -148,77 +148,77 @@ const THREE_ON_THREE_DOCS = [
   {
     label: "OFFICIAL 3x3 BASKETBALL RULES",
     version: "Valid as of 1 January 2026",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/fiba-3x3-basketball-rules-full-version.pdf",
   },
   {
     label: "OFFICIAL 3x3 BASKETBALL INTERPRETATIONS",
     version: "Valid as of 1 January 2026",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/fiba-3x3-basketball-rules-interpretations-yellow-version.pdf",
   },
   {
     label: "OFFICIAL 3x3 BASKETBALL RULES SUMMARY",
     version: "Valid as of November 2021",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://drive.google.com/file/d/1yabhVwz8p1HElFJIiHKK41Gdr8yrRdC6/view",
   },
   {
     label: "FIBA 3x3 OFFICIATING CLARIFICATION",
     version: "Valid",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/fiba-3x3-officiating-clarification-2024.pdf",
   },
   {
     label: "FIBA 3x3 OFFICIATING POINTS OF EMPHASIS",
     version: "Valid",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/fiba-3x3-officiating-points-of-emphasis.pdf",
   },
   {
     label: "3x3 OFFICIATING BASICS - GAME PROCEDURES",
     version: "Valid",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/3x3-officiating-basics-game-procedures.pdf",
   },
   {
     label: "3x3 OFFICIATING BASICS - RULES AND INTERPRETATIONS",
     version: "Valid",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/3x3-officiating-basics-rules-and-interpretations.pdf",
   },
   {
     label: "FIBA 3x3 EQUIPMENT & SOFTWARE APPENDIX TO OFFICIAL RULES",
     version: "Valid as of August 2022",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/equipment-and-software-appendix-to-the-3x3-official-rules.pdf",
   },
   {
     label: "FIBA 3x3 STATISTICIANS' MANUAL",
     version: "Valid as of June 2022",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/FIBA-3x3-Statisticians-Manual.pdf",
   },
   {
     label: "FIBA 3x3 REFEREE MANUAL",
     version: "Valid as of 15 February 2025",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/fiba-3x3-referee-manual.pdf",
   },
   {
     label: "FIBA 3x3 POOL OF REFEREES",
     version: "Valid as of 1 February 2025",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/FIBA-3x3-Pool-Of-Referees.pdf",
   },
   {
     label: "REFEREE INSTRUCTORS 3x3",
     version: "Valid as of 1 March 2024",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/referee-instructors-fiba-3x3.pdf",
   },
   {
     label: "FIBA 3x3 NATIONAL TEAM HANDBOOK",
     version: "Valid as of 1 January 2025",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/national-team-handbook.pdf",
   },
   {
     label: "ANNEX I TO FIBA 3x3 HANDBOOKS - FEES, FINES AND SANCTION CATALOGUE",
     version: "Valid as of 1 January 2025",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://fiba3x3.com/docs/fiba-3x3-administrative-fines-catalogue.pdf",
   },
   {
     label: "3X3 CLASSIFICATION - 3-WAY TIE",
     version: "Valid",
-    link: "https://fiba3x3.com/en/documents.html",
+    link: "https://www.refereevision.com/3X3_3WayClassification.pdf",
   },
 ];
 
@@ -226,101 +226,101 @@ const WHEELCHAIR_DOCS = [
   {
     label: "IWBF STATUTES AND INTERNAL REGULATIONS",
     version: "June 2023",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950ddad522fbbcf4484c10_IWBF-Handbook-2023%20ver3.pdf",
   },
   {
     label: "OFFICIAL WHEELCHAIR BASKETBALL RULES & EQUIPMENT",
     version: "Version 2 - Valid as of 3rd February 2025",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950f4816ab0fb86f0ef12a_2024_OWBR-Ver2_def.pdf",
   },
   {
     label: "OFFICIAL COMMENTS & INTERPRETATIONS",
     version: "Version 2 - Valid as of 3rd February 2025",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950f5c57b528852ee729a9_IWBF_2024_OWBRI_ver2_def.pdf",
   },
   {
     label: "IWBF PLAYER'S COMMISSION POLICY",
     version: "Version 1 - Valid as of October 2021",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950fc45086ad265ec6bd00_2021_IWBF%20Player%20Commission_election%20policy_final.pdf",
   },
   {
     label: "3X3 OFFICIAL WHEELCHAIR BASKETBALL RULES",
     version: "Version 1 - Valid as of 3rd February 2025",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950fda570898e412f16e8a_3x3_IWBF_rules_2025_ver1_def.pdf",
   },
   {
     label: "IWBF PLAYER CLASSIFICATION RULES",
     version: "Version 3 - Valid as of 12 December 2022",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb45/66d82b2058f119dd6521c699_2021-IWBF-Classification-Rules-Version-2022-12-12-vers-2-small.pdf",
   },
   {
     label: "IWBF PLAYER CLASSIFICATION MANUAL",
     version: "Version 2 - Valid as of 12 December 2022",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950b8e8a8182399d31d0c5_2021-IWBF-Classification-Manual-Version-202212-12%20small.pdf",
   },
   {
     label: "INTERNATIONAL TECHNICAL OFFICIAL GUIDELINES",
     version: "Valid",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950b5172a9bcca71c837a9_FIBA%20Social_Media_Guidelines_Refs_v3.pdf",
   },
   {
     label: "OFFICIATING MECHANICS: MODIFICATIONS FOR OFFICIATING WHEELCHAIR BASKETBALL",
     version: "Valid",
-    link: "https://iwbf.org/downloads/",
+    link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950b3a571b5314dcac0f3f_Officiating-Modification-Nov-2016-V2-small.pdf",
   },
 ];
 
 const PRESENTATIONS_DOCS = [
-  { label: "8 SECONDS", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "BALL RETURNED TO BACKCOURT", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CLASSIFICATION OF TEAMS", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CONTACT: CHARGE & BLOCK", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CONTACT: CYLINDER & VERTICALITY", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CONTACT: LGP & GUARDING A PLAYER", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CONTACT: OTHER CONTACTS", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CONTACT: SCREENING", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CONTROL OF THE BALL", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "CORRECTABLE ERRORS", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "DRIBBLING", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "FREE THROW VIOLATIONS", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "GAME LOST BY DEFAULT", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "GAME LOST BY FORFEIT", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "GOALTENDING AND INTERFERENCE", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "GOAL: WHEN MADE & ITS VALUE", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "JUMP BALL AND ALTERNATING POSSESSION", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "PLAYER IN THE ACT OF SHOOTING", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "SHOT CLOCK", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "STATUS OF THE BALL", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "SPECIAL SITUATIONS", version: "Valid", link: "https://library.fibairef.basketball/" },
-  { label: "THROW-IN", version: "Valid", link: "https://library.fibairef.basketball/" },
+  { label: "8 SECONDS", version: "Valid", link: "https://www.refereevision.com/8Seconds.pdf" },
+  { label: "BALL RETURNED TO BACKCOURT", version: "Valid", link: "https://www.refereevision.com/BRTBC.pdf" },
+  { label: "CLASSIFICATION OF TEAMS", version: "Valid", link: "https://www.refereevision.com/Classification.pdf" },
+  { label: "CONTACT: CHARGE & BLOCK", version: "Valid", link: "https://www.refereevision.com/Contact_Charge_Block.pdf" },
+  { label: "CONTACT: CYLINDER & VERTICALITY", version: "Valid", link: "https://www.refereevision.com/Contact_CylinderVerticality.pdf" },
+  { label: "CONTACT: LGP & GUARDING A PLAYER", version: "Valid", link: "https://www.refereevision.com/Contact_LGP_Guarding.pdf" },
+  { label: "CONTACT: OTHER CONTACTS", version: "Valid", link: "https://www.refereevision.com/Contact_Other_Contacts.pdf" },
+  { label: "CONTACT: SCREENING", version: "Valid", link: "https://www.refereevision.com/Contact_Screening.pdf" },
+  { label: "CONTROL OF THE BALL", version: "Valid", link: "https://www.refereevision.com/Control_of_the_ball.pdf" },
+  { label: "CORRECTABLE ERRORS", version: "Valid", link: "https://www.refereevision.com/CorrectableErrors.pdf" },
+  { label: "DRIBBLING", version: "Valid", link: "https://www.refereevision.com/Dribbling.pdf" },
+  { label: "FREE THROW VIOLATIONS", version: "Valid", link: "https://www.refereevision.com/FREE-THROW_VIOLATIONS.pdf" },
+  { label: "GAME LOST BY DEFAULT", version: "Valid", link: "https://www.refereevision.com/Default.pdf" },
+  { label: "GAME LOST BY FORFEIT", version: "Valid", link: "https://www.refereevision.com/Forfeit.pdf" },
+  { label: "GOALTENDING AND INTERFERENCE", version: "Valid", link: "https://www.refereevision.com/Goaltending_Interference.pdf" },
+  { label: "GOAL: WHEN MADE & ITS VALUE", version: "Valid", link: "https://www.refereevision.com/Goal.pdf" },
+  { label: "JUMP BALL AND ALTERNATING POSSESSION", version: "Valid", link: "https://www.refereevision.com/JumpBall_APA.pdf" },
+  { label: "PLAYER IN THE ACT OF SHOOTING", version: "Valid", link: "https://www.refereevision.com/PAOS.pdf" },
+  { label: "SHOT CLOCK", version: "Valid", link: "https://www.refereevision.com/ShotClock.pdf" },
+  { label: "STATUS OF THE BALL", version: "Valid", link: "https://www.refereevision.com/Status_of_the_ball.pdf" },
+  { label: "SPECIAL SITUATIONS", version: "Valid", link: "https://www.refereevision.com/SPECIAL%20SITUATIONS.pdf" },
+  { label: "THROW-IN", version: "Valid", link: "https://www.refereevision.com/Throw-in.pdf" },
 ];
 
 const SCORESHEET_DOCS = [
-  { label: "5X5 SCORESHEET", version: "Valid as of 1st October 2022", link: "https://www.fiba.basketball/documents" },
-  { label: "3X3 SCORESHEET", version: "Valid as of 29th August 2019", link: "https://fiba3x3.com/en/documents.html" },
-  { label: "3X3 SCORESHEET - MODIFIED", version: "Valid", link: "https://fiba3x3.com/en/documents.html" },
-  { label: "SUB JUNIOR SCORESHEET (for TNBA)", version: "Valid", link: "https://www.fiba.basketball/documents" },
-  { label: "YOUTH & JUNIOR SCORESHEET (for TNBA)", version: "Valid", link: "https://www.fiba.basketball/documents" },
+  { label: "5X5 SCORESHEET", version: "Valid as of 1st October 2022", link: "https://www.refereevision.com/5X5_Scoresheet_2022.pdf" },
+  { label: "3X3 SCORESHEET", version: "Valid as of 29th August 2019", link: "https://www.refereevision.com/fiba-3x3-basketball-scoresheet.pdf" },
+  { label: "3X3 SCORESHEET - MODIFIED", version: "Valid", link: "https://www.refereevision.com/FIBA-3x3-Scoresheet_Modified.pdf" },
+  { label: "SUB JUNIOR SCORESHEET (for TNBA)", version: "Valid", link: "https://www.refereevision.com/5X5_MiniBasketball_Scoresheet_2022.pdf" },
+  { label: "YOUTH & JUNIOR SCORESHEET (for TNBA)", version: "Valid", link: "https://www.refereevision.com/Junior_Basketball_Scoresheet_2024.pdf" },
 ];
 
 const EQUIPMENT_DOCS = [
-  { label: "BASKETBALL EQUIPMENT", version: "Valid as of 1st October 2024", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA APPROVED EQUIPMENT GUIDE", version: "Valid", link: "https://www.fiba.basketball/documents" },
+  { label: "BASKETBALL EQUIPMENT", version: "Valid as of 1st October 2024", link: "https://library.fibairef.basketball/cdn/OBR2024_Equipment" },
+  { label: "FIBA APPROVED EQUIPMENT GUIDE", version: "Valid", link: "https://www.fiba.basketball/documents/ApprovedEquipmentGuide.pdf" },
 ];
 
 const REGULATIONS_DOCS = [
-  { label: "FIBA GENERAL STATUES", version: "Valid as of 16th May 2025", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 1 - GENERAL PROVISIONS", version: "Valid as of 15th May 2025", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 1 - ANNEX (Equipment)", version: "Valid as of 5th December 2024", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 2 - COMPETITIONS", version: "Valid as of 15th May 2025", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 3 - PLAYERS AND OFFICIALS", version: "Valid as of 15th May 2025", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 4 - ANTI-DOPING", version: "Valid as of 30th April 2023", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 5 - GOVERNINNG THE ZONES", version: "Valid as of 25th April 2024", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 6 - 3X3", version: "Valid as of 27th Feb 2026", link: "https://fiba3x3.com/en/documents.html" },
-  { label: "FIBA VENUE RULES", version: "Valid as of May 2024", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA SAFEGUARDING POLICY", version: "Valid as of 2nd Dec 2022", link: "https://www.fiba.basketball/documents" },
-  { label: "FIBA CONCUSSION GUIDELINES 2025", version: "Valid", link: "https://www.fiba.basketball/documents" },
-  { label: "MEDICAL RESOURCE FOR BASKETBALL TEAM PHYSICIANS", version: "Valid as of Nov 2017", link: "https://www.fiba.basketball/documents" },
+  { label: "FIBA GENERAL STATUES", version: "Valid as of 16th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-general-statutes-2025-eng.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 1 - GENERAL PROVISIONS", version: "Valid as of 15th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-1.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 1 - ANNEX (Equipment)", version: "Valid as of 5th December 2024", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-1---annex-equipment.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 2 - COMPETITIONS", version: "Valid as of 15th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-2.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 3 - PLAYERS AND OFFICIALS", version: "Valid as of 15th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-3.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 4 - ANTI-DOPING", version: "Valid as of 30th April 2023", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-4.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 5 - GOVERNINNG THE ZONES", version: "Valid as of 25th April 2024", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-5.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 6 - 3X3", version: "Valid as of 27th Feb 2026", link: "https://fiba3x3.com/docs/fiba-internal-regulations-book-6.pdf" },
+  { label: "FIBA VENUE RULES", version: "Valid as of May 2024", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-policys-and-rules-venue-rules-eng.pdf" },
+  { label: "FIBA SAFEGUARDING POLICY", version: "Valid as of 2nd Dec 2022", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-policys-and-rules-safeguarding-policy-v20-2022.pdf" },
+  { label: "FIBA CONCUSSION GUIDELINES 2025", version: "Valid", link: "https://assets.fiba.basketball/image/upload/documents-corporate-medical-fiba-concussion-guidelines-2025.pdf" },
+  { label: "MEDICAL RESOURCE FOR BASKETBALL TEAM PHYSICIANS", version: "Valid as of Nov 2017", link: "https://assets.fiba.basketball/image/upload/documents-corporate-medical-team-medical-support-staff-resources.pdf" },
 ];
 
 // ─── Responsive hook ──────────────────────────────────────────────────────────
@@ -664,143 +664,229 @@ function DocRow({
   );
 }
 
+// ─── YouTube Video Modal ──────────────────────────────────────────────────────
+function VideoModal({ onClose }: { onClose: () => void }) {
+  // Close on backdrop click
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1000,
+        background: "rgba(0,0,0,0.82)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
+        animation: "fadeIn 0.2s ease",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "relative",
+          width: "min(900px, 92vw)",
+          aspectRatio: "16/9",
+          background: "#000",
+          boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(232,101,26,0.4)",
+          borderRadius: 4,
+          overflow: "hidden",
+          animation: "scaleIn 0.22s cubic-bezier(0.34,1.56,0.64,1)",
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: -44,
+            right: 0,
+            background: "transparent",
+            border: "none",
+            color: "#fff",
+            fontSize: 32,
+            cursor: "pointer",
+            lineHeight: 1,
+            padding: "4px 8px",
+            zIndex: 10,
+            opacity: 0.85,
+            transition: "opacity 0.15s",
+          }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
+          aria-label="Close video"
+        >
+          ✕
+        </button>
+
+        <iframe
+          src="https://www.youtube.com/embed/bN6LywHcihI?autoplay=1&rel=0"
+          title="Official Rules of the Game - FIBA 3X3"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            border: "none",
+          }}
+        />
+      </div>
+
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes scaleIn { from { transform: scale(0.88); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+      `}</style>
+    </div>
+  );
+}
+
 // ─── Cover Card for 3x3 Rules ─────────────────────────────────────────────────
 function CoverCard({ isMobile }: { isMobile: boolean }) {
   const h = useHover();
+  const [showVideo, setShowVideo] = useState(false);
 
   return (
-    <div
-      style={{
-        background: T.white,
-        border: `1px solid #E2E2E2`,
-        padding: "24px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: isMobile ? "100%" : 320,
-        boxSizing: "border-box",
-        flexShrink: 0,
-      }}
-    >
-      <div style={{ textAlign: "center", width: "100%" }}>
-        <h3
-          style={{
-            fontFamily: BARLOW,
-            fontWeight: 800,
-            fontSize: 20,
-            color: T.orange,
-            letterSpacing: "1px",
-            textTransform: "uppercase",
-            margin: "0 0 16px 0",
-            lineHeight: 1.2,
-          }}
-        >
-          OFFICIAL RULES OF THE GAME - FIBA 3X3
-        </h3>
+    <>
+      {showVideo && <VideoModal onClose={() => setShowVideo(false)} />}
 
-        {/* Cover image or SVG fallback */}
-        <div
-          style={{
-            margin: "0 auto 20px",
-            height: 240,
-            width: "100%",
-            maxWidth: 180,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "#F5F2EE",
-            border: "1px solid #EAE5DF",
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          {coverImage ? (
+      <div
+        style={{
+          background: T.white,
+          border: `1px solid #E2E2E2`,
+          padding: "24px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: isMobile ? "100%" : 320,
+          boxSizing: "border-box",
+          flexShrink: 0,
+        }}
+      >
+        <div style={{ textAlign: "center", width: "100%" }}>
+          <h3
+            style={{
+              fontFamily: BARLOW,
+              fontWeight: 800,
+              fontSize: 20,
+              color: T.orange,
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+              margin: "0 0 16px 0",
+              lineHeight: 1.2,
+            }}
+          >
+            OFFICIAL RULES OF THE GAME - FIBA 3X3
+          </h3>
+
+          {/* YouTube thumbnail — clicks to open video popup */}
+          <div
+            onClick={() => setShowVideo(true)}
+            style={{
+              margin: "0 auto 20px",
+              height: 160,
+              width: "100%",
+              maxWidth: 270,
+              position: "relative",
+              cursor: "pointer",
+              overflow: "hidden",
+              borderRadius: 4,
+              border: `2px solid transparent`,
+              transition: "border-color 0.15s",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.borderColor = T.orange;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.borderColor = "transparent";
+            }}
+          >
             <img
-              src={coverImage}
-              alt="Official Rules of the Game - FIBA 3x3 Cover"
+              src="https://img.youtube.com/vi/bN6LywHcihI/hqdefault.jpg"
+              alt="FIBA 3X3 Official Rules Video Thumbnail"
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "contain",
-              }}
-              onError={(e) => {
-                // Remove img and let fallback display
-                (e.target as HTMLElement).style.display = "none";
+                objectFit: "cover",
+                display: "block",
               }}
             />
-          ) : (
+            {/* Play button overlay */}
             <div
               style={{
+                position: "absolute",
+                inset: 0,
                 display: "flex",
-                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: 16,
+                background: "rgba(0,0,0,0.32)",
+                transition: "background 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.18)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.32)";
               }}
             >
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke={T.orange}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
-                <path d="M6 6h10" />
-                <path d="M6 10h10" />
-                <path d="M6 14h10" />
-              </svg>
-              <span
+              <div
                 style={{
-                  fontFamily: BARLOW,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: T.inactive,
-                  marginTop: 8,
+                  width: 54,
+                  height: 54,
+                  borderRadius: "50%",
+                  background: T.orange,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
+                  flexShrink: 0,
                 }}
               >
-                FIBA 3X3 COVER
-              </span>
+                {/* Triangle play icon */}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
 
-      <a
-        href="https://fiba3x3.com/en/documents.html"
-        target="_blank"
-        rel="noopener noreferrer"
-        onMouseEnter={h.onMouseEnter}
-        onMouseLeave={h.onMouseLeave}
-        style={{
-          display: "flex",
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          background: h.on ? T.orange : "transparent",
-          border: `1px solid ${T.orange}`,
-          color: h.on ? T.white : T.orange,
-          fontFamily: BARLOW,
-          fontWeight: 600,
-          fontSize: 13,
-          letterSpacing: "2px",
-          padding: "10px 0",
-          borderRadius: 0,
-          cursor: "pointer",
-          transition: "background 0.15s, color 0.15s",
-          textTransform: "uppercase",
-          textDecoration: "none",
-          textAlign: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        ↓ DOWNLOAD RULES
-      </a>
-    </div>
+        {/* Watch Rules button — opens YouTube video as in-page popup */}
+        <button
+          onMouseEnter={h.onMouseEnter}
+          onMouseLeave={h.onMouseLeave}
+          onClick={() => setShowVideo(true)}
+          style={{
+            display: "flex",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            background: h.on ? T.orange : "transparent",
+            border: `1px solid ${T.orange}`,
+            color: h.on ? T.white : T.orange,
+            fontFamily: BARLOW,
+            fontWeight: 600,
+            fontSize: 13,
+            letterSpacing: "2px",
+            padding: "10px 0",
+            borderRadius: 0,
+            cursor: "pointer",
+            transition: "background 0.15s, color 0.15s",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            textAlign: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          ▶ WATCH RULES
+        </button>
+      </div>
+    </>
   );
 }
 
@@ -936,39 +1022,39 @@ const SUB_TABS: SubTab[] = [
 
 const ON_COURT_GUIDE_DATA = {
   "LIFE SKILLS": [
-    { title: "CULTURAL AWARENESS", icon: "globe" },
-    { title: "PRESENTATION SKILLS", icon: "presentation" },
-    { title: "PROFESSIONALISM", icon: "award" },
-    { title: "CONFLICT RESOLUTION", icon: "handshake" },
-    { title: "COMMUNICATION SKILLS", icon: "message" },
+    { title: "CULTURAL AWARENESS", icon: "globe", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/cultural-awareness" },
+    { title: "PRESENTATION SKILLS", icon: "presentation", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/presentation-skills" },
+    { title: "PROFESSIONALISM", icon: "award", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/professionalism" },
+    { title: "CONFLICT RESOLUTION", icon: "handshake", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/conflict-resolution" },
+    { title: "COMMUNICATION SKILLS", icon: "message", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/communication-skills" }
   ],
   "ENTOURAGE": [
-    { title: "AGENTS", icon: "users" },
-    { title: "SPONSORS", icon: "coins" },
-    { title: "PLAYERS' MENTORS", icon: "graduation" },
-    { title: "FAMILY", icon: "heart" },
+    { title: "AGENTS", icon: "users", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/agents" },
+    { title: "SPONSORS", icon: "coins", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/sponsors" },
+    { title: "PLAYERS' MENTORS", icon: "graduation", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/players-mentors" },
+    { title: "FAMILY", icon: "heart", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/family" }
   ],
   "CAREER": [
-    { title: "GOAL SETTING", icon: "target" },
-    { title: "TIME MANAGEMENT", icon: "clock" },
-    { title: "MAKING GOOD CHOICES", icon: "thumbsup" },
-    { title: "NETWORKING", icon: "share" },
-    { title: "EDUCATION", icon: "book" },
+    { title: "GOAL SETTING", icon: "target", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/goal-setting" },
+    { title: "TIME MANAGEMENT", icon: "clock", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/time-management" },
+    { title: "MAKING GOOD CHOICES", icon: "thumbsup", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/making-good-choices" },
+    { title: "NETWORKING", icon: "share", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/networking" },
+    { title: "EDUCATION", icon: "book", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/education" }
   ],
   "MEDIA": [
-    { title: "INTERACTING WITH MEDIA", icon: "tv" },
-    { title: "SOCIAL MEDIA", icon: "instagram" },
+    { title: "INTERACTING WITH MEDIA", icon: "tv", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/media/interacting-with-the-media" },
+    { title: "SOCIAL MEDIA", icon: "instagram", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/media/social-media" }
   ],
   "INTEGRITY": [
-    { title: "ANTI-DOPING", icon: "activity" },
-    { title: "BETTING AND MATCH FIXING", icon: "alert-triangle" },
-    { title: "ABUSIVE BEHAVIOUR", icon: "alert-octagon" },
-    { title: "REPORT A BREACH OF INTEGRITY", icon: "megaphone" },
+    { title: "ANTI-DOPING", icon: "activity", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/anti-doping" },
+    { title: "BETTING AND MATCH FIXING", icon: "alert-triangle", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/betting-and-match-fixing" },
+    { title: "ABUSIVE BEHAVIOUR", icon: "alert-octagon", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/abusive-behaviour" },
+    { title: "REPORT A BREACH OF INTEGRITY", icon: "megaphone", link: "https://about.fiba.basketball/en/integrity/report-a-breach-of-integrity" }
   ],
   "FINANCE": [
-    { title: "FINANCE PLANNING", icon: "credit-card", image: financePlanningImg },
-    { title: "BUDGETING", icon: "coins", image: budgetingImg },
-    { title: "GAMBLING", icon: "alert-triangle", image: gamblingImg },
+    { title: "FINANCE PLANNING", icon: "credit-card", image: financePlanningImg, link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/finance/finance-planning" },
+    { title: "BUDGETING", icon: "coins", image: budgetingImg, link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/finance/budgeting" },
+    { title: "GAMBLING", icon: "alert-triangle", image: gamblingImg, link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/finance/gambling" }
   ],
 };
 
@@ -1151,19 +1237,26 @@ function GuideCard({
   title,
   icon,
   image,
+  link,
   isMobile,
 }: {
   title: string;
   icon: string;
   image?: string;
+  link?: string;
   isMobile: boolean;
 }) {
   const h = useHover();
+
+  const handleClick = () => {
+    if (link) window.open(link, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
+      onClick={handleClick}
       style={{
         width: isMobile ? "100%" : "calc(50% - 18px)",
         maxWidth: 500,
@@ -1172,7 +1265,7 @@ function GuideCard({
         flexDirection: "column",
         alignItems: "center",
         padding: "16px",
-        cursor: "pointer",
+        cursor: link ? "pointer" : "default",
         transform: h.on ? "translateY(-4px)" : "none",
         transition: "transform 0.2s ease",
       }}
@@ -1241,6 +1334,78 @@ function GuideCard({
               transition: "transform 0.2s ease, opacity 0.2s ease",
             }}
           />
+        ) : link ? (
+          /* Web-preview thumbnail for linked cards */
+          <>
+            {/* Subtle radial glow */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "radial-gradient(circle at 50% 60%, rgba(232,101,26,0.12) 0%, rgba(0,0,0,0) 70%)",
+                opacity: h.on ? 1 : 0.5,
+                transition: "opacity 0.2s ease",
+              }}
+            />
+            {/* Domain badge at top */}
+            <div
+              style={{
+                position: "absolute",
+                top: 12,
+                left: 0,
+                right: 0,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: DM,
+                  fontSize: 10,
+                  fontWeight: 600,
+                  color: T.inactive,
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: 20,
+                  padding: "3px 10px",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                about.fiba.basketball
+              </span>
+            </div>
+            {/* Centre icon */}
+            <div
+              style={{
+                transform: h.on ? "scale(1.12)" : "scale(1)",
+                transition: "transform 0.2s ease",
+                marginTop: 12,
+              }}
+            >
+              <GuideIcon name={icon} />
+            </div>
+            {/* External link indicator at bottom-right */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: 12,
+                right: 14,
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                opacity: h.on ? 1 : 0.45,
+                transition: "opacity 0.2s ease",
+              }}
+            >
+              <span style={{ fontFamily: DM, fontSize: 10, color: T.orange, fontWeight: 600, letterSpacing: "0.5px" }}>
+                OPEN
+              </span>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke={T.orange} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 10 L10 2" />
+                <path d="M4 2 h6 v6" />
+              </svg>
+            </div>
+          </>
         ) : (
           <>
             <div
@@ -1318,12 +1483,14 @@ function OnCourtOffCourtGuideContent({ isMobile }: { isMobile: boolean }) {
         }}
       >
         {ON_COURT_GUIDE_DATA[activeSubTab].map((card, i) => {
+          const c = card as { title: string; icon: string; image?: string; link?: string };
           return (
             <GuideCard
               key={i}
-              title={card.title}
-              icon={card.icon}
-              image={(card as { title: string; icon: string; image?: string }).image}
+              title={c.title}
+              icon={c.icon}
+              image={c.image}
+              link={c.link}
               isMobile={isMobile}
             />
           );
