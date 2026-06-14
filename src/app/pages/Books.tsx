@@ -1023,33 +1023,33 @@ const SUB_TABS: SubTab[] = [
 const ON_COURT_GUIDE_DATA = {
   "LIFE SKILLS": [
     { title: "CULTURAL AWARENESS", icon: "globe", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/cultural-awareness", image: "https://www.refereevision.com/Cultural_Awareness.jpg" },
-    { title: "PRESENTATION SKILLS", icon: "presentation", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/presentation-skills" },
-    { title: "PROFESSIONALISM", icon: "award", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/professionalism" },
-    { title: "CONFLICT RESOLUTION", icon: "handshake", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/conflict-resolution" },
-    { title: "COMMUNICATION SKILLS", icon: "message", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/communication-skills" }
+    { title: "PRESENTATION SKILLS", icon: "presentation", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/presentation-skills", image: "https://www.refereevision.com/Presebtation_Skills.jpg" },
+    { title: "PROFESSIONALISM", icon: "award", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/professionalism", image: "https://www.refereevision.com/Professionalism.jpg" },
+    { title: "CONFLICT RESOLUTION", icon: "handshake", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/conflict-resolution", image: "https://www.refereevision.com/Conflict_Resolution.jpg" },
+    { title: "COMMUNICATION SKILLS", icon: "message", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/life-skills/communication-skills", image: "https://www.refereevision.com/Communication_Skills.jpg" }
   ],
   "ENTOURAGE": [
-    { title: "AGENTS", icon: "users", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/agents" },
-    { title: "SPONSORS", icon: "coins", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/sponsors" },
-    { title: "PLAYERS' MENTORS", icon: "graduation", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/players-mentors" },
-    { title: "FAMILY", icon: "heart", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/family" }
+    { title: "AGENTS", icon: "users", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/agents", image: "https://www.refereevision.com/Agents.jpg" },
+    { title: "SPONSORS", icon: "coins", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/sponsors", image: "https://www.refereevision.com/Sponsors.jpg" },
+    { title: "PLAYERS' MENTORS", icon: "graduation", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/players-mentors", image: "https://www.refereevision.com/Players'%20Mentors.jpg" },
+    { title: "FAMILY", icon: "heart", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/entourage/family", image: "https://www.refereevision.com/Family.jpg" }
   ],
   "CAREER": [
-    { title: "GOAL SETTING", icon: "target", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/goal-setting" },
-    { title: "TIME MANAGEMENT", icon: "clock", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/time-management" },
-    { title: "MAKING GOOD CHOICES", icon: "thumbsup", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/making-good-choices" },
-    { title: "NETWORKING", icon: "share", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/networking" },
-    { title: "EDUCATION", icon: "book", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/education" }
+    { title: "GOAL SETTING", icon: "target", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/goal-setting", image: "https://www.refereevision.com/Goal_Setting.jpg" },
+    { title: "TIME MANAGEMENT", icon: "clock", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/time-management", image: "https://www.refereevision.com/Time_Management.jpg" },
+    { title: "MAKING GOOD CHOICES", icon: "thumbsup", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/making-good-choices", image: "https://www.refereevision.com/Making_good_choices.jpg" },
+    { title: "NETWORKING", icon: "share", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/networking", image: "https://www.refereevision.com/Networking.jpg" },
+    { title: "EDUCATION", icon: "book", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/career/education", image: "https://www.refereevision.com/Education.jpg" }
   ],
   "MEDIA": [
-    { title: "INTERACTING WITH MEDIA", icon: "tv", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/media/interacting-with-the-media" },
-    { title: "SOCIAL MEDIA", icon: "instagram", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/media/social-media" }
+    { title: "INTERACTING WITH MEDIA", icon: "tv", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/media/interacting-with-the-media", image: "https://www.refereevision.com/Interacting_with_media.jpg" },
+    { title: "SOCIAL MEDIA", icon: "instagram", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/media/social-media", image: "https://www.refereevision.com/Social_media.jpg" }
   ],
   "INTEGRITY": [
-    { title: "ANTI-DOPING", icon: "activity", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/anti-doping" },
-    { title: "BETTING AND MATCH FIXING", icon: "alert-triangle", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/betting-and-match-fixing" },
-    { title: "ABUSIVE BEHAVIOUR", icon: "alert-octagon", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/abusive-behaviour" },
-    { title: "REPORT A BREACH OF INTEGRITY", icon: "megaphone", link: "https://about.fiba.basketball/en/integrity/report-a-breach-of-integrity" }
+    { title: "ANTI-DOPING", icon: "activity", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/anti-doping", image: "https://www.refereevision.com/Anti_doping.jpg" },
+    { title: "BETTING AND MATCH FIXING", icon: "alert-triangle", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/betting-and-match-fixing", image: "https://www.refereevision.com/Bettint_match_fixing.jpg" },
+    { title: "ABUSIVE BEHAVIOUR", icon: "alert-octagon", link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/integrity/abusive-behaviour", image: "https://www.refereevision.com/Abusive_behaviour.jpg" },
+    { title: "REPORT A BREACH OF INTEGRITY", icon: "megaphone", link: "https://about.fiba.basketball/en/integrity/report-a-breach-of-integrity", image: "https://www.refereevision.com/Report_breach_of_integrity.jpg" }
   ],
   "FINANCE": [
     { title: "FINANCE PLANNING", icon: "credit-card", image: financePlanningImg, link: "https://about.fiba.basketball/en/players/fiba-off-court-guide/finance/finance-planning" },
