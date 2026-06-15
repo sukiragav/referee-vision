@@ -36,29 +36,29 @@ const TABS: Tab[] = [
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const CURRICULUM_DOCS = [
-  { label: "WABC COACHES MANUAL - BASKETBALL", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC COACHES MANUAL - MINI BASKETBALL", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC COACHES MANUAL - LEVEL I", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC COACHES MANUAL - LEVEL 2", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC COACHES MANUAL - LEVEL 3", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC FACILITATOR HANDBOOK", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC COACH WORKBOOK", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC ACTIVITIES BOOK", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC PRACTICE PLANS", link: "https://wabc.fiba.basketball/" },
-  { label: "WABC 3X3 - PLAYERS GUIDE", link: "https://wabc.fiba.basketball/" },
+  { label: "WABC COACHES MANUAL - BASKETBALL", link: "https://www.refereevision.com/Basketball_intro.pdf" },
+  { label: "WABC COACHES MANUAL - MINI BASKETBALL", link: "https://www.refereevision.com/Mini-basketball.pdf" },
+  { label: "WABC COACHES MANUAL - LEVEL I", link: "https://www.refereevision.com/Level%201.pdf" },
+  { label: "WABC COACHES MANUAL - LEVEL 2", link: "https://www.refereevision.com/Level%202.pdf" },
+  { label: "WABC COACHES MANUAL - LEVEL 3", link: "https://www.refereevision.com/Level%203.pdf" },
+  { label: "WABC FACILITATOR HANDBOOK", link: "https://www.refereevision.com/Start-Coaching_Facilitator_Handbook_EN.pdf" },
+  { label: "WABC COACH WORKBOOK", link: "https://www.refereevision.com/Start-Coaching_Coach_Workbook_EN.pdf" },
+  { label: "WABC ACTIVITIES BOOK", link: "https://www.refereevision.com/Start-Coaching_Activities_Book_EN.pdf" },
+  { label: "WABC PRACTICE PLANS", link: "https://www.refereevision.com/Start-Coaching_Practice_Plans_EN.pdf" },
+  { label: "WABC 3X3 - PLAYERS GUIDE", link: "https://fiba3x3.com/docs/wabc-3x3-players-guide.pdf" },
 ];
 
 const BOOKS_DOCS = [
-  { label: "BASKETBALL FOR YOUNG PLAYERS - GUIDELINES FOR COACHES", link: "https://wabc.fiba.basketball/" },
-  { label: "THE ROLE OF BASKETBALL IN THE EDUCATIONAL DEVELOPMENT OF YOUNGSTERS", link: "https://wabc.fiba.basketball/" },
-  { label: "PLANNING BASKETBALL ACTIVITIES", link: "https://wabc.fiba.basketball/" },
-  { label: "ORGANISING TRAINING SESSIONS", link: "https://wabc.fiba.basketball/" },
-  { label: "COACHING STRATEGIES FOR TRAINING SESSIONS", link: "https://wabc.fiba.basketball/" },
-  { label: "COACHES' BEHAVIOUR AT GAMES", link: "https://wabc.fiba.basketball/" },
-  { label: "MINI-BASKETBALL", link: "https://wabc.fiba.basketball/" },
-  { label: "TRAINING SESSIONS WITH 13-14 YEAR-OLD PLAYERS", link: "https://wabc.fiba.basketball/" },
-  { label: "COACHING 15-18 YEAR OLD PLAYERS", link: "https://wabc.fiba.basketball/" },
-  { label: "FIBA ASSIST COACHES OFFENSE", link: "https://wabc.fiba.basketball/" },
+  { label: "BASKETBALL FOR YOUNG PLAYERS - GUIDELINES FOR COACHES", link: "https://www.refereevision.com/00.pdf" },
+  { label: "THE ROLE OF BASKETBALL IN THE EDUCATIONAL DEVELOPMENT OF YOUNGSTERS", link: "https://www.refereevision.com/01.pdf" },
+  { label: "PLANNING BASKETBALL ACTIVITIES", link: "https://www.refereevision.com/02.pdf" },
+  { label: "ORGANISING TRAINING SESSIONS", link: "https://www.refereevision.com/03.pdf" },
+  { label: "COACHING STRATEGIES FOR TRAINING SESSIONS", link: "https://www.refereevision.com/04.pdf" },
+  { label: "COACHES' BEHAVIOUR AT GAMES", link: "https://www.refereevision.com/05.pdf" },
+  { label: "MINI-BASKETBALL", link: "https://www.refereevision.com/06.pdf" },
+  { label: "TRAINING SESSIONS WITH 13-14 YEAR-OLD PLAYERS", link: "https://www.refereevision.com/07.pdf" },
+  { label: "COACHING 15-18 YEAR OLD PLAYERS", link: "https://www.refereevision.com/08.pdf" },
+  { label: "FIBA ASSIST COACHES OFFENSE", link: "https://www.refereevision.com/87019435-Fiba-Assist-Coaches-Offense.pdf" },
 ];
 
 // ─── Responsive hook ──────────────────────────────────────────────────────────
@@ -1504,8 +1504,8 @@ export default function Coaches() {
             padding: isMobile
               ? "24px 16px"
               : isTablet
-              ? "32px 28px"
-              : "48px 56px",
+                ? "32px 28px"
+                : "48px 56px",
             minHeight: "100%",
             boxSizing: "border-box",
             display: "flex",
