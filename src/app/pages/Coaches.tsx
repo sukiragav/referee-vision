@@ -649,81 +649,81 @@ const WABC_SUBTABS: WabcSubTab[] = ["GENERAL", "DRILLS", "OFFENSE", "DEFENSE"];
 
 const WABC_DATA = {
   GENERAL: [
-    { title: "NBA Locker Room", presenter: "Maurizio Gherardini" },
-    { title: "Young Players' Practice Principles", presenter: "Don Showalter" },
-    { title: "Planning in Basketball", presenter: "Fabrizio Frates" },
-    { title: "Communication in Basketball", presenter: "Evangelos \"Vangelis\" Angelou" },
-    { title: "Modern Basketball", presenter: "Duško Vujošević" },
-    { title: "Modern Basketball", presenter: "John Calipari" },
-    { title: "Young Leader's perspective on the Youth Leadership Seminar", presenter: "Ruby Ang" },
-    { title: "Player Coach Relationship On and Off the Court", presenter: "Ademola Okulaja" },
-    { title: "NBA Coaching Experiences", presenter: "Jay Larranaga" },
-    { title: "Approach to Coaching", presenter: "Boza Maljkovic" },
-    { title: "Game Principles", presenter: "Zach Guthrie" },
-    { title: "Physical preparation in the pre-competitive period", presenter: "Toni Caparros" },
-    { title: "The team work", presenter: "Ettore Messina" },
-    { title: "Coach and player development", presenter: "Patrick Mutombo" },
-    { title: "Developing your club system", presenter: "Rosas Gersson" },
-    { title: "Experience in Coaching Top Teams", presenter: "Natalia Hejkova" },
-    { title: "Trends of International Basketball", presenter: "Patrick Hunt" },
-    { title: "The Importance of Speed And Stance In Basketball", presenter: "Francesco Cuzzolin" },
-    { title: "3X3 BASKETBALL", presenter: "Regan Kama" },
-    { title: "3X3 BASKETBALL", presenter: "Anthony Corban" },
-    { title: "Building the team", presenter: "Svetislav Pesic" },
-    { title: "Develop Players' Decision Making", presenter: "Allison McNeill" },
-    { title: "Practice in Competition Period", presenter: "Željko Obradović" }
+    { title: "NBA Locker Room", presenter: "Maurizio Gherardini", youtubeUrl: "r7obUgRCXAk" },
+    { title: "Young Players' Practice Principles", presenter: "Don Showalter", youtubeUrl: "1jVJ2FClYCM" },
+    { title: "Planning in Basketball", presenter: "Fabrizio Frates", youtubeUrl: "VOwekC96MyY" },
+    { title: "Communication in Basketball", presenter: "Evangelos \"Vangelis\" Angelou", youtubeUrl: "rE-8e6TnGBk" },
+    { title: "Modern Basketball", presenter: "Duško Vujošević", youtubeUrl: "nEf05txsRgE" },
+    { title: "Modern Basketball", presenter: "John Calipari", youtubeUrl: "yoQuCQSzc-0" },
+    { title: "Young Leader's perspective on the Youth Leadership Seminar", presenter: "Ruby Ang", youtubeUrl: "AVXWTjTBdD0" },
+    { title: "Player Coach Relationship On and Off the Court", presenter: "Ademola Okulaja", youtubeUrl: "1ba8mu5m1fo" },
+    { title: "NBA Coaching Experiences", presenter: "Jay Larranaga", youtubeUrl: "4uYTb-p5RSM" },
+    { title: "Approach to Coaching", presenter: "Boza Maljkovic", youtubeUrl: "SFnp8CeNCpYM" },
+    { title: "Game Principles", presenter: "Zach Guthrie", youtubeUrl: "jV5zEAEpJRE" },
+    { title: "Physical preparation in the pre-competitive period", presenter: "Toni Caparros", youtubeUrl: "qKE1KaZ5OUo" },
+    { title: "The team work", presenter: "Ettore Messina", youtubeUrl: "2WOl54pLX9s" },
+    { title: "Coach and player development", presenter: "Patrick Mutombo", youtubeUrl: "NQ_c8OdRTPw" },
+    { title: "Developing your club system", presenter: "Rosas Gersson", youtubeUrl: "ZYubzT3OpZI" },
+    { title: "Experience in Coaching Top Teams", presenter: "Natalia Hejkova", youtubeUrl: "j5bmsa-y45Y" },
+    { title: "Trends of International Basketball", presenter: "Patrick Hunt", youtubeUrl: "92Ke2Fidr6o" },
+    { title: "The Importance of Speed And Stance In Basketball", presenter: "Francesco Cuzzolin", youtubeUrl: "Cwrx4B2JUGY" },
+    { title: "3X3 BASKETBALL", presenter: "Regan Kama", youtubeUrl: "1BhaCFKtrtU" },
+    { title: "3X3 BASKETBALL", presenter: "Anthony Corban", youtubeUrl: "WgT2kkGY5AI" },
+    { title: "Building the team", presenter: "Svetislav Pesic", youtubeUrl: "EoS-EdqOs0w" },
+    { title: "Develop Players' Decision Making", presenter: "Allison McNeill", youtubeUrl: "wRgl-2YUFFg" },
+    { title: "Practice in Competition Period", presenter: "Željko Obradović", youtubeUrl: "EVsxVL9jVzA" }
   ],
   DRILLS: [
-    { title: "Various Drills to Improve Offence", presenter: "Brian Goorjian" },
-    { title: "Drills for Development and Team Game", presenter: "Andrea Trinchieri" },
-    { title: "Shooting (Technique and Drills)", presenter: "Sandy Brondello" },
-    { title: "Top Basketball Drills", presenter: "Ettore Messina" },
-    { title: "BC Red Star Practice During Competition Period", presenter: "Dejan Radonjic" },
-    { title: "Improving the Basic Skills of Inside Players", presenter: "Ganon Baker" },
-    { title: "Big Men Workout", presenter: "Vlade Djurovic" },
-    { title: "Set of Drills for Individual Development", presenter: "Boza Maljkovic" },
-    { title: "Player Development", presenter: "Adam Tatalovich" },
-    { title: "Defensive Drills", presenter: "Lionel Hollins" },
-    { title: "Footwork", presenter: "Rick Carlisle" },
-    { title: "Shooting", presenter: "Rick Carlisle" },
-    { title: "Big man practice", presenter: "Zan Tabak" },
-    { title: "Gameday shoot around", presenter: "Sasa Obradovic" },
-    { title: "Guards individual practice shooting workout", presenter: "Dimitris Itoudis" },
-    { title: "Simple drills for developing juniors", presenter: "Brendan Joyce" },
-    { title: "Drills for guards", presenter: "Igor Kokoskov" },
-    { title: "Drills to develop ball screen offense", presenter: "Paul Henare" },
-    { title: "Water break drills", presenter: "Scott Brooks" },
-    { title: "Power exercises for developing power of first step", presenter: "Tomaz Brinec" },
-    { title: "1-1-3 matchup zone as a pressing defense full court", presenter: "Zafer Aktas" },
-    { title: "Small Group Development Drills", presenter: "Patrick Mutombo" },
-    { title: "Drills to Develop Team Defense", presenter: "Jim Boylen" },
-    { title: "Set of Drills for Defense", presenter: "Igor Kokoskov" },
-    { title: "Offense & Warm Up Drills", presenter: "Bryan Gates" },
-    { title: "Defensive Drills", presenter: "Joacquin Ruiz Lorente" },
-    { title: "Drills for Shooting, Passing and Spacing", presenter: "Joacquin Ruiz Lorente" },
-    { title: "Drills to Teach Players Offense", presenter: "Ettore Messina" },
-    { title: "Individual Improvement Skills", presenter: "Tara Van der Veer" },
-    { title: "Big Man Workout", presenter: "Juan Antonio Orenga" },
-    { title: "Individual Workout", presenter: "Ganon Baker" },
-    { title: "Individual Development Drills", presenter: "Jama Mahlalela" },
-    { title: "Drills for Transition Defense", presenter: "Andrej Lemanis" },
-    { title: "Offensive and Defensive Individual Footwork", presenter: "Brent Matehaere" },
-    { title: "Various Drills to Improve Basketball Technique", presenter: "Vlade Djurovic" },
-    { title: "Shooting for Girls Full Court Transition Shooting Drills", presenter: "Sean Fuller" },
-    { title: "The Shooting and Drills", presenter: "Juan Orenga" },
-    { title: "Transition Drills", presenter: "Jamie Carey" },
-    { title: "Defensive Drills", presenter: "Elijas Zuros" },
-    { title: "Pre-session Practice of Panathinaikos", presenter: "Dimitris Itoudis" },
-    { title: "Drills For Improvement Of Play", presenter: "Dusan Ivkovic" },
-    { title: "Teaching Fundamental Drills", presenter: "Kennedy Hamilton" },
-    { title: "Simplicity and Specificity Drills", presenter: "Carrie Graf" },
-    { title: "Cutthroat Defense Drill", presenter: "Brett Brown" },
-    { title: "Fundamental Drills", presenter: "Aik Ho" },
-    { title: "Transition Game Drills", presenter: "Luca Banchi" },
-    { title: "Conditioning Drills and Skills", presenter: "Kennedy Hamilton" },
-    { title: "Shooting Drills", presenter: "Jim Foster" },
-    { title: "Gran Canaria Practice", presenter: "Pedro Martinez" },
-    { title: "Shooting and Defensive Drills", presenter: "Brendan Joyce" }
+    { title: "Various Drills to Improve Offence", presenter: "Brian Goorjian", youtubeUrl: "YZe1-wBCTAA" },
+    { title: "Drills for Development and Team Game", presenter: "Andrea Trinchieri", youtubeUrl: "oM1gGXXA_Qs" },
+    { title: "Shooting (Technique and Drills)", presenter: "Sandy Brondello", youtubeUrl: "tDEKfvLIJ4Q" },
+    { title: "Top Basketball Drills", presenter: "Ettore Messina", youtubeUrl: "YNjOn-Vq9VQ" },
+    { title: "BC Red Star Practice During Competition Period", presenter: "Dejan Radonjic", youtubeUrl: "0dApdynkP2U" },
+    { title: "Improving the Basic Skills of Inside Players", presenter: "Ganon Baker", youtubeUrl: "twKFHFRWNdI" },
+    { title: "Big Men Workout", presenter: "Vlade Djurovic", youtubeUrl: "vPjs9Lg4FWY" },
+    { title: "Set of Drills for Individual Development", presenter: "Boza Maljkovic", youtubeUrl: "dQxbgK9WnRE" },
+    { title: "Player Development", presenter: "Adam Tatalovich", youtubeUrl: "i6klpW7P0Uo" },
+    { title: "Defensive Drills", presenter: "Lionel Hollins", youtubeUrl: "nDdbJeQ1U0g" },
+    { title: "Footwork", presenter: "Rick Carlisle", youtubeUrl: "FWc2TFi2a9A" },
+    { title: "Shooting", presenter: "Rick Carlisle", youtubeUrl: "kxWNw9YDuW0" },
+    { title: "Big man practice", presenter: "Zan Tabak", youtubeUrl: "TFnwZ3O7htU" },
+    { title: "Gameday shoot around", presenter: "Sasa Obradovic", youtubeUrl: "WHGJ1J_iODU" },
+    { title: "Guards individual practice shooting workout", presenter: "Dimitris Itoudis", youtubeUrl: "F60bfB5AbTE" },
+    { title: "Simple drills for developing juniors", presenter: "Brendan Joyce", youtubeUrl: "bctbYf5fvXI" },
+    { title: "Drills for guards", presenter: "Igor Kokoskov", youtubeUrl: "0bUl4ZtIPL8" },
+    { title: "Drills to develop ball screen offense", presenter: "Paul Henare", youtubeUrl: "47qI0pFGtJE" },
+    { title: "Water break drills", presenter: "Scott Brooks", youtubeUrl: "dCdRT9aa12E" },
+    { title: "Power exercises for developing power of first step", presenter: "Tomaz Brinec", youtubeUrl: "vLiTu6Z01ZM" },
+    { title: "1-1-3 matchup zone as a pressing defense full court", presenter: "Zafer Aktas", youtubeUrl: "1Y9vXvCAuwc" },
+    { title: "Small Group Development Drills", presenter: "Patrick Mutombo", youtubeUrl: "hujFjvx7M3s" },
+    { title: "Drills to Develop Team Defense", presenter: "Jim Boylen", youtubeUrl: "VQ2AOVpiUJs" },
+    { title: "Set of Drills for Defense", presenter: "Igor Kokoskov", youtubeUrl: "wpKJpWbGg1M" },
+    { title: "Offense & Warm Up Drills", presenter: "Bryan Gates", youtubeUrl: "E7IkmNRhXJM" },
+    { title: "Defensive Drills", presenter: "Joacquin Ruiz Lorente", youtubeUrl: "h-pNbwvJ-eA" },
+    { title: "Drills for Shooting, Passing and Spacing", presenter: "Joacquin Ruiz Lorente", youtubeUrl: "Wh9xP3_o83U" },
+    { title: "Drills to Teach Players Offense", presenter: "Ettore Messina", youtubeUrl: "L7DI_8BbKg" },
+    { title: "Individual Improvement Skills", presenter: "Tara Van der Veer", youtubeUrl: "d9FvCgkisQ" },
+    { title: "Big Man Workout", presenter: "Juan Antonio Orenga", youtubeUrl: "RKMCM8GbuKI" },
+    { title: "Individual Workout", presenter: "Ganon Baker", youtubeUrl: "x2x7Xs4FXzA" },
+    { title: "Individual Development Drills", presenter: "Jama Mahlalela", youtubeUrl: "DgEMApKZK70" },
+    { title: "Drills for Transition Defense", presenter: "Andrej Lemanis", youtubeUrl: "l5uZmj_qzXU" },
+    { title: "Offensive and Defensive Individual Footwork", presenter: "Brent Matehaere", youtubeUrl: "S29pdlcH0wg" },
+    { title: "Various Drills to Improve Basketball Technique", presenter: "Vlade Djurovic", youtubeUrl: "A6mf7VSqHGw" },
+    { title: "Shooting for Girls Full Court Transition Shooting Drills", presenter: "Sean Fuller", youtubeUrl: "iqECpdNUlCM" },
+    { title: "The Shooting and Drills", presenter: "Juan Orenga", youtubeUrl: "JINF104uYVY" },
+    { title: "Transition Drills", presenter: "Jamie Carey", youtubeUrl: "TdHvAyGLpao" },
+    { title: "Defensive Drills", presenter: "Elijas Zuros", youtubeUrl: "6BUGwneDxqg" },
+    { title: "Pre-session Practice of Panathinaikos", presenter: "Dimitris Itoudis", youtubeUrl: "5BImbAfggKg" },
+    { title: "Drills For Improvement Of Play", presenter: "Dusan Ivkovic", youtubeUrl: "iBj6RXHYSkg" },
+    { title: "Teaching Fundamental Drills", presenter: "Kennedy Hamilton", youtubeUrl: "Mwla_-Jme0c" },
+    { title: "Simplicity and Specificity Drills", presenter: "Carrie Graf", youtubeUrl: "Mj6LBZEtR8" },
+    { title: "Cutthroat Defense Drill", presenter: "Brett Brown", youtubeUrl: "RmeRyIL3YAI" },
+    { title: "Fundamental Drills", presenter: "Aik Ho", youtubeUrl: "7OBr6B2auX0" },
+    { title: "Transition Game Drills", presenter: "Luca Banchi", youtubeUrl: "XFb7lYj1ku4" },
+    { title: "Conditioning Drills and Skills", presenter: "Kennedy Hamilton", youtubeUrl: "dW6mtrPcQOs" },
+    { title: "Shooting Drills", presenter: "Jim Foster", youtubeUrl: "HYtN9pA85Jc" },
+    { title: "Gran Canaria Practice", presenter: "Pedro Martinez", youtubeUrl: "UiRiDUrSzBc" },
+    { title: "Shooting and Defensive Drills", presenter: "Brendan Joyce", youtubeUrl: "7AG3rs9lOj8" }
   ],
   OFFENSE: [
     { title: "Match-Up Offense", presenter: "Željko Obradović" },
@@ -1206,13 +1206,126 @@ function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
   );
 }
 
+// ─── Video Modal ──────────────────────────────────────────────────────────────
+function VideoModal({
+  videoId,
+  title,
+  onClose,
+}: {
+  videoId: string;
+  title: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.88)',
+        zIndex: 1000,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        backdropFilter: 'blur(5px)',
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: 900,
+          background: T.charcoal,
+          borderTop: `4px solid ${T.orange}`,
+          boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '14px 20px',
+            borderBottom: `1px solid ${T.border}`,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: BARLOW,
+              fontWeight: 700,
+              fontSize: 18,
+              color: T.white,
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+            }}
+          >
+            {title}
+          </span>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: T.inactive,
+              fontSize: 22,
+              cursor: 'pointer',
+              lineHeight: 1,
+              padding: 4,
+            }}
+          >
+            ✕
+          </button>
+        </div>
+        {/* 16:9 iframe */}
+        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              border: 'none',
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function WabcContent({ isMobile }: { isMobile: boolean }) {
   const [activeSubTab, setActiveSubTab] = useState<WabcSubTab>("GENERAL");
+  const [activeVideo, setActiveVideo] = useState<{ id: string; title: string } | null>(null);
 
   const items = WABC_DATA[activeSubTab as keyof typeof WABC_DATA] || [];
 
   return (
     <div>
+      {/* YouTube popup modal */}
+      {activeVideo && (
+        <VideoModal
+          videoId={activeVideo.id}
+          title={activeVideo.title}
+          onClose={() => setActiveVideo(null)}
+        />
+      )}
+
       <SectionBadge label="WABC" />
 
       {/* Sub-tab bar */}
@@ -1266,9 +1379,17 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
 
         {items.length > 0 ? (
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {items.map((item, i) => (
-              <WabcRow key={i} item={item} isMobile={isMobile} />
-            ))}
+            {items.map((item, i) => {
+              const ytId = (item as { title: string; presenter: string; youtubeUrl?: string }).youtubeUrl;
+              return (
+                <WabcRow
+                  key={i}
+                  item={item}
+                  isMobile={isMobile}
+                  onWatch={ytId ? () => setActiveVideo({ id: ytId, title: item.title }) : undefined}
+                />
+              );
+            })}
           </div>
         ) : (
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 96 }}>
@@ -1282,7 +1403,15 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-function WabcRow({ item, isMobile }: { item: { title: string; presenter: string }; isMobile: boolean }) {
+function WabcRow({
+  item,
+  isMobile,
+  onWatch,
+}: {
+  item: { title: string; presenter: string; youtubeUrl?: string };
+  isMobile: boolean;
+  onWatch?: () => void;
+}) {
   const h = useHover();
   return (
     <div
@@ -1322,6 +1451,7 @@ function WabcRow({ item, isMobile }: { item: { title: string; presenter: string 
       {/* Watch Button */}
       <div style={{ display: "flex", justifyContent: isMobile ? "flex-start" : "flex-end", marginTop: isMobile ? 8 : 0 }}>
         <button
+          onClick={onWatch}
           onMouseEnter={h.onMouseEnter}
           onMouseLeave={h.onMouseLeave}
           style={{

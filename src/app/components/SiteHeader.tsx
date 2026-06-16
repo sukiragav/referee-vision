@@ -20,7 +20,7 @@ export default function SiteHeader() {
               className="text-[26px] md:text-[36px] text-white uppercase leading-none">
               REFEREE VISION
             </h1>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic' }}
+            <p style={{ fontFamily: "'North Wave', sans-serif" }}
               className="text-[13px] md:text-[15px] text-[#AAAAAA]">
               One Stop to Rule Them All
             </p>
