@@ -419,30 +419,103 @@ function BooksContent({ isMobile }: { isMobile: boolean }) {
 type DrillsSubTab = "MINI" | "13-14 YEAR OLDS" | "15-18 YEAR OLDS";
 const DRILLS_SUBTABS: DrillsSubTab[] = ["MINI", "13-14 YEAR OLDS", "15-18 YEAR OLDS"];
 
-function DrillPlaceholder() {
+function DrillBox({
+  index,
+  youtubeUrl,
+  thumbnailUrl,
+  title,
+  onPlay,
+}: {
+  index: number;
+  youtubeUrl?: string;
+  thumbnailUrl?: string;
+  title?: string;
+  onPlay?: (url: string, title: string) => void;
+}) {
   const h = useHover();
+  const hasVideo = !!youtubeUrl;
+
   return (
     <div
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
+      onClick={hasVideo && onPlay ? () => onPlay(youtubeUrl, title || `Drill ${index}`) : undefined}
       style={{
         aspectRatio: "1 / 1",
         background: T.charcoal,
-        border: h.on ? `2px solid ${T.orange}` : `2px solid #8B6914`,
+        border: hasVideo
+          ? h.on
+            ? `2px solid ${T.white}`
+            : `2px solid ${T.orange}`
+          : h.on
+            ? `2px solid ${T.orange}`
+            : `2px solid #8B6914`,
         borderRadius: 8,
-        cursor: "pointer",
+        cursor: hasVideo ? "pointer" : "default",
         transition: "border-color 0.2s, transform 0.25s, box-shadow 0.25s",
-        transform: h.on ? "scale(1.05)" : "scale(1)",
-        boxShadow: h.on ? "0 4px 16px rgba(232,101,26,0.25)" : "none",
+        transform: h.on && hasVideo ? "scale(1.05)" : "scale(1)",
+        boxShadow: h.on && hasVideo ? "0 4px 16px rgba(232,101,26,0.35)" : "none",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke={T.orange} strokeWidth="1.5" opacity={0.3} />
-        <polygon points="10,7 17,12 10,17" fill={T.orange} opacity={0.3} />
+      {thumbnailUrl && (
+        <img
+          src={thumbnailUrl}
+          alt={title || `Drill ${index}`}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: h.on ? 0.75 : 0.5,
+            transition: "transform 0.25s ease, opacity 0.25s ease",
+            transform: h.on ? "scale(1.05)" : "scale(1)",
+          }}
+        />
+      )}
+
+      {thumbnailUrl && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.4)",
+            zIndex: 1,
+            transition: "background 0.2s",
+          }}
+        />
+      )}
+
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        style={{ position: "relative", zIndex: 2 }}
+      >
+        <circle cx="12" cy="12" r="10" stroke={T.orange} strokeWidth="1.5" opacity={hasVideo ? 1 : 0.3} />
+        <polygon points="10,7 17,12 10,17" fill={T.orange} opacity={hasVideo ? 1 : 0.3} />
       </svg>
+      <span
+        style={{
+          position: "absolute",
+          bottom: 4,
+          right: 6,
+          fontFamily: BARLOW,
+          fontSize: 10,
+          fontWeight: 700,
+          color: hasVideo ? (thumbnailUrl ? T.white : T.orange) : "#8B6914",
+          opacity: hasVideo ? 1 : 0.5,
+          zIndex: 2,
+        }}
+      >
+        {index}
+      </span>
     </div>
   );
 }
@@ -470,7 +543,17 @@ function DrillSectionBadge({ label }: { label: string }) {
   );
 }
 
-function DrillGrid({ count, cols }: { count: number; cols: number }) {
+function DrillGrid({
+  count,
+  cols,
+  drills = {},
+  onPlay,
+}: {
+  count: number;
+  cols: number;
+  drills?: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }>;
+  onPlay?: (url: string, title: string) => void;
+}) {
   return (
     <div
       style={{
@@ -481,19 +564,560 @@ function DrillGrid({ count, cols }: { count: number; cols: number }) {
         margin: "0 auto",
       }}
     >
-      {Array.from({ length: count }).map((_, i) => (
-        <DrillPlaceholder key={i} />
-      ))}
+      {Array.from({ length: count }).map((_, i) => {
+        const drill = drills[i];
+        return (
+          <DrillBox
+            key={i}
+            index={i + 1}
+            youtubeUrl={drill?.youtubeUrl}
+            thumbnailUrl={drill?.thumbnailUrl}
+            title={drill?.title}
+            onPlay={onPlay}
+          />
+        );
+      })}
     </div>
   );
 }
 
 function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
   const [activeSubTab, setActiveSubTab] = useState<DrillsSubTab>("MINI");
+  const [activeVideo, setActiveVideo] = useState<{ src: string; title: string; isMp4: boolean } | null>(null);
   const cols = isMobile ? 4 : isTablet ? 6 : 8;
+
+  const miniDrills: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "7jDI0RhUKFw",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/7jDI0RhUKFw/0.jpg",
+    },
+    1: {
+      youtubeUrl: "n6M2D1v_rvo",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/n6M2D1v_rvo/0.jpg",
+    },
+    2: {
+      youtubeUrl: "62PfwzDH9-Q",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/62PfwzDH9-Q/0.jpg",
+    },
+    3: {
+      youtubeUrl: "Uy-weZEXwQE",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/Uy-weZEXwQE/0.jpg",
+    },
+    4: {
+      youtubeUrl: "wAaPpI4lc3c",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/wAaPpI4lc3c/0.jpg",
+    },
+    5: {
+      youtubeUrl: "wP677WwS_Gg",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/wP677WwS_Gg/0.jpg",
+    },
+    6: {
+      youtubeUrl: "EXxgJjSKyK4",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/EXxgJjSKyK4/0.jpg",
+    },
+    7: {
+      youtubeUrl: "N9JezhYPkEA",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/N9JezhYPkEA/0.jpg",
+    },
+    8: {
+      youtubeUrl: "FYRks9lMICo",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/FYRks9lMICo/0.jpg",
+    },
+    9: {
+      youtubeUrl: "1tRUZiCQxyE",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/1tRUZiCQxyE/0.jpg",
+    },
+    10: {
+      youtubeUrl: "5AO8bejLjro",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/5AO8bejLjro/0.jpg",
+    },
+    11: {
+      youtubeUrl: "KMiHGBQLdIA",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/KMiHGBQLdIA/0.jpg",
+    },
+    12: {
+      youtubeUrl: "CWEabjVJw3Q",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/CWEabjVJw3Q/0.jpg",
+    },
+    13: {
+      youtubeUrl: "eIBkyigsYtk",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/eIBkyigsYtk/0.jpg",
+    },
+    14: {
+      youtubeUrl: "K9usXI0yMow",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/K9usXI0yMow/0.jpg",
+    },
+    15: {
+      youtubeUrl: "k42m3gQjbpg",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/k42m3gQjbpg/0.jpg",
+    },
+    16: {
+      youtubeUrl: "kvkSCEds-0Q",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/kvkSCEds-0Q/0.jpg",
+    },
+    17: {
+      youtubeUrl: "dxgVng0i30o",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/dxgVng0i30o/0.jpg",
+    },
+    18: {
+      youtubeUrl: "TnP-8VAahz0",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/TnP-8VAahz0/0.jpg",
+    },
+    19: {
+      youtubeUrl: "GVmvZ80IsyI",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/GVmvZ80IsyI/0.jpg",
+    },
+    20: {
+      youtubeUrl: "ZzbEUPnaQ6Q",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/ZzbEUPnaQ6Q/0.jpg",
+    },
+    21: {
+      youtubeUrl: "e70qtY8Yqlw",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/e70qtY8Yqlw/0.jpg",
+    },
+    22: {
+      youtubeUrl: "pF-Xp--3gFA",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/pF-Xp--3gFA/0.jpg",
+    },
+    23: {
+      youtubeUrl: "E3cMXEkhik0",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/E3cMXEkhik0/0.jpg",
+    },
+    24: {
+      youtubeUrl: "8gOTHLVuP7o",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/8gOTHLVuP7o/0.jpg",
+    },
+    25: {
+      youtubeUrl: "V5aTR8P2iRE",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/V5aTR8P2iRE/0.jpg",
+    },
+    26: {
+      youtubeUrl: "Dikg7f870iM",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/Dikg7f870iM/0.jpg",
+    },
+    27: {
+      youtubeUrl: "ePX7umliH_s",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/ePX7umliH_s/0.jpg",
+    },
+    28: {
+      youtubeUrl: "qV6hq_IEgGY",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/qV6hq_IEgGY/0.jpg",
+    },
+    29: {
+      youtubeUrl: "UNoBB6xcpmA",
+      title: "Drills for Young Players - Mini",
+      thumbnailUrl: "https://img.youtube.com/vi/UNoBB6xcpmA/0.jpg",
+    },
+  };
+
+  const drills1314: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "ibizolSVuTw",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/ibizolSVuTw/0.jpg",
+    },
+    1: {
+      youtubeUrl: "GbewmjhFIAY",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/GbewmjhFIAY/0.jpg",
+    },
+    2: {
+      youtubeUrl: "-lyHYdQ44A0",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/-lyHYdQ44A0/0.jpg",
+    },
+    3: {
+      youtubeUrl: "Ez9tjbsLglc",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/Ez9tjbsLglc/0.jpg",
+    },
+    4: {
+      youtubeUrl: "g47mr40SzMo",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/g47mr40SzMo/0.jpg",
+    },
+    5: {
+      youtubeUrl: "N6IhH16HasQ",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/N6IhH16HasQ/0.jpg",
+    },
+    6: {
+      youtubeUrl: "gWJ-HnlyxxM",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/gWJ-HnlyxxM/0.jpg",
+    },
+    7: {
+      youtubeUrl: "n4rLzvy1Les",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/n4rLzvy1Les/0.jpg",
+    },
+    8: {
+      youtubeUrl: "rc-YPtXdaHM",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/rc-YPtXdaHM/0.jpg",
+    },
+    9: {
+      youtubeUrl: "rVP_a78LoG8",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/rVP_a78LoG8/0.jpg",
+    },
+    10: {
+      youtubeUrl: "_wPl4lTRjQU",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/_wPl4lTRjQU/0.jpg",
+    },
+    11: {
+      youtubeUrl: "mY17_1llei8",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/mY17_1llei8/0.jpg",
+    },
+    12: {
+      youtubeUrl: "q_edt-X9t7s",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/q_edt-X9t7s/0.jpg",
+    },
+    13: {
+      youtubeUrl: "3eOM1luk960",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/3eOM1luk960/0.jpg",
+    },
+    14: {
+      youtubeUrl: "Y9BeNKPh9Fw",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/Y9BeNKPh9Fw/0.jpg",
+    },
+    15: {
+      youtubeUrl: "rJWZrDMijyc",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/rJWZrDMijyc/0.jpg",
+    },
+    16: {
+      youtubeUrl: "fNBd0NGFFmQ",
+      title: "Drills for Young Players - 13-14 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/fNBd0NGFFmQ/0.jpg",
+    },
+  };
+
+  const drills1518Moving: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "T9IT4Q_aMKk",
+      title: "Moving Without the Ball - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/T9IT4Q_aMKk/0.jpg",
+    },
+    1: {
+      youtubeUrl: "tT13GRCiwYs",
+      title: "Moving Without the Ball - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/tT13GRCiwYs/0.jpg",
+    },
+    2: {
+      youtubeUrl: "ZHsyz6ieGiw",
+      title: "Moving Without the Ball - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/ZHsyz6ieGiw/0.jpg",
+    },
+    3: {
+      youtubeUrl: "T__yev41zlg",
+      title: "Moving Without the Ball - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/T__yev41zlg/0.jpg",
+    },
+    4: {
+      youtubeUrl: "h8j5KkuXUc0",
+      title: "Moving Without the Ball - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/h8j5KkuXUc0/0.jpg",
+    },
+  };
+
+  const drillsScreening: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "YiUFBTS75WM",
+      title: "SCREENING - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/YiUFBTS75WM/0.jpg",
+    },
+    1: {
+      youtubeUrl: "K4Cyhp8wei4",
+      title: "SCREENING - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/K4Cyhp8wei4/0.jpg",
+    },
+  };
+
+  const drillsRebounding: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "mKnNtWs5f4c",
+      title: "Rebounding - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/mKnNtWs5f4c/0.jpg",
+    },
+  };
+
+  const drillsLowPostMoves: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "zG6UjlBDH7s",
+      title: "Low Post Moves - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/zG6UjlBDH7s/0.jpg",
+    },
+    1: {
+      youtubeUrl: "XtImE97EE7o",
+      title: "Low Post Moves - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/XtImE97EE7o/0.jpg",
+    },
+    2: {
+      youtubeUrl: "B2W0y9fnY8Y",
+      title: "Low Post Moves - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/B2W0y9fnY8Y/0.jpg",
+    },
+    3: {
+      youtubeUrl: "nZc91Yk6AZQ",
+      title: "Low Post Moves - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/nZc91Yk6AZQ/0.jpg",
+    },
+    4: {
+      youtubeUrl: "mmBLGtfL9hg",
+      title: "Low Post Moves - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/mmBLGtfL9hg/0.jpg",
+    },
+    5: {
+      youtubeUrl: "TGx0uZ7tE3U",
+      title: "Low Post Moves - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/TGx0uZ7tE3U/0.jpg",
+    },
+    6: {
+      youtubeUrl: "463JibHPK1Q",
+      title: "Low Post Moves - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/463JibHPK1Q/0.jpg",
+    },
+  };
+
+  const drillsLowPostPerimeter: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "_v4PdRQVUu4",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/_v4PdRQVUu4/0.jpg",
+    },
+    1: {
+      youtubeUrl: "oJ2LeCBQ9LE",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/oJ2LeCBQ9LE/0.jpg",
+    },
+    2: {
+      youtubeUrl: "tBB56LekzyU",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/tBB56LekzyU/0.jpg",
+    },
+    3: {
+      youtubeUrl: "7_oCHE4T0tw",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/7_oCHE4T0tw/0.jpg",
+    },
+    4: {
+      youtubeUrl: "vMaI8NlNRBM",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/vMaI8NlNRBM/0.jpg",
+    },
+    5: {
+      youtubeUrl: "d5y3_pqT5Ek",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/d5y3_pqT5Ek/0.jpg",
+    },
+    6: {
+      youtubeUrl: "881d3C7TVP4",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/881d3C7TVP4/0.jpg",
+    },
+    7: {
+      youtubeUrl: "ciUrXPAMX8A",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/ciUrXPAMX8A/0.jpg",
+    },
+    8: {
+      youtubeUrl: "dG46aQxRKeQ",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/dG46aQxRKeQ/0.jpg",
+    },
+    9: {
+      youtubeUrl: "9M4Y_eza-3U",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/9M4Y_eza-3U/0.jpg",
+    },
+    10: {
+      youtubeUrl: "FU_FtWLnd3g",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/FU_FtWLnd3g/0.jpg",
+    },
+    11: {
+      youtubeUrl: "5fzw0gjEEGY",
+      title: "Low Post and Perimeter Players' Decisions - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/5fzw0gjEEGY/0.jpg",
+    },
+  };
+
+  const drillsTeamDefense: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "Rq8agkz6M_A",
+      title: "Team Defense - Basic Positioning - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/Rq8agkz6M_A/0.jpg",
+    },
+    1: {
+      youtubeUrl: "L-EV_A4v0tg",
+      title: "Team Defense - Basic Positioning - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/L-EV_A4v0tg/0.jpg",
+    },
+    2: {
+      youtubeUrl: "L2Bg2uV9Tt4",
+      title: "Team Defense - Basic Positioning - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/L2Bg2uV9Tt4/0.jpg",
+    },
+    3: {
+      youtubeUrl: "OIl51m8on4M",
+      title: "Team Defense - Basic Positioning - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/OIl51m8on4M/0.jpg",
+    },
+    4: {
+      youtubeUrl: "ndom4ZbFikI",
+      title: "Team Defense - Basic Positioning - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/ndom4ZbFikI/0.jpg",
+    },
+  };
+
+  const drillsBasicOffense: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "zdCgrfBUZ00",
+      title: "Basic Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/zdCgrfBUZ00/0.jpg",
+    },
+    1: {
+      youtubeUrl: "nnd3N9yQVLU",
+      title: "Basic Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/nnd3N9yQVLU/0.jpg",
+    },
+    2: {
+      youtubeUrl: "eFr00UIy-cQ",
+      title: "Basic Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/eFr00UIy-cQ/0.jpg",
+    },
+    3: {
+      youtubeUrl: "gj3FbAHyN2k",
+      title: "Basic Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/gj3FbAHyN2k/0.jpg",
+    },
+    4: {
+      youtubeUrl: "sz99-nLc7Ug",
+      title: "Basic Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/sz99-nLc7Ug/0.jpg",
+    },
+    5: {
+      youtubeUrl: "1tu78j3v-B4",
+      title: "Basic Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/1tu78j3v-B4/0.jpg",
+    },
+    6: {
+      youtubeUrl: "DreCMRU9Dgo",
+      title: "Basic Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/DreCMRU9Dgo/0.jpg",
+    },
+  };
+
+  const drillsAdvancedOffense: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }> = {
+    0: {
+      youtubeUrl: "toKoy-9qXCk",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/toKoy-9qXCk/0.jpg",
+    },
+    1: {
+      youtubeUrl: "x92t2BCBkak",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/x92t2BCBkak/0.jpg",
+    },
+    2: {
+      youtubeUrl: "UKPaTcv0vHE",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/UKPaTcv0vHE/0.jpg",
+    },
+    3: {
+      youtubeUrl: "M-JJJTvojvc",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/M-JJJTvojvc/0.jpg",
+    },
+    4: {
+      youtubeUrl: "GaNB9msAtyo",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/GaNB9msAtyo/0.jpg",
+    },
+    5: {
+      youtubeUrl: "vA8pk_NxX48",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/vA8pk_NxX48/0.jpg",
+    },
+    6: {
+      youtubeUrl: "8CJsFKRqLio",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/8CJsFKRqLio/0.jpg",
+    },
+    7: {
+      youtubeUrl: "HRN9K5Svj-g",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/HRN9K5Svj-g/0.jpg",
+    },
+    8: {
+      youtubeUrl: "pR-UBKpivVI",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/pR-UBKpivVI/0.jpg",
+    },
+    9: {
+      youtubeUrl: "ymPeRrnG4TM",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/ymPeRrnG4TM/0.jpg",
+    },
+    10: {
+      youtubeUrl: "Na3OfG545qc",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/Na3OfG545qc/0.jpg",
+    },
+    11: {
+      youtubeUrl: "IpTRQMaGGIs",
+      title: "Advanced Offense - 15-18 Year Olds",
+      thumbnailUrl: "https://img.youtube.com/vi/IpTRQMaGGIs/0.jpg",
+    },
+  };
 
   return (
     <div>
+      {/* Video Modal */}
+      {activeVideo && (
+        <VideoModal
+          videoSrc={activeVideo.src}
+          title={activeVideo.title}
+          isMp4={activeVideo.isMp4}
+          onClose={() => setActiveVideo(null)}
+        />
+      )}
+
       <SectionBadge label="DRILLS FOR YOUNG PLAYERS" />
 
       {/* Sub-tab bar */}
@@ -545,7 +1169,12 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
                 MINI
               </div>
             </div>
-            <DrillGrid count={32} cols={cols} />
+            <DrillGrid
+              count={30}
+              cols={cols}
+              drills={miniDrills}
+              onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })}
+            />
           </div>
         )}
 
@@ -566,7 +1195,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
                 13-14 YEAR OLDS
               </div>
             </div>
-            <DrillGrid count={17} cols={cols} />
+            <DrillGrid count={17} cols={cols} drills={drills1314} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
           </div>
         )}
 
@@ -590,7 +1219,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
 
             <div style={{ marginBottom: 32 }}>
               <DrillSectionBadge label="MOVING WITHOUT THE BALL" />
-              <DrillGrid count={5} cols={Math.min(cols, 5)} />
+              <DrillGrid count={5} cols={Math.min(cols, 5)} drills={drills1518Moving} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
             </div>
 
             <div
@@ -604,37 +1233,37 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
             >
               <div>
                 <DrillSectionBadge label="SCREENING" />
-                <DrillGrid count={2} cols={2} />
+                <DrillGrid count={2} cols={2} drills={drillsScreening} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
               </div>
               <div>
                 <DrillSectionBadge label="REBOUNDING" />
-                <DrillGrid count={1} cols={1} />
+                <DrillGrid count={1} cols={1} drills={drillsRebounding} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
               </div>
             </div>
 
             <div style={{ marginBottom: 32 }}>
               <DrillSectionBadge label="LOW POST MOVES" />
-              <DrillGrid count={7} cols={Math.min(cols, 7)} />
+              <DrillGrid count={7} cols={Math.min(cols, 7)} drills={drillsLowPostMoves} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
             </div>
 
             <div style={{ marginBottom: 32 }}>
               <DrillSectionBadge label="LOW POST AND PERIMETER PLAYERS' DECISIONS" />
-              <DrillGrid count={12} cols={cols} />
+              <DrillGrid count={12} cols={cols} drills={drillsLowPostPerimeter} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
             </div>
 
             <div style={{ marginBottom: 32 }}>
               <DrillSectionBadge label="TEAM DEFENSE - BASIC POSITIONING" />
-              <DrillGrid count={6} cols={Math.min(cols, 6)} />
+              <DrillGrid count={5} cols={Math.min(cols, 6)} drills={drillsTeamDefense} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
             </div>
 
             <div style={{ marginBottom: 32 }}>
               <DrillSectionBadge label="BASIC OFFENSE" />
-              <DrillGrid count={7} cols={Math.min(cols, 7)} />
+              <DrillGrid count={7} cols={Math.min(cols, 7)} drills={drillsBasicOffense} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
             </div>
 
             <div style={{ marginBottom: 32 }}>
               <DrillSectionBadge label="ADVANCED OFFENSE" />
-              <DrillGrid count={12} cols={cols} />
+              <DrillGrid count={12} cols={cols} drills={drillsAdvancedOffense} onPlay={(url, title) => setActiveVideo({ src: url, title, isMp4: false })} />
             </div>
           </div>
         )}
@@ -903,51 +1532,51 @@ const FIBA_EUROPE_SUBTABS: FibaEuropeSubTab[] = ["GENERAL", "DEFENSE", "OFFENSE"
 
 const FIBA_EUROPE_DATA = {
   GENERAL: [
-    { title: "Improvement of Fundamentals in Youth Basketball through Specific Drills", presenter: "Nenad Trunic" },
-    { title: "The Role of Position 4 in Modern Basketball", presenter: "Janez Drvaric" },
-    { title: "Connecting I on I Game and Specific Physical Preparation", presenter: "Nenad Trunic" },
-    { title: "Connecting Specific Physical Preparation and Shooting", presenter: "Nenad Trunic" },
-    { title: "Inside Players", presenter: "Nenad Trunic" },
-    { title: "Player Profiles", presenter: "Nenad Trunic" },
-    { title: "Rhythm of Basketball", presenter: "Svetislav Pesic" },
-    { title: "Big Men", presenter: "Juan Orenga" },
-    { title: "Building a National Team Programme", presenter: "Henrik Dettmann" },
-    { title: "Practice Organisation for U16", presenter: "Veselin Matic" },
-    { title: "Developing Game Understanding", presenter: "Damian Cotter" },
-    { title: "Guard Development", presenter: "Damian Cotter" },
-    { title: "Team Management", presenter: "Pablo Laso" }
+    { title: "Improvement of Fundamentals in Youth Basketball through Specific Drills", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Nenad_Trunic_HD_Improvement_of_fundamentals_in_youth_basketball_through_specific_drills_2015.mp4" },
+    { title: "The Role of Position 4 in Modern Basketball", presenter: "Janez Drvaric", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Drvaric_The_Role_of_Position4_in_modern_Basketball.mp4" },
+    { title: "Connecting I on I Game and Specific Physical Preparation", presenter: "Nenad Trunic", videoUrl: 'http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Nenad_Trunic_HD_Connecting_1on1_game_and_specific_physical_preparation_in_basketball_2015.mp4' },
+    { title: "Connecting Specific Physical Preparation and Shooting", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Trunic_Connecting specific physical preperation and shooting_2013_s.mp4" },
+    { title: "Inside Players", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/12august_Clinic_Inside_players.mp4" },
+    { title: "Player Profiles", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Nenad_Trunic_11august_Theory_PlayerProfiles.mp4" },
+    { title: "Rhythm of Basketball", presenter: "Svetislav Pesic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Rhythm_of_Basketball_Pesic.mp4" },
+    { title: "Big Men", presenter: "Juan Orenga", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Orenga_BigMen_Ger.mp4" },
+    { title: "Building a National Team Programme", presenter: "Henrik Dettmann", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Henrik_Dettmann_Building_a_national_team_programm.mp4" },
+    { title: "Practice Organisation for U16", presenter: "Veselin Matic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Matic_Practice_Organisation_for_U16_kleiner.mp4" },
+    { title: "Developing Game Understanding", presenter: "Damian Cotter", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Cotter_Developing_Game_understanding.mp4" },
+    { title: "Guard Development", presenter: "Damian Cotter", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Cotter_Guard_Development.mp4" },
+    { title: "Team Management", presenter: "Pablo Laso", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Pablo_Laso_Teammanagement.mp4" }
   ],
   DEFENSE: [
-    { title: "Transition Defense", presenter: "Svetislav Pesic" },
-    { title: "Defensive Fundamentals On and Off the Ball", presenter: "Janez Drvaric" },
-    { title: "Mutant / Amoeba Defence", presenter: "Juan Orenga" },
-    { title: "Methodology of Building Aggressive Half-court Defense", presenter: "Nenad Trunic" },
-    { title: "One Pass Away Defense", presenter: "Zan Tabak" },
-    { title: "Building Team Defense Through Situation Drills", presenter: "Nenad Trunic" },
-    { title: "Defending On Ball Screens", presenter: "Pablo Laso" },
-    { title: "Defensive Concept", presenter: "Pablo Laso" }
+    { title: "Transition Defense", presenter: "Svetislav Pesic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Pesic_TransitionDefense.mp4" },
+    { title: "Defensive Fundamentals On and Off the Ball", presenter: "Janez Drvaric", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Drvaric_Defensive_Fundamentals.mp4" },
+    { title: "Mutant / Amoeba Defence", presenter: "Juan Orenga", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Orenga_Mutant_Amoebea_defense.mp4" },
+    { title: "Methodology of Building Aggressive Half-court Defense", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Nenad_Trunic_HD_Methodology_of_building_aggressive_halfcourt_defense_2015.mp4" },
+    { title: "One Pass Away Defense", presenter: "Zan Tabak", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Zan_Tabak_One_pass_away_defense.mp4" },
+    { title: "Building Team Defense Through Situation Drills", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Trunic_Building team defense trough situation drills_2013_s.mp4" },
+    { title: "Defending On Ball Screens", presenter: "Pablo Laso", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Pablo_Laso_Defending_on-ball_screens.mp4" },
+    { title: "Defensive Concept", presenter: "Pablo Laso", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Defensive_concept_Laso.mp4" }
   ],
   OFFENSE: [
-    { title: "Secondary Break Options in Youth Programmes with Screens", presenter: "Nenad Trunic" },
-    { title: "Passing and Receiving", presenter: "Janez Drvaric" },
-    { title: "Spacing & Angles", presenter: "Giannis Sfairopoulos" },
-    { title: "Developing the European 4", presenter: "Gordon Herbert" },
-    { title: "Transition Offense", presenter: "Svetislav Pesic" },
-    { title: "Low Post Individual Technique", presenter: "Damian Cotter" },
-    { title: "3 on 3 Offensive Play Basic and Advanced", presenter: "Janez Drvaric" },
-    { title: "Motion Offense in Youth Development", presenter: "Trine Tims" },
-    { title: "Building an Offence Part I", presenter: "Chus Mateo" },
-    { title: "Building an Offence Part II", presenter: "Chus Mateo" },
-    { title: "Zone Offense against 2-3", presenter: "Murat Ozyer" },
-    { title: "Passing", presenter: "Damian Cotter" },
-    { title: "Point Guard", presenter: "Pablo Laso" },
-    { title: "Transition Offense", presenter: "Pablo Laso" },
-    { title: "Fastbreak", presenter: "Nenad Trunic" },
-    { title: "Movement without the ball", presenter: "Nenad Trunic" },
-    { title: "Secondary Break", presenter: "Nenad Trunic" },
-    { title: "Individual Tactics Passing", presenter: "Nenad Trunic" },
-    { title: "Fast Break", presenter: "Juan Orenga" },
-    { title: "Offensive Concept", presenter: "Zan Tabak" }
+    { title: "Secondary Break Options in Youth Programmes with Screens", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Nenad_Trunic_HD_Secondary_break_options_in_youth_program_with_screens_2015.mp4" },
+    { title: "Passing and Receiving", presenter: "Janez Drvaric", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Drvaric_Teaching_a_skill_of_passing_and_receiving.mp4" },
+    { title: "Spacing & Angles", presenter: "Giannis Sfairopoulos", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Sfairopoulos_Spacing&amp;Angles.mp4" },
+    { title: "Developing the European 4", presenter: "Gordon Herbert", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Gordon_Herbert_Developing_the_European_4.mp4" },
+    { title: "Transition Offense", presenter: "Svetislav Pesic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Pesic_TransitionOffense.mp4" },
+    { title: "Low Post Individual Technique", presenter: "Damian Cotter", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Cotter_Individual_technique_Low_Post.mp4" },
+    { title: "3 on 3 Offensive Play Basic and Advanced", presenter: "Janez Drvaric", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Drvaric_3on3_Play_Basic_and_Advanced.mp4" },
+    { title: "Motion Offense in Youth Development", presenter: "Trine Tims", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Trine_Tims_Motion_Offense_in_Youth_Development_2015.mp4" },
+    { title: "Building an Offence Part I", presenter: "Chus Mateo", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Jesus_Mateo_Building_an_Offence_I_klein.mp4" },
+    { title: "Building an Offence Part II", presenter: "Chus Mateo", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Jesus_Mateo_Building_an_Offense_II_klein.mp4" },
+    { title: "Zone Offense against 2-3", presenter: "Murat Ozyer", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Ozyer_Zone_Offense_against_2-3_POR_2012.mp4" },
+    { title: "Passing", presenter: "Damian Cotter", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Bauer_Passing_2010.mp4" },
+    { title: "Point Guard", presenter: "Pablo Laso", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Laso_Point_Guard.mp4" },
+    { title: "Transition Offense", presenter: "Pablo Laso", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Pablo_Laso_Transition_offense.mp4" },
+    { title: "Fastbreak", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Trunic_Fastbreak_SWE_2014.mp4" },
+    { title: "Movement without the ball", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/14august_Clinic_Movement_without_theball.mp4" },
+    { title: "Secondary Break", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Trunic_SecondaryBreak_2013.mp4" },
+    { title: "Individual Tactics Passing", presenter: "Nenad Trunic", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/14august_Clinic_Individual_tactic_passing.mp4" },
+    { title: "Fast Break", presenter: "Juan Orenga", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/JuanOrenga_FastBreak.mp4" },
+    { title: "Offensive Concept", presenter: "Zan Tabak", videoUrl: "http://coaching.fibaeurope.com/streamingvideos/coaching/clinics/Zan Tabak - Offensive Concept.mp4" }
   ],
   MISCELLANEOUS: {
     GENERAL: [
@@ -986,10 +1615,12 @@ function FibaEuropeRow({
   item,
   isMobile,
   showWatch = true,
+  onWatch,
 }: {
-  item: { title: string; presenter: string };
+  item: { title: string; presenter: string; videoUrl?: string };
   isMobile: boolean;
   showWatch?: boolean;
+  onWatch?: () => void;
 }) {
   const h = useHover();
   return (
@@ -1033,28 +1664,31 @@ function FibaEuropeRow({
           <button
             onMouseEnter={h.onMouseEnter}
             onMouseLeave={h.onMouseLeave}
+            onClick={onWatch}
+            disabled={!onWatch}
             style={{
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              background: h.on ? T.orange : "transparent",
-              border: `1px solid ${T.orange}`,
-              color: h.on ? T.white : T.orange,
+              background: h.on && onWatch ? T.orange : "transparent",
+              border: `1px solid ${onWatch ? T.orange : "#888"}`,
+              color: h.on && onWatch ? T.white : onWatch ? T.orange : "#888",
               fontFamily: BARLOW,
               fontWeight: 700,
               fontSize: 13,
               letterSpacing: "1.5px",
               padding: "6px 18px",
               borderRadius: 0,
-              cursor: "pointer",
+              cursor: onWatch ? "pointer" : "default",
               transition: "background 0.15s, color 0.15s",
               gap: 6,
+              opacity: onWatch ? 1 : 0.4,
             }}
           >
             <span>WATCH</span>
             <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
-              <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on ? T.white : T.orange} />
-              <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on ? T.white : T.orange} />
+              <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on && onWatch ? T.white : onWatch ? T.orange : "#888"} />
+              <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on && onWatch ? T.white : onWatch ? T.orange : "#888"} />
             </svg>
           </button>
         </div>
@@ -1065,9 +1699,20 @@ function FibaEuropeRow({
 
 function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
   const [activeSubTab, setActiveSubTab] = useState<FibaEuropeSubTab>("GENERAL");
+  const [activeVideo, setActiveVideo] = useState<{ src: string; title: string; isMp4: boolean } | null>(null);
 
   return (
     <div>
+      {/* Video popup modal */}
+      {activeVideo && (
+        <VideoModal
+          videoSrc={activeVideo.src}
+          title={activeVideo.title}
+          isMp4={activeVideo.isMp4}
+          onClose={() => setActiveVideo(null)}
+        />
+      )}
+
       <SectionBadge label="FIBA EUROPE" />
 
       {/* Sub-tab bar */}
@@ -1198,7 +1843,12 @@ function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {(FIBA_EUROPE_DATA[activeSubTab as keyof Omit<typeof FIBA_EUROPE_DATA, "MISCELLANEOUS">] || []).map((item, i) => (
-              <FibaEuropeRow key={i} item={item} isMobile={isMobile} />
+              <FibaEuropeRow
+                key={i}
+                item={item}
+                isMobile={isMobile}
+                onWatch={(item as any).videoUrl ? () => setActiveVideo({ src: (item as any).videoUrl, title: item.title, isMp4: true }) : undefined}
+              />
             ))}
           </div>
         )}
@@ -1209,13 +1859,15 @@ function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
 
 // ─── Video Modal ──────────────────────────────────────────────────────────────
 function VideoModal({
-  videoId,
+  videoSrc,
   title,
   onClose,
+  isMp4 = false,
 }: {
-  videoId: string;
+  videoSrc: string;
   title: string;
   onClose: () => void;
+  isMp4?: boolean;
 }) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -1288,22 +1940,39 @@ function VideoModal({
             ✕
           </button>
         </div>
-        {/* 16:9 iframe */}
+        {/* 16:9 video area */}
         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
-          <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
-            title={title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              border: 'none',
-            }}
-          />
+          {isMp4 ? (
+            <video
+              src={videoSrc}
+              controls
+              autoPlay
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                background: '#000',
+              }}
+            />
+          ) : (
+            <iframe
+              src={`https://www.youtube.com/embed/${videoSrc}?autoplay=1&rel=0`}
+              title={title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 'none',
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
@@ -1312,7 +1981,7 @@ function VideoModal({
 
 function WabcContent({ isMobile }: { isMobile: boolean }) {
   const [activeSubTab, setActiveSubTab] = useState<WabcSubTab>("GENERAL");
-  const [activeVideo, setActiveVideo] = useState<{ id: string; title: string } | null>(null);
+  const [activeVideo, setActiveVideo] = useState<{ src: string; title: string; isMp4: boolean } | null>(null);
 
   const items = WABC_DATA[activeSubTab as keyof typeof WABC_DATA] || [];
 
@@ -1321,8 +1990,9 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
       {/* YouTube popup modal */}
       {activeVideo && (
         <VideoModal
-          videoId={activeVideo.id}
+          videoSrc={activeVideo.src}
           title={activeVideo.title}
+          isMp4={activeVideo.isMp4}
           onClose={() => setActiveVideo(null)}
         />
       )}
@@ -1387,7 +2057,7 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
                   key={i}
                   item={item}
                   isMobile={isMobile}
-                  onWatch={ytId ? () => setActiveVideo({ id: ytId, title: item.title }) : undefined}
+                  onWatch={ytId ? () => setActiveVideo({ src: ytId, title: item.title, isMp4: false }) : undefined}
                 />
               );
             })}
