@@ -554,13 +554,15 @@ function DrillGrid({
   drills?: Record<number, { youtubeUrl: string; title: string; thumbnailUrl?: string }>;
   onPlay?: (url: string, title: string) => void;
 }) {
+  const actualCols = Math.min(cols, count);
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gridTemplateColumns: `repeat(${actualCols}, 1fr)`,
         gap: 12,
-        maxWidth: cols * 90 + (cols - 1) * 12,
+        width: actualCols * 90 + (actualCols - 1) * 12,
+        maxWidth: "100%",
         margin: "0 auto",
       }}
     >
