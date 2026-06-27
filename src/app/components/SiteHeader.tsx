@@ -11,7 +11,7 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header style={{ backgroundColor: 'var(--black)' }} className="md:h-[100px] py-4 md:py-0 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+      <header style={{ backgroundColor: 'var(--black)', zIndex: 9999 }} className="md:sticky md:top-0 md:z-[9999] md:h-[100px] py-4 md:py-0 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
         {/* Logo Block */}
         <Link to="/" className="flex items-center gap-3 md:gap-4">
           <img src={logoImage} alt="Basketball Logo" className="h-[45px] md:h-[65px] w-auto" />
@@ -20,7 +20,7 @@ export default function SiteHeader() {
               className="text-[26px] md:text-[36px] text-white uppercase leading-none">
               REFEREE VISION
             </h1>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic' }}
+            <p style={{ fontFamily: "'North Wave', sans-serif" }}
               className="text-[13px] md:text-[15px] text-[#AAAAAA]">
               One Stop to Rule Them All
             </p>
@@ -48,7 +48,7 @@ export default function SiteHeader() {
       </header>
 
       {/* NAVIGATION BAR */}
-      <nav style={{ backgroundColor: 'var(--charcoal)' }} className="h-auto md:h-[52px] sticky top-0 z-50 relative w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <nav style={{ backgroundColor: 'var(--charcoal)', position: 'sticky', zIndex: 9998 }} className="h-auto md:h-[52px] sticky top-0 md:top-[100px] z-[9998] w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div style={{ backgroundColor: 'var(--orange)' }} className="absolute left-0 top-0 w-[4px] h-full hidden md:block"></div>
         <div className="flex items-center h-[52px] md:h-full px-4 md:pl-8 gap-6 md:gap-8 min-w-max">
           {NAV_LINKS.map((item) => {

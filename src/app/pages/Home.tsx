@@ -575,7 +575,7 @@ export default function Home() {
           <div style={{ backgroundColor: '#DDDDDD' }} className="h-[1px] my-10"></div>
 
           <div>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', color: 'var(--dark-text)' }}
+            <p style={{ fontFamily: "'North Wave', sans-serif", color: 'var(--dark-text)' }}
               className="text-[42px] md:text-[56px] mb-2">
               K. Ajoy Lawrence
             </p>

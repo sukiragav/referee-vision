@@ -1,1 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=DM+Sans:wght@400;500;600&family=Cormorant+Garamond:ital@1&display=swap');
+
+@font-face {
+  font-family: 'North Wave';
+  src: url('./fonts/North_Wave.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

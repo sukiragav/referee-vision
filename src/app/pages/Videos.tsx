@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
-import preGameTiming from "../../imports/pre_game_timing.png";
-import arrivalDoc from "../../imports/arrival_doc.png";
-import arrivalPhoto from "../../imports/arrival_photo.png";
-import preGameDutiesDoc from "../../imports/pre_game_duties_doc.png";
-import preGameDutiesPhoto1 from "../../imports/pre_game_duties_photo1.png";
-import preGameDutiesPhoto2 from "../../imports/pre_game_duties_photo2.png";
-import preGameDutiesPhoto3 from "../../imports/pre_game_duties_photo3.png";
-import dutiesDuringGameDoc from "../../imports/duties_during_game_doc.png";
-import dutiesDuringGamePhoto from "../../imports/duties_during_game_photo.png";
-import postGameDutiesDoc from "../../imports/post_game_duties_doc.png";
+const preGameTiming = "https://www.refereevision.com/tbloffl35.png";
+const arrivalDoc = "https://www.refereevision.com/common_arrival.jpg";
+const arrivalPhotoImg = "https://www.refereevision.com/tbloffl1.png";
+const arrivalPhotoLink = "https://library.fibairef.basketball/doc/MU5BSis1ZmNLZHk1alI4dVc5ZG14dz09?autoplay=1";
+const preGameDutiesDoc = "https://www.refereevision.com/common_before.jpg";
+const preGameDutiesPhoto1Img = "https://www.refereevision.com/tbloffl2.png";
+const preGameDutiesPhoto1 = "https://library.fibairef.basketball/doc/OWFXUHZYVmp1SFJYelU2KzRnZStBQT09?autoplay=1";
+const preGameDutiesPhoto2Img = "https://www.refereevision.com/tbloffl3.png";
+const preGameDutiesPhoto2 = "https://library.fibairef.basketball/doc/VkZudm1VM1ZaWWZiaEluWC9TVHlPdz09?autoplay=1";
+const preGameDutiesPhoto3Img = "https://www.refereevision.com/tbloffl4.png";
+const preGameDutiesPhoto3 = "https://library.fibairef.basketball/doc/aUMwdkFwRFk0WW5DSVVveFdKOGlKZz09?autoplay=1";
+const dutiesDuringGameDoc = "https://www.refereevision.com/common_during.jpg";
+const dutiesDuringGamePhotoImg = "https://www.refereevision.com/tbloffl5.png";
+const dutiesDuringGamePhoto = "https://library.fibairef.basketball/doc/TFVTOXcxYklvWEdMSU42SldpVUpSQT09?autoplay=1";
+const postGameDutiesDoc = "https://www.refereevision.com/common_after.jpg";
 
 // ─── Brand tokens (same as Books/Referees) ────────────────────────────────────
 const T = {
@@ -161,7 +166,10 @@ function getYouTubeEmbedUrl(url: string): string {
 }
 
 // ─── Video Modal ──────────────────────────────────────────────────────────────
-function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
+function VideoModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
+  const isYoutube = url.includes("youtu.be") || url.includes("youtube.com");
+  const isImage = /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url) || url.startsWith("data:image");
+
   return (
     <div
       onClick={onClose}
@@ -174,44 +182,90 @@ function VideoModal({ url, onClose }: { url: string; onClose: () => void }) {
         justifyContent: "center",
         zIndex: 1000,
         backdropFilter: "blur(4px)",
-        padding: "16px",
+        padding: isImage ? "32px 16px" : "16px",
       }}
     >
       <button
         onClick={onClose}
         style={{
           position: "absolute",
-          top: 16,
-          right: 20,
-          background: "transparent",
-          border: "none",
+          top: 24,
+          right: 24,
+          width: 44,
+          height: 44,
+          borderRadius: "50%",
+          background: "rgba(0,0,0,0.6)",
+          border: `2px solid ${T.orange}`,
           color: T.white,
-          fontSize: 32,
+          fontSize: 20,
           cursor: "pointer",
-          lineHeight: 1,
-          opacity: 0.8,
-          zIndex: 1001,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1010,
+          transition: "background 0.2s, transform 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = T.orange;
+          e.currentTarget.style.transform = "scale(1.1)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(0,0,0,0.6)";
+          e.currentTarget.style.transform = "scale(1)";
         }}
       >
         ✕
       </button>
+
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{
-          width: "min(900px, 95vw)",
-          aspectRatio: "16 / 9",
-          background: "#000",
-          border: `2px solid ${T.orange}`,
-          boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
-          position: "relative",
-        }}
+        style={
+          isImage
+            ? {
+              width: "min(860px, 92vw)",
+              maxHeight: "88vh",
+              background: "#ffffff",
+              boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              overflowY: "auto",
+              overflowX: "hidden",
+              borderRadius: 2,
+            }
+            : isYoutube
+              ? {
+                width: "min(900px, 95vw)",
+                aspectRatio: "16 / 9",
+                background: "#000",
+                border: `2px solid ${T.orange}`,
+                boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+                position: "relative",
+              }
+              : {
+                width: "min(1200px, 95vw)",
+                height: "85vh",
+                background: "#000",
+                border: `2px solid ${T.orange}`,
+                boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+                position: "relative",
+              }
+        }
       >
-        <iframe
-          src={getYouTubeEmbedUrl(url)}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          style={{ width: "100%", height: "100%", border: "none", display: "block" }}
-        />
+        {isImage ? (
+          <img
+            src={url}
+            alt={title || "Document"}
+            style={{ width: "100%", display: "block" }}
+          />
+        ) : (
+          <iframe
+            src={getYouTubeEmbedUrl(url)}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+          />
+        )}
       </div>
     </div>
   );
@@ -541,27 +595,33 @@ function ThreeColBadges({ items }: { items: string[] }) {
 }
 
 // ─── Image thumbnail ──────────────────────────────────────────────────────────
-function ContentImage({ src, alt }: { src: string; alt: string }) {
+function ContentImage({ src, alt, openUrl }: { src: string; alt: string; openUrl?: string }) {
   const h = useHover();
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div
-      onMouseEnter={h.onMouseEnter}
-      onMouseLeave={h.onMouseLeave}
-      style={{
-        border: `2px solid ${h.on ? T.orange : T.border}`,
-        overflow: "hidden",
-        transition: "border-color 0.2s ease, transform 0.2s ease",
-        transform: h.on ? "scale(1.03)" : "scale(1)",
-        cursor: "pointer",
-        flexShrink: 0,
-      }}
-    >
-      <img
-        src={src}
-        alt={alt}
-        style={{ display: "block", height: 130, width: "auto", maxWidth: 200, objectFit: "cover" }}
-      />
-    </div>
+    <>
+      <div
+        onMouseEnter={h.onMouseEnter}
+        onMouseLeave={h.onMouseLeave}
+        onClick={() => setIsOpen(true)}
+        style={{
+          border: `2px solid ${h.on ? T.orange : T.border}`,
+          overflow: "hidden",
+          transition: "border-color 0.2s ease, transform 0.2s ease",
+          transform: h.on ? "scale(1.03)" : "scale(1)",
+          cursor: "pointer",
+          flexShrink: 0,
+        }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          style={{ display: "block", height: 130, width: "auto", maxWidth: 200, objectFit: "cover" }}
+        />
+      </div>
+      {isOpen && <VideoModal url={openUrl || src} title={alt} onClose={() => setIsOpen(false)} />}
+    </>
   );
 }
 
@@ -595,21 +655,21 @@ function CommonDutiesContent() {
       <SubSectionBadge label="ARRIVAL AT THE VENUE" />
       <ImageRow>
         <ContentImage src={arrivalDoc} alt="Arrival Document" />
-        <ContentImage src={arrivalPhoto} alt="Arrival Photo" />
+        <ContentImage src={arrivalPhotoImg} openUrl={arrivalPhotoLink} alt="Arrival Photo" />
       </ImageRow>
 
       <SubSectionBadge label="PRE-GAME DUTIES" />
       <ImageRow>
         <ContentImage src={preGameDutiesDoc} alt="Pre-Game Duties Document" />
-        <ContentImage src={preGameDutiesPhoto1} alt="Pre-Game Duties Photo 1" />
-        <ContentImage src={preGameDutiesPhoto2} alt="Pre-Game Duties Photo 2" />
-        <ContentImage src={preGameDutiesPhoto3} alt="Pre-Game Duties Photo 3" />
+        <ContentImage src={preGameDutiesPhoto1Img} openUrl={preGameDutiesPhoto1} alt="Pre-Game Duties Photo 1" />
+        <ContentImage src={preGameDutiesPhoto2Img} openUrl={preGameDutiesPhoto2} alt="Pre-Game Duties Photo 2" />
+        <ContentImage src={preGameDutiesPhoto3Img} openUrl={preGameDutiesPhoto3} alt="Pre-Game Duties Photo 3" />
       </ImageRow>
 
       <SubSectionBadge label="DUTIES DURING THE GAME" />
       <ImageRow>
         <ContentImage src={dutiesDuringGameDoc} alt="Duties During Game Document" />
-        <ContentImage src={dutiesDuringGamePhoto} alt="Duties During Game Photo" />
+        <ContentImage src={dutiesDuringGamePhotoImg} openUrl={dutiesDuringGamePhoto} alt="Duties During Game Photo" />
       </ImageRow>
 
       <SubSectionBadge label="POST-GAME DUTIES" />
@@ -1218,8 +1278,8 @@ function CylinderPrincipleContent({
             gridTemplateColumns: isMobile
               ? "repeat(2, 1fr)"
               : isTablet
-              ? "repeat(4, 1fr)"
-              : "repeat(8, 1fr)",
+                ? "repeat(4, 1fr)"
+                : "repeat(8, 1fr)",
             gap: 12,
             justifyContent: "center",
             maxWidth: 800,
