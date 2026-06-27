@@ -375,7 +375,6 @@ function Sidebar({
             height: "100vh",
             background: T.charcoal,
             borderRight: `1px solid ${T.border}`,
-            borderLeft: `3px solid ${T.orange}`,
             zIndex: 300,
             display: "flex",
             flexDirection: "column",
@@ -443,7 +442,6 @@ function Sidebar({
         flexShrink: 0,
         background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
-        borderLeft: `3px solid ${T.orange}`,
         position: "sticky",
         top: 0,
         height: "100vh",
@@ -2721,13 +2719,6 @@ export default function Videos() {
             ) : (
               <PlaceholderTabContent tab={activeTab} />
             )}
-          </div>
-
-          {/* Copyright Footer */}
-          <div style={{ marginTop: 48, paddingTop: 24, borderTop: `1px solid ${T.border}`, textAlign: "center" }}>
-            <span style={{ fontFamily: DM, fontSize: 13, color: T.mutedText }}>
-              Copyrights © 2026 | All rights reserved by Referee Vision
-            </span>
           </div>
         </main>
       </div>

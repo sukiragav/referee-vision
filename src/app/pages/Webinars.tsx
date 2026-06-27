@@ -246,7 +246,7 @@ function Sidebar({
         <aside
           style={{
             position: "fixed", top: 0, left: 0, width: 260, height: "100vh",
-            background: T.charcoal, borderRight: `1px solid ${T.border}`, borderLeft: `3px solid ${T.orange}`,
+            background: T.charcoal, borderRight: `1px solid ${T.border}`,
             zIndex: 300, display: "flex", flexDirection: "column", overflowY: "auto",
             transform: open ? "translateX(0)" : "translateX(-100%)",
             transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
@@ -269,7 +269,7 @@ function Sidebar({
     <aside
       style={{
         width: 240, flexShrink: 0, background: T.charcoal,
-        borderRight: `1px solid ${T.border}`, borderLeft: `3px solid ${T.orange}`,
+        borderRight: `1px solid ${T.border}`,
         position: "sticky", top: 0, height: "100vh", overflowY: "auto",
         display: "flex", flexDirection: "column",
       }}
@@ -644,13 +644,6 @@ export default function Webinars() {
         >
           <div style={{ flex: 1 }}>
             <WebinarTabContent tab={activeTab} isMobile={isMobile} onOpenPopup={openPopup} />
-          </div>
-
-          {/* Copyright Footer */}
-          <div style={{ marginTop: 48, paddingTop: 24, borderTop: `1px solid ${T.border}`, textAlign: "center" }}>
-            <span style={{ fontFamily: DM, fontSize: 13, color: T.mutedText }}>
-              Copyrights © 2026 | All rights reserved by Referee Vision
-            </span>
           </div>
         </main>
       </div>
