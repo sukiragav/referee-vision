@@ -1367,6 +1367,1180 @@ function ThreeXThreeContent({ isMobile, isTablet }: { isMobile: boolean; isTable
   );
 }
 
+// ─── TRAVELLING Content ───────────────────────────────────────────────────────
+
+function WatchPlaylistButton({ label = "WATCH PLAYLIST" }: { label?: string }) {
+  const h = useHover();
+  return (
+    <div style={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
+      <button
+        onMouseEnter={h.onMouseEnter}
+        onMouseLeave={h.onMouseLeave}
+        style={{
+          background: h.on ? T.orange : "transparent",
+          border: `2px solid ${T.orange}`,
+          borderRadius: 4,
+          padding: "8px 28px",
+          cursor: "pointer",
+          transition: "background 0.2s",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 13, color: h.on ? T.white : T.orange, letterSpacing: "1.5px", textTransform: "uppercase", transition: "color 0.2s" }}>
+          {label}
+        </span>
+        <span style={{ fontSize: 13 }}>▶</span>
+      </button>
+    </div>
+  );
+}
+
+function TravellingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="TRAVELLING" />
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        {Array.from({ length: 3 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* SIGNAL / ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 32 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          width: "100%",
+          maxWidth: 900,
+          margin: "0 auto 36px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard />
+        </div>
+      </div>
+
+      {/* PLAYER IN PROGRESSION */}
+      <SubSectionBadge label="PLAYER IN PROGRESSION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 6 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* STATIONARY PLAYER */}
+      <SubSectionBadge label="STATIONARY PLAYER" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={4 + i} />)}
+      </div>
+
+      {/* AIRBORNE PLAYER + PLAYER ON THE FLOOR */}
+      <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap", marginBottom: 8 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="AIRBORNE PLAYER" />
+          <VideoCard index={8} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PLAYER ON THE FLOOR" />
+          <VideoCard index={9} />
+        </div>
+      </div>
+
+      {/* HOPPING WITH THE SAME FOOT */}
+      <SubSectionBadge label="HOPPING WITH THE SAME FOOT" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={10 + i} />)}
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile
+            ? "repeat(2, 1fr)"
+            : isTablet
+            ? "repeat(4, 1fr)"
+            : "repeat(8, 1fr)",
+          gap: 12,
+          justifyContent: "center",
+          maxWidth: 800,
+          margin: "0 auto 8px",
+        }}
+      >
+        {Array.from({ length: 15 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── ACT OF SHOOTING Content ──────────────────────────────────────────────────
+
+function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="ACT OF SHOOTING & GOAL: WHEN MADE AND ITS VALUE" />
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        {Array.from({ length: 6 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* SIGNAL / ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 32 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          width: "100%",
+          maxWidth: 900,
+          margin: "0 auto 36px",
+        }}
+      >
+        {/* SIGNAL — 3 doc cards */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <div style={{ display: "flex", gap: 8 }}>
+            <DocCard cols={2} />
+            <DocCard cols={2} />
+            <DocCard cols={2} />
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard />
+        </div>
+      </div>
+
+      {/* PRESENTATION */}
+      <SubSectionBadge label="PRESENTATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 28 }}>
+        <DocCard />
+        <DocCard />
+      </div>
+
+      {/* COVERING A SHOT */}
+      <SubSectionBadge label="COVERING A SHOT (1 - 2 - 3 TECHNIQUE)" />
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
+        <div
+          style={{
+            width: isMobile ? 180 : 220,
+            aspectRatio: "4 / 3",
+            background: T.charcoal,
+            border: `2px solid ${T.border}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 4,
+          }}
+        >
+          <span style={{ fontFamily: BARLOW, fontSize: 11, color: T.grey, textTransform: "uppercase", letterSpacing: "1px", textAlign: "center", padding: "0 8px" }}>
+            Technique Diagram
+          </span>
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
+        <span style={{ fontFamily: DM, fontSize: 14, color: T.orange, fontStyle: "italic", letterSpacing: "0.5px" }}>
+          1. hands &nbsp; 2. body &nbsp; 3. feet (landing)
+        </span>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile
+            ? "repeat(2, 1fr)"
+            : isTablet
+            ? "repeat(4, 1fr)"
+            : "repeat(8, 1fr)",
+          gap: 12,
+          justifyContent: "center",
+          maxWidth: 800,
+          margin: "0 auto 8px",
+        }}
+      >
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── CONTACT Content ─────────────────────────────────────────────────────────
+
+const CONTACT_SIGNALS_ROW1 = [
+  "HOLDING",
+  "BLOCKING / DEFENSE / ILLEGAL SCREEN (OFFENSE)",
+  "PUSHING OR CHARGING WITHOUT THE BALL",
+  "HANDCHECKING",
+  "ILLEGAL USE OF HANDS",
+  "ILLEGAL CYLINDER",
+  "ILLEGAL CONTACT TO THE HAND",
+  "EXCESSIVE SWINGING OF ELBOW",
+];
+
+const CONTACT_SIGNALS_ROW2 = [
+  "FOUL BY TEAM IN CONTROL OF THE BALL",
+  "HIT TO THE HEAD",
+  "HOOKING",
+  "CHARGING WITH THE BALL",
+];
+
+function ContactContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="CONTACT" />
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        {Array.from({ length: 6 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* SIGNALS */}
+      <CylinderSectionHeader label="SIGNALS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
+        {CONTACT_SIGNALS_ROW1.map((label, i) => <DocCard key={i} label={label} />)}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginBottom: 32 }}>
+        {CONTACT_SIGNALS_ROW2.map((label, i) => <DocCard key={i} label={label} />)}
+      </div>
+
+      {/* ARTICLE / INTERPRETATION / PRESENTATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 40px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PRESENTATION" />
+          <div style={{ display: "flex", gap: 8 }}>
+            <DocCard />
+            <DocCard />
+          </div>
+        </div>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+
+      {/* THROW-IN FOUL */}
+      <SubSectionBadge label="THROW-IN FOUL" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 7 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* HANDCHECK */}
+      <SubSectionBadge label="HANDCHECK" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* HOLDING/PUSHING */}
+      <SubSectionBadge label="HOLDING/PUSHING" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* OFF THE BALL */}
+      <SubSectionBadge label="OFF THE BALL" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* OFFENSIVE FOUL */}
+      <SubSectionBadge label="OFFENSIVE FOUL" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* HOOKING */}
+      <SubSectionBadge label="HOOKING" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* POSTPLAY */}
+      <SubSectionBadge label="POSTPLAY" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 7 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* REBOUNDS */}
+      <SubSectionBadge label="REBOUNDS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+        <WatchPlaylistButton label="WATCH OFFENSIVE FOUL PLAYLIST" />
+        <WatchPlaylistButton label="WATCH DEFENSIVE FOUL PLAYLIST" />
+        <WatchPlaylistButton label="WATCH REBOUNDING FOUL PLAYLIST" />
+      </div>
+    </div>
+  );
+}
+
+// ─── TIME-OUT & SUBSTITUTION Content ────────────────────────────────────────
+
+function TimeoutSubSection({
+  title,
+  procedureCount = 1,
+  videoCount,
+}: {
+  title: string;
+  procedureCount?: number;
+  videoCount: number;
+}) {
+  return (
+    <div style={{ marginBottom: 48 }}>
+      {/* Sub-title badge */}
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+        <div
+          style={{
+            background: T.orange,
+            color: "var(--off-white)",
+            fontFamily: BARLOW,
+            fontWeight: 800,
+            fontSize: 22,
+            letterSpacing: "3px",
+            textTransform: "uppercase",
+            padding: "10px 40px",
+            borderRadius: 0,
+          }}
+        >
+          {title}
+        </div>
+      </div>
+
+      {/* Row 1: SIGNAL / ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginBottom: 28,
+        }}
+      >
+        {["SIGNAL", "ARTICLE", "INTERPRETATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* Row 2: RULE / PROCEDURE / SUMMARY */}
+      <div
+        style={{
+          display: "flex",
+          gap: 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginBottom: 32,
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="RULE" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PROCEDURE" />
+          <div style={{ display: "flex", gap: 8 }}>
+            {Array.from({ length: procedureCount }).map((_, i) => <DocCard key={i} cols={2} />)}
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SUMMARY" />
+          <DocCard />
+        </div>
+      </div>
+
+      {/* FIBA Educational Videos */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+        {Array.from({ length: videoCount }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+    </div>
+  );
+}
+
+function TimeoutSubstitutionContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="TIME-OUT & SUBSTITUTION" />
+      <div style={{ marginTop: 32 }}>
+        <TimeoutSubSection title="TIME-OUT" procedureCount={2} videoCount={5} />
+        <TimeoutSubSection title="SUBSTITUTION" procedureCount={1} videoCount={2} />
+      </div>
+    </div>
+  );
+}
+
+// ─── ALTERNATING POSSESSION Content ──────────────────────────────────────────
+
+function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="ALTERNATING POSSESSION" />
+
+      {/* RULE / ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "36px auto 28px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="RULE" />
+          <div style={{ display: "flex", gap: 8 }}>
+            <DocCard />
+            <DocCard />
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard />
+        </div>
+      </div>
+
+      {/* OPERATION / PRESENTATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginBottom: 32,
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="OPERATION" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PRESENTATION" />
+          <DocCard />
+        </div>
+      </div>
+
+      {/* CHANGE ARROW DIRECTION / DO NOT CHANGE ARROW DIRECTION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 24 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginBottom: 32,
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div
+            style={{
+              border: `2px solid ${T.orange}`,
+              borderRadius: 30,
+              padding: "8px 28px",
+              marginBottom: 16,
+            }}
+          >
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+              CHANGE ARROW DIRECTION
+            </span>
+          </div>
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div
+            style={{
+              border: `2px solid ${T.orange}`,
+              borderRadius: 30,
+              padding: "8px 28px",
+              marginBottom: 16,
+            }}
+          >
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+              DO NOT CHANGE ARROW DIRECTION
+            </span>
+          </div>
+          <DocCard />
+        </div>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "repeat(2,1fr)" : isTablet ? "repeat(4,1fr)" : "repeat(8,1fr)",
+          gap: 12,
+          maxWidth: 800,
+          margin: "0 auto",
+        }}
+      >
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+    </div>
+  );
+}
+
+// ─── DRIBBLING Content ───────────────────────────────────────────────────────
+
+function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="DRIBBLING" />
+
+      {/* Top two-column: RULE EXPLANATION | SIGNALS */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 64,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "36px auto 28px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="RULE EXPLANATION" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNALS" />
+          <div style={{ display: "flex", gap: 8 }}>
+            <DocCard cols={2} />
+            <DocCard cols={2} />
+          </div>
+        </div>
+      </div>
+
+      {/* ARTICLE / INTERPRETATION / PRESENTATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 40px",
+        }}
+      >
+        {["ARTICLE", "INTERPRETATION", "PRESENTATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+
+      {/* CARRYING THE BALL */}
+      <SubSectionBadge label="CARRYING THE BALL" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* DOUBLE DRIBBLE */}
+      <SubSectionBadge label="DOUBLE DRIBBLE" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 3 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── UNSPORTSMANLIKE FOUL Content ─────────────────────────────────────────────
+
+function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="UNSPORTSMANLIKE FOUL" />
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* SIGNAL / ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 32px",
+        }}
+      >
+        {["SIGNAL", "ARTICLE", "INTERPRETATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* PROTOCOL */}
+      <SubSectionBadge label="PROTOCOL" />
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          0 - 1 - 2 TECHNIQUE
+        </span>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 36 }}>
+        <div
+          style={{
+            width: isMobile ? 180 : 240,
+            aspectRatio: "16 / 9",
+            background: T.charcoal,
+            border: `2px solid ${T.border}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 4,
+          }}
+        >
+          <span style={{ fontFamily: BARLOW, fontSize: 11, color: T.grey, textTransform: "uppercase", letterSpacing: "1px", textAlign: "center", padding: "0 8px" }}>
+            Technique Diagram
+          </span>
+        </div>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+
+      {["CRITERIA 1", "CRITERIA 2", "CRITERIA 3", "CRITERIA 4"].map((criteria, ci) => (
+        <div key={criteria}>
+          <SubSectionBadge label={criteria} />
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+            {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={ci * 8 + i} />)}
+          </div>
+        </div>
+      ))}
+      <WatchPlaylistButton />
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 5 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
+      </div>
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── SCREENING Content ────────────────────────────────────────────────────────
+
+function ScreeningContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="SCREENING" />
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* SIGNAL / ARTICLE / PRESENTATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 32px",
+        }}
+      >
+        {["SIGNAL", "ARTICLE", "PRESENTATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── CHARGE & BLOCK Content ───────────────────────────────────────────────────
+
+function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="CHARGE & BLOCK" />
+
+      {/* Top row: RULE EXPLANATION & SIGNALS side-by-side */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 64,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "36px auto 28px",
+        }}
+      >
+        {/* RULE EXPLANATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="RULE EXPLANATION" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            {Array.from({ length: 4 }).map((_, i) => <DocCard key={i} />)}
+          </div>
+        </div>
+
+        {/* SIGNALS */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNALS" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            {Array.from({ length: 2 }).map((_, i) => <DocCard key={i} cols={2} />)}
+          </div>
+        </div>
+      </div>
+
+      {/* Middle row: ARTICLE / INTERPRETATION / PRESENTATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 40px",
+        }}
+      >
+        {/* ARTICLE */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard />
+        </div>
+
+        {/* INTERPRETATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard />
+        </div>
+
+        {/* PRESENTATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PRESENTATION" />
+          <div style={{ display: "flex", gap: 8 }}>
+            <DocCard />
+            <DocCard />
+          </div>
+        </div>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+
+      {/* BLOCK */}
+      <SubSectionBadge label="BLOCK" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* CHARGE */}
+      <SubSectionBadge label="CHARGE" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* PASS AND CRASH */}
+      <SubSectionBadge label="PASS AND CRASH" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── NO-CHARGE SEMICIRCLE Content ──────────────────────────────────────────────
+
+function NoChargeSemicircleContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="NO-CHARGE SEMICIRCLE" />
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 32px",
+        }}
+      >
+        {["ARTICLE", "INTERPRETATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={16 + i} />)}
+      </div>
+    </div>
+  );
+}
+
+// ─── FAKING A FOUL Content ───────────────────────────────────────────────────
+
+function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="FAKING A FOUL" />
+
+      {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 64,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "36px auto 28px",
+        }}
+      >
+        {/* RULE EXPLANATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="RULE EXPLANATION" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+          </div>
+        </div>
+
+        {/* SIGNAL */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            <DocCard />
+          </div>
+        </div>
+      </div>
+
+      {/* Row 2: ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 32px",
+        }}
+      >
+        {["ARTICLE", "INTERPRETATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* PROTOCOL */}
+      <CylinderSectionHeader label="PROTOCOL" />
+      
+      {/* DURING GAME / DURING NEXT GAME STOPPAGE */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>DURING GAME</span>
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>DURING NEXT GAME STOPPAGE</span>
+          <div style={{ display: "flex", gap: 8 }}>
+            <DocCard />
+            <DocCard />
+          </div>
+        </div>
+      </div>
+
+      {/* REPETITIVE OR EXCESSIVE FAKE */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 36 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>REPETITIVE OR EXCESSIVE FAKE</span>
+        <div style={{ display: "flex", gap: 8 }}>
+          <DocCard />
+          <DocCard />
+          <DocCard />
+        </div>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
+      </div>
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── BALL RETURNED TO BACKCOURT Content ───────────────────────────────────────
+
+function BallReturnedToBackcourtContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="BALL RETURNED TO BACKCOURT" />
+
+      {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 64,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "36px auto 28px",
+        }}
+      >
+        {/* RULE EXPLANATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="RULE EXPLANATION" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+          </div>
+        </div>
+
+        {/* SIGNAL */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            <DocCard />
+          </div>
+        </div>
+      </div>
+
+      {/* Middle row: ARTICLE / INTERPRETATION / PRESENTATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 32px",
+        }}
+      >
+        {["ARTICLE", "INTERPRETATION", "PRESENTATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 7 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+      <WatchPlaylistButton />
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={7 + i} />)}
+      </div>
+      <WatchPlaylistButton />
+    </div>
+  );
+}
+
+// ─── THROW-IN Content ─────────────────────────────────────────────────────────
+
+function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      <SectionBadge label="THROW-IN" />
+
+      {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 64,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "36px auto 28px",
+        }}
+      >
+        {/* RULE EXPLANATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="RULE EXPLANATION" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            <VideoCard index={0} />
+          </div>
+        </div>
+
+        {/* SIGNAL */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            <DocCard />
+          </div>
+        </div>
+      </div>
+
+      {/* Row 2: ARTICLE / INTERPRETATION / PRESENTATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 32px",
+        }}
+      >
+        {["ARTICLE", "INTERPRETATION", "PRESENTATION"].map((lbl) => (
+          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label={lbl} />
+            <DocCard />
+          </div>
+        ))}
+      </div>
+
+      {/* PROCEDURE */}
+      <CylinderSectionHeader label="PROCEDURE" />
+      
+      {/* GENERAL / L2M */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>GENERAL</span>
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>L2M</span>
+          <DocCard />
+        </div>
+      </div>
+
+      {/* GENERAL - WITH WARNING WHISTLE / L2M - WITH WARNING WHISTLE */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>GENERAL - WITH WARNING WHISTLE</span>
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>L2M - WITH WARNING WHISTLE</span>
+          <DocCard />
+        </div>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        {Array.from({ length: 3 }).map((_, i) => <VideoCard key={i} index={2 + i} />)}
+      </div>
+    </div>
+  );
+}
+
 // ─── Generic placeholder tab content ─────────────────────────────────────────
 
 function PlaceholderTabContent({ tab }: { tab: Tab }) {
@@ -1458,6 +2632,32 @@ export default function Videos() {
               <CylinderPrincipleContent isMobile={isMobile} isTablet={isTablet} />
             ) : activeTab === "3X3" ? (
               <ThreeXThreeContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "TRAVELLING" ? (
+              <TravellingContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "ACT OF SHOOTING & GOAL: WHEN MADE AND ITS VALUE" ? (
+              <ActOfShootingContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "CONTACT" ? (
+              <ContactContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "TIME-OUT & SUBSTITUTION" ? (
+              <TimeoutSubstitutionContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "ALTERNATING POSSESSION" ? (
+              <AlternatingPossessionContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "DRIBBLING" ? (
+              <DribblingContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "UNSPORTSMANLIKE FOUL" ? (
+              <UnsportsmanlikeFoulContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "SCREENING" ? (
+              <ScreeningContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "CHARGE & BLOCK" ? (
+              <ChargeBlockContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "NO-CHARGE SEMICIRCLE" ? (
+              <NoChargeSemicircleContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "FAKING A FOUL" ? (
+              <FakingFoulContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "BALL RETURNED TO BACKCOURT" ? (
+              <BallReturnedToBackcourtContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "THROW-IN" ? (
+              <ThrowInContent isMobile={isMobile} isTablet={isTablet} />
             ) : (
               <PlaceholderTabContent tab={activeTab} />
             )}
