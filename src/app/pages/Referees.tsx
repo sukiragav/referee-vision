@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -446,166 +447,262 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
   const isMp3 = url.endsWith(".mp3") || url.includes(".mp3?");
   const isMp4 = url.endsWith(".mp4") || url.includes(".mp4?");
   const isImage = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(url);
+  const youtubeId = getYouTubeId(url);
+  const embedSrc = youtubeId
+    ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
+    : null;
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.82)",
+        background: "rgba(0,0,0,0.85)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 1000,
-        backdropFilter: "blur(4px)",
+        zIndex: 99999,
+        backdropFilter: "blur(6px)",
         padding: isImage ? "32px 16px" : "16px",
+        animation: "fadeInModal 0.22s ease",
       }}
     >
-      {/* Close button – only shown outside the modal for non-image types */}
-      {!isImage && (
-        <button
-          onClick={onClose}
+      <style>{`
+        @keyframes fadeInModal {
+          from { opacity: 0; transform: scale(0.96); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
+
+      {isMp3 ? (
+        <div
+          onClick={(e) => e.stopPropagation()}
           style={{
-            position: "absolute",
-            top: 16,
-            right: 20,
-            background: "transparent",
-            border: "none",
-            color: T.white,
-            fontSize: 32,
-            cursor: "pointer",
-            lineHeight: 1,
-            opacity: 0.8,
-            zIndex: 1001,
+            width: "min(500px, 90vw)",
+            background: T.charcoal,
+            border: `2px solid ${T.orange}`,
+            boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+            position: "relative",
+            padding: "40px 24px 32px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 24,
           }}
         >
-          ✕
-        </button>
-      )}
-
-      {/* Modal content – stop propagation so clicking content doesn't close */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={
-          isMp3
-            ? {
-              width: "min(500px, 90vw)",
-              background: T.charcoal,
-              border: `2px solid ${T.orange}`,
-              boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
-              position: "relative",
-              padding: "40px 24px 32px",
+          {/* Close button for MP3 */}
+          <button
+            onClick={onClose}
+            style={{
+              position: "absolute",
+              top: 14,
+              right: 14,
+              background: "transparent",
+              border: `1px solid ${T.border}`,
+              color: T.inactive,
+              fontSize: 18,
+              cursor: "pointer",
+              width: 32,
+              height: 32,
               display: "flex",
-              flexDirection: "column",
               alignItems: "center",
-              gap: 24,
-            }
-            : isImage
-              ? {
-                width: "min(860px, 92vw)",
-                maxHeight: "88vh",
-                background: "#ffffff",
-                boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                overflowY: "auto",
-                overflowX: "hidden",
-                borderRadius: 2,
-              }
-              : {
-                width: "min(900px, 95vw)",
-                aspectRatio: "16 / 9",
-                background: "#000",
-                border: `2px solid ${T.orange}`,
-                boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
-                position: "relative",
-              }
-        }
-      >
-        {isMp3 ? (
-          <>
-            <div style={{ color: T.orange, display: "flex", justifyContent: "center" }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18V5l12-2v13" />
-                <circle cx="6" cy="18" r="3" fill="currentColor" />
-                <circle cx="18" cy="16" r="3" fill="currentColor" />
-              </svg>
-            </div>
-            {title && (
-              <div
-                style={{
-                  fontFamily: BARLOW,
-                  fontWeight: 700,
-                  fontSize: 18,
-                  color: T.white,
-                  textAlign: "center",
-                  letterSpacing: "1px",
-                  textTransform: "uppercase",
-                }}
-              >
-                {title}
-              </div>
-            )}
-            <audio
-              src={url}
-              controls
-              autoPlay
-              style={{ width: "100%", display: "block" }}
-            />
-          </>
-        ) : isImage ? (
-          <>
-            {/* Close button inside white modal */}
-            <button
-              onClick={onClose}
+              justifyContent: "center",
+              borderRadius: 2,
+              transition: "border-color 0.15s, color 0.15s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = T.orange;
+              e.currentTarget.style.color = T.orange;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = T.border;
+              e.currentTarget.style.color = T.inactive;
+            }}
+            aria-label="Close audio"
+          >
+            ✕
+          </button>
+          <div style={{ color: T.orange, display: "flex", justifyContent: "center" }}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 18V5l12-2v13" />
+              <circle cx="6" cy="18" r="3" fill="currentColor" />
+              <circle cx="18" cy="16" r="3" fill="currentColor" />
+            </svg>
+          </div>
+          {title && (
+            <div
               style={{
-                position: "sticky",
-                top: 0,
-                alignSelf: "flex-end",
-                zIndex: 10,
-                background: T.orange,
-                border: "none",
-                color: "#fff",
-                fontSize: 22,
+                fontFamily: BARLOW,
                 fontWeight: 700,
-                width: 40,
-                height: 40,
-                cursor: "pointer",
-                lineHeight: 1,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                marginBottom: -40,
+                fontSize: 18,
+                color: T.white,
+                textAlign: "center",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
               }}
             >
-              ✕
-            </button>
-            <img
-              src={url}
-              alt={title || "Article"}
-              style={{ width: "100%", display: "block" }}
-            />
-          </>
-        ) : isMp4 ? (
-          <video
+              {title}
+            </div>
+          )}
+          <audio
             src={url}
             controls
             autoPlay
-            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+            style={{ width: "100%", display: "block" }}
           />
-        ) : (
-          <iframe
-            src={getYouTubeEmbedUrl(url)}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+        </div>
+      ) : isImage ? (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: "min(860px, 92vw)",
+            maxHeight: "88vh",
+            background: "#ffffff",
+            boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            overflowY: "auto",
+            overflowX: "hidden",
+            borderRadius: 2,
+          }}
+        >
+          {/* Close button inside white modal */}
+          <button
+            onClick={onClose}
+            style={{
+              position: "sticky",
+              top: 0,
+              alignSelf: "flex-end",
+              zIndex: 10,
+              background: T.orange,
+              border: "none",
+              color: "#fff",
+              fontSize: 22,
+              fontWeight: 700,
+              width: 40,
+              height: 40,
+              cursor: "pointer",
+              lineHeight: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              marginBottom: -40,
+            }}
+          >
+            ✕
+          </button>
+          <img
+            src={url}
+            alt={title || "Article"}
+            style={{ width: "100%", display: "block" }}
           />
-        )}
-      </div>
-    </div>
+        </div>
+      ) : (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: "100%",
+            maxWidth: 960,
+            background: "#111",
+            border: `1px solid ${T.orange}`,
+            boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
+          {/* Modal header */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "14px 20px",
+              borderBottom: `1px solid ${T.border}`,
+              background: T.charcoal,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontWeight: 700,
+                fontSize: 17,
+                color: T.orange,
+                letterSpacing: "2px",
+                textTransform: "uppercase",
+              }}
+            >
+              {title || "Video Player"}
+            </span>
+            <button
+              onClick={onClose}
+              style={{
+                background: "transparent",
+                border: `1px solid ${T.border}`,
+                color: T.inactive,
+                fontSize: 18,
+                cursor: "pointer",
+                width: 32,
+                height: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 2,
+                transition: "border-color 0.15s, color 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = T.orange;
+                e.currentTarget.style.color = T.orange;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = T.border;
+                e.currentTarget.style.color = T.inactive;
+              }}
+              aria-label="Close video"
+            >
+              ✕
+            </button>
+          </div>
+          {/* Video area */}
+          <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, background: "#000" }}>
+            {isMp4 ? (
+              <video
+                src={url}
+                controls
+                autoPlay
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                }}
+              />
+            ) : (
+              <iframe
+                src={embedSrc || getYouTubeEmbedUrl(url)}
+                title={title || "Video"}
+                allow="autoplay; encrypted-media; fullscreen"
+                allowFullScreen
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                }}
+              />
+            )}
+          </div>
+        </div>
+      )}
+    </div>,
+    document.body
   );
 }
 

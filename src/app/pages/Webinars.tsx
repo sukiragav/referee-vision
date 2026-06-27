@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -344,11 +345,11 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
     ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
     : null;
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       style={{
-        position: "fixed", inset: 0, zIndex: 1000,
+        position: "fixed", inset: 0, zIndex: 99999,
         background: "rgba(0,0,0,0.88)",
         backdropFilter: "blur(6px)",
         display: "flex", alignItems: "center", justifyContent: "center",
@@ -370,6 +371,7 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
           border: `1px solid ${T.orange}`,
           boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
           display: "flex", flexDirection: "column",
+          position: "relative",
         }}
       >
         {/* Modal header */}
@@ -427,7 +429,8 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

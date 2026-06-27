@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import coverImage from "../../imports/image.png";
 import financePlanningImg from "../../imports/finance_planning.png";
 import budgetingImg from "../../imports/budgeting.png";
@@ -665,22 +666,55 @@ function DocRow({
 // ─── YouTube Video Modal ──────────────────────────────────────────────────────
 function VideoModal({ onClose }: { onClose: () => void }) {
   // Close on backdrop click
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 1000,
-        background: "rgba(0,0,0,0.82)",
+        zIndex: 99999,
+        background: "rgba(0,0,0,0.85)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backdropFilter: "blur(6px)",
-        WebkitBackdropFilter: "blur(6px)",
+        backdropFilter: "blur(4.6px)",
+        WebkitBackdropFilter: "blur(4.6px)",
         animation: "fadeIn 0.2s ease",
       }}
     >
+      {/* Close button at the top-right of the viewport */}
+      <button
+        onClick={onClose}
+        style={{
+          position: "absolute",
+          top: 24,
+          right: 24,
+          width: 44,
+          height: 44,
+          borderRadius: "50%",
+          background: "rgba(0,0,0,0.6)",
+          border: `2px solid ${T.orange}`,
+          color: T.white,
+          fontSize: 20,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 100000,
+          transition: "background 0.2s, transform 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = T.orange;
+          e.currentTarget.style.transform = "scale(1.1)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(0,0,0,0.6)";
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+      >
+        ✕
+      </button>
+
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -694,31 +728,6 @@ function VideoModal({ onClose }: { onClose: () => void }) {
           animation: "scaleIn 0.22s cubic-bezier(0.34,1.56,0.64,1)",
         }}
       >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: -44,
-            right: 0,
-            background: "transparent",
-            border: "none",
-            color: "#fff",
-            fontSize: 32,
-            cursor: "pointer",
-            lineHeight: 1,
-            padding: "4px 8px",
-            zIndex: 10,
-            opacity: 0.85,
-            transition: "opacity 0.15s",
-          }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
-          aria-label="Close video"
-        >
-          ✕
-        </button>
-
         <iframe
           src="https://www.youtube.com/embed/bN6LywHcihI?autoplay=1&rel=0"
           title="Official Rules of the Game - FIBA 3X3"
@@ -738,7 +747,8 @@ function VideoModal({ onClose }: { onClose: () => void }) {
         @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
         @keyframes scaleIn { from { transform: scale(0.88); opacity: 0 } to { transform: scale(1); opacity: 1 } }
       `}</style>
-    </div>
+    </div>,
+    document.body
   );
 }
 

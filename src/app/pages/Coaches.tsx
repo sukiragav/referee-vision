@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -1877,14 +1878,14 @@ function VideoModal({
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       style={{
         position: 'fixed',
         inset: 0,
         background: 'rgba(0,0,0,0.88)',
-        zIndex: 1000,
+        zIndex: 99999,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -1917,9 +1918,9 @@ function VideoModal({
             style={{
               fontFamily: BARLOW,
               fontWeight: 700,
-              fontSize: 18,
-              color: T.white,
-              letterSpacing: '1px',
+              fontSize: 17,
+              color: T.orange,
+              letterSpacing: '2px',
               textTransform: 'uppercase',
             }}
           >
@@ -1929,13 +1930,27 @@ function VideoModal({
             onClick={onClose}
             style={{
               background: 'transparent',
-              border: 'none',
+              border: `1px solid ${T.border}`,
               color: T.inactive,
-              fontSize: 22,
+              fontSize: 18,
               cursor: 'pointer',
-              lineHeight: 1,
-              padding: 4,
+              width: 32,
+              height: 32,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 2,
+              transition: 'border-color 0.15s, color 0.15s',
             }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = T.orange;
+              e.currentTarget.style.color = T.orange;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = T.border;
+              e.currentTarget.style.color = T.inactive;
+            }}
+            aria-label="Close video"
           >
             ✕
           </button>
@@ -1975,7 +1990,8 @@ function VideoModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

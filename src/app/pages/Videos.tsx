@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 const preGameTiming = "https://www.refereevision.com/tbloffl35.png";
 const arrivalDoc = "https://www.refereevision.com/common_arrival.jpg";
 const arrivalPhotoImg = "https://www.refereevision.com/tbloffl1.png";
@@ -167,10 +168,13 @@ function getYouTubeEmbedUrl(url: string): string {
 
 // ─── Video Modal ──────────────────────────────────────────────────────────────
 function VideoModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
-  const isYoutube = url.includes("youtu.be") || url.includes("youtube.com");
   const isImage = /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url) || url.startsWith("data:image");
+  const youtubeId = getYouTubeId(url);
+  const embedSrc = youtubeId
+    ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
+    : null;
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       style={{
@@ -180,94 +184,169 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 1000,
-        backdropFilter: "blur(4px)",
+        zIndex: 99999,
+        backdropFilter: "blur(6px)",
         padding: isImage ? "32px 16px" : "16px",
+        animation: "fadeInModal 0.22s ease",
       }}
     >
-      <button
-        onClick={onClose}
-        style={{
-          position: "absolute",
-          top: 24,
-          right: 24,
-          width: 44,
-          height: 44,
-          borderRadius: "50%",
-          background: "rgba(0,0,0,0.6)",
-          border: `2px solid ${T.orange}`,
-          color: T.white,
-          fontSize: 20,
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 1010,
-          transition: "background 0.2s, transform 0.2s",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = T.orange;
-          e.currentTarget.style.transform = "scale(1.1)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(0,0,0,0.6)";
-          e.currentTarget.style.transform = "scale(1)";
-        }}
-      >
-        ✕
-      </button>
-
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={
-          isImage
-            ? {
-              width: "min(860px, 92vw)",
-              maxHeight: "88vh",
-              background: "#ffffff",
-              boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              overflowY: "auto",
-              overflowX: "hidden",
-              borderRadius: 2,
-            }
-            : isYoutube
-              ? {
-                width: "min(900px, 95vw)",
-                aspectRatio: "16 / 9",
-                background: "#000",
-                border: `2px solid ${T.orange}`,
-                boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
-                position: "relative",
-              }
-              : {
-                width: "min(1200px, 95vw)",
-                height: "85vh",
-                background: "#000",
-                border: `2px solid ${T.orange}`,
-                boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
-                position: "relative",
-              }
+      <style>{`
+        @keyframes fadeInModal {
+          from { opacity: 0; transform: scale(0.96); }
+          to   { opacity: 1; transform: scale(1); }
         }
-      >
-        {isImage ? (
+      `}</style>
+
+      {isImage ? (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: "min(860px, 92vw)",
+            maxHeight: "88vh",
+            background: "#ffffff",
+            boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            overflowY: "auto",
+            overflowX: "hidden",
+            borderRadius: 2,
+          }}
+        >
+          <button
+            onClick={onClose}
+            style={{
+              position: "sticky",
+              top: 0,
+              alignSelf: "flex-end",
+              zIndex: 10,
+              background: T.orange,
+              border: "none",
+              color: "#fff",
+              fontSize: 22,
+              fontWeight: 700,
+              width: 40,
+              height: 40,
+              cursor: "pointer",
+              lineHeight: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              marginBottom: -40,
+            }}
+          >
+            ✕
+          </button>
           <img
             src={url}
             alt={title || "Document"}
             style={{ width: "100%", display: "block" }}
           />
-        ) : (
-          <iframe
-            src={getYouTubeEmbedUrl(url)}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
-          />
-        )}
-      </div>
-    </div>
+        </div>
+      ) : (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: "100%",
+            maxWidth: 960,
+            background: "#111",
+            border: `1px solid ${T.orange}`,
+            boxShadow: `0 0 60px rgba(232,101,26,0.3)`,
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
+          {/* Modal header */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "14px 20px",
+              borderBottom: `1px solid ${T.border}`,
+              background: T.charcoal,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontWeight: 700,
+                fontSize: 17,
+                color: T.orange,
+                letterSpacing: "2px",
+                textTransform: "uppercase",
+              }}
+            >
+              {title || "Video Player"}
+            </span>
+            <button
+              onClick={onClose}
+              style={{
+                background: "transparent",
+                border: `1px solid ${T.border}`,
+                color: T.inactive,
+                fontSize: 18,
+                cursor: "pointer",
+                width: 32,
+                height: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 2,
+                transition: "border-color 0.15s, color 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = T.orange;
+                e.currentTarget.style.color = T.orange;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = T.border;
+                e.currentTarget.style.color = T.inactive;
+              }}
+              aria-label="Close video"
+            >
+              ✕
+            </button>
+          </div>
+          {/* Video area */}
+          <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, background: "#000" }}>
+            {url.endsWith(".mp4") || url.includes(".mp4?") ? (
+              <video
+                src={url}
+                controls
+                autoPlay
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                }}
+              />
+            ) : (
+              <iframe
+                src={embedSrc || getYouTubeEmbedUrl(url)}
+                title={title || "Video"}
+                allow="autoplay; encrypted-media; fullscreen"
+                allowFullScreen
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                }}
+              />
+            )}
+          </div>
+        </div>
+      )}
+    </div>,
+    document.body
   );
 }
 
@@ -875,34 +954,45 @@ function VideoCard({ index, activeColor = T.orange }: { index: number; activeCol
 }
 
 // Clock placeholder
-function ClockCard() {
+function ClockCard({ onClick, label = "00:00" }: { onClick?: () => void; label?: string }) {
   const h = useHover();
   return (
     <div
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
+      onClick={onClick}
       style={{
         width: 100,
         aspectRatio: "4 / 3",
         background: "#0A0A0A",
-        border: `2px solid ${h.on ? T.orange : "#2A2A2A"}`,
+        border: `2px solid ${h.on && onClick ? T.orange : "#2A2A2A"}`,
         borderRadius: 4,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
-        transition: "border-color 0.2s",
+        transition: "border-color 0.2s, transform 0.2s",
+        transform: h.on && onClick ? "scale(1.05)" : "scale(1)",
+        cursor: onClick ? "pointer" : "default",
       }}
     >
-      <span style={{ fontFamily: "'Courier New', monospace", fontSize: 22, fontWeight: 700, color: h.on ? T.orange : "#CC3399", letterSpacing: "2px", textShadow: h.on ? `0 0 8px ${T.orange}` : "0 0 8px #CC3399" }}>
-        00:00
+      <span style={{ fontFamily: "'Courier New', monospace", fontSize: 22, fontWeight: 700, color: h.on && onClick ? T.orange : "#CC3399", letterSpacing: "2px", textShadow: h.on && onClick ? `0 0 8px ${T.orange}` : "0 0 8px #CC3399" }}>
+        {label}
       </span>
     </div>
   );
 }
 
 // Sub-section with label + doc cards row
-function DocSection({ title, count = 2 }: { title: string; count?: number }) {
+function DocSection({
+  title,
+  count = 2,
+  images = [],
+}: {
+  title: string;
+  count?: number;
+  images?: { src: string; alt: string; openUrl?: string }[];
+}) {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 28px", marginBottom: 20 }}>
@@ -910,8 +1000,20 @@ function DocSection({ title, count = 2 }: { title: string; count?: number }) {
           {title}
         </span>
       </div>
-      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-        {Array.from({ length: count }).map((_, i) => <DocCard key={i} />)}
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
+        {Array.from({ length: count }).map((_, i) => {
+          if (images[i]) {
+            return (
+              <ContentImage
+                key={i}
+                src={images[i].src}
+                alt={images[i].alt}
+                openUrl={images[i].openUrl}
+              />
+            );
+          }
+          return <DocCard key={i} />;
+        })}
       </div>
     </div>
   );
@@ -953,21 +1055,71 @@ function RuleProcedureSummary({ videoCount = 0 }: { videoCount?: number }) {
 function AssistantScorerContent() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-      <DocSection title="DUTIES" count={2} />
-      <DocSection title="BEFORE THE GAME" count={1} />
-      <DocSection title="DURING THE GAME" count={1} />
+      <DocSection
+        title="DUTIES"
+        count={2}
+        images={[
+          { src: "https://www.refereevision.com/as_duties.jpg", alt: "Assistant Scorer Duties" },
+          { src: "https://www.refereevision.com/as_otherduties.jpg", alt: "Assistant Scorer Other Duties" }
+        ]}
+      />
+      <DocSection
+        title="BEFORE THE GAME"
+        count={1}
+        images={[
+          { src: "https://www.refereevision.com/as_before.jpg", alt: "Assistant Scorer Before The Game" }
+        ]}
+      />
+      <DocSection
+        title="DURING THE GAME"
+        count={1}
+        images={[
+          { src: "https://www.refereevision.com/as_during.jpg", alt: "Assistant Scorer During The Game" }
+        ]}
+      />
     </div>
   );
 }
 
 // ─── TIMER Content ────────────────────────────────────────────────────────────
 function TimerContent() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  const clockLinks = [
+    "https://library.fibairef.basketball/cdn/TOM500_EN?autoplay=1",
+    "https://library.fibairef.basketball/cdn/TOM501_EN?autoplay=1",
+    "https://library.fibairef.basketball/cdn/TOM502_EN?autoplay=1",
+    "https://library.fibairef.basketball/cdn/TOM408_EN?autoplay=1",
+  ];
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+
       <div style={{ display: "flex", gap: 36, justifyContent: "space-around", flexWrap: "wrap" }}>
-        <DocSection title="DUTIES" count={3} />
-        <DocSection title="BEFORE THE GAME" count={1} />
-        <DocSection title="DURING THE GAME" count={1} />
+        <DocSection
+          title="DUTIES"
+          count={3}
+          images={[
+            { src: "https://www.refereevision.com/timer_duties.png", alt: "Timer Duties" },
+            { src: "https://www.refereevision.com/to_help.jpg", alt: "Table Officials Help" },
+            { src: "https://www.refereevision.com/timer_otherduties.png", alt: "Timer Other Duties" }
+          ]}
+        />
+        <DocSection
+          title="BEFORE THE GAME"
+          count={1}
+          images={[
+            { src: "https://www.refereevision.com/timer_before.png", alt: "Timer Before the Game" }
+          ]}
+        />
+        <DocSection
+          title="DURING THE GAME"
+          count={1}
+          images={[
+            { src: "https://www.refereevision.com/timer_during.jpg", alt: "Timer During the Game" }
+          ]}
+        />
       </div>
 
       {/* Starting & Stopping the Game Clock */}
@@ -978,7 +1130,13 @@ function TimerContent() {
           </span>
         </div>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          {Array.from({ length: 4 }).map((_, i) => <ClockCard key={i} />)}
+          {clockLinks.map((link, i) => (
+            <ClockCard
+              key={i}
+              label={`00:0${i + 1}`}
+              onClick={() => setActiveVideo(link)}
+            />
+          ))}
         </div>
       </div>
 
