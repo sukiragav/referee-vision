@@ -22,7 +22,7 @@ export default function SiteHeader() {
             </h1>
             <p style={{ fontFamily: "'North Wave', sans-serif" }}
               className="text-[13px] md:text-[15px] text-[#AAAAAA]">
-              One Stop to Rule Them All
+              One  Stop  To  "Rule"  Them  All
             </p>
           </div>
         </Link>
@@ -56,10 +56,10 @@ export default function SiteHeader() {
             const isVideos = item === 'VIDEOS';
             const isWebinars = item === 'WEBINARS';
             const isCoaches = item === 'COACHES';
-            
+
             let isActive = false;
             let toPath = `/#${item.toLowerCase()}`;
-            
+
             if (isReferees) {
               isActive = location.pathname === '/referees';
               toPath = '/referees';
@@ -79,7 +79,7 @@ export default function SiteHeader() {
               isActive = location.hash === `#${item.toLowerCase()}`;
             }
 
-            
+
             return (
               <Link
                 key={item}
@@ -87,9 +87,8 @@ export default function SiteHeader() {
                 onMouseEnter={() => setHoveredNav(item)}
                 onMouseLeave={() => setHoveredNav(null)}
                 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, letterSpacing: '2px' }}
-                className={`text-[14px] uppercase relative pb-1 transition-colors whitespace-nowrap ${
-                  isActive || hoveredNav === item ? 'text-[var(--orange)]' : 'text-white'
-                }`}
+                className={`text-[14px] uppercase relative pb-1 transition-colors whitespace-nowrap ${isActive || hoveredNav === item ? 'text-[var(--orange)]' : 'text-white'
+                  }`}
               >
                 {item}
                 {(isActive || hoveredNav === item) && (

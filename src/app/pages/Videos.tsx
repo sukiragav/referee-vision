@@ -353,10 +353,10 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
 // ─── Video Thumb ──────────────────────────────────────────────────────────────
 const THUMB_SHADES = ["#1A2416", "#16201A", "#1E1A16", "#161E20", "#1A161E", "#1E1E16"];
 
-function VideoThumb({ index, link, onPlay }: { index: number; link: string; onPlay: () => void }) {
+function VideoThumb({ index, link, onPlay, thumbnail: customThumbnail }: { index: number; link: string; onPlay: () => void; thumbnail?: string }) {
   const h = useHover();
   const ytId = getYouTubeId(link);
-  const thumbnail = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null;
+  const thumbnail = customThumbnail ?? (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null);
 
   return (
     <div
@@ -1020,22 +1020,47 @@ function DocSection({
 }
 
 // Three-column rule/procedure/summary
-function RuleProcedureSummary({ videoCount = 0 }: { videoCount?: number }) {
+function RuleProcedureSummary({
+  videoCount = 0,
+  ruleImages = [],
+  procedureImages = [],
+  summaryImages = [],
+  videos = [],
+}: {
+  videoCount?: number;
+  ruleImages?: { src: string; alt: string }[];
+  procedureImages?: { src: string; alt: string }[];
+  summaryImages?: { src: string; alt: string }[];
+  videos?: { link: string; thumbnail?: string }[];
+}) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const sections: { label: string; images: { src: string; alt: string }[]; count: number }[] = [
+    { label: "RULE", images: ruleImages, count: 1 },
+    { label: "PROCEDURE", images: procedureImages, count: 1 },
+    { label: "SUMMARY", images: summaryImages, count: 1 },
+  ];
+  const totalVideos = videos.length > 0 ? videos.length : videoCount;
   return (
     <div>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
       <div style={{ display: "flex", gap: 12, justifyContent: "space-around", flexWrap: "wrap", marginBottom: 24 }}>
-        {["RULE", "PROCEDURE", "SUMMARY"].map((label) => (
+        {sections.map(({ label, images, count }) => (
           <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, flex: "1 1 120px" }}>
             <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "6px 20px" }}>
               <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 13, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>{label}</span>
             </div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-              {Array.from({ length: label === "PROCEDURE" ? 2 : 1 }).map((_, i) => <DocCard key={i} />)}
+              {Array.from({ length: count }).map((_, i) => {
+                if (images[i]) {
+                  return <ContentImage key={i} src={images[i].src} alt={images[i].alt} />;
+                }
+                return <DocCard key={i} />;
+              })}
             </div>
           </div>
         ))}
       </div>
-      {videoCount > 0 && (
+      {totalVideos > 0 && (
         <>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 28px", margin: "24px 0 16px" }}>
@@ -1043,7 +1068,21 @@ function RuleProcedureSummary({ videoCount = 0 }: { videoCount?: number }) {
             </div>
           </div>
           <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-            {Array.from({ length: videoCount }).map((_, i) => <VideoCard key={i} index={i} />)}
+            {Array.from({ length: totalVideos }).map((_, i) => {
+              const v = videos[i];
+              if (v) {
+                return (
+                  <VideoThumb
+                    key={i}
+                    index={i}
+                    link={v.link}
+                    thumbnail={v.thumbnail}
+                    onPlay={() => setActiveVideo(v.link)}
+                  />
+                );
+              }
+              return <VideoCard key={i} index={i} />;
+            })}
           </div>
         </>
       )}
@@ -1147,7 +1186,21 @@ function TimerContent() {
             <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>TIME-OUT REQUEST</span>
           </div>
         </div>
-        <RuleProcedureSummary videoCount={5} />
+        <RuleProcedureSummary
+          ruleImages={[{ src: "https://www.refereevision.com/to_rule.jpg", alt: "Time-Out Request Rule" }]}
+          procedureImages={[
+            { src: "https://www.refereevision.com/to_procedure2.jpg", alt: "Time-Out Request Procedure 1" },
+            { src: "https://www.refereevision.com/to_procedure1.jpg", alt: "Time-Out Request Procedure 2" },
+          ]}
+          summaryImages={[{ src: "https://www.refereevision.com/to_summary.jpg", alt: "Time-Out Request Summary" }]}
+          videos={[
+            { link: "https://library.fibairef.basketball/cdn/TOM303_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl12.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM304_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl12.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM301_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl13.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM302_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl13.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM300_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl13.png" },
+          ]}
+        />
       </div>
 
       {/* Substitution Request */}
@@ -1157,7 +1210,11 @@ function TimerContent() {
             <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>SUBSTITUTION REQUEST</span>
           </div>
         </div>
-        <RuleProcedureSummary videoCount={2} />
+        <RuleProcedureSummary
+          ruleImages={[{ src: "https://www.refereevision.com/sub_rule.jpg", alt: "Substitution Request Rule" }]}
+          procedureImages={[{ src: "https://www.refereevision.com/sub_procedure.jpg", alt: "Substitution Request Procedure" }]}
+          summaryImages={[{ src: "https://www.refereevision.com/sub_summary.jpg", alt: "Substitution Request Summary" }]}
+        />
       </div>
     </div>
   );
@@ -1167,8 +1224,21 @@ function TimerContent() {
 function ShotClockOperatorContent() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-      <DocSection title="DUTIES" count={2} />
-      <DocSection title="BEFORE THE GAME" count={1} />
+      <DocSection
+        title="DUTIES"
+        count={2}
+        images={[
+          { src: "https://www.refereevision.com/sc_duties.jpg", alt: "Shot Clock Operator Duties" },
+          { src: "https://www.refereevision.com/sc_otherduties.jpg", alt: "Shot Clock Operator Other Duties" },
+        ]}
+      />
+      <DocSection
+        title="BEFORE THE GAME"
+        count={1}
+        images={[
+          { src: "https://www.refereevision.com/sc_rule.jpg", alt: "Shot Clock Operator Before The Game" },
+        ]}
+      />
       <DocSection title="DURING THE GAME" count={2} />
 
       {/* Shot Clock Reset */}
@@ -1464,9 +1534,12 @@ function CylinderPrincipleContent({
 // ─── 3X3 Content ─────────────────────────────────────────────────────────────
 
 function ThreeXThreeContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
       <SectionBadge label="3X3" />
+
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
 
       {/* PLAYER NOT IN POSSESSION OF THE BALL */}
       <SubSectionBadge label="PLAYER NOT IN POSSESSION OF THE BALL" />
@@ -1474,10 +1547,18 @@ function ThreeXThreeContent({ isMobile, isTablet }: { isMobile: boolean; isTable
         <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>HOLDING/GRABBING</span>
       </div>
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
-        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
+        <VideoThumb index={0} link="https://youtu.be/jalyN4bqQ10" thumbnail="https://img.youtube.com/vi/jalyN4bqQ10/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/jalyN4bqQ10")} />
+        <VideoThumb index={1} link="https://youtu.be/aWaF8FRA6Gs" thumbnail="https://img.youtube.com/vi/aWaF8FRA6Gs/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/aWaF8FRA6Gs")} />
+        <VideoThumb index={2} link="https://youtu.be/JzFObk1Y3KE" thumbnail="https://img.youtube.com/vi/JzFObk1Y3KE/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/JzFObk1Y3KE")} />
+        <VideoThumb index={3} link="https://youtu.be/KncrTXTro0o" thumbnail="https://img.youtube.com/vi/KncrTXTro0o/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/KncrTXTro0o")} />
+        <VideoThumb index={4} link="https://youtu.be/L5oia_Yrhz4" thumbnail="https://img.youtube.com/vi/L5oia_Yrhz4/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/L5oia_Yrhz4")} />
+        <VideoThumb index={5} link="https://youtu.be/QPYJXqfEtnU" thumbnail="https://img.youtube.com/vi/QPYJXqfEtnU/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/QPYJXqfEtnU")} />
+        <VideoThumb index={6} link="https://youtu.be/qyyZ6a5cbc8" thumbnail="https://img.youtube.com/vi/qyyZ6a5cbc8/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/qyyZ6a5cbc8")} />
+        <VideoThumb index={7} link="https://youtu.be/2enXtW1mjqs" thumbnail="https://img.youtube.com/vi/2enXtW1mjqs/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/2enXtW1mjqs")} />
+        <VideoThumb index={8} link="https://youtu.be/1ULaUfGGjg4" thumbnail="https://img.youtube.com/vi/1ULaUfGGjg4/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/1ULaUfGGjg4")} />
+        <VideoThumb index={9} link="https://youtu.be/287biihZSIw" thumbnail="https://img.youtube.com/vi/287biihZSIw/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/287biihZSIw")} />
+        <VideoThumb index={10} link="https://youtu.be/dKjjSKKRznU" thumbnail="https://img.youtube.com/vi/dKjjSKKRznU/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/dKjjSKKRznU")} />
+        <VideoThumb index={11} link="https://youtu.be/u6RALxAn3NU" thumbnail="https://img.youtube.com/vi/u6RALxAn3NU/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/u6RALxAn3NU")} />
       </div>
 
       {/* PLAYER IN POSSESSION OF THE BALL (NOT IN THE ACT OF SHOOTING) */}
@@ -1688,8 +1769,8 @@ function TravellingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
           gridTemplateColumns: isMobile
             ? "repeat(2, 1fr)"
             : isTablet
-            ? "repeat(4, 1fr)"
-            : "repeat(8, 1fr)",
+              ? "repeat(4, 1fr)"
+              : "repeat(8, 1fr)",
           gap: 12,
           justifyContent: "center",
           maxWidth: 800,
@@ -1791,8 +1872,8 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
           gridTemplateColumns: isMobile
             ? "repeat(2, 1fr)"
             : isTablet
-            ? "repeat(4, 1fr)"
-            : "repeat(8, 1fr)",
+              ? "repeat(4, 1fr)"
+              : "repeat(8, 1fr)",
           gap: 12,
           justifyContent: "center",
           maxWidth: 800,
@@ -2552,7 +2633,7 @@ function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
 
       {/* PROTOCOL */}
       <CylinderSectionHeader label="PROTOCOL" />
-      
+
       {/* DURING GAME / DURING NEXT GAME STOPPAGE */}
       <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -2717,7 +2798,7 @@ function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: b
 
       {/* PROCEDURE */}
       <CylinderSectionHeader label="PROCEDURE" />
-      
+
       {/* GENERAL / L2M */}
       <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
