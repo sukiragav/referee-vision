@@ -258,7 +258,7 @@ export default function Home() {
 
           <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, letterSpacing: '-1px' }}
             className="text-[52px] md:text-[96px] text-white uppercase leading-[1.0] mb-5">
-            ONE STOP TO RULE THEM ALL
+            ONE STOP TO "RULE" THEM ALL
           </h2>
 
           <p style={{ fontFamily: "'DM Sans', sans-serif" }}
