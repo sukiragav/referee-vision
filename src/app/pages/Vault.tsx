@@ -1565,7 +1565,7 @@ function ToolsContent() {
     {
       title: "CLASSIFICATION CALCULATOR",
       version: "4.0",
-      appLink: "hhttps://www.refereevision.com/Classification_Calc_V4.0.xlsm",
+      appLink: "https://www.refereevision.com/Classification_Calc_V4.0.xlsm",
       manualLink: "http://www.refereevision.com/TEAM CLASSIFICATION CALCULATOR_Manual_V4.0.pdf",
       appAvailable: true,
       manualAvailable: true,
