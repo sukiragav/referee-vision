@@ -48,7 +48,12 @@ const TABS: Tab[] = [
   "ASSIST ARTICLES",
 ];
 
-const DOCS = [
+const DOCS: {
+  label: string;
+  version: string;
+  link: string;
+  pinned?: boolean;
+}[] = [
   {
     label: "3PO (NATIONAL REFEREE)",
     version: "Version 1.0 – Valid as of 2025",
@@ -60,24 +65,28 @@ const DOCS = [
     link: "https://library.fibairef.basketball/images/documents/846f47339b197f3869f51e8d23b08afa/2024_FIBA_2PO_Manual_v1_0a.pdf",
   },
   {
-    label: "📌 3PO BASIC",
+    label: "3PO BASIC",
     version: "Version 3.0a - Valid as of October 2026",
-    link: "https://library.fibairef.basketball/images/documents/4d74a028de82e7ae5cbb849f6cbd6186/FIBA_Referee_Manual_Basic_3PO_v3_0a_Oct2026_en.pdf"
+    link: "https://library.fibairef.basketball/images/documents/4d74a028de82e7ae5cbb849f6cbd6186/FIBA_Referee_Manual_Basic_3PO_v3_0a_Oct2026_en.pdf",
+    pinned: true,
   },
   {
-    label: "📌 3PO ADVANCED",
+    label: "3PO ADVANCED",
     version: "Version 3.0a - Valid as of October 2026",
     link: "https://library.fibairef.basketball/images/documents/e0072fec69d381d1f2272eb35cc5e4c4/FIBA_Referee_Manual_Advanced_3PO_v3_0a_.pdf",
+    pinned: true,
   },
   {
-    label: "📌 INDIVIDUAL OFFICIATING TECHNIQUES (IOT)",
+    label: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)",
     version: "Version 3.0a - Valid as of October 2026",
     link: "https://library.fibairef.basketball/images/documents/224fd66bc61af7fa35c70a06a6c2940f/FIBA_Referee_Manual_IOT_v3_0a_Oct2026_en.pdf",
+    pinned: true,
   },
   {
-    label: "📌 BASIC OFFICIATING TERMINOLOGY",
+    label: "BASIC OFFICIATING TERMINOLOGY",
     version: "Version 3.0 - Valid as of October 2026",
     link: "https://library.fibairef.basketball/images/documents/e775a9cfc5a2a0179cd23a75f3471017/FIBA_Glossary_v3_0_Oct2026_en_.pdf",
+    pinned: true,
   },
   {
     label: "4TH_REFEREE",
@@ -399,6 +408,7 @@ function DocRow({ doc, isMobile }: { doc: (typeof DOCS)[number]; isMobile: boole
           : renderWithOrdinals(doc.label)}
         {"  "}
         <span style={{ color: T.mutedText, fontSize: isMobile ? 11 : 13, fontWeight: 400 }}>({renderWithOrdinals(doc.version)})</span>
+        {doc.pinned && " 📌"}
       </span>
 
       {/* Download button */}
