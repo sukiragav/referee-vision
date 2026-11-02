@@ -55,7 +55,7 @@ export default function SiteHeader() {
       {/* TOP HEADER - Desktop: Left logo, Right socials/search (matches reference image). Mobile: Centered column */}
       <header
         style={{ backgroundColor: 'var(--black)' }}
-        className="w-full px-5 md:px-12 py-4 md:py-0 md:h-[90px] flex flex-col md:flex-row justify-center md:justify-between items-center"
+        className="w-full px-5 md:px-12 py-4 md:py-0 md:h-[90px] flex flex-col md:flex-row justify-center md:justify-between items-center overflow-x-hidden"
       >
         {/* LEFT ZONE: Logo + REFEREE VISION + Cursive Subtitle */}
         <Link to="/" className="flex items-center justify-center md:justify-start gap-3.5 md:gap-4 group shrink-0">
