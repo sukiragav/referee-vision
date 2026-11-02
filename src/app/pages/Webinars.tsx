@@ -274,6 +274,7 @@ function Sidebar({
 
   return (
     <aside
+      className="page-desktop-sidebar"
       style={{
         width: 240, flexShrink: 0, background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
@@ -281,7 +282,7 @@ function Sidebar({
         display: "flex", flexDirection: "column",
       }}
     >
-      <div style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${T.border}` }}>
+      <div className="page-desktop-sidebar-header" style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${T.border}` }}>
         <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 30, color: T.orange, letterSpacing: "3px", textTransform: "uppercase" }}>
           WEBINARS
         </span>
@@ -301,6 +302,7 @@ function SidebarItem({ tab, active, onSelect }: { tab: Tab; active: boolean; onS
 
   return (
     <button
+      className="page-desktop-sidebar-btn"
       onClick={() => onSelect(tab)}
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
@@ -747,6 +749,7 @@ export default function Webinars() {
 
         {/* Main content */}
         <main
+          className="page-main-content"
           style={{
             flex: 1,
             background: "var(--off-white)",

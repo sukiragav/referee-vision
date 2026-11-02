@@ -14,6 +14,36 @@ body {
   max-width: 100%;
 }
 
+/* Responsive Desktop Sidebar for landscape mobile and compact screens */
+@media (max-width: 950px), (max-height: 550px) and (orientation: landscape) {
+  .page-desktop-sidebar {
+    width: 150px !important;
+    min-width: 150px !important;
+  }
+
+  .page-desktop-sidebar-header {
+    padding: 16px 12px 10px !important;
+  }
+
+  .page-desktop-sidebar-header span {
+    font-size: 18px !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  .page-desktop-sidebar-btn {
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.8px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    line-height: 1.25 !important;
+  }
+
+  .page-main-content {
+    padding: 16px 14px !important;
+  }
+}
+
 .section-badge-pill {
   border-radius: 9999px !important;
 }

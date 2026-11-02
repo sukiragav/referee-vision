@@ -725,6 +725,7 @@ function Sidebar({
 
   return (
     <aside
+      className="page-desktop-sidebar"
       style={{
         width: 240,
         flexShrink: 0,
@@ -739,7 +740,7 @@ function Sidebar({
         flexDirection: "column",
       }}
     >
-      <div style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${T.border}`, marginBottom: 0 }}>
+      <div className="page-desktop-sidebar-header" style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${T.border}`, marginBottom: 0 }}>
         <span
           style={{
             fontFamily: BARLOW,
@@ -772,6 +773,7 @@ function SidebarItem({ tab, active, onSelect }: { tab: Tab; active: boolean; onS
 
   return (
     <button
+      className="page-desktop-sidebar-btn"
       onClick={() => onSelect(tab)}
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
@@ -7028,6 +7030,7 @@ export default function Videos() {
 
         {/* Main content */}
         <main
+          className="page-main-content"
           style={{
             flex: 1,
             background: "var(--off-white)",

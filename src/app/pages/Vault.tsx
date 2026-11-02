@@ -1873,6 +1873,7 @@ export default function Vault() {
       <div style={{ display: "flex", flex: 1, alignItems: "stretch" }}>
         {!isMobile && (
           <aside
+            className="page-desktop-sidebar"
             style={{
               width: 200,
               background: TV.charcoal,
@@ -1887,7 +1888,7 @@ export default function Vault() {
               overflowY: "auto",
             }}
           >
-            <div style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${TV.border}` }}>
+            <div className="page-desktop-sidebar-header" style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${TV.border}` }}>
               <span
                 style={{
                   fontFamily: BARLOW,
@@ -1914,6 +1915,7 @@ export default function Vault() {
               return (
                 <button
                   key={tab}
+                  className="page-desktop-sidebar-btn"
                   onClick={() => handleTabSelect(tab)}
                   style={{
                     display: "block",
@@ -1943,6 +1945,7 @@ export default function Vault() {
 
         {/* Content */}
         <main
+          className="page-main-content"
           style={{
             flex: 1,
             padding: isMobile ? "24px 16px" : isTablet ? "28px 32px" : "36px 44px",
