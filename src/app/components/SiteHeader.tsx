@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { FaWhatsapp } from "react-icons/fa";
 import { Youtube, Facebook, Instagram, MessageCircle, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 import logoImage from '../../imports/referee_vision_circle_logo.png';
@@ -175,7 +176,7 @@ export default function SiteHeader() {
               title="WhatsApp"
               className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <MessageCircle className="w-[20px] h-[20px] md:w-[22px] md:h-[22px]" />
+              <FaWhatsapp className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
             </a>
           </div>
         </div>
