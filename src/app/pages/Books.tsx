@@ -188,37 +188,37 @@ const THREE_ON_THREE_DOCS = [
   },
   {
     label: "FIBA 3x3 EQUIPMENT & SOFTWARE APPENDIX TO OFFICIAL RULES",
-    version: "Valid as of August 2022",
+    version: "Valid as of December 2024",
     link: "https://fiba3x3.com/docs/equipment-and-software-appendix-to-the-3x3-official-rules.pdf",
   },
   {
     label: "FIBA 3x3 STATISTICIANS' MANUAL",
-    version: "Valid as of June 2022",
+    version: "Valid as of 1st April 2025",
     link: "https://fiba3x3.com/docs/FIBA-3x3-Statisticians-Manual.pdf",
   },
   {
     label: "FIBA 3x3 REFEREE MANUAL",
-    version: "Valid as of 15th February 2025",
+    version: "Valid as of 1st January 2026",
     link: "https://fiba3x3.com/docs/fiba-3x3-referee-manual.pdf",
   },
   {
     label: "FIBA 3x3 POOL OF REFEREES",
-    version: "Valid as of 1st February 2025",
+    version: "Valid as of 1st October 2026",
     link: "https://fiba3x3.com/docs/FIBA-3x3-Pool-Of-Referees.pdf",
   },
   {
     label: "REFEREE INSTRUCTORS 3x3",
-    version: "Valid as of 1st March 2024",
+    version: "Valid as of 1st February 2026",
     link: "https://fiba3x3.com/docs/referee-instructors-fiba-3x3.pdf",
   },
   {
     label: "FIBA 3x3 NATIONAL TEAM HANDBOOK",
-    version: "Valid as of 1st January 2025",
+    version: "Valid as of 22nd April 2026",
     link: "https://fiba3x3.com/docs/national-team-handbook.pdf",
   },
   {
     label: "ANNEX I TO FIBA 3x3 HANDBOOKS - FEES, FINES AND SANCTION CATALOGUE",
-    version: "Valid as of 1st January 2025",
+    version: "Valid as of 1st January 2026",
     link: "https://fiba3x3.com/docs/fiba-3x3-administrative-fines-catalogue.pdf",
   },
   {
