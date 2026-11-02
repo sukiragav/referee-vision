@@ -88,6 +88,12 @@ const FIVE_ON_FIVE_DOCS = [
     pinned: true,
   },
   {
+    label: "QUESTIONS AND ANSWERS",
+    version: "",
+    link: "https://refereeing.fiba.basketball/en/obr-questions-and-answers",
+    pinned: true,
+  },
+  {
     label: "OFFICIAL BASKETBALL RULE CHANGES 2026",
     version: "Version 1.1 - Valid as of 1st July 2026",
     link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2026-rule-changes-v1-1-en.pdf",
