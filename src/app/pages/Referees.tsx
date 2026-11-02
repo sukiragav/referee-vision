@@ -1056,7 +1056,7 @@ function VideoThumb({
       style={{
         width: isMobile ? "100%" : 130,
         height: isMobile ? "auto" : 95.1,
-        aspectRatio: isMobile ? "130 / 95.1" : undefined,
+        aspectRatio: isMobile ? "130 / 95.1" : "130 / 95.1",
         maxWidth: isMobile ? "100%" : 130,
         background: THUMB_SHADES[index % THUMB_SHADES.length],
         border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
@@ -1069,8 +1069,8 @@ function VideoThumb({
         filter: h.on && link ? "brightness(1.15)" : "brightness(1)",
         position: "relative",
         overflow: "hidden",
-        flex: isMobile ? "1 1 0" : "0 0 130px",
-        minWidth: 0,
+        flex: isMobile ? "1 1 0" : "1 1 100px",
+        minWidth: isMobile ? 0 : 80,
         boxSizing: "border-box",
       }}
     >
@@ -1163,7 +1163,7 @@ function VideoColumn({
   isMobile: boolean;
 }) {
   return (
-    <div style={{ flex: isMobile ? "unset" : 1, width: isMobile ? "100%" : undefined, display: "flex", flexDirection: "column" }}>
+    <div style={{ flex: isMobile ? "unset" : 1, minWidth: isMobile ? undefined : 200, width: isMobile ? "100%" : undefined, display: "flex", flexDirection: "column" }}>
       {/* Heading */}
       <div
         style={{
@@ -1188,8 +1188,8 @@ function VideoColumn({
       <div
         style={{
           display: "flex",
+          flexWrap: "wrap",
           gap: isMobile ? 8 : 6,
-          height: isMobile ? undefined : 95.1,
           justifyContent: "center",
           width: "100%",
           boxSizing: "border-box",
@@ -1269,6 +1269,7 @@ function MechanicsContent({ isMobile }: { isMobile: boolean }) {
         style={{
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
+          flexWrap: "wrap",
           gap: isMobile ? 16 : 24,
           marginTop: 24,
         }}
