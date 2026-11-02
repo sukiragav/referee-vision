@@ -303,7 +303,7 @@ const PRESENTATIONS_DOCS = [
 
 const SCORESHEET_DOCS = [
   { label: "5X5 SCORESHEET", version: "Valid as of 1st October 2022", link: "https://www.refereevision.com/5X5_Scoresheet_2022.pdf" },
-  { label: "3X3 SCORESHEET", version: "Valid as of 29th August 2019", link: "https://www.refereevision.com/fiba-3x3-basketball-scoresheet.pdf" },
+  { label: "3X3 SCORESHEET", version: "Valid as of 31st January 2024", link: "https://fiba3x3.com/docs/FIBA-3x3-Scoresheet.pdf" },
   { label: "3X3 SCORESHEET - MODIFIED", version: "Valid", link: "https://www.refereevision.com/FIBA-3x3-Scoresheet_Modified.pdf" },
   { label: "SUB JUNIOR SCORESHEET (for TNBA)", version: "Valid", link: "https://www.refereevision.com/5X5_MiniBasketball_Scoresheet_2022.pdf" },
   { label: "YOUTH & JUNIOR SCORESHEET (for TNBA)", version: "Valid", link: "https://www.refereevision.com/Junior_Basketball_Scoresheet_2024.pdf" },
