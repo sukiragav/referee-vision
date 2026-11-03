@@ -1380,21 +1380,204 @@ function ArticleThumb({ onClick }: { onClick?: () => void }) {
 }
 
 // ─── Protocols content ────────────────────────────────────────────────────────
-function ProtocolsContent({ isMobile }: { isMobile: boolean }) {
+const PROTOCOL_ITEMS: {
+  label: string;
+  link: string;
+  thumbnail: string;
+}[] = [
+  {
+    label: "MAKING A CALL",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_1.jpg",
+  },
+  {
+    label: "TRAIL TO LEAD",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_2.jpg",
+  },
+  {
+    label: "LEAD TO TRAIL",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_3.jpg",
+  },
+  {
+    label: "OUT-OF-BOUNDS",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_4.jpg",
+  },
+  {
+    label: "TIME CONTROL",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_5.jpg",
+  },
+  {
+    label: "THROW-IN",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_6.jpg",
+  },
+  {
+    label: "FREE-THROW VIOLATION",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_7.jpg",
+  },
+  {
+    label: "BLOCK/CHARGE",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_8.jpg",
+  },
+  {
+    label: "ACT OF SHOOTING",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_9.jpg",
+  },
+  {
+    label: "DI/FL 1",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_10.jpg",
+  },
+  {
+    label: "DI/FL 2",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    thumbnail: "https://www.refereevision.com/Protocols_11.jpg",
+  },
+];
+
+function ProtocolCard({
+  item,
+  index,
+  onPlay,
+}: {
+  item: { label: string; link?: string; thumbnail?: string };
+  index: number;
+  onPlay?: () => void;
+}) {
+  const h = useHover();
+  const thumbnail = item.thumbnail;
+
   return (
-    <div>
-      <SectionBadge label="PROTOCOLS" />
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {/* Title box */}
       <div
         style={{
+          border: `2px solid ${T.orange}`,
+          background: T.charcoal,
+          fontFamily: BARLOW,
+          fontWeight: 800,
+          fontSize: 15,
+          color: T.white,
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+          textAlign: "center",
+          padding: "10px 8px",
+          minHeight: 44,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: 96,
+          boxSizing: "border-box",
         }}
       >
-        <span style={{ fontFamily: DM, fontSize: 16, color: T.placeholderText }}>
-          Content coming soon
-        </span>
+        {item.label}
+      </div>
+      {/* Thumbnail */}
+      <div
+        className="video-thumb-card"
+        onMouseEnter={h.onMouseEnter}
+        onMouseLeave={h.onMouseLeave}
+        onClick={item.link ? onPlay : undefined}
+        style={{
+          width: 130,
+          height: 95.1,
+          maxWidth: "100%",
+          margin: "0 auto",
+          background: THUMB_SHADES[index % THUMB_SHADES.length],
+          border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
+          borderRadius: 10,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: item.link ? "pointer" : "default",
+          transition: "border-color 0.15s, filter 0.15s, transform 0.2s",
+          transform: h.on ? "scale(1.04)" : "scale(1)",
+          filter: h.on && item.link ? "brightness(1.15)" : "brightness(1)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {thumbnail && (
+          <img
+            src={thumbnail}
+            alt={item.label}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transition: "transform 0.3s ease",
+              transform: h.on ? "scale(1.05)" : "scale(1)",
+            }}
+          />
+        )}
+        <svg width="100%" height="100%" style={{ position: "absolute", opacity: 0.15, zIndex: 1 }} preserveAspectRatio="none">
+          <line x1="50%" y1="0" x2="50%" y2="100%" stroke={T.orange} strokeWidth="1" />
+          <circle cx="50%" cy="50%" r="18%" stroke={T.orange} strokeWidth="1" fill="none" />
+        </svg>
+        <div
+          className="video-thumb-play-btn"
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: "50%",
+            background: item.link
+              ? h.on ? T.orange : "rgba(232,101,26,0.85)"
+              : "rgba(100,100,100,0.4)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 2,
+            transition: "background 0.15s",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" style={{ marginLeft: 2 }}>
+            <polygon points="0,0 10,6 0,12" fill="white" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProtocolsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet?: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const cols = isMobile ? 2 : isTablet ? 3 : 4;
+
+  return (
+    <div>
+      {/* Video Modal popup */}
+      {activeVideo && (
+        <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />
+      )}
+
+      <SectionBadge label="PROTOCOLS" />
+
+      {/* Responsive grid matching Warm Up Exercises */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gap: isMobile ? 12 : 20,
+          marginTop: 36,
+        }}
+      >
+        {PROTOCOL_ITEMS.map((item, i) => (
+          <ProtocolCard
+            key={item.label}
+            item={item}
+            index={i}
+            onPlay={() => setActiveVideo(item.link)}
+          />
+        ))}
       </div>
     </div>
   );
@@ -2600,7 +2783,7 @@ export default function Referees() {
           {activeTab === "MECHANICS" ? (
             <MechanicsContent isMobile={isMobile} />
           ) : activeTab === "PROTOCOLS" ? (
-            <ProtocolsContent isMobile={isMobile} />
+            <ProtocolsContent isMobile={isMobile} isTablet={isTablet} />
           ) : activeTab === "DUTIES" ? (
             <DutiesContent isMobile={isMobile} />
           ) : activeTab === "SIGNALS" ? (

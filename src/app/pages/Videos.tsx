@@ -1599,23 +1599,7 @@ function ShotClockNumCard({ value }: { value: number }) {
 }
 
 function ShotClockSubHeader({ label }: { label: string }) {
-  return (
-    <div style={{ display: "flex", justifyContent: "center", margin: "12px 0 18px" }}>
-      <div style={{
-        background: "transparent",
-        border: `2px solid ${T.orange}`,
-        borderRadius: 4,
-        padding: "8px 20px",
-        width: "88%",
-        textAlign: "center",
-        boxSizing: "border-box",
-      }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 13, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
-          {label}
-        </span>
-      </div>
-    </div>
-  );
+  return <SubSectionBadge label={label} />;
 }
 
 function ShotClockOperatorContent() {
@@ -1661,10 +1645,10 @@ function ShotClockOperatorContent() {
       <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
           <div style={{
-            background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 4,
-            padding: "8px 16px", textAlign: "center", maxWidth: 240, boxSizing: "border-box",
+            background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30,
+            padding: "8px 24px", textAlign: "center", maxWidth: 320, boxSizing: "border-box", minHeight: 48, display: "flex", alignItems: "center", justifyContent: "center",
           }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 13, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
               SITUATIONS WHEN THE SHOT CLOCK SIGNAL SOUNDS
             </span>
           </div>
@@ -1672,10 +1656,10 @@ function ShotClockOperatorContent() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
           <div style={{
-            background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 4,
-            padding: "8px 16px", textAlign: "center", maxWidth: 240, boxSizing: "border-box",
+            background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30,
+            padding: "8px 24px", textAlign: "center", maxWidth: 320, boxSizing: "border-box", minHeight: 48, display: "flex", alignItems: "center", justifyContent: "center",
           }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 13, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
               SITUATIONS WITH SHOT FOR FIELD GOAL
             </span>
           </div>
@@ -1819,7 +1803,7 @@ function ProtocolCard({
           background: "transparent",
           border: `2px solid ${T.orange}`,
           borderRadius: 30,
-          padding: "8px 20px",
+          padding: "8px 24px",
           textAlign: "center",
           display: "flex",
           alignItems: "center",
@@ -1833,9 +1817,9 @@ function ProtocolCard({
           style={{
             fontFamily: BARLOW,
             fontWeight: 800,
-            fontSize: 14,
+            fontSize: 15,
             color: T.orange,
-            letterSpacing: "1px",
+            letterSpacing: "1.5px",
             textTransform: "uppercase",
             lineHeight: 1.25,
           }}
