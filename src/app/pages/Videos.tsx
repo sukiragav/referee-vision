@@ -891,6 +891,8 @@ function ContentImage({
   src,
   alt,
   openUrl,
+  width = 95,
+  height = 130,
   imgStyle,
   containerStyle,
   alwaysBorderOrange,
@@ -898,12 +900,17 @@ function ContentImage({
   src: string;
   alt: string;
   openUrl?: string;
+  width?: number | string;
+  height?: number | string;
   imgStyle?: React.CSSProperties;
   containerStyle?: React.CSSProperties;
   alwaysBorderOrange?: boolean;
 }) {
   const h = useHover();
   const [isOpen, setIsOpen] = useState(false);
+
+  const finalWidth = containerStyle?.width ?? width;
+  const finalHeight = containerStyle?.height ?? height;
 
   return (
     <>
@@ -912,6 +919,9 @@ function ContentImage({
         onMouseLeave={h.onMouseLeave}
         onClick={() => setIsOpen(true)}
         style={{
+          width: finalWidth,
+          height: finalHeight,
+          boxSizing: "border-box",
           border: `2px solid ${alwaysBorderOrange || h.on ? T.orange : T.border}`,
           borderRadius: 8,
           overflow: "hidden",
@@ -920,6 +930,10 @@ function ContentImage({
           boxShadow: h.on ? `0 6px 20px rgba(245, 166, 35, 0.25)` : "none",
           cursor: "pointer",
           flexShrink: 0,
+          background: "#FFFFFF",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           ...containerStyle,
         }}
       >
@@ -928,10 +942,10 @@ function ContentImage({
           alt={alt}
           style={{
             display: "block",
-            height: 130,
-            width: "auto",
-            maxWidth: 200,
+            width: "100%",
+            height: "100%",
             objectFit: "cover",
+            objectPosition: "top center",
             ...imgStyle,
           }}
         />
@@ -1027,14 +1041,14 @@ function ScorerContent() {
           <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
             <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>DUTIES</span>
           </div>
-          <ContentImage src={preGameDutiesDoc} alt="Scorer Duties" />
+          <ContentImage src="https://www.refereevision.com/scr_duties.jpg" alt="Scorer Duties" />
         </div>
         {/* MECHANICS & PERFORMANCE STANDARDS column */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
           <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
             <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>MECHANICS & PERFORMANCE STANDARDS</span>
           </div>
-          <ContentImage src={preGameDutiesDoc} alt="Mechanics & Performance Standards" />
+          <ContentImage src="https://www.refereevision.com/scr_mechanics.jpg" alt="Mechanics & Performance Standards" />
         </div>
       </div>
 
@@ -1043,26 +1057,26 @@ function ScorerContent() {
       <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
         {/* BEFORE THE GAME */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-          <ContentImage src={arrivalDoc} alt="Before the Game" />
+          <ContentImage src="https://www.refereevision.com/scr_before.jpg" alt="Before the Game" />
         </div>
         {/* DURING THE GAME */}
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-          <ContentImage src={preGameDutiesDoc} alt="During the Game 1" />
-          <ContentImage src={dutiesDuringGameDoc} alt="During the Game 2" />
-          <ContentImage src={dutiesDuringGamePhoto} alt="During the Game 3" />
+          <ContentImage src="https://www.refereevision.com/scr_during.jpg" alt="During the Game 1" />
+          <ContentImage src="https://www.refereevision.com/scr_during2.jpg" alt="During the Game 2" />
+          <ContentImage src="https://www.refereevision.com/scr_pen.jpg" alt="During the Game - Pen" />
         </div>
         {/* AT THE END OF THE GAME */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-          <ContentImage src={postGameDutiesDoc} alt="At the End of the Game" />
+          <ContentImage src="https://www.refereevision.com/scr_end.jpg" alt="At the End of the Game" />
         </div>
       </div>
 
       {/* POSSIBLE MISTAKES AND SOLUTIONS */}
       <SubSectionBadge label="POSSIBLE MISTAKES AND SOLUTIONS" />
       <ImageRow>
-        <ContentImage src={preGameDutiesDoc} alt="Possible Mistakes 1" />
-        <ContentImage src={arrivalDoc} alt="Possible Mistakes 2" />
-        <ContentImage src={dutiesDuringGameDoc} alt="Possible Mistakes 3" />
+        <ContentImage src="https://www.refereevision.com/tbloffl39.png" alt="Possible Mistakes 1" />
+        <ContentImage src="https://www.refereevision.com/tbloffl40.png" alt="Possible Mistakes 2" />
+        <ContentImage src="https://www.refereevision.com/tbloffl41.png" alt="Possible Mistakes 3" />
       </ImageRow>
 
       {/* EDUCATIONAL VIDEOS - RUNNING SCORE */}
@@ -1821,8 +1835,10 @@ function CommunicationProtocolsContent() {
               openUrl="https://library.fibairef.basketball/cdn/TOM600_EN?autoplay=1"
               alt="Before the Game"
               alwaysBorderOrange
+              width={240}
+              height={180}
               containerStyle={{ borderRadius: 8, background: "#000" }}
-              imgStyle={{ height: 180, width: "auto", maxWidth: "100%", objectFit: "contain" }}
+              imgStyle={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </div>
 
@@ -1837,8 +1853,10 @@ function CommunicationProtocolsContent() {
               openUrl="https://library.fibairef.basketball/cdn/TOM601_EN?autoplay=1"
               alt="In the interval between quarters"
               alwaysBorderOrange
+              width={240}
+              height={180}
               containerStyle={{ borderRadius: 8, background: "#000" }}
-              imgStyle={{ height: 180, width: "auto", maxWidth: "100%", objectFit: "contain" }}
+              imgStyle={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </div>
         </div>
