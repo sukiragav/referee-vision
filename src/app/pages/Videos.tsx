@@ -215,29 +215,29 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
           style={
             isSignal
               ? {
-                  maxWidth: "96vw",
-                  maxHeight: "92vh",
-                  background: "#ffffff",
-                  boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
-                  position: "relative",
-                  display: "inline-flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  borderRadius: 4,
-                }
+                maxWidth: "96vw",
+                maxHeight: "92vh",
+                background: "#ffffff",
+                boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+                position: "relative",
+                display: "inline-flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                borderRadius: 4,
+              }
               : {
-                  width: "min(960px, 94vw)",
-                  height: "90vh",
-                  background: "#ffffff",
-                  boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: "column",
-                  borderRadius: 4,
-                  overflow: "hidden",
-                }
+                width: "min(960px, 94vw)",
+                height: "90vh",
+                background: "#ffffff",
+                boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                borderRadius: 4,
+                overflow: "hidden",
+              }
           }
         >
           {/* Header toolbar for non-signal documents (Article, Interpretation, Presentation) */}
@@ -1791,9 +1791,84 @@ function ShotClockOperatorContent() {
 }
 
 // ─── COMMUNICATION PROTOCOLS Content ─────────────────────────────────────────
+function ProtocolCard({
+  title,
+  src,
+  alt,
+  openUrl,
+}: {
+  title: React.ReactNode;
+  src: string;
+  alt: string;
+  openUrl?: string;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 16,
+        width: "100%",
+        maxWidth: 380,
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          background: "transparent",
+          border: `2px solid ${T.orange}`,
+          borderRadius: 30,
+          padding: "8px 20px",
+          textAlign: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: 44,
+          boxSizing: "border-box",
+          width: "100%",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: BARLOW,
+            fontWeight: 800,
+            fontSize: 14,
+            color: T.orange,
+            letterSpacing: "1px",
+            textTransform: "uppercase",
+            lineHeight: 1.25,
+          }}
+        >
+          {title}
+        </span>
+      </div>
+      <ContentImage src={src} alt={alt} openUrl={openUrl} />
+    </div>
+  );
+}
+
+function ProtocolRow({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-around",
+        gap: 24,
+        flexWrap: "wrap",
+        width: "100%",
+        maxWidth: 860,
+        marginBottom: 16,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function CommunicationProtocolsContent() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 40, alignItems: "center", paddingBottom: 48 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 32, alignItems: "center", paddingBottom: 48 }}>
       {/* Top Banner */}
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ background: T.orange, borderRadius: 0, padding: "10px 40px" }}>
@@ -1804,148 +1879,132 @@ function CommunicationProtocolsContent() {
       </div>
 
       {/* SECTION 1: MEETING WITH THE REFEREES BEFORE THE GAME */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            MEETING WITH THE REFEREES BEFORE THE GAME
-          </span>
-        </div>
+      <SubSectionBadge label="MEETING WITH THE REFEREES BEFORE THE GAME" />
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <ContentImage
-          src="https://www.refereevision.com/tbloffl4.png"
-          openUrl="https://library.fibairef.basketball/doc/aUMwdkFwRFk0WW5DSVVveFdKOGlKZz09?autoplay=1"
+          src="https://www.refereevision.com/tbloffl21.png"
+          openUrl="https://library.fibairef.basketball/doc/WktHamdXNUVLWDVzQXpXUUpPMVhNQT09?autoplay=1"
           alt="Meeting with the Referees before the Game"
         />
       </div>
 
       {/* SECTION 2: COMMUNICATION WITH PARTICIPANTS */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, width: "100%" }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 36px", textAlign: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            COMMUNICATION WITH PARTICIPANTS
-          </span>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 56, flexWrap: "wrap", width: "100%", maxWidth: 1000 }}>
-          {/* Card 1: BEFORE THE GAME */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 14, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", textTransform: "uppercase" }}>
-              BEFORE THE GAME
+      <SubSectionBadge label="COMMUNICATION WITH PARTICIPANTS" />
+      <ProtocolRow>
+        <ProtocolCard
+          title="BEFORE THE GAME"
+          src="https://www.refereevision.com/tbloffl36.png"
+          alt="Before the Game"
+        />
+        <ProtocolCard
+          title={
+            <span>
+              {renderWithOrdinals("IN THE INTERVAL BETWEEN THE 1ST AND 2ND QUARTER & THE 3RD AND 4TH QUARTER")}
             </span>
-            <ContentImage
-              src="https://www.refereevision.com/tbloffl35.png"
-              openUrl="https://library.fibairef.basketball/cdn/TOM600_EN?autoplay=1"
-              alt="Before the Game"
-              alwaysBorderOrange
-              width={240}
-              height={180}
-              containerStyle={{ borderRadius: 8, background: "#000" }}
-              imgStyle={{ width: "100%", height: "100%", objectFit: "contain" }}
-            />
-          </div>
-
-          {/* Card 2: IN THE INTERVAL BETWEEN THE 1ST AND 2ND QUARTER & THE 3RD AND 4TH QUARTER */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 14, minHeight: 44, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textTransform: "uppercase", lineHeight: 1.3 }}>
-              <span>{renderWithOrdinals("IN THE INTERVAL BETWEEN THE 1ST AND 2ND QUARTER & THE")}</span>
-              <span>{renderWithOrdinals("3RD AND 4TH QUARTER")}</span>
+          }
+          src="https://www.refereevision.com/tbloffl37.png"
+          alt="In the interval between quarters"
+        />
+      </ProtocolRow>
+      <ProtocolRow>
+        <ProtocolCard
+          title={
+            <span>
+              {renderWithOrdinals("IN THE INTERVAL BETWEEN THE 2ND AND 3RD QUARTER")}
             </span>
-            <ContentImage
-              src="https://www.refereevision.com/tbloffl15.png"
-              openUrl="https://library.fibairef.basketball/cdn/TOM601_EN?autoplay=1"
-              alt="In the interval between quarters"
-              alwaysBorderOrange
-              width={240}
-              height={180}
-              containerStyle={{ borderRadius: 8, background: "#000" }}
-              imgStyle={{ width: "100%", height: "100%", objectFit: "contain" }}
-            />
-          </div>
-        </div>
-      </div>
+          }
+          src="https://www.refereevision.com/tbloffl38.png"
+          alt="WiO"
+        />
+      </ProtocolRow>
 
       {/* SECTION 3: BETWEEN SCORER AND OTHERS */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            BETWEEN SCORER AND OTHERS
-          </span>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", width: "100%", maxWidth: 800 }}>
-          {[
-            { label: "BEGINNING OF THE GAME", video: "TOM400_EN" },
-            { label: "ALTERNATE POSSESSION SITUATION", video: "TOM401_EN" },
-            { label: "WHEN A FOUL IS CALLED", video: "TOM402_EN" },
-            { label: "WHEN A FOUL DURING A SHOT IS CALLED", video: "TOM403_EN" },
-            { label: "WHEN A BASKET IS SCORED", video: "TOM404_EN" },
-            { label: "WHEN WE ARE ABOUT TO START LAST 2 MIN (L2M)", video: "TOM405_EN" }
-          ].map((item, idx) => (
-            <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginBottom: 16 }}>
-              <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {item.label}
-              </span>
-              <ContentImage
-                src="https://www.refereevision.com/tbloffl10.png"
-                openUrl={`https://library.fibairef.basketball/cdn/${item.video}?autoplay=1`}
-                alt={item.label}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <SubSectionBadge label="BETWEEN SCORER AND OTHERS" />
+      <ProtocolRow>
+        <ProtocolCard
+          title="BEGINNING OF THE GAME"
+          src="https://www.refereevision.com/tbloffl22.png"
+          alt="Beginning of the Game"
+        />
+        <ProtocolCard
+          title="ALTERNATE POSSESSION SITUATION"
+          src="https://www.refereevision.com/tbloffl23.png"
+          alt="Alternate Possession Situation"
+        />
+      </ProtocolRow>
+      <ProtocolRow>
+        <ProtocolCard
+          title="WHEN A FOUL IS CALLED"
+          src="https://www.refereevision.com/tbloffl24.png"
+          alt="When a Foul is Called"
+        />
+        <ProtocolCard
+          title="WHEN A FOUL DURING A SHOT IS CALLED"
+          src="https://www.refereevision.com/tbloffl25.png"
+          alt="When a Foul During a Shot is Called"
+        />
+      </ProtocolRow>
+      <ProtocolRow>
+        <ProtocolCard
+          title="WHEN A BASKET IS SCORED"
+          src="https://www.refereevision.com/tbloffl26.png"
+          alt="When a Basket is Scored"
+        />
+        <ProtocolCard
+          title="WHEN WE ARE ABOUT TO START LAST 2 MIN (L2M)"
+          src="https://www.refereevision.com/tbloffl27.png"
+          alt="When We Are About to Start Last 2 Min (L2M)"
+        />
+      </ProtocolRow>
 
       {/* SECTION 4: BETWEEN SHOT CLOCK OPERATOR AND OTHERS */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            BETWEEN SHOT CLOCK OPERATOR AND OTHERS
-          </span>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", width: "100%", maxWidth: 800 }}>
-          {[
-            { label: "WHEN THE SHOT CLOCK NEEDS TO BE CHANGED", video: "TOM406_EN" },
-            { label: "WHEN ENTERING THE LAST 24\" OF THE GAME OR END OF THE COUNTDOWN", video: "TOM407_EN" },
-            { label: "WHEN THE SHOT CLOCK IS BELOW 24 SECONDS", video: "TOM408_EN" }
-          ].map((item, idx) => (
-            <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginBottom: 16 }}>
-              <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {item.label}
-              </span>
-              <ContentImage
-                src="https://www.refereevision.com/tbloffl10.png"
-                openUrl={`https://library.fibairef.basketball/cdn/${item.video}?autoplay=1`}
-                alt={item.label}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <SubSectionBadge label="BETWEEN SHOT CLOCK OPERATOR AND OTHERS" />
+      <ProtocolRow>
+        <ProtocolCard
+          title="WHEN THE SHOT CLOCK NEEDS TO BE CHANGED"
+          src="https://www.refereevision.com/tbloffl28.png"
+          alt="When the Shot Clock Needs to be Changed"
+        />
+        <ProtocolCard
+          title={'WHEN ENTERING THE LAST 24" OF THE GAME OR END OF THE COUNTDOWN'}
+          src="https://www.refereevision.com/tbloffl29.png"
+          alt="When Entering the Last 24 Seconds of the Game"
+        />
+      </ProtocolRow>
+      <ProtocolRow>
+        <ProtocolCard
+          title="WHEN THE SHOT CLOCK IS BELOW 24 SECONDS"
+          src="https://www.refereevision.com/tbloffl30.png"
+          alt="When the Shot Clock is Below 24 Seconds"
+        />
+      </ProtocolRow>
 
       {/* SECTION 5: BETWEEN TIMER AND OTHERS */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            BETWEEN TIMER AND OTHERS
-          </span>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", width: "100%", maxWidth: 800 }}>
-          {[
-            { label: "WHEN THE GAME BEGINS", video: "TOM500_EN" },
-            { label: "WHEN A TIME-OUT IS TAKEN", video: "TOM501_EN" },
-            { label: "WHEN A SUBSTITUTION IS MADE", video: "TOM502_EN" },
-            { label: "WHEN WE ENTER L2M", video: "TOM503_EN" }
-          ].map((item, idx) => (
-            <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginBottom: 16 }}>
-              <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {item.label}
-              </span>
-              <ContentImage
-                src="https://www.refereevision.com/tbloffl10.png"
-                openUrl={`https://library.fibairef.basketball/cdn/${item.video}?autoplay=1`}
-                alt={item.label}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <SubSectionBadge label="BETWEEN TIMER AND OTHERS" />
+      <ProtocolRow>
+        <ProtocolCard
+          title="WHEN THE GAME BEGINS"
+          src="https://www.refereevision.com/tbloffl31.png"
+          alt="When the Game Begins"
+        />
+        <ProtocolCard
+          title="WHEN A TIME-OUT IS TAKEN"
+          src="https://www.refereevision.com/tbloffl32.png"
+          alt="When a Time-Out is Taken"
+        />
+      </ProtocolRow>
+      <ProtocolRow>
+        <ProtocolCard
+          title="WHEN A SUBSTITUTION IS MADE"
+          src="https://www.refereevision.com/tbloffl33.png"
+          alt="When a Substitution is Made"
+        />
+        <ProtocolCard
+          title="WHEN WE ENTER L2M"
+          src="https://www.refereevision.com/tbloffl34.png"
+          alt="When We Enter L2M"
+        />
+      </ProtocolRow>
     </div>
   );
 }
