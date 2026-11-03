@@ -95,8 +95,8 @@ const DOCS: {
   }, // special-cased below
   {
     label: "PROTOCOL CHECKLIST FOR REFEREES",
-    version: "Version 1.0 – Valid as of June 2025",
-    link: "https://library.fibairef.basketball/doc/MHNKeHJOdzE5RkMzRENzM0phQmNUUT09",
+    version: "Version 1.1 – Valid as of October 2026",
+    link: "https://library.fibairef.basketball/images/documents/7ba2d8b6911092a6ac9304639fa4931d/FIBA_Protocols_Checklist_Oct2026_v1_1_.pdf",
   },
 ];
 
