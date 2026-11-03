@@ -810,6 +810,16 @@ export const SEARCH_ITEMS: SearchItem[] = [
     badge: "HUB",
   },
   {
+    id: "ref-protocols",
+    title: "Referee Protocols Hub",
+    category: "REFEREES",
+    section: "Protocols",
+    path: "/referees?tab=PROTOCOLS",
+    keywords: ["protocols", "referee protocols", "fiba protocols", "pre game protocol", "post game protocol", "protocol checklist"],
+    description: "Official FIBA referee protocols, game-day checklists, and procedures for officiating crews.",
+    badge: "HUB",
+  },
+  {
     id: "ref-signals",
     title: "Official Referee Signals",
     category: "REFEREES",

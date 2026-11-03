@@ -25,6 +25,7 @@ const DM = "'DM Sans', sans-serif";
 // ─── Data ────────────────────────────────────────────────────────────────────
 type Tab =
   | "MECHANICS"
+  | "PROTOCOLS"
   | "DUTIES"
   | "SIGNALS"
   | "FITNESS TESTS"
@@ -37,6 +38,7 @@ type Tab =
 
 const TABS: Tab[] = [
   "MECHANICS",
+  "PROTOCOLS",
   "DUTIES",
   "SIGNALS",
   "FITNESS TESTS",
@@ -54,51 +56,51 @@ const DOCS: {
   link: string;
   pinned?: boolean;
 }[] = [
-  {
-    label: "3PO (NATIONAL REFEREE)",
-    version: "Version 1.0 – Valid as of 2025",
-    link: "https://library.fibairef.basketball/images/documents/a5f1318a9da314d13f1c0004959b8677/2025_FIBA_NF_3PO_Manual_v1_0.pdf",
-  },
-  {
-    label: "2PO (NATIONAL REFEREE)",
-    version: "Version 1.0a – Valid as of 2024",
-    link: "https://library.fibairef.basketball/images/documents/846f47339b197f3869f51e8d23b08afa/2024_FIBA_2PO_Manual_v1_0a.pdf",
-  },
-  {
-    label: "3PO BASIC",
-    version: "Version 3.0a - Valid as of October 2026",
-    link: "https://library.fibairef.basketball/images/documents/4d74a028de82e7ae5cbb849f6cbd6186/FIBA_Referee_Manual_Basic_3PO_v3_0a_Oct2026_en.pdf",
-    pinned: true,
-  },
-  {
-    label: "3PO ADVANCED",
-    version: "Version 3.0a - Valid as of October 2026",
-    link: "https://library.fibairef.basketball/images/documents/e0072fec69d381d1f2272eb35cc5e4c4/FIBA_Referee_Manual_Advanced_3PO_v3_0a_.pdf",
-    pinned: true,
-  },
-  {
-    label: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)",
-    version: "Version 3.0a - Valid as of October 2026",
-    link: "https://library.fibairef.basketball/images/documents/224fd66bc61af7fa35c70a06a6c2940f/FIBA_Referee_Manual_IOT_v3_0a_Oct2026_en.pdf",
-    pinned: true,
-  },
-  {
-    label: "BASIC OFFICIATING TERMINOLOGY",
-    version: "Version 3.0 - Valid as of October 2026",
-    link: "https://library.fibairef.basketball/images/documents/e775a9cfc5a2a0179cd23a75f3471017/FIBA_Glossary_v3_0_Oct2026_en_.pdf",
-    pinned: true,
-  },
-  {
-    label: "4TH_REFEREE",
-    version: "Version 1.0 – Valid as of January 2024",
-    link: "https://library.fibairef.basketball/images/documents/ea7a19dbbf2921897ab684cf7fed2c44/FIBA_4th_Referee_Guide_JAN2024_v1.pdf",
-  }, // special-cased below
-  {
-    label: "PROTOCOL CHECKLIST FOR REFEREES",
-    version: "Version 1.0 – Valid as of June 2025",
-    link: "https://library.fibairef.basketball/doc/MHNKeHJOdzE5RkMzRENzM0phQmNUUT09",
-  },
-];
+    {
+      label: "3PO (NATIONAL REFEREE)",
+      version: "Version 1.0 – Valid as of 2025",
+      link: "https://library.fibairef.basketball/images/documents/a5f1318a9da314d13f1c0004959b8677/2025_FIBA_NF_3PO_Manual_v1_0.pdf",
+    },
+    {
+      label: "2PO (NATIONAL REFEREE)",
+      version: "Version 1.0a – Valid as of 2024",
+      link: "https://library.fibairef.basketball/images/documents/846f47339b197f3869f51e8d23b08afa/2024_FIBA_2PO_Manual_v1_0a.pdf",
+    },
+    {
+      label: "3PO BASIC",
+      version: "Version 3.0a - Valid as of October 2026",
+      link: "https://library.fibairef.basketball/images/documents/4d74a028de82e7ae5cbb849f6cbd6186/FIBA_Referee_Manual_Basic_3PO_v3_0a_Oct2026_en.pdf",
+      pinned: true,
+    },
+    {
+      label: "3PO ADVANCED",
+      version: "Version 3.0a - Valid as of October 2026",
+      link: "https://library.fibairef.basketball/images/documents/e0072fec69d381d1f2272eb35cc5e4c4/FIBA_Referee_Manual_Advanced_3PO_v3_0a_.pdf",
+      pinned: true,
+    },
+    {
+      label: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)",
+      version: "Version 3.0a - Valid as of October 2026",
+      link: "https://library.fibairef.basketball/images/documents/224fd66bc61af7fa35c70a06a6c2940f/FIBA_Referee_Manual_IOT_v3_0a_Oct2026_en.pdf",
+      pinned: true,
+    },
+    {
+      label: "BASIC OFFICIATING TERMINOLOGY",
+      version: "Version 3.0 - Valid as of October 2026",
+      link: "https://library.fibairef.basketball/images/documents/e775a9cfc5a2a0179cd23a75f3471017/FIBA_Glossary_v3_0_Oct2026_en_.pdf",
+      pinned: true,
+    },
+    {
+      label: "4TH_REFEREE",
+      version: "Version 1.0 – Valid as of January 2024",
+      link: "https://library.fibairef.basketball/images/documents/ea7a19dbbf2921897ab684cf7fed2c44/FIBA_4th_Referee_Guide_JAN2024_v1.pdf",
+    }, // special-cased below
+    {
+      label: "PROTOCOL CHECKLIST FOR REFEREES",
+      version: "Version 1.0 – Valid as of June 2025",
+      link: "https://library.fibairef.basketball/doc/MHNKeHJOdzE5RkMzRENzM0phQmNUUT09",
+    },
+  ];
 
 const VIDEO_COLS = [
   {
@@ -1377,6 +1379,27 @@ function ArticleThumb({ onClick }: { onClick?: () => void }) {
   );
 }
 
+// ─── Protocols content ────────────────────────────────────────────────────────
+function ProtocolsContent({ isMobile }: { isMobile: boolean }) {
+  return (
+    <div>
+      <SectionBadge label="PROTOCOLS" />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: 96,
+        }}
+      >
+        <span style={{ fontFamily: DM, fontSize: 16, color: T.placeholderText }}>
+          Content coming soon
+        </span>
+      </div>
+    </div>
+  );
+}
+
 // ─── Duties content ───────────────────────────────────────────────────────────
 const DUTIES_COLS = [
   { heading: "START OF THE GAME", type: "video" as const, link: "https://youtu.be/7_7VkJloKtM" },
@@ -2576,6 +2599,8 @@ export default function Referees() {
         >
           {activeTab === "MECHANICS" ? (
             <MechanicsContent isMobile={isMobile} />
+          ) : activeTab === "PROTOCOLS" ? (
+            <ProtocolsContent isMobile={isMobile} />
           ) : activeTab === "DUTIES" ? (
             <DutiesContent isMobile={isMobile} />
           ) : activeTab === "SIGNALS" ? (

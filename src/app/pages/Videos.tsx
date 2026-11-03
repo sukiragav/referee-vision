@@ -104,32 +104,32 @@ const TABLE_OFFICIALS_SUBTABS: TableOfficialsSubTab[] = [
   "COMMUNICATION PROTOCOLS",
 ];
 
-// ─── YouTube video data for SCORER tab ───────────────────────────────────────
+// ─── Video data for SCORER tab ───────────────────────────────────────────────
 const SCORER_RUNNING_SCORE_VIDEOS = [
-  "https://youtu.be/IA3xtlSfb-g",
-  "https://youtu.be/0abCxzDsoxY",
-  "https://youtu.be/6_ZfrVAa8q0",
-  "https://youtu.be/bYojWYt8rkc",
-  "https://youtu.be/1waAdTN7pDs",
+  { link: "https://library.fibairef.basketball/cdn/TOM100_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl6.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM101_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl7.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM103_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl7.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM104_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl8.png" },
+  { link: "https://library.fibairef.basketball/doc/cndHR0NFSDg2d283cFVDNXNJN0hHZz09?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl8.png" },
 ];
 
 const SCORER_HOW_TO_RECORD_VIDEOS = [
-  "https://youtu.be/U-eZv3iDTnQ",
-  "https://youtu.be/IA3xtlSfb-g",
-  "https://youtu.be/0abCxzDsoxY",
-  "https://youtu.be/6_ZfrVAa8q0",
-  "https://youtu.be/bYojWYt8rkc",
+  { link: "https://library.fibairef.basketball/cdn/TOM200_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl9.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM201_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl9.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM202_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl9.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM203_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl9.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM204_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl9.png" },
 ];
 
 const SCORER_ALT_POSS_VIDEOS = [
-  "https://youtu.be/1waAdTN7pDs",
-  "https://youtu.be/U-eZv3iDTnQ",
-  "https://youtu.be/IA3xtlSfb-g",
-  "https://youtu.be/0abCxzDsoxY",
-  "https://youtu.be/6_ZfrVAa8q0",
-  "https://youtu.be/bYojWYt8rkc",
-  "https://youtu.be/1waAdTN7pDs",
-  "https://youtu.be/U-eZv3iDTnQ",
+  { link: "https://library.fibairef.basketball/cdn/TOM403_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM404_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM402_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM400_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM405_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM401_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM406_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
+  { link: "https://library.fibairef.basketball/cdn/TOM407_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl10.png" },
 ];
 
 // ─── Responsive hook ──────────────────────────────────────────────────────────
@@ -568,6 +568,7 @@ function VideoThumb({ index, link, onPlay, thumbnail: customThumbnail }: { index
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
       onClick={onPlay}
+      title="Credits: FIBA Referee Department"
       style={{
         width: 90,
         aspectRatio: "16 / 9",
@@ -950,12 +951,28 @@ function ImageRow({ children }: { children: React.ReactNode }) {
 }
 
 // ─── Video row ────────────────────────────────────────────────────────────────
-function VideoRow({ links, onPlay }: { links: string[]; onPlay: (url: string) => void }) {
+function VideoRow({
+  links,
+  onPlay,
+}: {
+  links: (string | { link: string; thumbnail?: string })[];
+  onPlay: (url: string) => void;
+}) {
   return (
     <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
-      {links.map((link, i) => (
-        <VideoThumb key={i} index={i} link={link} onPlay={() => onPlay(link)} />
-      ))}
+      {links.map((item, i) => {
+        const link = typeof item === "string" ? item : item.link;
+        const thumbnail = typeof item === "string" ? undefined : item.thumbnail;
+        return (
+          <VideoThumb
+            key={i}
+            index={i}
+            link={link}
+            thumbnail={thumbnail}
+            onPlay={() => onPlay(link)}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -1055,8 +1072,8 @@ function ScorerContent() {
       {/* GAME LOST BY FORFEIT + GAME LOST BY DEFAULT */}
       <TwoColBadges left="GAME LOST BY FORFEIT" right="GAME LOST BY DEFAULT" />
       <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src={arrivalDoc} alt="Game Lost by Forfeit" />
-        <ContentImage src={postGameDutiesDoc} alt="Game Lost by Default" />
+        <ContentImage src="https://www.refereevision.com/scr_forfeit.jpg" alt="Game Lost by Forfeit" />
+        <ContentImage src="https://www.refereevision.com/scr_default.jpg" alt="Game Lost by Default" />
       </div>
 
       {/* HOW TO RECORD THE DIFFERENT FOULS */}
@@ -1064,20 +1081,20 @@ function ScorerContent() {
       {/* Row 1: CLASSIFICATION, PLAYER FOULS, SUBSTITUTION & EXCLUDED PLAYER FOULS */}
       <ThreeColBadges items={["CLASSIFICATION", "PLAYER FOULS", "SUBSTITUTION & EXCLUDED PLAYER FOULS"]} />
       <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src={preGameDutiesDoc} alt="Classification" />
-        <ContentImage src={dutiesDuringGameDoc} alt="Player Fouls" />
-        <ContentImage src={arrivalDoc} alt="Substitution & Excluded Player Fouls" />
+        <ContentImage src="https://www.refereevision.com/fouls_classification.jpg" alt="Classification" />
+        <ContentImage src="https://www.refereevision.com/fouls_player.jpg" alt="Player Fouls" />
+        <ContentImage src="https://www.refereevision.com/fouls_sub.jpg" alt="Substitution & Excluded Player Fouls" />
       </div>
 
       {/* Row 2: HEAD COACH..., PLAYER & HEAD COACH FOULS, DISQUALIFYING FOULS - FIGHTS */}
       <ThreeColBadges items={["HEAD COACH, FIRST ASSISTANT COACH & ACCOMPANYING DELEGATION MEMBER FOULS", "PLAYER & HEAD COACH FOULS", "DISQUALIFYING FOULS - FIGHTS"]} />
       <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src={arrivalDoc} alt="Head Coach Fouls" />
+        <ContentImage src="https://www.refereevision.com/fouls_coach.jpg" alt="Head Coach Fouls" />
         <div style={{ display: "flex", gap: 8 }}>
-          <ContentImage src={preGameDutiesDoc} alt="Player & Head Coach Fouls 1" />
-          <ContentImage src={dutiesDuringGameDoc} alt="Player & Head Coach Fouls 2" />
+          <ContentImage src="https://www.refereevision.com/fouls_phc.jpg" alt="Player & Head Coach Fouls 1" />
+          <ContentImage src="https://www.refereevision.com/fouls_phc1.jpg" alt="Player & Head Coach Fouls 2" />
         </div>
-        <ContentImage src={postGameDutiesDoc} alt="Disqualifying Fouls - Fights" />
+        <ContentImage src="https://www.refereevision.com/fouls_fight.jpg" alt="Disqualifying Fouls - Fights" />
       </div>
 
       {/* EDUCATIONAL VIDEOS */}
@@ -1087,8 +1104,16 @@ function ScorerContent() {
       {/* EXAMPLE SCORESHEETS */}
       <SubSectionBadge label="EXAMPLE SCORESHEETS" />
       <ImageRow>
-        {[arrivalDoc, preGameDutiesDoc, dutiesDuringGameDoc, postGameDutiesDoc, arrivalDoc, preGameDutiesDoc, dutiesDuringGameDoc].map((img, i) => (
-          <ContentImage key={i} src={img} alt={`Example Scoresheet ${i + 1}`} />
+        {[
+          { src: "https://www.refereevision.com/scoresheet_before.jpg", alt: "Scoresheet Before Game" },
+          { src: "https://www.refereevision.com/scoresheet_first.jpg", alt: "Scoresheet First Half" },
+          { src: "https://www.refereevision.com/scoresheet_second.jpg", alt: "Scoresheet Second Half" },
+          { src: "https://www.refereevision.com/scoresheet_third.jpg", alt: "Scoresheet Third Quarter" },
+          { src: "https://www.refereevision.com/scoresheet_fourth.jpg", alt: "Scoresheet Fourth Quarter" },
+          { src: "https://www.refereevision.com/scoresheet_end.jpg", alt: "Scoresheet End of Game" },
+          { src: "https://www.refereevision.com/scoresheet_ot.jpg", alt: "Scoresheet Overtime" },
+        ].map((img, i) => (
+          <ContentImage key={i} src={img.src} alt={img.alt} />
         ))}
       </ImageRow>
 
@@ -1096,8 +1121,8 @@ function ScorerContent() {
       <SubSectionBadge label="ALTERNATING POSSESSION ARROW" />
       <TwoColBadges left="RULE" right="OPERATION" />
       <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src={arrivalDoc} alt="Alternating Possession Rule" />
-        <ContentImage src={preGameDutiesDoc} alt="Alternating Possession Operation" />
+        <ContentImage src="https://www.refereevision.com/apa_rule.jpg" alt="Alternating Possession Rule" />
+        <ContentImage src="https://www.refereevision.com/apa_procedure.jpg" alt="Alternating Possession Operation" />
       </div>
 
       <SubSectionBadge label="EDUCATIONAL VIDEOS" />
