@@ -1,4 +1,5 @@
 import { Youtube, Facebook, Instagram, MessageCircle } from 'lucide-react';
+import { FaWhatsapp } from "react-icons/fa";
 import { Link } from 'react-router';
 import logoImage from '../../imports/referee_vision_circle_logo.png';
 import basketballImage from '../../imports/basketball.jpg';
@@ -55,7 +56,7 @@ export default function SiteFooter() {
                 </svg>
               </a>
               <a href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-                <MessageCircle className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+                <FaWhatsapp className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
               </a>
             </div>
           </div>
