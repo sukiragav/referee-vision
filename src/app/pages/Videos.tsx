@@ -1575,7 +1575,7 @@ function TimerContent() {
 
       {/* Starting & Stopping the Game Clock */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 36px", width: "80%", textAlign: "center", boxSizing: "border-box" }}>
+        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 6, padding: "8px 36px", width: "80%", textAlign: "center", boxSizing: "border-box" }}>
           <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
             STARTING &amp; STOPPING THE GAME CLOCK
           </span>
@@ -1594,7 +1594,7 @@ function TimerContent() {
       {/* Time-Out Request */}
       <div>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
-          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 36px", width: "80%", textAlign: "center", boxSizing: "border-box" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 6, padding: "8px 36px", width: "80%", textAlign: "center", boxSizing: "border-box" }}>
             <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>TIME-OUT REQUEST</span>
           </div>
         </div>
@@ -1618,7 +1618,7 @@ function TimerContent() {
       {/* Substitution Request */}
       <div>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
-          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 36px", width: "80%", textAlign: "center", boxSizing: "border-box" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 6, padding: "8px 36px", width: "80%", textAlign: "center", boxSizing: "border-box" }}>
             <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>SUBSTITUTION REQUEST</span>
           </div>
         </div>
