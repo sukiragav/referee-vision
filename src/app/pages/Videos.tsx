@@ -1057,20 +1057,30 @@ function ScorerContent() {
       </div>
 
       {/* BEFORE / DURING / AT END OF GAME */}
-      <ThreeColBadges items={["BEFORE THE GAME", "DURING THE GAME", "AT THE END OF THE GAME"]} />
-      <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
+      <div style={{ display: "flex", gap: 16, justifyContent: "space-around", flexWrap: "wrap", margin: "32px 0 24px" }}>
         {/* BEFORE THE GAME */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 24px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>BEFORE THE GAME</span>
+          </div>
           <ContentImage src="https://www.refereevision.com/scr_before.jpg" alt="Before the Game" />
         </div>
         {/* DURING THE GAME */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-          <ContentImage src="https://www.refereevision.com/scr_during.jpg" alt="During the Game 1" />
-          <ContentImage src="https://www.refereevision.com/scr_during2.jpg" alt="During the Game 2" />
-          <ContentImage src="https://www.refereevision.com/scr_pen.jpg" alt="During the Game - Pen" />
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 240px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 24px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>DURING THE GAME</span>
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            <ContentImage src="https://www.refereevision.com/scr_during.jpg" alt="During the Game 1" />
+            <ContentImage src="https://www.refereevision.com/scr_during2.jpg" alt="During the Game 2" />
+            <ContentImage src="https://www.refereevision.com/scr_pen.jpg" alt="During the Game - Pen" />
+          </div>
         </div>
         {/* AT THE END OF THE GAME */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 24px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>AT THE END OF THE GAME</span>
+          </div>
           <ContentImage src="https://www.refereevision.com/scr_end.jpg" alt="At the End of the Game" />
         </div>
       </div>
@@ -1088,31 +1098,76 @@ function ScorerContent() {
       <VideoRow links={SCORER_RUNNING_SCORE_VIDEOS} onPlay={(url) => setActiveVideo(url)} />
 
       {/* GAME LOST BY FORFEIT + GAME LOST BY DEFAULT */}
-      <TwoColBadges left="GAME LOST BY FORFEIT" right="GAME LOST BY DEFAULT" />
-      <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src="https://www.refereevision.com/scr_forfeit.jpg" alt="Game Lost by Forfeit" />
-        <ContentImage src="https://www.refereevision.com/scr_default.jpg" alt="Game Lost by Default" />
+      <div style={{ display: "flex", gap: 16, justifyContent: "space-around", flexWrap: "wrap", margin: "32px 0 24px" }}>
+        {/* GAME LOST BY FORFEIT */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>GAME LOST BY FORFEIT</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/scr_forfeit.jpg" alt="Game Lost by Forfeit" />
+        </div>
+        {/* GAME LOST BY DEFAULT */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>GAME LOST BY DEFAULT</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/scr_default.jpg" alt="Game Lost by Default" />
+        </div>
       </div>
 
       {/* HOW TO RECORD THE DIFFERENT FOULS */}
       <SubSectionBadge label="HOW TO RECORD THE DIFFERENT FOULS" />
       {/* Row 1: CLASSIFICATION, PLAYER FOULS, SUBSTITUTION & EXCLUDED PLAYER FOULS */}
-      <ThreeColBadges items={["CLASSIFICATION", "PLAYER FOULS", "SUBSTITUTION & EXCLUDED PLAYER FOULS"]} />
-      <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src="https://www.refereevision.com/fouls_classification.jpg" alt="Classification" />
-        <ContentImage src="https://www.refereevision.com/fouls_player.jpg" alt="Player Fouls" />
-        <ContentImage src="https://www.refereevision.com/fouls_sub.jpg" alt="Substitution & Excluded Player Fouls" />
+      <div style={{ display: "flex", gap: 16, justifyContent: "space-around", flexWrap: "wrap", margin: "32px 0 24px" }}>
+        {/* CLASSIFICATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 24px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>CLASSIFICATION</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/fouls_classification.jpg" alt="Classification" />
+        </div>
+        {/* PLAYER FOULS */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 24px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>PLAYER FOULS</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/fouls_player.jpg" alt="Player Fouls" />
+        </div>
+        {/* SUBSTITUTION & EXCLUDED PLAYER FOULS */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 24px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>SUBSTITUTION &amp; EXCLUDED PLAYER FOULS</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/fouls_sub.jpg" alt="Substitution & Excluded Player Fouls" />
+        </div>
       </div>
 
       {/* Row 2: HEAD COACH..., PLAYER & HEAD COACH FOULS, DISQUALIFYING FOULS - FIGHTS */}
-      <ThreeColBadges items={["HEAD COACH, FIRST ASSISTANT COACH & ACCOMPANYING DELEGATION MEMBER FOULS", "PLAYER & HEAD COACH FOULS", "DISQUALIFYING FOULS - FIGHTS"]} />
-      <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src="https://www.refereevision.com/fouls_coach.jpg" alt="Head Coach Fouls" />
-        <div style={{ display: "flex", gap: 8 }}>
-          <ContentImage src="https://www.refereevision.com/fouls_phc.jpg" alt="Player & Head Coach Fouls 1" />
-          <ContentImage src="https://www.refereevision.com/fouls_phc1.jpg" alt="Player & Head Coach Fouls 2" />
+      <div style={{ display: "flex", gap: 16, justifyContent: "space-around", flexWrap: "wrap", margin: "32px 0 24px" }}>
+        {/* HEAD COACH, FIRST ASSISTANT COACH & ACCOMPANYING DELEGATION MEMBER FOULS */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 20px", width: "100%", textAlign: "center", boxSizing: "border-box", minHeight: 48, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase", lineHeight: 1.2 }}>HEAD COACH, FIRST ASSISTANT COACH &amp; ACCOMPANYING DELEGATION MEMBER FOULS</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/fouls_coach.jpg" alt="Head Coach Fouls" />
         </div>
-        <ContentImage src="https://www.refereevision.com/fouls_fight.jpg" alt="Disqualifying Fouls - Fights" />
+        {/* PLAYER & HEAD COACH FOULS */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 20px", width: "100%", textAlign: "center", boxSizing: "border-box", minHeight: 48, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase", lineHeight: 1.2 }}>PLAYER &amp; HEAD COACH FOULS</span>
+          </div>
+          <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
+            <ContentImage src="https://www.refereevision.com/fouls_phc.jpg" alt="Player & Head Coach Fouls 1" />
+            <ContentImage src="https://www.refereevision.com/fouls_phc1.jpg" alt="Player & Head Coach Fouls 2" />
+          </div>
+        </div>
+        {/* DISQUALIFYING FOULS - FIGHTS */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 20px", width: "100%", textAlign: "center", boxSizing: "border-box", minHeight: 48, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1px", textTransform: "uppercase", lineHeight: 1.2 }}>DISQUALIFYING FOULS - FIGHTS</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/fouls_fight.jpg" alt="Disqualifying Fouls - Fights" />
+        </div>
       </div>
 
       {/* EDUCATIONAL VIDEOS */}
@@ -1137,10 +1192,21 @@ function ScorerContent() {
 
       {/* ALTERNATING POSSESSION ARROW */}
       <SubSectionBadge label="ALTERNATING POSSESSION ARROW" />
-      <TwoColBadges left="RULE" right="OPERATION" />
-      <div style={{ display: "flex", justifyContent: "space-around", gap: 16, flexWrap: "wrap", marginBottom: 8 }}>
-        <ContentImage src="https://www.refereevision.com/apa_rule.jpg" alt="Alternating Possession Rule" />
-        <ContentImage src="https://www.refereevision.com/apa_procedure.jpg" alt="Alternating Possession Operation" />
+      <div style={{ display: "flex", gap: 16, justifyContent: "space-around", flexWrap: "wrap", margin: "32px 0 24px" }}>
+        {/* RULE */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>RULE</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/apa_rule.jpg" alt="Alternating Possession Rule" />
+        </div>
+        {/* OPERATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, flex: "1 1 200px" }}>
+          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", width: "100%", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>OPERATION</span>
+          </div>
+          <ContentImage src="https://www.refereevision.com/apa_procedure.jpg" alt="Alternating Possession Operation" />
+        </div>
       </div>
 
       <SubSectionBadge label="EDUCATIONAL VIDEOS" />
