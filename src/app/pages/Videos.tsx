@@ -821,12 +821,16 @@ function SubSectionBadge({ label }: { label: string }) {
           borderRadius: 6,
           padding: "8px 40px",
           margin: "32px 0 24px",
+          maxWidth: "100%",
+          boxSizing: "border-box",
+          textAlign: "center",
         }}
       >
         <span
           style={{
             fontFamily: BARLOW, fontWeight: 800, fontSize: 18,
             color: T.orange, letterSpacing: "2px", textTransform: "uppercase",
+            wordBreak: "break-word",
           }}
         >
           {label}

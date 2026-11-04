@@ -1384,75 +1384,78 @@ const PROTOCOL_ITEMS: {
   label: string;
   link: string;
   thumbnail: string;
+  type?: "image";
 }[] = [
-  {
-    label: "MAKING A CALL",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09",
-    thumbnail: "https://www.refereevision.com/Protocols_1.jpg",
-  },
-  {
-    label: "TRAIL TO LEAD",
-    link: "https://library.fibairef.basketball/doc/QlFiaFN4T3RqNFRQYTJINkJvMStGQT09",
-    thumbnail: "https://www.refereevision.com/Protocols_2.jpg",
-  },
-  {
-    label: "LEAD TO TRAIL",
-    link: "https://library.fibairef.basketball/doc/UlpITnhYWk5NZzhPa0ZKcEFPaDloUT09",
-    thumbnail: "https://www.refereevision.com/Protocols_3.jpg",
-  },
-  {
-    label: "OUT-OF-BOUNDS",
-    link: "https://library.fibairef.basketball/doc/MXI0ZGhPcGlTa3I3Q2pDYnJCVUpQQT09",
-    thumbnail: "https://www.refereevision.com/Protocols_4.jpg",
-  },
-  {
-    label: "TIME CONTROL",
-    link: "https://library.fibairef.basketball/doc/UUNDTHdXMVpJeDdPV2xFWmI5a1lnZz09",
-    thumbnail: "https://www.refereevision.com/Protocols_5.jpg",
-  },
-  {
-    label: "THROW-IN",
-    link: "https://library.fibairef.basketball/doc/dFN3dVl0dUhTS2ovUmgxNWw5SW5WZz09",
-    thumbnail: "https://www.refereevision.com/Protocols_6.jpg",
-  },
-  {
-    label: "FREE-THROW VIOLATION",
-    link: "https://library.fibairef.basketball/doc/NUpEbjRCT242dDZ3bDRiYk1jQ1RUZz09",
-    thumbnail: "https://www.refereevision.com/Protocols_7.jpg",
-  },
-  {
-    label: "BLOCK/CHARGE",
-    link: "https://library.fibairef.basketball/doc/STd0NDZZNXJmVi9tdUZrcXV3Y3pMZz09",
-    thumbnail: "https://www.refereevision.com/Protocols_8.jpg",
-  },
-  {
-    label: "ACT OF SHOOTING",
-    link: "https://library.fibairef.basketball/doc/Nkh2MWlUQWJzY2NacEkvV29NLzVnZz09",
-    thumbnail: "https://www.refereevision.com/Protocols_9.jpg",
-  },
-  {
-    label: "DI/FL 1",
-    link: "https://library.fibairef.basketball/doc/YnlUNW8vUXg5OGJIV0dJenQxZ0VFQT09",
-    thumbnail: "https://www.refereevision.com/Protocols_10.jpg",
-  },
-  {
-    label: "DI/FL 2",
-    link: "https://library.fibairef.basketball/doc/YnlUNW8vUXg5OGJIV0dJenQxZ0VFQT09",
-    thumbnail: "https://www.refereevision.com/Protocols_11.jpg",
-  },
-];
+    {
+      label: "MAKING A CALL",
+      link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09",
+      thumbnail: "https://www.refereevision.com/Protocols_1.jpg",
+    },
+    {
+      label: "TRAIL TO LEAD",
+      link: "https://library.fibairef.basketball/doc/QlFiaFN4T3RqNFRQYTJINkJvMStGQT09",
+      thumbnail: "https://www.refereevision.com/Protocols_2.jpg",
+    },
+    {
+      label: "LEAD TO TRAIL",
+      link: "https://library.fibairef.basketball/doc/UlpITnhYWk5NZzhPa0ZKcEFPaDloUT09",
+      thumbnail: "https://www.refereevision.com/Protocols_3.jpg",
+    },
+    {
+      label: "OUT-OF-BOUNDS",
+      link: "https://library.fibairef.basketball/doc/MXI0ZGhPcGlTa3I3Q2pDYnJCVUpQQT09",
+      thumbnail: "https://www.refereevision.com/Protocols_4.jpg",
+    },
+    {
+      label: "TIME CONTROL",
+      link: "https://library.fibairef.basketball/doc/UUNDTHdXMVpJeDdPV2xFWmI5a1lnZz09",
+      thumbnail: "https://www.refereevision.com/Protocols_5.jpg",
+    },
+    {
+      label: "THROW-IN",
+      link: "https://library.fibairef.basketball/doc/dFN3dVl0dUhTS2ovUmgxNWw5SW5WZz09",
+      thumbnail: "https://www.refereevision.com/Protocols_6.jpg",
+    },
+    {
+      label: "FREE-THROW VIOLATION",
+      link: "https://library.fibairef.basketball/doc/NUpEbjRCT242dDZ3bDRiYk1jQ1RUZz09",
+      thumbnail: "https://www.refereevision.com/Protocols_7.jpg",
+    },
+    {
+      label: "BLOCK/CHARGE",
+      link: "https://library.fibairef.basketball/doc/STd0NDZZNXJmVi9tdUZrcXV3Y3pMZz09",
+      thumbnail: "https://www.refereevision.com/Protocols_8.jpg",
+    },
+    {
+      label: "ACT OF SHOOTING",
+      link: "https://library.fibairef.basketball/doc/Nkh2MWlUQWJzY2NacEkvV29NLzVnZz09",
+      thumbnail: "https://www.refereevision.com/Protocols_9.jpg",
+    },
+    {
+      label: "DI/FL 1",
+      link: "https://library.fibairef.basketball/doc/YnlUNW8vUXg5OGJIV0dJenQxZ0VFQT09",
+      thumbnail: "https://www.refereevision.com/Protocols_10.jpg",
+    },
+    {
+      label: "DI/FL 2",
+      link: "http://www.refereevision.com/Protocols_11.jpg",
+      thumbnail: "https://www.refereevision.com/Protocols_11.jpg",
+      type: "image",
+    },
+  ];
 
 function ProtocolCard({
   item,
   index,
   onPlay,
 }: {
-  item: { label: string; link?: string; thumbnail?: string };
+  item: { label: string; link?: string; thumbnail?: string; type?: "image" };
   index: number;
   onPlay?: () => void;
 }) {
   const h = useHover();
   const thumbnail = item.thumbnail;
+  const isImageCard = item.type === "image";
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -1522,27 +1525,29 @@ function ProtocolCard({
           <line x1="50%" y1="0" x2="50%" y2="100%" stroke={T.orange} strokeWidth="1" />
           <circle cx="50%" cy="50%" r="18%" stroke={T.orange} strokeWidth="1" fill="none" />
         </svg>
-        <div
-          className="video-thumb-play-btn"
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: "50%",
-            background: item.link
-              ? h.on ? T.orange : "rgba(232,101,26,0.85)"
-              : "rgba(100,100,100,0.4)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 2,
-            transition: "background 0.15s",
-            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" style={{ marginLeft: 2 }}>
-            <polygon points="0,0 10,6 0,12" fill="white" />
-          </svg>
-        </div>
+        {!isImageCard && (
+          <div
+            className="video-thumb-play-btn"
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: item.link
+                ? h.on ? T.orange : "rgba(232,101,26,0.85)"
+                : "rgba(100,100,100,0.4)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 2,
+              transition: "background 0.15s",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <svg width="10" height="12" viewBox="0 0 10 12" fill="none" style={{ marginLeft: 2 }}>
+              <polygon points="0,0 10,6 0,12" fill="white" />
+            </svg>
+          </div>
+        )}
       </div>
     </div>
   );

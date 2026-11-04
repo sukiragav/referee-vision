@@ -282,7 +282,7 @@ function Sidebar({
         display: "flex", flexDirection: "column",
       }}
     >
-      <div className="page-desktop-sidebar-header" style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${T.border}` }}>
+      <div className="page-desktop-sidebar-header" style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${T.border}`, marginBottom: 0 }}>
         <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 30, color: T.orange, letterSpacing: "3px", textTransform: "uppercase" }}>
           WEBINARS
         </span>
@@ -295,7 +295,7 @@ function Sidebar({
 function SidebarItem({ tab, active, onSelect }: { tab: Tab; active: boolean; onSelect: (t: Tab) => void }) {
   const h = useHover();
   let bg = "transparent";
-  let color = T.orange;
+  let color = T.inactive;
   let borderLeft = "4px solid transparent";
   if (active) { bg = T.orange; color = T.white; borderLeft = `4px solid ${T.white}`; }
   else if (h.on) { bg = T.hoverBg; color = T.white; borderLeft = `4px solid ${T.orange}`; }

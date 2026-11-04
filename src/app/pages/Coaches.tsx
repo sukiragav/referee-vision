@@ -256,7 +256,7 @@ function SidebarItem({
   const h = useHover();
 
   let bg = "transparent";
-  let color = T.orange;
+  let color = T.inactive;
   let borderLeft = "4px solid transparent";
 
   if (active) {
