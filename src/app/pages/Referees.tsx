@@ -1387,57 +1387,57 @@ const PROTOCOL_ITEMS: {
 }[] = [
   {
     label: "MAKING A CALL",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09",
     thumbnail: "https://www.refereevision.com/Protocols_1.jpg",
   },
   {
     label: "TRAIL TO LEAD",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/QlFiaFN4T3RqNFRQYTJINkJvMStGQT09",
     thumbnail: "https://www.refereevision.com/Protocols_2.jpg",
   },
   {
     label: "LEAD TO TRAIL",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/UlpITnhYWk5NZzhPa0ZKcEFPaDloUT09",
     thumbnail: "https://www.refereevision.com/Protocols_3.jpg",
   },
   {
     label: "OUT-OF-BOUNDS",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/MXI0ZGhPcGlTa3I3Q2pDYnJCVUpQQT09",
     thumbnail: "https://www.refereevision.com/Protocols_4.jpg",
   },
   {
     label: "TIME CONTROL",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/UUNDTHdXMVpJeDdPV2xFWmI5a1lnZz09",
     thumbnail: "https://www.refereevision.com/Protocols_5.jpg",
   },
   {
     label: "THROW-IN",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/dFN3dVl0dUhTS2ovUmgxNWw5SW5WZz09",
     thumbnail: "https://www.refereevision.com/Protocols_6.jpg",
   },
   {
     label: "FREE-THROW VIOLATION",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/NUpEbjRCT242dDZ3bDRiYk1jQ1RUZz09",
     thumbnail: "https://www.refereevision.com/Protocols_7.jpg",
   },
   {
     label: "BLOCK/CHARGE",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/STd0NDZZNXJmVi9tdUZrcXV3Y3pMZz09",
     thumbnail: "https://www.refereevision.com/Protocols_8.jpg",
   },
   {
     label: "ACT OF SHOOTING",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/Nkh2MWlUQWJzY2NacEkvV29NLzVnZz09",
     thumbnail: "https://www.refereevision.com/Protocols_9.jpg",
   },
   {
     label: "DI/FL 1",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/YnlUNW8vUXg5OGJIV0dJenQxZ0VFQT09",
     thumbnail: "https://www.refereevision.com/Protocols_10.jpg",
   },
   {
     label: "DI/FL 2",
-    link: "https://library.fibairef.basketball/doc/Z0RBeHkwQ3pjWWY2L2ozV3JUMEdmZz09?autoplay=1",
+    link: "https://library.fibairef.basketball/doc/YnlUNW8vUXg5OGJIV0dJenQxZ0VFQT09",
     thumbnail: "https://www.refereevision.com/Protocols_11.jpg",
   },
 ];
@@ -1549,14 +1549,18 @@ function ProtocolCard({
 }
 
 function ProtocolsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet?: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
   const cols = isMobile ? 2 : isTablet ? 3 : 4;
 
   return (
     <div>
       {/* Video Modal popup */}
       {activeVideo && (
-        <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />
+        <VideoModal
+          url={activeVideo.url}
+          title={activeVideo.title}
+          onClose={() => setActiveVideo(null)}
+        />
       )}
 
       <SectionBadge label="PROTOCOLS" />
@@ -1575,7 +1579,7 @@ function ProtocolsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet?
             key={item.label}
             item={item}
             index={i}
-            onPlay={() => setActiveVideo(item.link)}
+            onPlay={() => setActiveVideo({ url: item.link, title: item.label })}
           />
         ))}
       </div>
