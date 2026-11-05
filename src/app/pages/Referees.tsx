@@ -1182,7 +1182,7 @@ function VideoColumn({
           textTransform: "uppercase",
           textAlign: "center",
           padding: "16px 12px",
-          borderRadius: 0,
+          borderRadius: 6,
           marginBottom: 8,
         }}
       >
@@ -1233,7 +1233,7 @@ function PlaylistButton({ label, filled, onPlay, isMobile }: { label: string; fi
         letterSpacing: "2px",
         textTransform: "uppercase",
         padding: isMobile ? "12px 20px" : "14px 40px",
-        borderRadius: 0,
+        borderRadius:6,
         cursor: "pointer",
         transition: "background 0.15s, color 0.15s",
         minWidth: isMobile ? 0 : 320,
@@ -1477,6 +1477,7 @@ function ProtocolCard({
           alignItems: "center",
           justifyContent: "center",
           boxSizing: "border-box",
+          borderRadius: 6,
         }}
       >
         {item.label}
@@ -1636,6 +1637,7 @@ function DutiesContent({ isMobile }: { isMobile: boolean }) {
                 textAlign: "center",
                 padding: "16px 12px",
                 marginBottom: 8,
+                borderRadius: 6,
               }}
             >
               {col.heading}
@@ -1878,6 +1880,7 @@ function ExerciseCard({
           textTransform: "uppercase",
           textAlign: "center",
           padding: "10px 8px",
+          borderRadius: 6,
         }}
       >
         {item.label}
@@ -2009,7 +2012,7 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
       </div>
 
       {/* NBA Referee Fitness section */}
-      <div style={{ marginTop: 40, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+      <div style={{ marginTop: 40, display: "flex", flexDirection: "column", alignItems: "center", gap: 12}}>
         <div
           style={{
             border: `2px solid ${T.orange}`,
@@ -2022,6 +2025,7 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
             textTransform: "uppercase",
             textAlign: "center",
             padding: "12px 48px",
+            borderRadius: 6,
           }}
         >
           NBA REFEREE FITNESS
