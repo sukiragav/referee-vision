@@ -618,7 +618,7 @@ function WebinarRow({
             fontSize: 13,
             letterSpacing: "1.5px",
             padding: "6px 18px",
-            borderRadius: 0,
+            borderRadius: 6,
             cursor: "pointer",
             transition: "background 0.15s, color 0.15s",
             textDecoration: "none",
