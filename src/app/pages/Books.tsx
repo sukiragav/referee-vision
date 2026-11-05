@@ -100,8 +100,8 @@ const FIVE_ON_FIVE_DOCS = [
   },
   {
     label: "FIBA MANUAL FOR TABLE OFFICIALS",
-    version: "Version 6.6a - Valid as of January 2026",
-    link: "https://library.fibairef.basketball/images/documents/0e57934b6d0acff4759ea0b0503367cd/FIBA_Table_Officials_Manual_v6_6a_2025_en.pdf",
+    version: "Version 7.0 - Valid as of October 2026",
+    link: "https://library.fibairef.basketball/images/documents/645ffec7b0cf0ef56512ccc77d82afe2/FIBA_Table_Officials_Manual_v7_0_2026_en.pdf",
     pinned: true,
   },
   {

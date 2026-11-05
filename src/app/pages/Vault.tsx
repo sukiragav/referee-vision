@@ -915,6 +915,7 @@ const RULEBOOKS_DATA: Record<RulebookSubTab, { title: string; link: string }[]> 
     { title: "1ST OCTOBER 2004", link: "https://drive.google.com/file/d/19UAVbsCOwMXcChU_tiqqXipXjP1A9oGp/view?usp=share_link" },
   ],
   "TABLE OFFICIALS": [
+    { title: "JANUARY 2026 (Version 6.6a)", link: "https://library.fibairef.basketball/images/documents/0e57934b6d0acff4759ea0b0503367cd/FIBA_Table_Officials_Manual_v6_6a_2025_en.pdf" },
     { title: "FEBRUARY 2024 (Version 6.0a)", link: "https://library.fibairef.basketball/images/documents/5fefccbcf69ff5313552a43e21b3ac32/FIBA_Table_Officials_Manual_v6_0a_2024_en.pdf" },
     { title: "FEBRUARY 2024 (Version 6.0)", link: "https://library.fibairef.basketball/images/documents/c829e9848744ac644c5c63feb45f3115/FIBA_TableOfficialsManual_v6_0_2024_en.pdf" },
     { title: "OCTOBER 2022 (Version 5.0)", link: "https://drive.google.com/file/d/1RQ1yKZctQKmuoDeZ_66z9KlugUE4u4DB/view?usp=share_link" },
