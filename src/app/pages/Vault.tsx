@@ -279,11 +279,12 @@ const TOUGH_CALLS_DATA: Record<string, MatchdayEntry[]> = {
   ],
   "2026-27": [
     { label: "GAMEDAY 1", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-1" },
-    { label: "GAMEDAY 2", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-2" },
-    { label: "GAMEDAY 3", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-3" },
     { label: "WEEK 1", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-1" },
-    { label: "WEEK 2", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-2" },
+    { label: "GAMEDAY 2", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-2" },
+    { label: "WEEK 2", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-2" },    
+    { label: "GAMEDAY 3", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-3" },
     { label: "WEEK 3", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-3" },
+    { label: "GAMEDAY 3", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-4" },
     { label: "WEEK 4", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-4" },
   ]
 };
