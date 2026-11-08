@@ -286,6 +286,7 @@ const TOUGH_CALLS_DATA: Record<string, MatchdayEntry[]> = {
     { label: "WEEK 3", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-3" },
     { label: "GAMEDAY 4", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-4" },
     { label: "WEEK 4", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-4" },
+    { label: "WEEK 5", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-5" },
   ]
 };
 
