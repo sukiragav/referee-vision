@@ -1528,6 +1528,13 @@ function AssistantScorerContent() {
           { src: "https://www.refereevision.com/as_during.jpg", alt: "Assistant Scorer During The Game" }
         ]}
       />
+      <DocSection
+        title="END OF GAME"
+        count={1}
+        images={[
+          { src: "https://www.refereevision.com/as_end.jpg", alt: "Assistant Scorer End of game" }
+        ]}
+      />
     </div>
   );
 }
