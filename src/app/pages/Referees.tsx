@@ -3106,6 +3106,8 @@ function SignalsContent() {
     { label: "DISQUALIFYING FOUL", sublabel: "Clenched fists on both hands", image: "https://www.refereevision.com/Signals/dqf_Sig.png" },
     { label: "FAKE A FOUL", sublabel: "Raise lower arm twice", image: "https://www.refereevision.com/Signals/fake_Sig.png" },
     { label: "ILLEGAL BOUNDARY LINE CROSSING", sublabel: "Wave arm parallel to boundary line", image: "https://www.refereevision.com/Signals/boundary_Sig.png" },
+    { label: "DISRUPTIVE FOUL", sublabel: "Wave arm parallel to boundary line", image: "https://www.refereevision.com/Signals/disruptive_Sig.png" },
+    { label: "DELAY OF GAME", sublabel: "Wave arm parallel to boundary line", image: "https://www.refereevision.com/Signals/delay_Sig.png" },
   ];
 
   const reportingToTable = [
