@@ -179,16 +179,52 @@ function getYouTubeEmbedUrl(url: string): string {
 }
 
 // ─── Video Modal ──────────────────────────────────────────────────────────────
-function VideoModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
-  const isImage = /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url) || url.startsWith("data:image");
-  const isSignal = isImage && /sig/i.test(url);
-  const [zoom, setZoom] = useState(1);
-  const youtubeId = getYouTubeId(url);
-  const embedSrc = youtubeId
-    ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
-    : null;
+  function VideoModal({
+    url,
+    title,
+    onClose,
+    startTime = 0,
+    endTime,
+  }: {
+    url: string;
+    title?: string;
+    onClose: () => void;
+    startTime?: number;
+    endTime?: number;
+  }) {
+    const isImage =
+      /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url) ||
+      url.startsWith("data:image");
 
-  return createPortal(
+    const isSignal = isImage && /sig/i.test(url);
+
+    const [zoom, setZoom] = useState(1);
+    const [loadError, setLoadError] = useState(false);
+
+    // YouTube
+    const youtubeId = getYouTubeId(url);
+
+    // Vimeo
+    const getVimeoEmbedUrl = (videoUrl: string) => {
+      const match = videoUrl.match(
+        /(?:player\.)?vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/
+      );
+
+      if (!match) return null;
+
+      const videoId = match[1];
+      const hash = match[2];
+
+      return `https://player.vimeo.com/video/${videoId}${
+        hash ? `?h=${hash}&autoplay=1` : "?autoplay=1"
+      }`;
+    };
+
+    const embedSrc = youtubeId
+      ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
+      : getVimeoEmbedUrl(url);
+
+   return createPortal(
     <div
       onClick={onClose}
       style={{
@@ -519,19 +555,33 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
           {/* Video area */}
           <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, background: "#000" }}>
             {url.endsWith(".mp4") || url.includes(".mp4?") ? (
-              <video
-                src={url}
-                controls
-                autoPlay
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  border: "none",
-                }}
-              />
+            <video
+              key={url}
+              src={url}
+              controls
+              autoPlay
+              playsInline
+              preload="metadata"
+              onLoadedMetadata={(e) => {
+                e.currentTarget.currentTime = startTime;
+              }}
+              onTimeUpdate={(e) => {
+                const video = e.currentTarget;
+
+                if (endTime !== undefined && video.currentTime >= endTime) {
+                  video.pause();
+                  video.currentTime = endTime;
+                }
+              }}
+              onError={() => setLoadError(true)}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+            />
             ) : (
               <iframe
                 src={embedSrc || getYouTubeEmbedUrl(url)}
@@ -1034,11 +1084,25 @@ function CommonDutiesContent() {
 
 // ─── Scorer Content ───────────────────────────────────────────────────────────
 function ScorerContent() {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+        <VideoModal
+          url={activeVideo.url}
+          title="OBR 2026 Webinar"
+          startTime={activeVideo.startTime}
+          endTime={activeVideo.endTime}
+          onClose={() => setActiveVideo(null)}
+        />
+      )}
 
       {/* DUTIES + MECHANICS & PERFORMANCE STANDARDS side by side */}
       <div style={{ display: "flex", gap: 16, justifyContent: "space-around", flexWrap: "wrap", margin: "32px 0 24px" }}>
@@ -1447,7 +1511,14 @@ function RuleProcedureSummary({
   summaryImages?: { src: string; alt: string }[];
   videos?: { link: string; thumbnail?: string }[];
 }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+    type ActiveVideo = {
+    url: string;
+    startTime?: number;
+    endTime?: number;
+  };
+
+  const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
   const sections: { label: string; images: { src: string; alt: string }[]; count: number }[] = [
     { label: "RULE", images: ruleImages, count: 1 },
     { label: "PROCEDURE", images: procedureImages, count: 1 },
@@ -1456,7 +1527,19 @@ function RuleProcedureSummary({
   const totalVideos = videos.length > 0 ? videos.length : videoCount;
   return (
     <div>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <div style={{ display: "flex", gap: 12, justifyContent: "space-around", flexWrap: "wrap", marginBottom: 24 }}>
         {sections.map(({ label, images, count }) => (
           <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, flex: "1 1 120px" }}>
@@ -1543,7 +1626,13 @@ function AssistantScorerContent() {
 
 // ─── TIMER Content ────────────────────────────────────────────────────────────
 function TimerContent() {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   const clockLinks = [
     "https://library.fibairef.basketball/cdn/TOM500_EN?autoplay=1",
@@ -1554,7 +1643,19 @@ function TimerContent() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
 
       <div style={{ display: "flex", gap: 36, justifyContent: "space-around", flexWrap: "wrap" }}>
         <DocSection
@@ -1682,11 +1783,29 @@ function ShotClockSubHeader({ label }: { label: string }) {
 }
 
 function ShotClockOperatorContent() {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
 
       {/* Top row: DUTIES | BEFORE THE GAME | RULE */}
       <div style={{ display: "flex", gap: 24, justifyContent: "space-around", flexWrap: "wrap", margin: "20px 0" }}>
@@ -2215,13 +2334,31 @@ function CylinderPrincipleContent({
   isMobile: boolean;
   isTablet: boolean;
 }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 32, alignItems: "center" }}>
       <SectionBadge label="CYLINDER PRINCIPLE" />
 
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
 
       {/* RULE EXPLANATION */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -2507,12 +2644,30 @@ function CylinderPrincipleContent({
 // ─── 3X3 Content ─────────────────────────────────────────────────────────────
 
 function ThreeXThreeContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
       <SectionBadge label="3X3" />
 
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
 
       {/* PLAYER NOT IN POSSESSION OF THE BALL */}
       <SubSectionBadge label="PLAYER NOT IN POSSESSION OF THE BALL" />
@@ -2697,11 +2852,29 @@ function WatchPlaylistButton({ label = "WATCH PLAYLIST", href, onClick }: { labe
 }
 
 function TravellingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="TRAVELLING" />
 
       {/* RULE EXPLANATION */}
@@ -2979,11 +3152,29 @@ function TravellingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
 // ─── ACT OF SHOOTING Content ──────────────────────────────────────────────────
 
 function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="ACT OF SHOOTING & GOAL: WHEN MADE AND ITS VALUE" />
 
       {/* RULE EXPLANATION */}
@@ -3191,11 +3382,29 @@ const CONTACT_SIGNALS_ROW2 = [
 ];
 
 function ContactContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="CONTACT" />
 
       {/* RULE EXPLANATION */}
@@ -3830,11 +4039,29 @@ function TimeoutSubSection({
 }
 
 function TimeoutSubstitutionContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="TIME-OUT & SUBSTITUTION" />
       <div style={{ marginTop: 32 }}>
         <TimeoutSubSection
@@ -3880,11 +4107,29 @@ function TimeoutSubstitutionContent({ isMobile, isTablet }: { isMobile: boolean;
 // ─── ALTERNATING POSSESSION Content ──────────────────────────────────────────
 
 function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="ALTERNATING POSSESSION" />
 
       {/* RULE / ARTICLE / INTERPRETATION */}
@@ -4043,11 +4288,29 @@ function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolea
 // ─── DRIBBLING Content ───────────────────────────────────────────────────────
 
 function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="DRIBBLING" />
 
       {/* Top two-column: RULE EXPLANATION | SIGNALS */}
@@ -4191,11 +4454,29 @@ function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
 // ─── DISRUPTIVE FOUL Content ─────────────────────────────────────────────
 
 function DisruptiveFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="DISRUPTIVE FOUL" />
 
       {/* RULE EXPLANATION */}
@@ -4581,11 +4862,29 @@ function DisruptiveFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTa
 // ─── FLAGRANT FOUL Content ─────────────────────────────────────────────
 
 function FlagrantFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="FLAGRANT FOUL" />
 
       {/* RULE EXPLANATION */}
@@ -4959,11 +5258,29 @@ function FlagrantFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTabl
 // ─── SCREENING Content ────────────────────────────────────────────────────────
 
 function ScreeningContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="SCREENING" />
 
       {/* RULE EXPLANATION */}
@@ -5071,11 +5388,29 @@ function ScreeningContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
 // ─── CHARGE & BLOCK Content ───────────────────────────────────────────────────
 
 function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="CHARGE & BLOCK" />
 
       {/* Top row: RULE EXPLANATION & SIGNALS side-by-side */}
@@ -5321,11 +5656,29 @@ function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTable
 // ─── NO-CHARGE SEMICIRCLE Content ──────────────────────────────────────────────
 
 function NoChargeSemicircleContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="NO-CHARGE SEMICIRCLE" />
 
       {/* RULE EXPLANATION */}
@@ -5484,11 +5837,29 @@ function NoChargeSemicircleContent({ isMobile, isTablet }: { isMobile: boolean; 
 // ─── FAKING A FOUL Content ───────────────────────────────────────────────────
 
 function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="FAKING A FOUL" />
 
       {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
@@ -5651,11 +6022,29 @@ function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
 // ─── BALL RETURNED TO BACKCOURT Content ───────────────────────────────────────
 
 function BallReturnedToBackcourtContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="BALL RETURNED TO BACKCOURT" />
 
       {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
@@ -5809,7 +6198,13 @@ function BallReturnedToBackcourtContent({ isMobile, isTablet }: { isMobile: bool
 // ─── GOALTENDING & INTERFERENCE Content ──────────────────────────────────────
 
 function GoaltendingInterferenceContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   const goaltendingFibaVideos = [
     "https://youtu.be/ChPAOPwdXSc",
@@ -5835,7 +6230,19 @@ function GoaltendingInterferenceContent({ isMobile, isTablet }: { isMobile: bool
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="GOALTENDING & INTERFERENCE" />
 
       {/* Top row: RULE EXPLANATION videos & SIGNAL doc */}
@@ -6145,11 +6552,29 @@ function ShotClockContent({ isMobile, setActiveVideo }: { isMobile: boolean; set
 
 function Seconds358Content({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
   const [activeSubTab, setActiveSubTab] = useState<SecondsSubTab>("3 SECONDS");
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="3, 5, 8 & 24 SECONDS" />
 
       {/* Inner sub-tabs bar */}
@@ -6209,11 +6634,29 @@ function Seconds358Content({ isMobile, isTablet }: { isMobile: boolean; isTablet
 // ─── THROW-IN Content ─────────────────────────────────────────────────────────
 
 function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="THROW-IN" />
 
       {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
@@ -6349,7 +6792,13 @@ function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: b
 // ─── TECHNICAL FOUL Content ───────────────────────────────────────────────
 
 function TechnicalFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   const fibaVideos = [
     "https://youtu.be/85V8oIpieD8",
@@ -6378,7 +6827,19 @@ function TechnicalFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTab
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="TECHNICAL FOUL" />
 
       {/* 2-column top grid */}
@@ -6504,7 +6965,13 @@ function TechnicalFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTab
 // ─── DISQUALIFYING FOUL & FIGHTING Content ──────────────────────────────────
 
 function DisqualifyingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   const fibaVideos = [
     "https://youtu.be/mNgMLYMxALE",
@@ -6520,7 +6987,19 @@ function DisqualifyingFoulContent({ isMobile, isTablet }: { isMobile: boolean; i
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="DISQUALIFYING FOUL & FIGHTING" />
 
       {/* 2-column top grid */}
@@ -6640,7 +7119,13 @@ function DisqualifyingFoulContent({ isMobile, isTablet }: { isMobile: boolean; i
 // ─── GAME CONTROL & MANAGEMENT Content ──────────────────────────────────────
 
 function GameControlManagementContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   const gameControlVideos = [
     "https://youtu.be/TVokLEG12e8",
@@ -6664,7 +7149,19 @@ function GameControlManagementContent({ isMobile, isTablet }: { isMobile: boolea
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="GAME CONTROL & MANAGEMENT" />
 
       {/* GAME CONTROL */}
@@ -7402,11 +7899,29 @@ function MiscSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; setActive
 
 function OthersContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
   const [activeSubTab, setActiveSubTab] = useState<OthersSubTab>("FREE THROWS");
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  type ActiveVideo = {
+  url: string;
+  startTime?: number;
+  endTime?: number;
+};
+
+const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
-      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeVideo && (
+  <VideoModal
+    url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
+    title="OBR 2026 Webinar"
+    startTime={
+      typeof activeVideo === "string" ? 0 : activeVideo.startTime
+    }
+    endTime={
+      typeof activeVideo === "string" ? undefined : activeVideo.endTime
+    }
+    onClose={() => setActiveVideo(null)}
+  />
+)}
       <SectionBadge label="OTHERS" />
 
       {/* Sub-tabs bar */}
