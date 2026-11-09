@@ -555,33 +555,52 @@ function getYouTubeEmbedUrl(url: string): string {
           {/* Video area */}
           <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, background: "#000" }}>
             {url.endsWith(".mp4") || url.includes(".mp4?") ? (
-            <video
-              key={url}
-              src={url}
-              controls
-              autoPlay
-              playsInline
-              preload="metadata"
-              onLoadedMetadata={(e) => {
-                e.currentTarget.currentTime = startTime;
-              }}
-              onTimeUpdate={(e) => {
-                const video = e.currentTarget;
+              <video
+                key={url}
+                src={url}
+                controls
+                autoPlay={false}
+                playsInline
+                preload="auto"
 
-                if (endTime !== undefined && video.currentTime >= endTime) {
-                  video.pause();
-                  video.currentTime = endTime;
-                }
-              }}
-              onError={() => setLoadError(true)}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-              }}
-            />
+                onLoadedMetadata={(e) => {
+                  const video = e.currentTarget;
+
+                  if (startTime > 0) {
+                    video.currentTime = startTime;
+                  }
+                }}
+
+                onSeeked={(e) => {
+                  const video = e.currentTarget;
+
+                  if (video.paused && video.currentTime >= startTime) {
+                    video.play().catch(console.error);
+                  }
+                }}
+
+                onTimeUpdate={(e) => {
+                  const video = e.currentTarget;
+
+                  if (
+                    endTime !== undefined &&
+                    video.currentTime >= endTime
+                  ) {
+                    video.pause();
+                    video.currentTime = endTime;
+                  }
+                }}
+
+                onError={() => setLoadError(true)}
+
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
             ) : (
               <iframe
                 src={embedSrc || getYouTubeEmbedUrl(url)}
