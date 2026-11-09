@@ -4507,7 +4507,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
           thumbnail="https://www.refereevision.com/thumbnail_di1.jpg"
           onPlay={() =>
             setActiveVideo({
-              url: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording",
+              url: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording#t=1872",
               startTime: 1872,
               endTime: 2236,
             })
