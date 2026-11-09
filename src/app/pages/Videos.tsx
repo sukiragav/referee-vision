@@ -1116,7 +1116,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
         <VideoModal
           url={activeVideo.url}
-          title="OBR 2026 Webinar"
+          title=""
           startTime={activeVideo.startTime}
           endTime={activeVideo.endTime}
           onClose={() => setActiveVideo(null)}
@@ -1549,7 +1549,7 @@ function RuleProcedureSummary({
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -1665,7 +1665,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -1815,7 +1815,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -2368,7 +2368,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -2677,7 +2677,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -2884,7 +2884,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -3184,7 +3184,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -3414,7 +3414,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -4071,7 +4071,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -4139,7 +4139,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -4320,7 +4320,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -4486,7 +4486,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -4894,7 +4894,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -5290,7 +5290,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -5420,7 +5420,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -5688,7 +5688,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -5869,7 +5869,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -6054,7 +6054,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -6252,7 +6252,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -6584,7 +6584,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -6666,7 +6666,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -6849,7 +6849,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -7009,7 +7009,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -7171,7 +7171,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
@@ -7931,7 +7931,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       {activeVideo && (
   <VideoModal
     url={typeof activeVideo === "string" ? activeVideo : activeVideo.url}
-    title="OBR 2026 Webinar"
+    title=""
     startTime={
       typeof activeVideo === "string" ? 0 : activeVideo.startTime
     }
