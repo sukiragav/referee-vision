@@ -27,6 +27,7 @@ type Tab =
   | "GAME MANAGEMENT"
   | "3X3"
   | "TABLE OFFICIALS"
+  | "DIGITAL SCORESHEET"
   | "MECHANICS"
   | "WOMEN IN OFFICIATING"
   | "FIBA MONDAY"
@@ -39,6 +40,7 @@ const TABS: Tab[] = [
   "GAME MANAGEMENT",
   "3X3",
   "TABLE OFFICIALS",
+  "DIGITAL SCORESHEET",
   "MECHANICS",
   "WOMEN IN OFFICIATING",
   "FIBA MONDAY",
@@ -86,10 +88,21 @@ const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
   "TABLE OFFICIALS": [
     { title: "HOW TO USE A SCORESHEET", presenter: "Michelle Nicholas", action: "watch", link: "https://youtu.be/cIsh7-EbwMU", popup: true },
     { title: "SCORESHEET (TF, DQF & FIGHTING SITUATIONS)", presenter: "Bernard Vassallo", action: "watch", link: "https://youtu.be/U6UBnAFzEJY", popup: true },
-    { title: "DIGITAL SCORESHEET USER MANUAL", action: "download", link: "https://drive.google.com/file/d/1A4ThJZepDiYRONdU5fVOZANNYB6PpwQa/view" },
-    { title: "DSS (Pre-game Duties)", action: "watch", link: "https://library.fibairef.basketball/doc/L0tUeUFCeDFmemNhNTdoNmQ0N0Nvdz09", popup: true },
-    { title: "DSS (How to record different actions)", action: "watch", link: "https://library.fibairef.basketball/doc/UEdtVEd0RXYzaU95bWlpeVloWVF0Zz09", popup: true },
-    { title: "DSS (How to close the game and print DSS)", action: "watch", link: "https://library.fibairef.basketball/doc/WWVoYlJXZDk5TnNWaVJEVjdLcHNTQT09", popup: true },
+  ],
+    "DIGITAL SCORESHEET": [
+    { title: "What is FIBA Digital Scoresheet", action: "watch", link: "https://player.vimeo.com/video/1220763798?h=83293d30a1", popup: true },
+    { title: "Logging in and environments", action: "watch", link: "https://player.vimeo.com/1219470336/?h=7ceb880db0", popup: true },
+    { title: "Pre-match setup", action: "watch", link: "https://vimeo.com/1219196166/78e8a121ea?fl=pl&fe=cm", popup: true },
+    { title: "Starting the game and basic scoring", action: "watch", link: "https://vimeo.com/1220183512/2fd54a0ede?fl=pl&fe=cm", popup: true },
+    { title: "Fouls and Free Throws", action: "watch", link: "https://vimeo.com/1223253342/88c08f2988?fl=pl&fe=cm", popup: true },
+    { title: "Time Outs and Head Coach Challenges", action: "watch", link: "https://vimeo.com/1221095155/9eb87b72e6?fl=pl&fe=cm", popup: true },
+    { title: "Handling a fight: disqualification and bench fouls", action: "watch", link: "https://vimeo.com/1221093001/9807f73583?fl=pl&fe=cm", popup: true },
+    { title: "Editing, inserting, and deleting actions", action: "watch", link: "https://vimeo.com/1223600313/5fbc489e79?fl=pl&fe=cm", popup: true },
+    { title: "Ending the game: signatures and finalization", action: "watch", link: "https://vimeo.com/1222967057/35e5a43e6c?fl=pl&fe=cm", popup: true },
+    { title: "Manual entry and practicing with TRAINING GAMES", action: "watch", link: "https://vimeo.com/1222050351/1ef4182476?fl=pl&fe=cm", popup: true },
+    { title: "Minimum and recommended PC specs for best performance", action: "watch", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/21829711784988-FIBA-Digital-Scoresheet-Minimum-and-recommended-PC-specs-for-best-performance", popup: true },
+    { title: "How to switch between Production and Test environments", action: "watch", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/21830207123612-FIBA-Digital-Scoresheet-How-to-switch-between-Production-and-Test-environments", popup: true },
+    { title: "How to Send an Error Report", action: "watch", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/22391539373468-FIBA-Digital-Scoresheet-How-to-Send-an-Error-Report", popup: true },
   ],
   MECHANICS: [
     { title: "3PO BASIC MECHANICS", presenter: "John Rearden", action: "watch", link: "https://www.youtube.com/embed/dqf_OzPL5A4?autoplay=1", popup: true },

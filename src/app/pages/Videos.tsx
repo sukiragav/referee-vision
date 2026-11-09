@@ -49,7 +49,8 @@ type Tab =
   | "ALTERNATING POSSESSION"
   | "DRIBBLING"
   | "SCREENING"
-  | "UNSPORTSMANLIKE FOUL"
+  | "DISRUPTIVE FOUL"
+  | "FLAGRANT FOUL"  
   | "NO-CHARGE SEMICIRCLE"
   | "CHARGE & BLOCK"
   | "BALL RETURNED TO BACKCOURT"
@@ -73,7 +74,8 @@ const TABS: Tab[] = [
   "ALTERNATING POSSESSION",
   "DRIBBLING",
   "SCREENING",
-  "UNSPORTSMANLIKE FOUL",
+  "DISRUPTIVE FOUL",
+  "FLAGRANT FOUL",  
   "NO-CHARGE SEMICIRCLE",
   "CHARGE & BLOCK",
   "BALL RETURNED TO BACKCOURT",
@@ -2261,7 +2263,7 @@ function CylinderPrincipleContent({
           <DocCard link="https://www.refereevision.com/Cylinder_art.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="INTERPRETATION" />
+          <MiniBadge label="PRESENTATION" />
           <DocCard link="https://www.refereevision.com/Contact_CV_ppt.jpg" />
         </div>
       </div>
@@ -4186,43 +4188,43 @@ function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
   );
 }
 
-// ─── UNSPORTSMANLIKE FOUL Content ─────────────────────────────────────────────
+// ─── DISRUPTIVE FOUL Content ─────────────────────────────────────────────
 
-function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+function DisruptiveFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
       {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
-      <SectionBadge label="UNSPORTSMANLIKE FOUL" />
+      <SectionBadge label="DISRUPTIVE FOUL" />
 
       {/* RULE EXPLANATION */}
       <CylinderSectionHeader label="RULE EXPLANATION" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
         <VideoThumb
           index={0}
-          link="https://youtu.be/davbp5FQ2ik"
-          thumbnail="https://img.youtube.com/vi/davbp5FQ2ik/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/davbp5FQ2ik")}
+          link="https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording"
+          thumbnail="https://www.refereevision.com/thumbnail_di1.jpg"
+          onPlay={() =>
+            setActiveVideo({
+              url: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording",
+              startTime: 1872,
+              endTime: 2236,
+            })
+          }
         />
         <VideoThumb
           index={1}
-          link="https://youtu.be/WGnFkdmk2iQ"
-          thumbnail="https://img.youtube.com/vi/WGnFkdmk2iQ/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/WGnFkdmk2iQ")}
-        />
-        <VideoThumb
-          index={2}
-          link="https://youtu.be/Gilvt0ArbYE"
-          thumbnail="https://img.youtube.com/vi/t2dSjlh8guQ/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/Gilvt0ArbYE")}
-        />
-        <VideoThumb
-          index={3}
-          link="https://youtu.be/OD4SOZwI4jY"
-          thumbnail="https://img.youtube.com/vi/OD4SOZwI4jY/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/OD4SOZwI4jYnp")}
-        />
+          link="https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4"
+          thumbnail="https://www.refereevision.com/thumbnail_di2.jpg"
+          onPlay={() =>
+            setActiveVideo({
+              url: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4",
+              startTime: 1150,
+              endTime: 1670,
+            })
+          }
+        />        
       </div>
 
       {/* SIGNAL / ARTICLE / INTERPRETATION */}
@@ -4237,15 +4239,15 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
-          <DocCard link="https://www.refereevision.com/usf_Sig.png" />
+          <DocCard link="https://www.refereevision.com/Signals/disruptive_Sig.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
-          <DocCard link="https://www.refereevision.com/USF_art.jpg" />
+          <DocCard link="https://www.refereevision.com/DI_art.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="INTERPRETATION" />
-          <DocCard link="https://www.refereevision.com/USF_int.jpg" />
+          <DocCard link="https://www.refereevision.com/DI_int.jpg" />
         </div>
       </div>
 
@@ -4258,7 +4260,7 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 36 }}>
         <div
-          onClick={() => setActiveVideo("https://www.refereevision.com/ufoul_protocol.png")}
+          onClick={() => setActiveVideo("https://www.refereevision.com/difoul_protocol.jpg")}
           style={{
             width: isMobile ? 180 : 240,
             aspectRatio: "16 / 9",
@@ -4273,7 +4275,7 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
           }}
         >
           <img
-            src="https://www.refereevision.com/ufoul_protocol.png"
+            src="https://www.refereevision.com/difoul_protocol.jpg"
             alt="0 - 1 - 2 Technique Diagram"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -4285,6 +4287,13 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
 
       {/* CRITERIA 1 */}
       <SubSectionBadge label="CRITERIA 1" />
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          An unnecessary contact caused by the defensive player, not legitimately attempting to directly play the ball, to stop the progress of the offensive team in transition. This applies until the offensive player starts the act of shooting
+        </span>
+      </div>
+
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
@@ -4336,61 +4345,16 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
         />
       </div>
 
-      {/* CRITERIA 2 */}
+      {/* CRITERIA2 */}
       <SubSectionBadge label="CRITERIA 2" />
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        <VideoThumb
-          index={0}
-          link="https://youtu.be/rj3jBtxyioU"
-          thumbnail="https://img.youtube.com/vi/rj3jBtxyioU/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/rj3jBtxyioU")}
-        />
-        <VideoThumb
-          index={1}
-          link="https://youtu.be/9_5do6CblUo"
-          thumbnail="https://img.youtube.com/vi/9_5do6CblUo/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/9_5do6CblUo")}
-        />
-        <VideoThumb
-          index={2}
-          link="https://youtu.be/agfa0JtlAUg"
-          thumbnail="https://img.youtube.com/vi/agfa0JtlAUg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/agfa0JtlAUg")}
-        />
-        <VideoThumb
-          index={3}
-          link="https://youtu.be/oe_sx4ONpHY"
-          thumbnail="https://img.youtube.com/vi/oe_sx4ONpHY/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/oe_sx4ONpHY")}
-        />
-        <VideoThumb
-          index={4}
-          link="https://youtu.be/XUWXYVi6OJg"
-          thumbnail="https://img.youtube.com/vi/XUWXYVi6OJg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/XUWXYVi6OJg")}
-        />
-        <VideoThumb
-          index={5}
-          link="https://youtu.be/by-6hyJAqFk"
-          thumbnail="https://img.youtube.com/vi/by-6hyJAqFk/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/by-6hyJAqFk")}
-        />
-        <VideoThumb
-          index={6}
-          link="https://youtu.be/QFfFrr8ub18"
-          thumbnail="https://img.youtube.com/vi/QFfFrr8ub18/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/QFfFrr8ub18")}
-        />
-        <VideoThumb
-          index={7}
-          link="https://youtu.be/Xs_WanyUFME"
-          thumbnail="https://img.youtube.com/vi/Xs_WanyUFME/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/Xs_WanyUFME")}
-        />
-      </div>
 
-      {/* CRITERIA 3 */}
-      <SubSectionBadge label="CRITERIA 3" />
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          An unnecessary contact caused by the defensive player anywhere on the court, not legitimately attempting to directly play the ball, to stop the game clock and/or shot clock, at the end of a quarter or overtime
+        </span>
+      </div>
+      
+
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
@@ -4442,8 +4406,33 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
         />
       </div>
 
-      {/* CRITERIA 4 */}
-      <SubSectionBadge label="CRITERIA 4" />
+      {/* CRITERIA 3 */}
+      <SubSectionBadge label="CRITERIA 3" />
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 5 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          An illegal contact caused by a player from behind or laterally on an opponent, who is progressing towards the opponent’s basket and with no opponents between the progressing player and the basket, and:
+        </span>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "left", marginBottom: 5 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          –	The progressing player is in control of the ball, or
+        </span>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "left", marginBottom: 5 }}>      
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          –	The progressing player is attempting to gain control of the ball, or
+        </span>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "left", marginBottom: 15 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          –	The ball has been released on a pass to the progressing player. This applies until the offensive player starts the act of shooting
+        </span>  
+      </div>
+
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
@@ -4588,6 +4577,384 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
     </div>
   );
 }
+
+// ─── FLAGRANT FOUL Content ─────────────────────────────────────────────
+
+function FlagrantFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      <SectionBadge label="FLAGRANT FOUL" />
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        <VideoThumb
+          index={0}
+          link="https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording"
+          thumbnail="https://www.refereevision.com/thumbnail_di1.jpg"
+          onPlay={() =>
+            setActiveVideo({
+              url: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording",
+              startTime: 2236,
+              endTime: 2700,
+            })
+          }
+        />
+        <VideoThumb
+          index={1}
+          link="https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4"
+          thumbnail="https://www.refereevision.com/thumbnail_di2.jpg"
+          onPlay={() =>
+            setActiveVideo({
+              url: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4",
+              startTime: 1670,
+              endTime: 2195,
+            })
+          }
+        /> 
+      </div>
+
+      {/* SIGNAL / ARTICLE / INTERPRETATION */}
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 28 : 48,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "0 auto 32px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <DocCard link="https://www.refereevision.com/usf_Sig.png" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://www.refereevision.com/FL_art.jpg" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link="https://www.refereevision.com/FL_int.jpg" />
+        </div>
+      </div>
+
+      {/* PROTOCOL */}
+      <SubSectionBadge label="PROTOCOL" />
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          0 - 1 - 2 TECHNIQUE
+        </span>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 36 }}>
+        <div
+          onClick={() => setActiveVideo("https://www.refereevision.com/ufoul_protocol.jpg")}
+          style={{
+            width: isMobile ? 180 : 240,
+            aspectRatio: "16 / 9",
+            background: T.charcoal,
+            border: `2px solid ${T.border}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 4,
+            overflow: "hidden",
+            cursor: "pointer",
+          }}
+        >
+          <img
+            src="https://www.refereevision.com/ufoul_protocol.jpg"
+            alt="0 - 1 - 2 Technique Diagram"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+      </div>
+
+      {/* FIBA EDUCATIONAL VIDEOS */}
+      <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
+
+      {/* CRITERIA 1 */}
+      <SubSectionBadge label="CRITERIA 1" />
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          Not a legitimate basketball play against an opponent, with or without a ball
+        </span>
+      </div>
+      
+
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/dtSE7fwAF-M"
+          thumbnail="https://img.youtube.com/vi/dtSE7fwAF-M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/dtSE7fwAF-M")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/QGmRbRgztN8"
+          thumbnail="https://img.youtube.com/vi/QGmRbRgztN8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QGmRbRgztN8")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/aqQ574sbejc"
+          thumbnail="https://img.youtube.com/vi/aqQ574sbejc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/aqQ574sbejc")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/JY32dKYDmZ4"
+          thumbnail="https://img.youtube.com/vi/JY32dKYDmZ4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/JY32dKYDmZ4")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/_oBqupqxcqg"
+          thumbnail="https://img.youtube.com/vi/_oBqupqxcqg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/_oBqupqxcqg")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/rNmorkKtmZQ"
+          thumbnail="https://img.youtube.com/vi/rNmorkKtmZQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rNmorkKtmZQ")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/SEvW7x4DZh4"
+          thumbnail="https://img.youtube.com/vi/SEvW7x4DZh4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/SEvW7x4DZh4")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/rhbe_-fMkxY"
+          thumbnail="https://img.youtube.com/vi/rhbe_-fMkxY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rhbe_-fMkxY")}
+        />
+      </div>
+
+      {/* CRITERIA 2 */}
+      <SubSectionBadge label="CRITERIA 2" />
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          Reckless, violent or dangerous act, which causes or may cause injury to an opponent
+        </span>
+      </div>
+
+
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/rj3jBtxyioU"
+          thumbnail="https://img.youtube.com/vi/rj3jBtxyioU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rj3jBtxyioU")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/9_5do6CblUo"
+          thumbnail="https://img.youtube.com/vi/9_5do6CblUo/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/9_5do6CblUo")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/agfa0JtlAUg"
+          thumbnail="https://img.youtube.com/vi/agfa0JtlAUg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/agfa0JtlAUg")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/oe_sx4ONpHY"
+          thumbnail="https://img.youtube.com/vi/oe_sx4ONpHY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/oe_sx4ONpHY")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/XUWXYVi6OJg"
+          thumbnail="https://img.youtube.com/vi/XUWXYVi6OJg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/XUWXYVi6OJg")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/by-6hyJAqFk"
+          thumbnail="https://img.youtube.com/vi/by-6hyJAqFk/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/by-6hyJAqFk")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/QFfFrr8ub18"
+          thumbnail="https://img.youtube.com/vi/QFfFrr8ub18/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QFfFrr8ub18")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/Xs_WanyUFME"
+          thumbnail="https://img.youtube.com/vi/Xs_WanyUFME/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Xs_WanyUFME")}
+        />
+      </div>
+
+      {/* CRITERIA 3 */}
+      <SubSectionBadge label="CRITERIA 3" />
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+          Excessive, hard contact in an effort to play the ball or an opponent
+        </span>
+      </div>
+
+      
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/rj3jBtxyioU"
+          thumbnail="https://img.youtube.com/vi/rj3jBtxyioU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rj3jBtxyioU")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/9_5do6CblUo"
+          thumbnail="https://img.youtube.com/vi/9_5do6CblUo/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/9_5do6CblUo")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/agfa0JtlAUg"
+          thumbnail="https://img.youtube.com/vi/agfa0JtlAUg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/agfa0JtlAUg")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/oe_sx4ONpHY"
+          thumbnail="https://img.youtube.com/vi/oe_sx4ONpHY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/oe_sx4ONpHY")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/XUWXYVi6OJg"
+          thumbnail="https://img.youtube.com/vi/XUWXYVi6OJg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/XUWXYVi6OJg")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/by-6hyJAqFk"
+          thumbnail="https://img.youtube.com/vi/by-6hyJAqFk/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/by-6hyJAqFk")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/QFfFrr8ub18"
+          thumbnail="https://img.youtube.com/vi/QFfFrr8ub18/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QFfFrr8ub18")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/Xs_WanyUFME"
+          thumbnail="https://img.youtube.com/vi/Xs_WanyUFME/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Xs_WanyUFME")}
+        />
+      </div>
+
+
+      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhonpS-wdc1xNPfD-peHds-Z")} />
+
+      {/* ADDITIONAL VIDEOS */}
+      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/R2omwSU7ZQ8"
+          thumbnail="https://img.youtube.com/vi/R2omwSU7ZQ8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/R2omwSU7ZQ8")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/6w9SufPot_g"
+          thumbnail="https://img.youtube.com/vi/6w9SufPot_g/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/6w9SufPot_g")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/GnzA1IT9xo8"
+          thumbnail="https://img.youtube.com/vi/GnzA1IT9xo8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/GnzA1IT9xo8")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/sqV61aTcPc8"
+          thumbnail="https://img.youtube.com/vi/sqV61aTcPc8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/sqV61aTcPc8")}
+        />
+        <VideoThumb
+          index={4}
+          link=""
+          thumbnail="https://img.youtube.com/vi/PcZig1RHLc8/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={5}
+          link=""
+          thumbnail="https://img.youtube.com/vi/la3bRSXEGbI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={6}
+          link=""
+          thumbnail="https://img.youtube.com/vi/oNNWWXxJQhM/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={7}
+          link=""
+          thumbnail="https://img.youtube.com/vi/k9b8NQC2wbI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={8}
+          link=""
+          thumbnail="https://img.youtube.com/vi/alD4OsGN_nE/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={9}
+          link=""
+          thumbnail="https://img.youtube.com/vi/mMAJzD7vNYI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={10}
+          link=""
+          thumbnail="https://img.youtube.com/vi/F58kDJswUBI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={11}
+          link=""
+          thumbnail="https://img.youtube.com/vi/HdRz1tddafA/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={12}
+          link="https://youtu.be/xpIHJ9gOR64"
+          thumbnail="https://img.youtube.com/vi/xpIHJ9gOR64/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/xpIHJ9gOR64")}
+        />
+        <VideoThumb
+          index={13}
+          link="https://youtu.be/kuGQj8t0goc"
+          thumbnail="https://img.youtube.com/vi/kuGQj8t0goc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/kuGQj8t0goc")}
+        />
+      </div>
+      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhp7WUnx9O_1gB5nzeERoxsz")} />
+    </div>
+  );
+}
+
 
 // ─── SCREENING Content ────────────────────────────────────────────────────────
 
@@ -7225,8 +7592,10 @@ export default function Videos() {
               <AlternatingPossessionContent isMobile={isMobile} isTablet={isTablet} />
             ) : activeTab === "DRIBBLING" ? (
               <DribblingContent isMobile={isMobile} isTablet={isTablet} />
-            ) : activeTab === "UNSPORTSMANLIKE FOUL" ? (
-              <UnsportsmanlikeFoulContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "DISRUPTIVE FOUL" ? (
+              <DisruptiveFoulContent isMobile={isMobile} isTablet={isTablet} />
+            ) : activeTab === "FLAGRANT FOUL" ? (
+              <FlagrantFoulContent isMobile={isMobile} isTablet={isTablet} />
             ) : activeTab === "SCREENING" ? (
               <ScreeningContent isMobile={isMobile} isTablet={isTablet} />
             ) : activeTab === "CHARGE & BLOCK" ? (

@@ -991,6 +991,7 @@ const RULEBOOKS_DATA: Record<RulebookSubTab, { title: string; link: string }[]> 
     { title: "5X5 SCORESHEET (Valid as of 1st October 2020)", link: "https://drive.google.com/file/d/1KoCIO9u-X5ZVqVDJYqkYKbZPmkpNa47I/view?usp=sharing" },
     { title: "FIBA BASIC FITNESS TEST (Version 3.0)", link: "https://drive.google.com/file/d/1B_JECrXS0HuZRHyG62SvzxQLoBi8sAuY/view?usp=sharing" },
     { title: "DIGITAL SCORESHEET USER MANUAL", link: "https://drive.google.com/file/d/1A4ThJZepDiYRONdU5fVOZANNYB6PpwQa/view?usp=sharing" },
+    { title: "2024 - FIBA STATISTICIAN'S MANUAL", link: "https://www.refereevision.com/FIBA%20Statisticians'%20Manual%202024%201.0.pdf" },    
     { title: "2018 - FIBA STATISTICIAN'S MANUAL", link: "https://drive.google.com/file/d/1_bE2MAXNivT-PfTPRcrSAoxAgiCh804v/view?usp=sharing" },
     { title: "2016 - FIBA STATISTICIAN'S MANUAL", link: "https://drive.google.com/file/d/1QCBx78AzNZ7unTX_rCcx_rjn7FjU8lgb/view?usp=sharing" },
     { title: "2010 - FIBA COURT DIAGRAM", link: "https://drive.google.com/file/d/1V7Y_UExElUWY34cBbOKRJk7i0tEksczf/view?usp=sharing" },

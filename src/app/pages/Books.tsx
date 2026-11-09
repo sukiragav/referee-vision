@@ -147,7 +147,7 @@ const FIVE_ON_FIVE_DOCS = [
   {
     label: "FIBA STATISTICIANS' MANUAL 2024",
     version: "Version 1.0",
-    link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-statisticians-manual-2024.pdf",
+    link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-statisticians-manual-2024-v2.pdf",
   },
   {
     label: "FIBA MANUAL FOR COMMISSIONERS - TABLE OFFICIALS WORK",

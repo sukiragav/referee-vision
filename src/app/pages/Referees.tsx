@@ -3102,7 +3102,7 @@ function SignalsContent() {
   const specialFouls = [
     { label: "DOUBLE FOUL", sublabel: "Wave clenched fists on both hands", image: "https://www.refereevision.com/Signals/doublefoul_Sig.png" },
     { label: "TECHNICAL FOUL", sublabel: "Form T, showing palms", image: "https://www.refereevision.com/Signals/tech_Sig.png" },
-    { label: "UNSPORTSMANLIKE FOUL", sublabel: "Grasp wrist upward", image: "https://www.refereevision.com/Signals/usf_Sig.png" },
+    { label: "FLAGRANT FOUL", sublabel: "Grasp wrist upward", image: "https://www.refereevision.com/Signals/usf_Sig.png" },
     { label: "DISQUALIFYING FOUL", sublabel: "Clenched fists on both hands", image: "https://www.refereevision.com/Signals/dqf_Sig.png" },
     { label: "FAKE A FOUL", sublabel: "Raise lower arm twice", image: "https://www.refereevision.com/Signals/fake_Sig.png" },
     { label: "ILLEGAL BOUNDARY LINE CROSSING", sublabel: "Wave arm parallel to boundary line", image: "https://www.refereevision.com/Signals/boundary_Sig.png" },
