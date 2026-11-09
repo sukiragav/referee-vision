@@ -48,11 +48,55 @@ const TABS: Tab[] = [
   "MISCELLANEOUS",
 ];
 
+const getVimeoEmbedUrl = (url: string): string | null => {
+  try {
+    const parsed = new URL(url);
+
+    const host = parsed.hostname.toLowerCase();
+
+    if (
+      host !== "vimeo.com" &&
+      host !== "www.vimeo.com" &&
+      host !== "player.vimeo.com"
+    ) {
+      return null;
+    }
+
+    const parts = parsed.pathname.split("/").filter(Boolean);
+
+    const videoId =
+      host === "player.vimeo.com"
+        ? parts[0] === "video" ? parts[1] : null
+        : parts[0];
+
+    if (!videoId || !/^\d+$/.test(videoId)) {
+      return null;
+    }
+
+    const hash =
+      parsed.searchParams.get("h") ||
+      (host !== "player.vimeo.com" ? parts[1] : null);
+
+    const params = new URLSearchParams();
+
+    if (hash) params.set("h", hash);
+
+    const query = params.toString();
+
+    return `https://player.vimeo.com/video/${videoId}${
+      query ? `?${query}` : ""
+    }`;
+
+  } catch {
+    return null;
+  }
+};
+
 // ─── Webinar data ─────────────────────────────────────────────────────────────
 type WebinarItem = {
   title: string;
   presenter?: string;
-  action?: "watch" | "download";
+  action?: "watch" | "download" | "link";
   link?: string;
   popup?: boolean;
 };
@@ -89,20 +133,21 @@ const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
     { title: "HOW TO USE A SCORESHEET", presenter: "Michelle Nicholas", action: "watch", link: "https://youtu.be/cIsh7-EbwMU", popup: true },
     { title: "SCORESHEET (TF, DQF & FIGHTING SITUATIONS)", presenter: "Bernard Vassallo", action: "watch", link: "https://youtu.be/U6UBnAFzEJY", popup: true },
   ],
-    "DIGITAL SCORESHEET": [
+  "DIGITAL SCORESHEET": [
     { title: "What is FIBA Digital Scoresheet", action: "watch", link: "https://player.vimeo.com/video/1220763798?h=83293d30a1", popup: true },
-    { title: "Logging in and environments", action: "watch", link: "https://player.vimeo.com/1219470336/?h=7ceb880db0", popup: true },
-    { title: "Pre-match setup", action: "watch", link: "https://vimeo.com/1219196166/78e8a121ea?fl=pl&fe=cm", popup: true },
-    { title: "Starting the game and basic scoring", action: "watch", link: "https://vimeo.com/1220183512/2fd54a0ede?fl=pl&fe=cm", popup: true },
-    { title: "Fouls and Free Throws", action: "watch", link: "https://vimeo.com/1223253342/88c08f2988?fl=pl&fe=cm", popup: true },
-    { title: "Time Outs and Head Coach Challenges", action: "watch", link: "https://vimeo.com/1221095155/9eb87b72e6?fl=pl&fe=cm", popup: true },
-    { title: "Handling a fight: disqualification and bench fouls", action: "watch", link: "https://vimeo.com/1221093001/9807f73583?fl=pl&fe=cm", popup: true },
-    { title: "Editing, inserting, and deleting actions", action: "watch", link: "https://vimeo.com/1223600313/5fbc489e79?fl=pl&fe=cm", popup: true },
-    { title: "Ending the game: signatures and finalization", action: "watch", link: "https://vimeo.com/1222967057/35e5a43e6c?fl=pl&fe=cm", popup: true },
-    { title: "Manual entry and practicing with TRAINING GAMES", action: "watch", link: "https://vimeo.com/1222050351/1ef4182476?fl=pl&fe=cm", popup: true },
-    { title: "Minimum and recommended PC specs for best performance", action: "watch", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/21829711784988-FIBA-Digital-Scoresheet-Minimum-and-recommended-PC-specs-for-best-performance", popup: true },
-    { title: "How to switch between Production and Test environments", action: "watch", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/21830207123612-FIBA-Digital-Scoresheet-How-to-switch-between-Production-and-Test-environments", popup: true },
-    { title: "How to Send an Error Report", action: "watch", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/22391539373468-FIBA-Digital-Scoresheet-How-to-Send-an-Error-Report", popup: true },
+    { title: "Logging in and environments", action: "watch", link: "https://player.vimeo.com/video/1219470336?h=7ceb880db0", popup: true },
+    { title: "Pre-match setup", action: "watch", link: "https://player.vimeo.com/video/1219196166?h=78e8a121ea", popup: true },
+    { title: "Starting the game and basic scoring", action: "watch", link: "https://player.vimeo.com/video/1220183512?h=2fd54a0ede", popup: true },
+    { title: "Fouls and Free Throws", action: "watch", link: "https://player.vimeo.com/video/1223253342?h=88c08f2988", popup: true },
+    { title: "Time Outs and Head Coach Challenges", action: "watch", link: "https://player.vimeo.com/video/1221095155?h=9eb87b72e6", popup: true },
+    { title: "Handling a fight: disqualification and bench fouls", action: "watch", link: "https://player.vimeo.com/video/1221093001?h=9807f73583", popup: true },
+    { title: "Editing, inserting, and deleting actions", action: "watch", link: "https://player.vimeo.com/video/1223600313?h=5fbc489e79", popup: true },
+    { title: "Ending the game: signatures and finalization", action: "watch", link: "https://player.vimeo.com/video/1222967057?h=35e5a43e6c", popup: true },
+    { title: "Manual entry and practicing with TRAINING GAMES", action: "watch", link: "https://player.vimeo.com/video/1222050351?h=1ef4182476", popup: true },
+
+    { title: "Minimum and recommended PC specs for best performance", action: "link", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/21829711784988-FIBA-Digital-Scoresheet-Minimum-and-recommended-PC-specs-for-best-performance", popup: false },
+    { title: "How to switch between Production and Test environments", action: "link", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/21830207123612-FIBA-Digital-Scoresheet-How-to-switch-between-Production-and-Test-environments", popup: false },
+    { title: "How to Send an Error Report", action: "link", link: "https://helpdesk.geniussports.com/hc/en-gb/articles/22391539373468-FIBA-Digital-Scoresheet-How-to-Send-an-Error-Report", popup: false },
   ],
   MECHANICS: [
     { title: "3PO BASIC MECHANICS", presenter: "John Rearden", action: "watch", link: "https://www.youtube.com/embed/dqf_OzPL5A4?autoplay=1", popup: true },
@@ -376,8 +421,8 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
 
   const youtubeId = getYouTubeId(cleanUrl);
   const embedSrc = youtubeId
-    ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
-    : null;
+    ? `https://www.youtube.com/embed/${youtubeId}?rel=0`
+    : getVimeoEmbedUrl(url);
 
   return createPortal(
     <div
@@ -461,17 +506,22 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
         {/* Video — iframe for YouTube, native <video> for direct URLs */}
         <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, background: "#000" }}>
           {embedSrc ? (
-            <iframe
-              src={embedSrc}
-              title={title}
-              allow="autoplay; encrypted-media; fullscreen"
-              allowFullScreen
-              style={{
-                position: "absolute", top: 0, left: 0,
-                width: "100%", height: "100%",
-                border: "none",
-              }}
-            />
+                <iframe
+                  key={embedSrc}
+                  src={embedSrc}
+                  title={title || "Video Player"}
+                  allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                  }}
+                />
           ) : (
             <>
               <video
@@ -551,7 +601,21 @@ function WebinarRow({
   const isDownload = item.action === "download";
 
   const handleAction = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (item.popup && item.link) {
+    if (!item.link) return;
+
+    if (item.action === "link") {
+      e.preventDefault();
+
+      window.open(
+        item.link,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+      return;
+    }
+
+    if (item.popup) {
       e.preventDefault();
       onOpenPopup(item.link, item.title);
     }
