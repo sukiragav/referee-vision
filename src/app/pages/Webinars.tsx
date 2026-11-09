@@ -703,19 +703,62 @@ function WebinarRow({
           }}
         >
           <span style={{ transition: "color 0.15s" }}>
-            {isDownload ? "DOWNLOAD" : "WATCH"}
+            {item.action === "download"
+              ? "DOWNLOAD"
+              : item.action === "link"
+              ? "LINK"
+              : "WATCH"}
           </span>
-          {isDownload ? (
+
+          {item.action === "download" ? (
             /* Download arrow icon */
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-              <path d="M6 1v7M3 6l3 3 3-3" stroke={h.on ? T.white : T.orange} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M1 10h10" stroke={h.on ? T.white : T.orange} strokeWidth="1.5" strokeLinecap="round" />
+              <path
+                d="M6 1v7M3 6l3 3 3-3"
+                stroke={h.on ? T.white : T.orange}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M1 10h10"
+                stroke={h.on ? T.white : T.orange}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          ) : item.action === "link" ? (
+            /* External link icon */
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M14 3h7v7M21 3l-10 10"
+                stroke={h.on ? T.white : T.orange}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M20 13v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7"
+                stroke={h.on ? T.white : T.orange}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           ) : (
-            /* Camera icon */
+            /* Video camera icon */
             <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
-              <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on ? T.white : T.orange} />
-              <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on ? T.white : T.orange} />
+              <rect
+                x="0"
+                y="2"
+                width="10"
+                height="7"
+                fill={h.on ? T.white : T.orange}
+              />
+              <path
+                d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z"
+                fill={h.on ? T.white : T.orange}
+              />
             </svg>
           )}
         </a>
