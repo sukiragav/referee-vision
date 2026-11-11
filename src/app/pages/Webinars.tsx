@@ -326,42 +326,78 @@ function Sidebar({
             {TABS.map((tab) => {
               const isActive = tab === active;
 
+              const showNew =
+
+                tab === "DIGITAL SCORESHEET";
+
               return (
-                <button
+                <div
                   key={tab}
-                  onClick={() => {
-                    onSelect(tab);
-                    onClose();
-                  }}
                   style={{
-                    display: "block",
+                    position: "relative",
                     width: "100%",
-                    textAlign: "left",
-
-                    // Larger mobile menu items
-                    padding: "19px 24px",
-
-                    background: isActive ? T.orange : "transparent",
-                    color: isActive ? T.white : T.inactive,
-
-                    fontFamily: BARLOW,
-                    fontWeight: 600,
-                    fontSize: 14,
-                    lineHeight: 1.3,
-                    letterSpacing: "1.5px",
-                    textTransform: "uppercase",
-
-                    border: "none",
-                    borderLeft: isActive
-                      ? `4px solid ${T.white}`
-                      : "4px solid transparent",
-
-                    cursor: "pointer",
-                    transition: "background 0.12s, color 0.12s",
                   }}
                 >
-                  {tab}
-                </button>
+                  <button
+                    onClick={() => {
+                      onSelect(tab);
+                      onClose();
+                    }}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      textAlign: "left",
+
+                      padding: "19px 24px",
+                      paddingRight: showNew ? "70px" : "24px",
+
+                      background: isActive ? T.orange : "transparent",
+                      color: isActive ? T.white : T.inactive,
+
+                      fontFamily: BARLOW,
+                      fontWeight: 600,
+                      fontSize: 14,
+                      lineHeight: 1.3,
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+
+                      border: "none",
+                      borderLeft: isActive
+                        ? `4px solid ${T.white}`
+                        : "4px solid transparent",
+
+                      cursor: "pointer",
+                      transition: "background 0.12s, color 0.12s",
+                    }}
+                  >
+                    {tab}
+                  </button>
+
+                  {showNew && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        right: "45px",
+                        transform: "translateY(-50%)",
+
+                        backgroundColor: "#ff0400",
+                        color: "#ffffff",
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        padding: "3px 6px",
+                        borderRadius: "3px",
+                        letterSpacing: "0.5px",
+                        lineHeight: 1,
+
+                        pointerEvents: "none",
+                        zIndex: 2,
+                      }}
+                    >
+                      NEW
+                    </span>
+                  )}
+                </div>
               );
             })}
           </div>
