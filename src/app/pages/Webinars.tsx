@@ -322,7 +322,49 @@ function Sidebar({
             </span>
             <button onClick={onClose} style={{ background: "transparent", border: "none", color: T.inactive, fontSize: 22, cursor: "pointer", lineHeight: 1, padding: 4 }}>✕</button>
           </div>
-          <div style={{ paddingTop: 0 }}>{items}</div>
+          <div style={{ paddingTop: 0 }}>
+            {TABS.map((tab) => {
+              const isActive = tab === active;
+
+              return (
+                <button
+                  key={tab}
+                  onClick={() => {
+                    onSelect(tab);
+                    onClose();
+                  }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+
+                    // Larger mobile menu items
+                    padding: "19px 24px",
+
+                    background: isActive ? T.orange : "transparent",
+                    color: isActive ? T.white : T.inactive,
+
+                    fontFamily: BARLOW,
+                    fontWeight: 600,
+                    fontSize: 14,
+                    lineHeight: 1.3,
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+
+                    border: "none",
+                    borderLeft: isActive
+                      ? `4px solid ${T.white}`
+                      : "4px solid transparent",
+
+                    cursor: "pointer",
+                    transition: "background 0.12s, color 0.12s",
+                  }}
+                >
+                  {tab}
+                </button>
+              );
+            })}
+          </div>
         </aside>
       </>
     );
@@ -345,7 +387,41 @@ function Sidebar({
           WEBINARS
         </span>
       </div>
-      <div style={{ paddingTop: 0 }}>{items}</div>
+      <div style={{ paddingTop: 0 }}>
+        {TABS.map((tab) => (
+          <div key={tab} style={{ position: "relative" }}>
+            <SidebarItem
+              tab={tab}
+              active={tab === active}
+              onSelect={onSelect}
+            />
+
+            {( tab === "DIGITAL SCORESHEET") && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  left: tab === "DIGITAL SCORESHEET"
+                      ? "175px"
+                      : "140px",
+                  backgroundColor: "#ff0400",
+                  color: "#ffffff",
+                  fontSize: "9px",
+                  fontWeight: 700,
+                  padding: "2px 5px",
+                  borderRadius: "3px",
+                  letterSpacing: "0.5px",
+                  lineHeight: 1,
+                  pointerEvents: "none",
+                  zIndex: 1,
+                }}
+              >
+                NEW
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
     </aside>
   );
 }
@@ -847,7 +923,7 @@ export default function Webinars() {
         >
           <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 22, color: T.orange, letterSpacing: "3px", textTransform: "uppercase" }}>WEBINARS</span>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontFamily: BARLOW, fontSize: 13, color: T.inactive, letterSpacing: "1px", textTransform: "uppercase", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <span style={{ fontFamily: BARLOW, fontSize: 16, color: T.inactive, letterSpacing: "1px", textTransform: "uppercase", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {activeTab}
             </span>
             <button

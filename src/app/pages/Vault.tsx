@@ -1836,7 +1836,7 @@ export default function Vault() {
             <span
               style={{
                 fontFamily: BARLOW,
-                fontSize: 13,
+                fontSize: 16,
                 color: TV.inactive,
                 letterSpacing: "1px",
                 textTransform: "uppercase",

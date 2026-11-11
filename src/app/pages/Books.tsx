@@ -148,6 +148,7 @@ const FIVE_ON_FIVE_DOCS = [
     label: "FIBA STATISTICIANS' MANUAL 2024",
     version: "Version 2.0",
     link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-statisticians-manual-2024-v2.pdf",
+    pinned: true,
   },
   {
     label: "FIBA MANUAL FOR COMMISSIONERS - TABLE OFFICIALS WORK",
@@ -441,17 +442,47 @@ function Sidebar({
             </button>
           </div>
           <div style={{ paddingTop: 0 }}>
-            {TABS.map((tab) => (
-              <SidebarItem
-                key={tab}
-                tab={tab}
-                active={tab === active}
-                onSelect={(t) => {
-                  onSelect(t);
-                  onClose();
-                }}
-              />
-            ))}
+            {TABS.map((tab) => {
+              const isActive = tab === active;
+
+              return (
+                <button
+                  key={tab}
+                  onClick={() => {
+                    onSelect(tab);
+                    onClose();
+                  }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+
+                    // Larger mobile menu items
+                    padding: "19px 24px",
+
+                    background: isActive ? T.orange : "transparent",
+                    color: isActive ? T.white : T.inactive,
+
+                    fontFamily: BARLOW,
+                    fontWeight: 600,
+                    fontSize: 14,
+                    lineHeight: 1.3,
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+
+                    border: "none",
+                    borderLeft: isActive
+                      ? `4px solid ${T.white}`
+                      : "4px solid transparent",
+
+                    cursor: "pointer",
+                    transition: "background 0.12s, color 0.12s",
+                  }}
+                >
+                  {tab}
+                </button>
+              );
+            })}
           </div>
         </aside>
       </>
@@ -1626,7 +1657,7 @@ export default function Books() {
             <span
               style={{
                 fontFamily: BARLOW,
-                fontSize: 13,
+                fontSize: 16,
                 color: T.inactive,
                 letterSpacing: "1px",
                 textTransform: "uppercase",

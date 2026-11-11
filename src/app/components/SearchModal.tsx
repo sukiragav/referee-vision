@@ -38,6 +38,126 @@ const SUGGESTIONS = [
   'Signals',
 ];
 
+
+// Map search-result IDs to the exact labels rendered in Books.tsx.
+// Other results fall back to matching their visible titles.
+const DOCUMENT_LABELS: Record<string, string> = {
+  'book-rule-changes-2026': 'OFFICIAL BASKETBALL RULE CHANGES 2026',
+  'book-interpretations-2026': 'OFFICIAL INTERPRETATIONS',
+  'book-statisticians-manual': "FIBA STATISTICIANS' MANUAL 2024",
+  'pres-goaltending': 'GOALTENDING AND INTERFERENCE',
+  'pres-shot-clock': 'SHOT CLOCK',
+  'pres-8-seconds': '8 SECONDS',
+  'pres-contact-charge-block': 'CONTACT: CHARGE & BLOCK',
+  'pres-contact-cylinder': 'CONTACT: CYLINDER & VERTICALITY',
+  'pres-contact-screening': 'CONTACT: SCREENING',
+  'pres-contact-lgp': 'CONTACT: LGP & GUARDING A PLAYER',
+  'pres-paos': 'PLAYER IN THE ACT OF SHOOTING',
+  'pres-throw-in': 'THROW-IN',
+  'pres-ball-returned': 'BALL RETURNED TO BACKCOURT',
+  'pres-dribbling': 'DRIBBLING',
+  'pres-jumpball-apa': 'JUMP BALL AND ALTERNATING POSSESSION',
+  'pres-correctable-errors': 'CORRECTABLE ERRORS',
+  'pres-special-situations': 'SPECIAL SITUATIONS',
+};
+
+const normalizeSearchText = (value: string) =>
+  value.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+let stopActiveHighlight: (() => void) | null = null;
+
+function startSearchHighlight(item: SearchItem) {
+  stopActiveHighlight?.();
+
+  const expectedPath = new URL(item.path, window.location.origin).pathname;
+  const explicitLabel = DOCUMENT_LABELS[item.id];
+  const target = normalizeSearchText(explicitLabel || item.title);
+  const simplifiedTitle = normalizeSearchText(
+    item.title.replace(/\s*\([^)]*\)/g, '')
+      .replace(/\s+(presentation|slides|pdf|document|fiba)$/gi, '')
+  );
+
+  let stopped = false;
+  let observer: MutationObserver | null = null;
+  let interval: number | undefined;
+  let timeout: number | undefined;
+  let highlightedRow: HTMLElement | null = null;
+  let previousStyles: { background: string; outline: string; borderRadius: string; scrollMarginTop: string } | null = null;
+
+  const cleanup = () => {
+    stopped = true;
+    observer?.disconnect();
+    if (interval !== undefined) window.clearInterval(interval);
+    if (timeout !== undefined) window.clearTimeout(timeout);
+  };
+
+  stopActiveHighlight = () => {
+    cleanup();
+    if (highlightedRow && previousStyles) {
+      highlightedRow.style.background = previousStyles.background;
+      highlightedRow.style.outline = previousStyles.outline;
+      highlightedRow.style.borderRadius = previousStyles.borderRadius;
+      highlightedRow.style.scrollMarginTop = previousStyles.scrollMarginTop;
+    }
+  };
+
+  const tryHighlight = () => {
+    if (stopped || window.location.pathname !== expectedPath) return;
+
+    // The Books document title is a span inside a flex row. Restrict the
+    // match to leaf text so section headings do not get highlighted.
+    const candidates = document.querySelectorAll<HTMLElement>(
+      'main span, main h2, main h3, main h4, span, h2, h3, h4'
+    );
+
+    for (const element of candidates) {
+      if (element.closest('[role="dialog"]')) continue;
+      if (element.children.length > 2) continue;
+
+      const text = normalizeSearchText(element.textContent || '');
+      if (!text || text.length < 4) continue;
+
+      // Books labels can contain a version string after the document title.
+      const matches = text === target ||
+        (Boolean(explicitLabel) && text.startsWith(target)) ||
+        (!explicitLabel && simplifiedTitle.length >= 6 &&
+          (text === simplifiedTitle || text.startsWith(simplifiedTitle)));
+      if (!matches) continue;
+
+      // Prefer the document row (contains its download link) over the title span.
+      let row: HTMLElement = element;
+      for (let i = 0; i < 4 && row.parentElement; i++) {
+        if (row.querySelector('a[href]')) break;
+        row = row.parentElement;
+      }
+      if (!row.querySelector('a[href]')) row = element;
+
+      highlightedRow = row;
+      previousStyles = {
+        background: row.style.background,
+        outline: row.style.outline,
+        borderRadius: row.style.borderRadius,
+        scrollMarginTop: row.style.scrollMarginTop,
+      };
+      row.style.background = 'rgba(232, 101, 26, 0.20)';
+      row.style.outline = '3px solid #E8651A';
+      row.style.borderRadius = '8px';
+      row.style.scrollMarginTop = '120px';
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      cleanup();
+      return;
+    }
+  };
+
+  // React may render the new route/tab after navigate() returns.
+  observer = new MutationObserver(tryHighlight);
+  observer.observe(document.body, { childList: true, subtree: true });
+  interval = window.setInterval(tryHighlight, 200);
+  timeout = window.setTimeout(cleanup, 8000);
+  window.setTimeout(tryHighlight, 50);
+}
+
+
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<FilterCategory>('ALL');
@@ -148,9 +268,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
   }, [selectedIndex]);
 
-  // Handle item click / navigate
+  // Navigate to the existing tab, then highlight its document without
+  // requiring any change to Books.tsx.
   const handleSelect = (item: SearchItem) => {
     onClose();
+    startSearchHighlight(item);
     navigate(item.path);
   };
 

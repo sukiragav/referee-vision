@@ -779,14 +779,47 @@ function Sidebar({
             </button>
           </div>
           <div style={{ paddingTop: 0 }}>
-            {TABS.map((tab) => (
-              <SidebarItem
-                key={tab}
-                tab={tab}
-                active={tab === active}
-                onSelect={(t) => { onSelect(t); onClose(); }}
-              />
-            ))}
+            {TABS.map((tab) => {
+              const isActive = tab === active;
+
+              return (
+                <button
+                  key={tab}
+                  onClick={() => {
+                    onSelect(tab);
+                    onClose();
+                  }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+
+                    // Larger mobile menu items
+                    padding: "19px 24px",
+
+                    background: isActive ? T.orange : "transparent",
+                    color: isActive ? T.white : T.inactive,
+
+                    fontFamily: BARLOW,
+                    fontWeight: 600,
+                    fontSize: 14,
+                    lineHeight: 1.3,
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+
+                    border: "none",
+                    borderLeft: isActive
+                      ? `4px solid ${T.white}`
+                      : "4px solid transparent",
+
+                    cursor: "pointer",
+                    transition: "background 0.12s, color 0.12s",
+                  }}
+                >
+                  {tab}
+                </button>
+              );
+            })}
           </div>
         </aside>
       </>
@@ -828,7 +861,44 @@ function Sidebar({
       </div>
       <div style={{ paddingTop: 0 }}>
         {TABS.map((tab) => (
-          <SidebarItem key={tab} tab={tab} active={tab === active} onSelect={onSelect} />
+          <div key={tab} style={{ position: "relative" }}>
+            <SidebarItem
+              tab={tab}
+              active={tab === active}
+              onSelect={onSelect}
+            />
+
+            {(tab === "DISRUPTIVE FOUL" || tab === "FLAGRANT FOUL" || tab === "ACT OF SHOOTING & GOAL: WHEN MADE AND ITS VALUE" || tab === "TECHNICAL FOUL") && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  left:
+                    tab === "DISRUPTIVE FOUL"
+                      ? "150px"
+                      : tab === "FLAGRANT FOUL"
+                      ? "140px"
+                      : tab === "ACT OF SHOOTING & GOAL: WHEN MADE AND ITS VALUE"
+                      ? "170px"
+                      : tab === "TECHNICAL FOUL"
+                      ? "150px"
+                      : "140px",
+                  backgroundColor: "#ff0400",
+                  color: "#ffffff",
+                  fontSize: "9px",
+                  fontWeight: 700,
+                  padding: "2px 5px",
+                  borderRadius: "3px",
+                  letterSpacing: "0.5px",
+                  lineHeight: 1,
+                  pointerEvents: "none",
+                  zIndex: 1,
+                }}
+              >
+                NEW
+              </span>
+            )}
+          </div>
         ))}
       </div>
     </aside>
@@ -2223,7 +2293,19 @@ function PlaceholderSubContent({ label }: { label: string }) {
 
 // ─── Table Officials Content ──────────────────────────────────────────────────
 function TableOfficialsContent({ isMobile }: { isMobile: boolean }) {
-  const [activeSubTab, setActiveSubTab] = useState<TableOfficialsSubTab>("COMMON DUTIES");
+  const [searchParams] = useSearchParams();
+  const subtabParam = searchParams.get("subtab");
+  const [activeSubTab, setActiveSubTab] = useState<TableOfficialsSubTab>(() =>
+    subtabParam && TABLE_OFFICIALS_SUBTABS.includes(subtabParam as TableOfficialsSubTab)
+      ? subtabParam as TableOfficialsSubTab
+      : "COMMON DUTIES"
+  );
+
+  useEffect(() => {
+    if (subtabParam && TABLE_OFFICIALS_SUBTABS.includes(subtabParam as TableOfficialsSubTab)) {
+      setActiveSubTab(subtabParam as TableOfficialsSubTab);
+    }
+  }, [subtabParam]);
 
   return (
     <div>
@@ -3196,41 +3278,90 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
 )}
       <SectionBadge label="ACT OF SHOOTING & GOAL: WHEN MADE AND ITS VALUE" />
 
-      {/* RULE EXPLANATION */}
-      <CylinderSectionHeader label="RULE EXPLANATION" />
+      {/* 2026 AOS CHANGES */}
+      <CylinderSectionHeader label="2026 RULE CHANGES" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
         <VideoThumb
           index={0}
+          link="https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording"
+          thumbnail="https://www.refereevision.com/thumbnail_di1.jpg"
+          onPlay={() =>
+            setActiveVideo({
+              url: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording#t=394",
+              startTime: 394,
+              endTime: 1510,
+            })
+          }
+        />
+        <VideoThumb
+          index={1}
+          link="https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording"
+          thumbnail="https://www.refereevision.com/thumbnail_di2.jpg"
+          onPlay={() =>
+            setActiveVideo({
+              url: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4#t=255",
+              startTime: 255,
+              endTime: 1150,
+            })
+          }
+        />
+      </div>
+
+
+      {/* RULE EXPLANATION */}
+      <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/ifoxC1cqz-c"
+          thumbnail="https://img.youtube.com/vi/ifoxC1cqz-c/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/ifoxC1cqz-c")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/J36Z93A2CVE"
+          thumbnail="https://img.youtube.com/vi/J36Z93A2CVE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/J36Z93A2CVE")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/wusG2KGmSzU"
+          thumbnail="https://img.youtube.com/vi/wusG2KGmSzU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/wusG2KGmSzU")}
+        />    
+        <VideoThumb
+          index={3}
           link="https://youtu.be/KNAeDkqbX5o"
           thumbnail="https://img.youtube.com/vi/KNAeDkqbX5o/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/KNAeDkqbX5o")}
         />
         <VideoThumb
-          index={1}
+          index={4}
           link="https://youtu.be/uJfohyL35gI"
           thumbnail="https://img.youtube.com/vi/uJfohyL35gI/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/uJfohyL35gI")}
         />
         <VideoThumb
-          index={2}
+          index={5}
           link="https://youtu.be/4Tbqxo5koLo"
           thumbnail="https://img.youtube.com/vi/4Tbqxo5koLo/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/4Tbqxo5koLo")}
         />
         <VideoThumb
-          index={3}
+          index={6}
           link="https://youtu.be/AAEgC0QfmlY"
           thumbnail="https://img.youtube.com/vi/AAEgC0QfmlY/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/AAEgC0QfmlY")}
         />
         <VideoThumb
-          index={4}
+          index={7}
           link="https://youtu.be/d4DtXy0JieI"
           thumbnail="https://img.youtube.com/vi/d4DtXy0JieI/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/d4DtXy0JieI")}
         />
         <VideoThumb
-          index={5}
+          index={8}
           link="https://youtu.be/EN3VZ4pxhJs"
           thumbnail="https://img.youtube.com/vi/EN3VZ4pxhJs/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/EN3VZ4pxhJs")}
@@ -3308,20 +3439,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
 
       {/* FIBA EDUCATIONAL VIDEOS */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: isMobile
-            ? "repeat(2, 1fr)"
-            : isTablet
-              ? "repeat(4, 1fr)"
-              : "repeat(8, 1fr)",
-          gap: 12,
-          justifyContent: "center",
-          maxWidth: 800,
-          margin: "0 auto 8px",
-        }}
-      >
+        <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
           link="https://youtu.be/sczWpL0H0Tc"
@@ -4496,7 +4614,8 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
     onClose={() => setActiveVideo(null)}
   />
 )}
-      <SectionBadge label="DISRUPTIVE FOUL" />
+    
+  <SectionBadge label="DISRUPTIVE FOUL" />
 
       {/* RULE EXPLANATION */}
       <CylinderSectionHeader label="RULE EXPLANATION" />
@@ -4589,7 +4708,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <SubSectionBadge label="CRITERIA 1" />
 
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px" }}>
           An unnecessary contact caused by the defensive player, not legitimately attempting to directly play the ball, to stop the progress of the offensive team in transition. This applies until the offensive player starts the act of shooting
         </span>
       </div>
@@ -4597,27 +4716,27 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
-          link="https://youtu.be/dtSE7fwAF-M"
-          thumbnail="https://img.youtube.com/vi/dtSE7fwAF-M/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/dtSE7fwAF-M")}
+          link="https://youtu.be/3YOf84KE9AU"
+          thumbnail="https://img.youtube.com/vi/3YOf84KE9AU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/3YOf84KE9AU")}
         />
         <VideoThumb
           index={1}
-          link="https://youtu.be/QGmRbRgztN8"
-          thumbnail="https://img.youtube.com/vi/QGmRbRgztN8/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/QGmRbRgztN8")}
+          link="https://youtu.be/QzWNYccMw0o"
+          thumbnail="https://img.youtube.com/vi/QzWNYccMw0o/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QzWNYccMw0o")}
         />
         <VideoThumb
           index={2}
-          link="https://youtu.be/aqQ574sbejc"
-          thumbnail="https://img.youtube.com/vi/aqQ574sbejc/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/aqQ574sbejc")}
+          link="https://youtu.be/V2NbscNztyE"
+          thumbnail="https://img.youtube.com/vi/V2NbscNztyE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/V2NbscNztyE")}
         />
         <VideoThumb
           index={3}
-          link="https://youtu.be/JY32dKYDmZ4"
-          thumbnail="https://img.youtube.com/vi/JY32dKYDmZ4/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/JY32dKYDmZ4")}
+          link="https://youtu.be/_K8deyHAOtk"
+          thumbnail="https://img.youtube.com/vi/_K8deyHAOtk/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/_K8deyHAOtk")}
         />
         <VideoThumb
           index={4}
@@ -4627,29 +4746,30 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
         />
         <VideoThumb
           index={5}
-          link="https://youtu.be/rNmorkKtmZQ"
-          thumbnail="https://img.youtube.com/vi/rNmorkKtmZQ/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/rNmorkKtmZQ")}
-        />
-        <VideoThumb
-          index={6}
           link="https://youtu.be/SEvW7x4DZh4"
           thumbnail="https://img.youtube.com/vi/SEvW7x4DZh4/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/SEvW7x4DZh4")}
         />
         <VideoThumb
-          index={7}
-          link="https://youtu.be/rhbe_-fMkxY"
-          thumbnail="https://img.youtube.com/vi/rhbe_-fMkxY/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/rhbe_-fMkxY")}
+          index={6}
+          link="https://youtu.be/k8ahz-lxgQE"
+          thumbnail="https://img.youtube.com/vi/k8ahz-lxgQE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/k8ahz-lxgQE")}
         />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/GIIhLTBA15Y"
+          thumbnail="https://img.youtube.com/vi/GIIhLTBA15Y/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/GIIhLTBA15Y")}
+        />
+
       </div>
 
       {/* CRITERIA2 */}
       <SubSectionBadge label="CRITERIA 2" />
 
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px" }}>
           An unnecessary contact caused by the defensive player anywhere on the court, not legitimately attempting to directly play the ball, to stop the game clock and/or shot clock, at the end of a quarter or overtime
         </span>
       </div>
@@ -4658,129 +4778,100 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
-          link="https://youtu.be/M-tG3tdtcjM"
-          thumbnail="https://img.youtube.com/vi/M-tG3tdtcjM/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/M-tG3tdtcjM")}
+          link="https://youtu.be/rNmorkKtmZQ"
+          thumbnail="https://img.youtube.com/vi/rNmorkKtmZQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rNmorkKtmZQ")}
         />
         <VideoThumb
           index={1}
-          link="https://youtu.be/aZByfO9iHl4"
-          thumbnail="https://img.youtube.com/vi/aZByfO9iHl4/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/aZByfO9iHl4")}
-        />
-        <VideoThumb
-          index={2}
-          link="https://youtu.be/M_Kcfn3b47M"
-          thumbnail="https://img.youtube.com/vi/M_Kcfn3b47M/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/M_Kcfn3b47M")}
-        />
-        <VideoThumb
-          index={3}
-          link="https://youtu.be/kQw0KLGiac0"
-          thumbnail="https://img.youtube.com/vi/kQw0KLGiac0/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/kQw0KLGiac0")}
-        />
-        <VideoThumb
-          index={4}
-          link="https://youtu.be/cTBHqCcC9ws"
-          thumbnail="https://img.youtube.com/vi/cTBHqCcC9ws/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/cTBHqCcC9ws")}
-        />
-        <VideoThumb
-          index={5}
-          link="https://youtu.be/k8ahz-lxgQE"
-          thumbnail="https://img.youtube.com/vi/k8ahz-lxgQE/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/k8ahz-lxgQE")}
-        />
-        <VideoThumb
-          index={6}
           link="https://youtu.be/DT0MG87rz-4"
           thumbnail="https://img.youtube.com/vi/DT0MG87rz-4/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/DT0MG87rz-4")}
         />
-        <VideoThumb
-          index={7}
-          link="https://youtu.be/GIIhLTBA15Y"
-          thumbnail="https://img.youtube.com/vi/GIIhLTBA15Y/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/GIIhLTBA15Y")}
-        />
+
       </div>
 
       {/* CRITERIA 3 */}
       <SubSectionBadge label="CRITERIA 3" />
 
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 5 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px" }}>
           An illegal contact caused by a player from behind or laterally on an opponent, who is progressing towards the opponent’s basket and with no opponents between the progressing player and the basket, and:
         </span>
       </div>
 
       <div style={{ display: "flex", justifyContent: "left", marginBottom: 5 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px" }}>
           –	The progressing player is in control of the ball, or
         </span>
       </div>
 
       <div style={{ display: "flex", justifyContent: "left", marginBottom: 5 }}>      
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px"}}>
           –	The progressing player is attempting to gain control of the ball, or
         </span>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "left", marginBottom: 15 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+      <div style={{ display: "flex", justifyContent: "left", marginBottom: 5 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px"}}>
           –	The ball has been released on a pass to the progressing player. This applies until the offensive player starts the act of shooting
+        </span>  
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "left", marginBottom: 15 }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px"}}>
+          This applies until the offensive player starts the act of shooting
         </span>  
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
-          link="https://youtu.be/oxKbVLYWeOM"
-          thumbnail="https://img.youtube.com/vi/oxKbVLYWeOM/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/oxKbVLYWeOM")}
+          link="https://youtu.be/7OnK_yWTM1c"
+          thumbnail="https://img.youtube.com/vi/7OnK_yWTM1c/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/7OnK_yWTM1c")}
         />
         <VideoThumb
           index={1}
-          link="https://youtu.be/uMV7qsGl-I0"
-          thumbnail="https://img.youtube.com/vi/uMV7qsGl-I0/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/uMV7qsGl-I0")}
+          link="https://youtu.be/KbULFlmmywM"
+          thumbnail="https://img.youtube.com/vi/KbULFlmmywM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/KbULFlmmywM")}
         />
         <VideoThumb
           index={2}
-          link="https://youtu.be/Hu6emwArPtg"
-          thumbnail="https://img.youtube.com/vi/Hu6emwArPtg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/Hu6emwArPtg")}
+          link="https://youtu.be/NQ6rW389xSE"
+          thumbnail="https://img.youtube.com/vi/NQ6rW389xSE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/NQ6rW389xSE")}
         />
         <VideoThumb
           index={3}
-          link="https://youtu.be/k8ahz-lxgQE"
-          thumbnail="https://img.youtube.com/vi/k8ahz-lxgQE/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/k8ahz-lxgQE")}
+          link="https://youtu.be/z6ua6i9qSao"
+          thumbnail="https://img.youtube.com/vi/z6ua6i9qSao/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/z6ua6i9qSao")}
         />
         <VideoThumb
           index={4}
-          link="https://youtu.be/f0XA0wM6ohE"
-          thumbnail="https://img.youtube.com/vi/f0XA0wM6ohE/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/f0XA0wM6ohE")}
+          link="https://youtu.be/bSuV1D9Dmbw"
+          thumbnail="https://img.youtube.com/vi/bSuV1D9Dmbw/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/bSuV1D9Dmbw")}
         />
         <VideoThumb
           index={5}
-          link="https://youtu.be/60BV2Mq7x6g"
-          thumbnail="https://img.youtube.com/vi/60BV2Mq7x6g/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/60BV2Mq7x6g")}
+          link="https://youtu.be/vvadiM74AVQ"
+          thumbnail="https://img.youtube.com/vi/vvadiM74AVQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/vvadiM74AVQ")}
         />
         <VideoThumb
           index={6}
-          link="https://youtu.be/d8wUMArTNow"
-          thumbnail="https://img.youtube.com/vi/d8wUMArTNow/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/d8wUMArTNow")}
+          link="https://youtu.be/M-tG3tdtcjM"
+          thumbnail="https://img.youtube.com/vi/M-tG3tdtcjM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/M-tG3tdtcjM")}
         />
         <VideoThumb
           index={7}
-          link="https://youtu.be/u0I8oi2F3G4"
-          thumbnail="https://img.youtube.com/vi/u0I8oi2F3G4/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/u0I8oi2F3G4")}
+          link="https://youtu.be/aZByfO9iHl4"
+          thumbnail="https://img.youtube.com/vi/aZByfO9iHl4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/aZByfO9iHl4")}
         />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhonpS-wdc1xNPfD-peHds-Z")} />
@@ -4796,81 +4887,63 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
         />
         <VideoThumb
           index={1}
-          link="https://youtu.be/6w9SufPot_g"
-          thumbnail="https://img.youtube.com/vi/6w9SufPot_g/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/6w9SufPot_g")}
+          link="https://youtu.be/M_Kcfn3b47M"
+          thumbnail="https://img.youtube.com/vi/M_Kcfn3b47M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/M_Kcfn3b47M")}
         />
         <VideoThumb
           index={2}
-          link="https://youtu.be/GnzA1IT9xo8"
-          thumbnail="https://img.youtube.com/vi/GnzA1IT9xo8/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/GnzA1IT9xo8")}
+          link="https://youtu.be/kQw0KLGiac0"
+          thumbnail="https://img.youtube.com/vi/kQw0KLGiac0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/kQw0KLGiac0")}
         />
         <VideoThumb
           index={3}
-          link="https://youtu.be/sqV61aTcPc8"
-          thumbnail="https://img.youtube.com/vi/sqV61aTcPc8/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/sqV61aTcPc8")}
+          link="https://youtu.be/cTBHqCcC9ws"
+          thumbnail="https://img.youtube.com/vi/cTBHqCcC9ws/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/cTBHqCcC9ws")}
         />
         <VideoThumb
           index={4}
-          link=""
-          thumbnail="https://img.youtube.com/vi/PcZig1RHLc8/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/oxKbVLYWeOM"
+          thumbnail="https://img.youtube.com/vi/oxKbVLYWeOM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/oxKbVLYWeOM")}
         />
         <VideoThumb
           index={5}
-          link=""
-          thumbnail="https://img.youtube.com/vi/la3bRSXEGbI/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/uMV7qsGl-I0"
+          thumbnail="https://img.youtube.com/vi/uMV7qsGl-I0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/uMV7qsGl-I0")}
         />
         <VideoThumb
           index={6}
-          link=""
-          thumbnail="https://img.youtube.com/vi/oNNWWXxJQhM/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/Hu6emwArPtg"
+          thumbnail="https://img.youtube.com/vi/Hu6emwArPtg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Hu6emwArPtg")}
         />
         <VideoThumb
           index={7}
-          link=""
-          thumbnail="https://img.youtube.com/vi/k9b8NQC2wbI/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/f0XA0wM6ohE"
+          thumbnail="https://img.youtube.com/vi/f0XA0wM6ohE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/f0XA0wM6ohE")}
         />
         <VideoThumb
           index={8}
-          link=""
-          thumbnail="https://img.youtube.com/vi/alD4OsGN_nE/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/60BV2Mq7x6g"
+          thumbnail="https://img.youtube.com/vi/60BV2Mq7x6g/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/60BV2Mq7x6g")}
         />
         <VideoThumb
           index={9}
-          link=""
-          thumbnail="https://img.youtube.com/vi/mMAJzD7vNYI/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/d8wUMArTNow"
+          thumbnail="https://img.youtube.com/vi/d8wUMArTNow/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/d8wUMArTNow")}
         />
         <VideoThumb
           index={10}
-          link=""
-          thumbnail="https://img.youtube.com/vi/F58kDJswUBI/0.jpg"
-          onPlay={() => setActiveVideo("")}
-        />
-        <VideoThumb
-          index={11}
-          link=""
-          thumbnail="https://img.youtube.com/vi/HdRz1tddafA/0.jpg"
-          onPlay={() => setActiveVideo("")}
-        />
-        <VideoThumb
-          index={12}
-          link="https://youtu.be/xpIHJ9gOR64"
-          thumbnail="https://img.youtube.com/vi/xpIHJ9gOR64/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/xpIHJ9gOR64")}
-        />
-        <VideoThumb
-          index={13}
-          link="https://youtu.be/kuGQj8t0goc"
-          thumbnail="https://img.youtube.com/vi/kuGQj8t0goc/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/kuGQj8t0goc")}
+          link="https://youtu.be/u0I8oi2F3G4"
+          thumbnail="https://img.youtube.com/vi/u0I8oi2F3G4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/u0I8oi2F3G4")}
         />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhp7WUnx9O_1gB5nzeERoxsz")} />
@@ -4998,7 +5071,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <SubSectionBadge label="CRITERIA 1" />
 
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px" }}>
           Not a legitimate basketball play against an opponent, with or without a ball
         </span>
       </div>
@@ -5007,51 +5080,39 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
+          link="https://youtu.be/1oUiBZ7IrSE"
+          thumbnail="https://img.youtube.com/vi/1oUiBZ7IrSE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/1oUiBZ7IrSE")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/lkJdI4_Z-WE"
+          thumbnail="https://img.youtube.com/vi/lkJdI4_Z-WE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/lkJdI4_Z-WE")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/bSuV1D9Dmbw"
+          thumbnail="https://img.youtube.com/vi/bSuV1D9Dmbw/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/bSuV1D9Dmbw")}
+        />
+        <VideoThumb
+          index={3}
           link="https://youtu.be/dtSE7fwAF-M"
           thumbnail="https://img.youtube.com/vi/dtSE7fwAF-M/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/dtSE7fwAF-M")}
         />
         <VideoThumb
-          index={1}
+          index={4}
           link="https://youtu.be/QGmRbRgztN8"
           thumbnail="https://img.youtube.com/vi/QGmRbRgztN8/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/QGmRbRgztN8")}
         />
         <VideoThumb
-          index={2}
-          link="https://youtu.be/aqQ574sbejc"
-          thumbnail="https://img.youtube.com/vi/aqQ574sbejc/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/aqQ574sbejc")}
-        />
-        <VideoThumb
-          index={3}
+          index={5}
           link="https://youtu.be/JY32dKYDmZ4"
           thumbnail="https://img.youtube.com/vi/JY32dKYDmZ4/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/JY32dKYDmZ4")}
-        />
-        <VideoThumb
-          index={4}
-          link="https://youtu.be/_oBqupqxcqg"
-          thumbnail="https://img.youtube.com/vi/_oBqupqxcqg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/_oBqupqxcqg")}
-        />
-        <VideoThumb
-          index={5}
-          link="https://youtu.be/rNmorkKtmZQ"
-          thumbnail="https://img.youtube.com/vi/rNmorkKtmZQ/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/rNmorkKtmZQ")}
-        />
-        <VideoThumb
-          index={6}
-          link="https://youtu.be/SEvW7x4DZh4"
-          thumbnail="https://img.youtube.com/vi/SEvW7x4DZh4/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/SEvW7x4DZh4")}
-        />
-        <VideoThumb
-          index={7}
-          link="https://youtu.be/rhbe_-fMkxY"
-          thumbnail="https://img.youtube.com/vi/rhbe_-fMkxY/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/rhbe_-fMkxY")}
         />
       </div>
 
@@ -5059,7 +5120,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <SubSectionBadge label="CRITERIA 2" />
 
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px" }}>
           Reckless, violent or dangerous act, which causes or may cause injury to an opponent
         </span>
       </div>
@@ -5068,51 +5129,21 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
-          link="https://youtu.be/rj3jBtxyioU"
-          thumbnail="https://img.youtube.com/vi/rj3jBtxyioU/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/rj3jBtxyioU")}
+          link="https://youtu.be/UslhrnXVoJ4"
+          thumbnail="https://img.youtube.com/vi/UslhrnXVoJ4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/UslhrnXVoJ4")}
         />
         <VideoThumb
           index={1}
-          link="https://youtu.be/9_5do6CblUo"
-          thumbnail="https://img.youtube.com/vi/9_5do6CblUo/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/9_5do6CblUo")}
+          link="https://youtu.be/aqQ574sbejc"
+          thumbnail="https://img.youtube.com/vi/aqQ574sbejc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/aqQ574sbejc")}
         />
         <VideoThumb
           index={2}
-          link="https://youtu.be/agfa0JtlAUg"
-          thumbnail="https://img.youtube.com/vi/agfa0JtlAUg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/agfa0JtlAUg")}
-        />
-        <VideoThumb
-          index={3}
-          link="https://youtu.be/oe_sx4ONpHY"
-          thumbnail="https://img.youtube.com/vi/oe_sx4ONpHY/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/oe_sx4ONpHY")}
-        />
-        <VideoThumb
-          index={4}
-          link="https://youtu.be/XUWXYVi6OJg"
-          thumbnail="https://img.youtube.com/vi/XUWXYVi6OJg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/XUWXYVi6OJg")}
-        />
-        <VideoThumb
-          index={5}
-          link="https://youtu.be/by-6hyJAqFk"
-          thumbnail="https://img.youtube.com/vi/by-6hyJAqFk/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/by-6hyJAqFk")}
-        />
-        <VideoThumb
-          index={6}
-          link="https://youtu.be/QFfFrr8ub18"
-          thumbnail="https://img.youtube.com/vi/QFfFrr8ub18/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/QFfFrr8ub18")}
-        />
-        <VideoThumb
-          index={7}
-          link="https://youtu.be/Xs_WanyUFME"
-          thumbnail="https://img.youtube.com/vi/Xs_WanyUFME/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/Xs_WanyUFME")}
+          link="https://youtu.be/rhbe_-fMkxY"
+          thumbnail="https://img.youtube.com/vi/rhbe_-fMkxY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rhbe_-fMkxY")}
         />
       </div>
 
@@ -5120,7 +5151,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <SubSectionBadge label="CRITERIA 3" />
 
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
-        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 16, color: T.orange, letterSpacing: "2px" }}>
           Excessive, hard contact in an effort to play the ball or an opponent
         </span>
       </div>
@@ -5129,52 +5160,18 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
         <VideoThumb
           index={0}
-          link="https://youtu.be/rj3jBtxyioU"
-          thumbnail="https://img.youtube.com/vi/rj3jBtxyioU/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/rj3jBtxyioU")}
+          link="https://youtu.be/YTPe2pNcgG8"
+          thumbnail="https://img.youtube.com/vi/YTPe2pNcgG8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/YTPe2pNcgG8")}
         />
+
         <VideoThumb
           index={1}
-          link="https://youtu.be/9_5do6CblUo"
-          thumbnail="https://img.youtube.com/vi/9_5do6CblUo/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/9_5do6CblUo")}
+          link="https://youtu.be/6w9SufPot_g"
+          thumbnail="https://img.youtube.com/vi/6w9SufPot_g/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/6w9SufPot_g")}
         />
-        <VideoThumb
-          index={2}
-          link="https://youtu.be/agfa0JtlAUg"
-          thumbnail="https://img.youtube.com/vi/agfa0JtlAUg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/agfa0JtlAUg")}
-        />
-        <VideoThumb
-          index={3}
-          link="https://youtu.be/oe_sx4ONpHY"
-          thumbnail="https://img.youtube.com/vi/oe_sx4ONpHY/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/oe_sx4ONpHY")}
-        />
-        <VideoThumb
-          index={4}
-          link="https://youtu.be/XUWXYVi6OJg"
-          thumbnail="https://img.youtube.com/vi/XUWXYVi6OJg/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/XUWXYVi6OJg")}
-        />
-        <VideoThumb
-          index={5}
-          link="https://youtu.be/by-6hyJAqFk"
-          thumbnail="https://img.youtube.com/vi/by-6hyJAqFk/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/by-6hyJAqFk")}
-        />
-        <VideoThumb
-          index={6}
-          link="https://youtu.be/QFfFrr8ub18"
-          thumbnail="https://img.youtube.com/vi/QFfFrr8ub18/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/QFfFrr8ub18")}
-        />
-        <VideoThumb
-          index={7}
-          link="https://youtu.be/Xs_WanyUFME"
-          thumbnail="https://img.youtube.com/vi/Xs_WanyUFME/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/Xs_WanyUFME")}
-        />
+
       </div>
 
 
@@ -5191,81 +5188,63 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
         />
         <VideoThumb
           index={1}
-          link="https://youtu.be/6w9SufPot_g"
-          thumbnail="https://img.youtube.com/vi/6w9SufPot_g/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/6w9SufPot_g")}
+          link="https://youtu.be/M_Kcfn3b47M"
+          thumbnail="https://img.youtube.com/vi/M_Kcfn3b47M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/M_Kcfn3b47M")}
         />
         <VideoThumb
           index={2}
-          link="https://youtu.be/GnzA1IT9xo8"
-          thumbnail="https://img.youtube.com/vi/GnzA1IT9xo8/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/GnzA1IT9xo8")}
+          link="https://youtu.be/kQw0KLGiac0"
+          thumbnail="https://img.youtube.com/vi/kQw0KLGiac0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/kQw0KLGiac0")}
         />
         <VideoThumb
           index={3}
-          link="https://youtu.be/sqV61aTcPc8"
-          thumbnail="https://img.youtube.com/vi/sqV61aTcPc8/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/sqV61aTcPc8")}
+          link="https://youtu.be/cTBHqCcC9ws"
+          thumbnail="https://img.youtube.com/vi/cTBHqCcC9ws/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/cTBHqCcC9ws")}
         />
         <VideoThumb
           index={4}
-          link=""
-          thumbnail="https://img.youtube.com/vi/PcZig1RHLc8/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/oxKbVLYWeOM"
+          thumbnail="https://img.youtube.com/vi/oxKbVLYWeOM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/oxKbVLYWeOM")}
         />
         <VideoThumb
           index={5}
-          link=""
-          thumbnail="https://img.youtube.com/vi/la3bRSXEGbI/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/uMV7qsGl-I0"
+          thumbnail="https://img.youtube.com/vi/uMV7qsGl-I0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/uMV7qsGl-I0")}
         />
         <VideoThumb
           index={6}
-          link=""
-          thumbnail="https://img.youtube.com/vi/oNNWWXxJQhM/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/Hu6emwArPtg"
+          thumbnail="https://img.youtube.com/vi/Hu6emwArPtg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Hu6emwArPtg")}
         />
         <VideoThumb
           index={7}
-          link=""
-          thumbnail="https://img.youtube.com/vi/k9b8NQC2wbI/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/f0XA0wM6ohE"
+          thumbnail="https://img.youtube.com/vi/f0XA0wM6ohE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/f0XA0wM6ohE")}
         />
         <VideoThumb
           index={8}
-          link=""
-          thumbnail="https://img.youtube.com/vi/alD4OsGN_nE/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/60BV2Mq7x6g"
+          thumbnail="https://img.youtube.com/vi/60BV2Mq7x6g/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/60BV2Mq7x6g")}
         />
         <VideoThumb
           index={9}
-          link=""
-          thumbnail="https://img.youtube.com/vi/mMAJzD7vNYI/0.jpg"
-          onPlay={() => setActiveVideo("")}
+          link="https://youtu.be/d8wUMArTNow"
+          thumbnail="https://img.youtube.com/vi/d8wUMArTNow/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/d8wUMArTNow")}
         />
         <VideoThumb
           index={10}
-          link=""
-          thumbnail="https://img.youtube.com/vi/F58kDJswUBI/0.jpg"
-          onPlay={() => setActiveVideo("")}
-        />
-        <VideoThumb
-          index={11}
-          link=""
-          thumbnail="https://img.youtube.com/vi/HdRz1tddafA/0.jpg"
-          onPlay={() => setActiveVideo("")}
-        />
-        <VideoThumb
-          index={12}
-          link="https://youtu.be/xpIHJ9gOR64"
-          thumbnail="https://img.youtube.com/vi/xpIHJ9gOR64/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/xpIHJ9gOR64")}
-        />
-        <VideoThumb
-          index={13}
-          link="https://youtu.be/kuGQj8t0goc"
-          thumbnail="https://img.youtube.com/vi/kuGQj8t0goc/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/kuGQj8t0goc")}
+          link="https://youtu.be/u0I8oi2F3G4"
+          thumbnail="https://img.youtube.com/vi/u0I8oi2F3G4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/u0I8oi2F3G4")}
         />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhp7WUnx9O_1gB5nzeERoxsz")} />
@@ -6888,12 +6867,36 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <VideoThumb
                 index={0}
+                link="https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording"
+                thumbnail="https://www.refereevision.com/thumbnail_di1.jpg"
+                onPlay={() =>
+                  setActiveVideo({
+                    url: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording#t=1508",
+                    startTime: 1508,
+                    endTime: 1875,
+                  })
+                }
+              />
+              <VideoThumb
+                index={1}
+                link="https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4"
+                thumbnail="https://www.refereevision.com/thumbnail_di2.jpg"
+                onPlay={() =>
+                  setActiveVideo({
+                    url: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4",
+                    startTime: 2540,
+                    endTime: 2720,
+                  })
+                }
+              /> 
+              <VideoThumb
+                index={2}
                 link="https://youtu.be/M9W45TByZE0"
                 thumbnail="https://img.youtube.com/vi/M9W45TByZE0/0.jpg"
                 onPlay={() => setActiveVideo("https://youtu.be/M9W45TByZE0")}
               />
               <VideoThumb
-                index={1}
+                index={3}
                 link="https://youtu.be/dzhwIc9bhuA"
                 thumbnail="https://img.youtube.com/vi/dzhwIc9bhuA/0.jpg"
                 onPlay={() => setActiveVideo("https://www.youtube.com/embed/dzhwIc9bhuA?start=372&autoplay=1")}
@@ -6901,14 +6904,6 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
             </div>
           </div>
 
-          {/* Signal */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label="SIGNAL" />
-            <DocCard
-              link="https://www.refereevision.com/Signals/tech_Sig.png"
-              onClick={() => setActiveVideo("https://www.refereevision.com/Signals/tech_Sig.png")}
-            />
-          </div>
         </div>
 
         {/* Row 2: Article & Interpretation */}
@@ -6921,6 +6916,16 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
             alignItems: isMobile ? "center" : "flex-start",
           }}
         >
+
+          {/* Signal */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <MiniBadge label="SIGNAL" />
+            <DocCard
+              link="https://www.refereevision.com/Signals/tech_Sig.png"
+              onClick={() => setActiveVideo("https://www.refereevision.com/Signals/tech_Sig.png")}
+            />
+          </div>
+          
           {/* Article */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <MiniBadge label="ARTICLE" />
@@ -8072,7 +8077,7 @@ export default function Videos() {
             VIDEOS
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontFamily: BARLOW, fontSize: 13, color: T.inactive, letterSpacing: "1px", textTransform: "uppercase", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <span style={{ fontFamily: BARLOW, fontSize: 16, color: T.inactive, letterSpacing: "1px", textTransform: "uppercase", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {activeTab}
             </span>
             <button

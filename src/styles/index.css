@@ -197,3 +197,21 @@ body {
   }
 }
 
+.search-highlight {
+  outline: 3px solid #E8651A;
+  outline-offset: 4px;
+  border-radius: 8px;
+  background: rgba(232, 101, 26, 0.12);
+  box-shadow: 0 0 20px rgba(232, 101, 26, 0.4);
+  scroll-margin-top: 110px;
+  animation: searchFound 1s ease-in-out 3;
+}
+
+@keyframes searchFound {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(232, 101, 26, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(232, 101, 26, 0.7);
+  }
+}
