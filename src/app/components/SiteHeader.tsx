@@ -207,7 +207,7 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${active
+                  className={`h-full px-1 text-center flex items-center justify-center text-[16px] uppercase relative transition-colors ${active
                     ? 'text-[var(--orange)] bg-[#252525]'
                     : 'text-white/85 hover:text-white hover:bg-[#222222]'
                     }`}
@@ -237,7 +237,7 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${active
+                  className={`h-full px-1 text-center flex items-center justify-center text-[16px] uppercase relative transition-colors ${active
                     ? 'text-[var(--orange)] bg-[#252525]'
                     : 'text-white/85 hover:text-white hover:bg-[#222222]'
                     }`}
@@ -276,7 +276,7 @@ export default function SiteHeader() {
                   color: active || hoveredNav === item ? 'var(--orange)' : '#FFFFFF',
                   transition: 'color 0.15s',
                 }}
-                className="text-[17px] uppercase relative pb-1 transition-colors whitespace-nowrap"
+                className="text-[22px] uppercase relative pb-1 transition-colors whitespace-nowrap"
               >
                 {item}
                 {(active || hoveredNav === item) && (

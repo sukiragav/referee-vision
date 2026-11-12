@@ -320,7 +320,7 @@ function Sidebar({
             <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 26, color: T.orange, letterSpacing: "3px", textTransform: "uppercase" }}>
               WEBINARS
             </span>
-            <button onClick={onClose} style={{ background: "transparent", border: "none", color: T.inactive, fontSize: 22, cursor: "pointer", lineHeight: 1, padding: 4 }}>✕</button>
+            <button onClick={onClose} style={{ background: "transparent", border: "none", color: T.inactive, fontSize: 12, cursor: "pointer", lineHeight: 1, padding: 4 }}>✕</button>
           </div>
           <div style={{ paddingTop: 0 }}>
             {TABS.map((tab) => {

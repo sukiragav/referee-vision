@@ -1912,11 +1912,8 @@ export default function Vault() {
               let bg = "transparent";
               let color = TV.inactive;
               let borderLeft = "4px solid transparent";
-              if (active) {
-                bg = TV.orange;
-                color = TV.white;
-                borderLeft = `4px solid ${TV.white}`;
-              }
+              if (active) {  bg = TV.orange;  color = TV.white;   borderLeft = `4px solid ${TV.white}`; }
+
               return (
                 <button
                   key={tab}

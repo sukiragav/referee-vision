@@ -144,44 +144,67 @@ export default function Home() {
       M215.500000,217.000000 
         C215.500000,256.166656 215.500000,295.333344 215.500000,334.500000 
       "/>
-            <path fill="none" opacity="1.000000" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
-              d="
-      M841.500000,275.000000 
-        C839.894226,270.723633 838.666382,266.458160 834.055420,263.900116 
-        C826.892456,259.926300 820.225525,261.017731 815.476868,267.483032 
-        C810.348633,274.465118 811.960938,281.079895 818.473145,286.532074 
-        C826.725586,293.441254 837.791260,288.504730 840.500061,279.000031 
-        C840.832703,277.833160 841.166687,276.666687 841.500061,275.500000 
-      "/>
-            <path fill="none" opacity="1.000000" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
-              d="
-      M55.500000,276.000000 
-        C57.543991,279.850800 58.474911,284.355438 62.486534,287.020264 
-        C70.092369,292.072662 77.428810,289.535034 81.952995,283.464966 
-        C86.774017,276.996674 84.867867,269.613434 78.594093,264.387054 
-        C71.593529,258.555176 60.870213,261.954987 57.004730,271.501923 
-        C56.470478,272.821381 55.999996,274.166656 55.499996,275.500000 
-      "/>
-            <path fill="none" opacity="1.000000" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
-              d="
-      M46.500000,248.500000 
-        C47.628777,254.138367 46.731144,259.835907 46.989876,265.500458 
-        C47.128059,268.525879 46.650181,271.580902 47.971928,274.512665 
-        C49.155056,277.136932 46.698147,279.281067 46.863743,282.008270 
-        C47.277130,288.816528 47.000000,295.666656 47.000000,302.500000 
-      "/>
-            <path fill="none" opacity="1.000000" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
-              d="
-      M850.000000,248.500000 
-        C850.000000,254.833328 850.000000,261.166656 850.000000,267.500000 
-        C850.000000,275.079224 850.000000,275.079224 842.000000,275.500000 
-      "/>
-            <path fill="none" opacity="1.000000" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
-              d="
-      M848.500000,276.000000 
-        C850.256165,278.064148 850.000366,280.559265 850.000183,283.000000 
-        C849.999695,289.500000 850.000000,296.000000 850.000000,302.500000 
-      "/>
+      <circle
+        cx="825"
+        cy="275"
+        r="14"
+        fill="none"
+        stroke="#000000"
+        strokeWidth="3"
+      />
+      <circle
+        cx="70"
+        cy="275"
+        r="14"
+        fill="none"
+        stroke="#000000"
+        strokeWidth="3"
+      />
+      <path
+        fill="none"
+        opacity="1"
+        stroke="#000000"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M47 248.5 L47 302.5"
+      />
+      <path
+        fill="none"
+        opacity="1"
+        stroke="#000000"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M850 248.5 L850 275.5"
+      />
+      <path
+        fill="none"
+        opacity="1"
+        stroke="#000000"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M850 276 L850 302.5"
+      />
+
+      {/* Left side */}
+      <path
+        d="M47 275.5 L56 275.5"
+        fill="none"
+        stroke="#000000"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+
+      {/* Right side */}
+      <path
+        d="M839 275.5 L850 275.5"
+        fill="none"
+        stroke="#000000"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
             <path fill="none" opacity="1.000000" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.000000"
               d="
       M156.000000,263.500000 
