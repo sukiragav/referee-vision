@@ -1017,7 +1017,7 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
           marginBottom: 32,
           background: TV.charcoal,
           border: `2px solid ${TV.orange}`,
-          borderRadius: 6
+          borderRadius: 8,
         }}
       >
         {RULEBOOK_SUBTABS.map(tab => {
