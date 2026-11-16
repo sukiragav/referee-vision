@@ -42,9 +42,10 @@ const SUGGESTIONS = [
 // Map search-result IDs to the exact labels rendered in Books.tsx.
 // Other results fall back to matching their visible titles.
 const DOCUMENT_LABELS: Record<string, string> = {
-  'book-rule-changes-2026': 'OFFICIAL BASKETBALL RULE CHANGES 2026',
-  'book-interpretations-2026': 'OFFICIAL INTERPRETATIONS',
-  'book-statisticians-manual': "FIBA STATISTICIANS' MANUAL 2024",
+  'book-rule-changes': 'OFFICIAL BASKETBALL RULE CHANGES 2026',
+  'book-interpretations': 'OFFICIAL INTERPRETATIONS',
+  'book-statisticians-manual': "FIBA STATISTICIANS' MANUAL",
+  'book-table-officials-manual': "FIBA MANUAL FOR TABLE OFFICIALS",
   'pres-goaltending': 'GOALTENDING AND INTERFERENCE',
   'pres-shot-clock': 'SHOT CLOCK',
   'pres-8-seconds': '8 SECONDS',
@@ -67,6 +68,9 @@ const normalizeSearchText = (value: string) =>
 let stopActiveHighlight: (() => void) | null = null;
 
 function startSearchHighlight(item: SearchItem) {
+
+   console.log("HIGHLIGHT FUNCTION CALLED:", item.id, item.title);
+
   stopActiveHighlight?.();
 
   const expectedPath = new URL(item.path, window.location.origin).pathname;
@@ -104,46 +108,49 @@ function startSearchHighlight(item: SearchItem) {
   const tryHighlight = () => {
     if (stopped || window.location.pathname !== expectedPath) return;
 
-    // The Books document title is a span inside a flex row. Restrict the
-    // match to leaf text so section headings do not get highlighted.
-    const candidates = document.querySelectorAll<HTMLElement>(
-      'main span, main h2, main h3, main h4, span, h2, h3, h4'
+    // Search only rows containing a download link.
+    const links = document.querySelectorAll<HTMLAnchorElement>(
+      'a[href]'
     );
 
-    for (const element of candidates) {
-      if (element.closest('[role="dialog"]')) continue;
-      if (element.children.length > 2) continue;
+    for (const link of links) {
+      // Find the document row containing this download link.
+      const row = link.parentElement;
 
-      const text = normalizeSearchText(element.textContent || '');
-      if (!text || text.length < 4) continue;
+      if (!row) continue;
 
-      // Books labels can contain a version string after the document title.
-      const matches = text === target ||
-        (Boolean(explicitLabel) && text.startsWith(target)) ||
-        (!explicitLabel && simplifiedTitle.length >= 6 &&
-          (text === simplifiedTitle || text.startsWith(simplifiedTitle)));
+      const rowText = normalizeSearchText(row.textContent || "");
+
+      if (!rowText) continue;
+
+      const matches =
+        rowText.includes(target) ||
+        (simplifiedTitle.length >= 6 &&
+          rowText.includes(simplifiedTitle));
+
       if (!matches) continue;
 
-      // Prefer the document row (contains its download link) over the title span.
-      let row: HTMLElement = element;
-      for (let i = 0; i < 4 && row.parentElement; i++) {
-        if (row.querySelector('a[href]')) break;
-        row = row.parentElement;
-      }
-      if (!row.querySelector('a[href]')) row = element;
+      console.log("FOUND DOCUMENT:", row.textContent);
 
       highlightedRow = row;
+
       previousStyles = {
         background: row.style.background,
         outline: row.style.outline,
         borderRadius: row.style.borderRadius,
         scrollMarginTop: row.style.scrollMarginTop,
       };
-      row.style.background = 'rgba(232, 101, 26, 0.20)';
-      row.style.outline = '3px solid #E8651A';
-      row.style.borderRadius = '8px';
-      row.style.scrollMarginTop = '120px';
-      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      row.style.background = "rgba(232, 101, 26, 0.20)";
+      row.style.outline = "3px solid #E8651A";
+      row.style.borderRadius = "8px";
+      row.style.scrollMarginTop = "120px";
+
+      row.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+
       cleanup();
       return;
     }
@@ -270,11 +277,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   // Navigate to the existing tab, then highlight its document without
   // requiring any change to Books.tsx.
-  const handleSelect = (item: SearchItem) => {
-    onClose();
-    startSearchHighlight(item);
-    navigate(item.path);
-  };
+const handleSelect = (item: SearchItem) => {
+  console.log("SEARCH RESULT CLICKED:", item.id);
+
+  startSearchHighlight(item);
+
+  navigate(item.path);
+
+  onClose();
+};
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {

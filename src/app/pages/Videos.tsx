@@ -6477,7 +6477,7 @@ function EightSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; 
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 32 }}>
-      <SectionBadge label="8 SECONDS" />
+      <SectionBadge label="24 SECONDS" />
       {/* 2x2 grid: Signal+Article | Interpretation+Presentation */}
       <div style={{ display: "flex", flexDirection: "column", gap: 28, maxWidth: 680, margin: "36px auto 36px", width: "100%" }}>
         <div style={{ display: "flex", gap: isMobile ? 24 : 48, justifyContent: "center", flexWrap: "wrap" }}>
@@ -6587,7 +6587,31 @@ function ShotClockContent({ isMobile, setActiveVideo }: { isMobile: boolean; set
 
 
 function Seconds358Content({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
-  const [activeSubTab, setActiveSubTab] = useState<SecondsSubTab>("3 SECONDS");
+const [searchParams] = useSearchParams();
+
+const subtabParam = searchParams.get("subtab");
+
+const [activeSubTab, setActiveSubTab] =
+  useState<SecondsSubTab>(() => {
+    if (
+      subtabParam &&
+      SECONDS_SUBTABS.includes(subtabParam as SecondsSubTab)
+    ) {
+      return subtabParam as SecondsSubTab;
+    }
+
+    return "3 SECONDS";
+  });
+
+useEffect(() => {
+  if (
+    subtabParam &&
+    SECONDS_SUBTABS.includes(subtabParam as SecondsSubTab)
+  ) {
+    setActiveSubTab(subtabParam as SecondsSubTab);
+  }
+}, [subtabParam]);
+
   type ActiveVideo = {
   url: string;
   startTime?: number;
@@ -6654,15 +6678,27 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
       </div>
 
       {/* Per-tab dedicated content */}
-      {activeSubTab === "3 SECONDS" ? (
-        <ThreeSecondsContent isMobile={isMobile} setActiveVideo={setActiveVideo} />
-      ) : activeSubTab === "5 SECONDS" ? (
-        <FiveSecondsContent isMobile={isMobile} setActiveVideo={setActiveVideo} />
-      ) : activeSubTab === "8 SECONDS" ? (
-        <EightSecondsContent isMobile={isMobile} setActiveVideo={setActiveVideo} />
-      ) : (
-        <ShotClockContent isMobile={isMobile} setActiveVideo={setActiveVideo} />
-      )}
+          {activeSubTab === "3 SECONDS" ? (
+            <ThreeSecondsContent
+              isMobile={isMobile}
+              setActiveVideo={setActiveVideo}
+            />
+          ) : activeSubTab === "5 SECONDS" ? (
+            <FiveSecondsContent
+              isMobile={isMobile}
+              setActiveVideo={setActiveVideo}
+            />
+          ) : activeSubTab === "8 SECONDS" ? (
+            <EightSecondsContent
+              isMobile={isMobile}
+              setActiveVideo={setActiveVideo}
+            />
+          ) : activeSubTab === "SHOT CLOCK" ? (
+            <ShotClockContent
+              isMobile={isMobile}
+              setActiveVideo={setActiveVideo}
+            />
+          ) : null}
     </div>
   );
 }
