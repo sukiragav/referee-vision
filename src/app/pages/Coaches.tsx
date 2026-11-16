@@ -1162,7 +1162,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
       <SectionBadge label="DRILLS FOR YOUNG PLAYERS" />
 
       {/* Sub-tab bar */}
-      <div style={{ display: "flex", marginTop: 24, background: "#555555",borderRadius: 6 }}>
+      <div style={{ display: "flex", marginTop: 24, background: T.charcoal,borderRadius: 6,border: `2px solid ${T.orange}`, }}>
         {DRILLS_SUBTABS.map((tab) => {
           const isActive = tab === activeSubTab;
           return (
@@ -1760,7 +1760,7 @@ function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
       <SectionBadge label="FIBA EUROPE" />
 
       {/* Sub-tab bar */}
-      <div style={{ display: "flex", marginTop: 24, background: "#555555",borderRadius: 6}}>
+      <div style={{ display: "flex", marginTop: 24, background: T.charcoal,border: `2px solid ${T.orange}`,borderRadius: 6}}>
         {FIBA_EUROPE_SUBTABS.map((tab) => {
           const isActive = tab === activeSubTab;
           return (
@@ -2060,7 +2060,7 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
       <SectionBadge label="WABC" />
 
       {/* Sub-tab bar */}
-      <div style={{ display: "flex", marginTop: 24, background: "#555555",borderRadius: 6 }}>
+      <div style={{ display: "flex", marginTop: 24, background: T.charcoal,borderRadius: 6,border: `2px solid ${T.orange}`, }}>
         {WABC_SUBTABS.map((tab) => {
           const isActive = tab === activeSubTab;
           return (
