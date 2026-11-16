@@ -92,6 +92,7 @@ const FIVE_ON_FIVE_DOCS = [
     version: "",
     link: "https://refereeing.fiba.basketball/en/obr-questions-and-answers",
     pinned: true,
+    buttonType: "link",
   },
   {
     label: "OFFICIAL BASKETBALL RULE CHANGES 2026",
@@ -631,7 +632,13 @@ function DocRow({
   doc,
   isMobile,
 }: {
-  doc: { label: string; version: string; link: string; pinned?: boolean };
+  doc: {
+  label: string;
+  version: string;
+  link: string;
+  pinned?: boolean;
+  buttonType?: "link" | "download";
+};
   isMobile: boolean;
 }) {
   const h = useHover();
@@ -707,7 +714,7 @@ function DocRow({
           alignSelf: isMobile ? "flex-start" : "center",
         }}
       >
-        ↓ DOWNLOAD
+        {doc.buttonType === "link" ? "↗ LINK" : "↓ DOWNLOAD"}
       </a>
     </div>
   );

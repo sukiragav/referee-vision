@@ -38,11 +38,11 @@ const TABS: Tab[] = [
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const CURRICULUM_DOCS = [
-  { label: "WABC COACHES MANUAL - BASKETBALL", link: "https://www.refereevision.com/Basketball_intro.pdf" },
-  { label: "WABC COACHES MANUAL - MINI BASKETBALL", link: "https://www.refereevision.com/Mini-basketball.pdf" },
-  { label: "WABC COACHES MANUAL - LEVEL I", link: "https://www.refereevision.com/Level%201.pdf" },
-  { label: "WABC COACHES MANUAL - LEVEL 2", link: "https://www.refereevision.com/Level%202.pdf" },
-  { label: "WABC COACHES MANUAL - LEVEL 3", link: "https://www.refereevision.com/Level%203.pdf" },
+  { label: "WABC COACHES MANUAL - BASKETBALL", link: "https://assets.fiba.basketball/image/upload/documents-corporate-wabc-coaches-manual-eng.pdf" },
+  { label: "WABC COACHES MANUAL - MINI BASKETBALL", link: "https://assets.fiba.basketball/image/upload/documents-corporate-wabc-coaching-manual-mini-basketball-eng.pdf" },
+  { label: "WABC COACHES MANUAL - LEVEL I", link: "https://assets.fiba.basketball/image/upload/documents-corporate-wabc-coaching-level-manuals-level-1-eng.pdf" },
+  { label: "WABC COACHES MANUAL - LEVEL 2", link: "https://assets.fiba.basketball/image/upload/documents-corporate-wabc-coaching-manual-level-2-eng.pdf" },
+  { label: "WABC COACHES MANUAL - LEVEL 3", link: "https://assets.fiba.basketball/image/upload/documents-corporate-wabc-coaching-manual-level-3-eng.pdf" },
   { label: "WABC FACILITATOR HANDBOOK", link: "https://www.refereevision.com/Start-Coaching_Facilitator_Handbook_EN.pdf" },
   { label: "WABC COACH WORKBOOK", link: "https://www.refereevision.com/Start-Coaching_Coach_Workbook_EN.pdf" },
   { label: "WABC ACTIVITIES BOOK", link: "https://www.refereevision.com/Start-Coaching_Activities_Book_EN.pdf" },
