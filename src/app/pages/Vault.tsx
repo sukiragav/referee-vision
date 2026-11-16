@@ -12,7 +12,7 @@ const TV = {
   offWhite: "var(--off-white)",
   charcoal: "#1C1C1C",
   border: "#2A2A2A",
-  inactive: "#888888",
+  inactive: "#AAAAAA",
   hoverBg: "rgba(232,101,26,0.12)",
 };
 const BARLOW = "'Barlow Condensed', sans-serif";
@@ -1853,7 +1853,7 @@ export default function Vault() {
               style={{
                 background: "transparent",
                 border: `1px solid ${TV.border}`,
-                color: TV.white,
+                color: TV.inactive,
                 cursor: "pointer",
                 padding: "6px 10px",
                 display: "flex",
