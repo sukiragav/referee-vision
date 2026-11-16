@@ -3345,9 +3345,25 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
         />
       </div>
 
-
       {/* RULE EXPLANATION */}
       <CylinderSectionHeader label="RULE EXPLANATION" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/KNAeDkqbX5o"
+          thumbnail="https://img.youtube.com/vi/KNAeDkqbX5o/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/KNAeDkqbX5o")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/uJfohyL35gI"
+          thumbnail="https://img.youtube.com/vi/uJfohyL35gI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/uJfohyL35gI")}
+        />
+      </div>
+
+      {/* FAOS */}
+      <CylinderSectionHeader label="FOUL IN THE ACT OF SHOOTING" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
 
         <VideoThumb
@@ -3364,47 +3380,56 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
         />
         <VideoThumb
           index={2}
-          link="https://youtu.be/wusG2KGmSzU"
-          thumbnail="https://img.youtube.com/vi/wusG2KGmSzU/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/wusG2KGmSzU")}
-        />    
-        <VideoThumb
-          index={3}
-          link="https://youtu.be/KNAeDkqbX5o"
-          thumbnail="https://img.youtube.com/vi/KNAeDkqbX5o/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/KNAeDkqbX5o")}
-        />
-        <VideoThumb
-          index={4}
-          link="https://youtu.be/uJfohyL35gI"
-          thumbnail="https://img.youtube.com/vi/uJfohyL35gI/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/uJfohyL35gI")}
-        />
-        <VideoThumb
-          index={5}
           link="https://youtu.be/4Tbqxo5koLo"
           thumbnail="https://img.youtube.com/vi/4Tbqxo5koLo/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/4Tbqxo5koLo")}
         />
         <VideoThumb
-          index={6}
-          link="https://youtu.be/AAEgC0QfmlY"
-          thumbnail="https://img.youtube.com/vi/AAEgC0QfmlY/0.jpg"
-          onPlay={() => setActiveVideo("https://youtu.be/AAEgC0QfmlY")}
-        />
-        <VideoThumb
-          index={7}
+          index={3}
           link="https://youtu.be/d4DtXy0JieI"
           thumbnail="https://img.youtube.com/vi/d4DtXy0JieI/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/d4DtXy0JieI")}
         />
+
+      </div>
+
+      {/* FNAOS */}
+      <CylinderSectionHeader label="FOUL NOT IN THE ACT OF SHOOTING" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
+
         <VideoThumb
-          index={8}
+          index={0}
+          link="https://youtu.be/wusG2KGmSzU"
+          thumbnail="https://img.youtube.com/vi/wusG2KGmSzU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/wusG2KGmSzU")}
+        />   
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/yLyj8dxowF8"
+          thumbnail="https://img.youtube.com/vi/yLyj8dxowF8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/yLyj8dxowF8")}
+        />  
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/hD3x2_oSDT4"
+          thumbnail="https://img.youtube.com/vi/hD3x2_oSDT4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/hD3x2_oSDT4")}
+        />   
+        <VideoThumb
+          index={3}
           link="https://youtu.be/EN3VZ4pxhJs"
           thumbnail="https://img.youtube.com/vi/EN3VZ4pxhJs/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/EN3VZ4pxhJs")}
         />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/AAEgC0QfmlY"
+          thumbnail="https://img.youtube.com/vi/AAEgC0QfmlY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/AAEgC0QfmlY")}
+        />
       </div>
+
+
 
       {/* SIGNAL / ARTICLE / INTERPRETATION */}
       <div
