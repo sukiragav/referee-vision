@@ -1162,7 +1162,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
       <SectionBadge label="DRILLS FOR YOUNG PLAYERS" />
 
       {/* Sub-tab bar */}
-      <div style={{ display: "flex", marginTop: 24, background: "#555555" }}>
+      <div style={{ display: "flex", marginTop: 24, background: "#555555",borderRadius: 6 }}>
         {DRILLS_SUBTABS.map((tab) => {
           const isActive = tab === activeSubTab;
           return (
@@ -1181,7 +1181,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
                 color: isActive ? T.white : "#CCCCCC",
                 border: "none",
                 cursor: "pointer",
-                borderRadius: 0,
+                borderRadius: 6,
                 transition: "background 0.15s, color 0.15s",
               }}
             >
@@ -1205,6 +1205,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
                   fontSize: 18,
                   letterSpacing: "2px",
                   padding: "8px 48px",
+                  borderRadius: 6,
                 }}
               >
                 MINI
@@ -1231,6 +1232,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
                   fontSize: 18,
                   letterSpacing: "2px",
                   padding: "8px 48px",
+                  borderRadius: 6,
                 }}
               >
                 13-14 YEAR OLDS
@@ -1252,6 +1254,7 @@ function DrillsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
                   fontSize: 18,
                   letterSpacing: "2px",
                   padding: "8px 48px",
+                  borderRadius: 6,
                 }}
               >
                 15-18 YEAR OLDS
@@ -1757,7 +1760,7 @@ function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
       <SectionBadge label="FIBA EUROPE" />
 
       {/* Sub-tab bar */}
-      <div style={{ display: "flex", flexWrap: "wrap", marginTop: 24, background: T.orange }}>
+      <div style={{ display: "flex", marginTop: 24, background: "#555555",borderRadius: 6}}>
         {FIBA_EUROPE_SUBTABS.map((tab) => {
           const isActive = tab === activeSubTab;
           return (
@@ -1772,11 +1775,11 @@ function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
                 fontSize: 14,
                 letterSpacing: "1px",
                 textTransform: "uppercase",
-                background: isActive ? "#555555" : "transparent",
-                color: isActive ? T.white : "#000000",
+                background: isActive ? T.orange : "transparent",
+                color: isActive ? T.white : "#CCCCCC",
                 border: "none",
                 cursor: "pointer",
-                borderRadius: 0,
+                borderRadius: 6,
                 transition: "background 0.15s, color 0.15s",
               }}
             >
@@ -1799,6 +1802,7 @@ function FibaEuropeContent({ isMobile }: { isMobile: boolean }) {
               letterSpacing: "2px",
               padding: "8px 48px",
               textTransform: "uppercase",
+              borderRadius: 6,
             }}
           >
             {activeSubTab}
@@ -2056,7 +2060,7 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
       <SectionBadge label="WABC" />
 
       {/* Sub-tab bar */}
-      <div style={{ display: "flex", flexWrap: "wrap", marginTop: 24, background: T.orange }}>
+      <div style={{ display: "flex", marginTop: 24, background: "#555555",borderRadius: 6 }}>
         {WABC_SUBTABS.map((tab) => {
           const isActive = tab === activeSubTab;
           return (
@@ -2071,11 +2075,11 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
                 fontSize: 14,
                 letterSpacing: "1px",
                 textTransform: "uppercase",
-                background: isActive ? "#555555" : "transparent",
-                color: isActive ? T.white : "#000000",
+                  background: isActive ? T.orange : "transparent",
+                  color: isActive ? T.white : "#CCCCCC",
                 border: "none",
                 cursor: "pointer",
-                borderRadius: 0,
+                borderRadius: 6,
                 transition: "background 0.15s, color 0.15s",
               }}
             >
@@ -2098,6 +2102,7 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
               letterSpacing: "2px",
               padding: "8px 48px",
               textTransform: "uppercase",
+              borderRadius: 6
             }}
           >
             {activeSubTab}

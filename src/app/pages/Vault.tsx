@@ -687,7 +687,7 @@ function ToughCallsContent() {
       <VaultBadge label={`${season} SEASON`} />
       <div style={{ display: "flex", minHeight: 320 }}>
         {/* Season list */}
-        <div style={{ width: 140, flexShrink: 0, background: TV.charcoal, borderRight: `1px solid rgba(0,0,0,0.12)` }}>
+        <div style={{ width: 140, flexShrink: 0, background: TV.charcoal, border: `2px solid ${TV.orange}`, borderRadius: 6,}}>
           {TOUGH_CALLS_SEASONS.map(s => (
             <button
               key={s}
@@ -705,6 +705,7 @@ function ToughCallsContent() {
                 borderBottom: `1px solid rgba(255,255,255,0.06)`,
                 cursor: "pointer",
                 transition: "background 0.15s, color 0.15s",
+                borderRadius:0,
               }}
             >
               {s}
@@ -1015,7 +1016,8 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
           borderBottom: `2px solid ${TV.orange}`,
           marginBottom: 32,
           background: TV.charcoal,
-          border: `1px solid ${TV.border}`,
+          border: `2px solid ${TV.orange}`,
+          borderRadius: 6
         }}
       >
         {RULEBOOK_SUBTABS.map(tab => {
@@ -1035,11 +1037,11 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
                 fontSize: isMobile ? 12 : 14,
                 letterSpacing: "1.2px",
                 textTransform: "uppercase",
-                border: "none",
                 cursor: "pointer",
                 transition: "background 0.15s, color 0.15s",
                 textAlign: "center",
                 whiteSpace: "nowrap",
+                borderRadius: 6
               }}
             >
               {tab}
@@ -1520,42 +1522,63 @@ const ARTICLES_ITEMS = [
 ];
 
 function ArticlesContent() {
+       const h = useHover();
+const [activeArticle, setActiveArticle] = useState("");
+
   return (
-    <div>
-      <VaultBadge label="ARTICLES" />
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
-        {ARTICLES_ITEMS.map((item, i) => {
-          const title = typeof item === "string" ? item : item.title;
-          const link = typeof item === "string" ? "PLACEHOLDER_link" : item.link;
-          return (
-            <a
-              key={i}
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                background: TV.orange,
-                color: TV.white,
-                fontFamily: BARLOW,
-                fontWeight: 800,
-                fontSize: 12,
-                letterSpacing: "0.8px",
-                padding: "8px 16px",
-                borderRadius: 20,
-                textDecoration: "none",
-                textTransform: "uppercase",
-                display: "inline-block",
-                textAlign: "center",
-                transition: "transform 0.15s, background 0.15s",
-              }}
-            >
-              {title}
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  );
+<div>
+  <VaultBadge label="ARTICLES" />
+
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      gap: 10,
+      justifyContent: "center",
+    }}
+  >
+    {ARTICLES_ITEMS.map((item, i) => {
+      const title = typeof item === "string" ? item : item.title;
+      const link = typeof item === "string" ? "PLACEHOLDER_link" : item.link;
+
+      return (
+        <a
+          key={i}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = TV.orange;
+            e.currentTarget.style.color = TV.white;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = TV.charcoal;
+            e.currentTarget.style.color = TV.orange;
+          }}
+          style={{
+            background: TV.charcoal,
+            color: TV.orange,
+            border: `1px solid ${TV.orange}`,
+            fontFamily: BARLOW,
+            fontWeight: 800,
+            fontSize: 12,
+            letterSpacing: "0.8px",
+            padding: "8px 16px",
+            borderRadius: 20,
+            textDecoration: "none",
+            textTransform: "uppercase",
+            display: "inline-block",
+            textAlign: "center",
+            transition: "background 0.15s, color 0.15s",
+          }}
+        >
+          {title}
+        </a>
+      );
+    })}
+  </div>
+</div>
+);
 }
 
 // ─── TOOLS DATA & CONTENT ─────────────────────────────────────────────────────

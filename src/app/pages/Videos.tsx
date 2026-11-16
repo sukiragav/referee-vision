@@ -2355,9 +2355,10 @@ function TableOfficialsContent({ isMobile }: { isMobile: boolean }) {
           display: "flex",
           flexWrap: "wrap",
           background: T.charcoal,
-          border: `1px solid ${T.border}`,
+          border: `1px solid ${T.orange}`,
           marginTop: 28,
           marginBottom: 36,
+          borderRadius: 8,
         }}
       >
         {TABLE_OFFICIALS_SUBTABS.map((subTab) => {
@@ -2381,6 +2382,7 @@ function TableOfficialsContent({ isMobile }: { isMobile: boolean }) {
                 cursor: "pointer",
                 transition: "background 0.15s, color 0.15s",
                 textAlign: "center",
+                borderRadius: 6,
               }}
             >
               {subTab}
@@ -4158,7 +4160,7 @@ function TimeoutSubSection({
             letterSpacing: "3px",
             textTransform: "uppercase",
             padding: "10px 40px",
-            borderRadius: 0,
+            borderRadius: 6,
           }}
         >
           {title}
@@ -6673,9 +6675,10 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
           display: "flex",
           flexWrap: "wrap",
           background: T.charcoal,
-          border: `1px solid ${T.border}`,
+          border: `2px solid ${T.orange}`,
           marginTop: 28,
           marginBottom: 36,
+          borderRadius: 8,
         }}
       >
         {SECONDS_SUBTABS.map((subTab) => {
@@ -6699,6 +6702,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
                 cursor: "pointer",
                 transition: "background 0.15s, color 0.15s",
                 textAlign: "center",
+                borderRadius: 6,
               }}
             >
               {subTab}
@@ -8058,9 +8062,10 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
           display: "flex",
           flexWrap: "wrap",
           background: T.charcoal,
-          border: `1px solid ${T.border}`,
+          border: `2px solid ${T.orange}`,
           marginTop: 28,
           marginBottom: 36,
+          borderRadius: 8,
         }}
       >
         {OTHERS_SUBTABS.map((subTab) => {
@@ -8084,6 +8089,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
                 cursor: "pointer",
                 transition: "background 0.15s, color 0.15s",
                 textAlign: "center",
+                borderRadius: 6,
               }}
             >
               {subTab}
