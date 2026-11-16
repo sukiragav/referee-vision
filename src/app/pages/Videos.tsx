@@ -4825,7 +4825,12 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
           thumbnail="https://img.youtube.com/vi/GIIhLTBA15Y/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/GIIhLTBA15Y")}
         />
-
+        <VideoThumb
+          index={8}
+          link="https://youtu.be/2jLdziqdvkI"
+          thumbnail="https://img.youtube.com/vi/2jLdziqdvkI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/2jLdziqdvkIs")}
+        />
       </div>
 
       {/* CRITERIA2 */}
