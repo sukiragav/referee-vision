@@ -79,19 +79,16 @@ const FIVE_ON_FIVE_DOCS = [
     label: "OFFICIAL BASKETBALL RULES 2026 ",
     version: "Version 1.1 - Valid as of 1st October 2026",
     link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2026-v1-1.pdf",
-    pinned: true,
   },
   {
     label: "OFFICIAL INTERPRETATIONS",
     version: "Version 1.0 - Valid as of 1st October 2026",
     link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2026-interpretations-v1-0.pdf",
-    pinned: true,
   },
   {
     label: "QUESTIONS AND ANSWERS",
     version: "",
     link: "https://refereeing.fiba.basketball/en/obr-questions-and-answers",
-    pinned: true,
     buttonType: "link",
   },
   {
@@ -103,7 +100,6 @@ const FIVE_ON_FIVE_DOCS = [
     label: "FIBA MANUAL FOR TABLE OFFICIALS",
     version: "Version 7.0 - Valid as of October 2026",
     link: "https://library.fibairef.basketball/images/documents/645ffec7b0cf0ef56512ccc77d82afe2/FIBA_Table_Officials_Manual_v7_0_2026_en.pdf",
-    pinned: true,
   },
   {
     label: "IRS MANUAL",
@@ -149,7 +145,7 @@ const FIVE_ON_FIVE_DOCS = [
     label: "FIBA STATISTICIANS' MANUAL 2024",
     version: "Version 2.0",
     link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-statisticians-manual-2024-v2.pdf",
-    pinned: true,
+    pinned: false,
   },
   {
     label: "FIBA MANUAL FOR COMMISSIONERS - TABLE OFFICIALS WORK",

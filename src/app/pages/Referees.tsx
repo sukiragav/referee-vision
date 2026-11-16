@@ -70,25 +70,25 @@ const DOCS: {
       label: "3PO BASIC",
       version: "Version 3.0a - Valid as of October 2026",
       link: "https://library.fibairef.basketball/images/documents/4d74a028de82e7ae5cbb849f6cbd6186/FIBA_Referee_Manual_Basic_3PO_v3_0a_Oct2026_en.pdf",
-      pinned: true,
+
     },
     {
       label: "3PO ADVANCED",
       version: "Version 3.0a - Valid as of October 2026",
       link: "https://library.fibairef.basketball/images/documents/e0072fec69d381d1f2272eb35cc5e4c4/FIBA_Referee_Manual_Advanced_3PO_v3_0a_.pdf",
-      pinned: true,
+
     },
     {
       label: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)",
       version: "Version 3.0a - Valid as of October 2026",
       link: "https://library.fibairef.basketball/images/documents/224fd66bc61af7fa35c70a06a6c2940f/FIBA_Referee_Manual_IOT_v3_0a_Oct2026_en.pdf",
-      pinned: true,
+
     },
     {
       label: "BASIC OFFICIATING TERMINOLOGY",
       version: "Version 3.0 - Valid as of October 2026",
       link: "https://library.fibairef.basketball/images/documents/e775a9cfc5a2a0179cd23a75f3471017/FIBA_Glossary_v3_0_Oct2026_en_.pdf",
-      pinned: true,
+
     },
     {
       label: "4TH_REFEREE",
@@ -159,8 +159,9 @@ function Sidebar({
   onClose: () => void;
   isMobile: boolean;
 }) {
+
   if (isMobile) {
-    const drawerContent = (
+   const drawerContent = (
       <>
         {/* Backdrop */}
         {open && (
@@ -194,6 +195,7 @@ function Sidebar({
             boxShadow: open ? "4px 0 24px rgba(0,0,0,0.7)" : "none",
           }}
         >
+          
           {/* Header with close */}
           <div
             style={{
@@ -230,50 +232,89 @@ function Sidebar({
             >
               ✕
             </button>
+
           </div>
           <div style={{ paddingTop: 0 }}>
             {TABS.map((tab) => {
               const isActive = tab === active;
 
+              const showNew =
+
+                tab === "PROTOCOLS";
+  
+
               return (
-                <button
+                <div
                   key={tab}
-                  onClick={() => {
-                    onSelect(tab);
-                    onClose();
-                  }}
                   style={{
-                    display: "block",
+                    position: "relative",
                     width: "100%",
-                    textAlign: "left",
-
-                    // Larger mobile menu items
-                    padding: "19px 24px",
-
-                    background: isActive ? T.orange : "transparent",
-                    color: isActive ? T.white : T.inactive,
-
-                    fontFamily: BARLOW,
-                    fontWeight: 600,
-                    fontSize: 14,
-                    lineHeight: 1.3,
-                    letterSpacing: "1.5px",
-                    textTransform: "uppercase",
-
-                    border: "none",
-                    borderLeft: isActive
-                      ? `4px solid ${T.white}`
-                      : "4px solid transparent",
-
-                    cursor: "pointer",
-                    transition: "background 0.12s, color 0.12s",
                   }}
                 >
-                  {tab}
-                </button>
+                  <button
+                    onClick={() => {
+                      onSelect(tab);
+                      onClose();
+                    }}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      textAlign: "left",
+
+                      padding: "19px 24px",
+                      paddingRight: showNew ? "70px" : "24px",
+
+                      background: isActive ? T.orange : "transparent",
+                      color: isActive ? T.white : T.inactive,
+
+                      fontFamily: BARLOW,
+                      fontWeight: 600,
+                      fontSize: 14,
+                      lineHeight: 1.3,
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+
+                      border: "none",
+                      borderLeft: isActive
+                        ? `4px solid ${T.white}`
+                        : "4px solid transparent",
+
+                      cursor: "pointer",
+                      transition: "background 0.12s, color 0.12s",
+                    }}
+                  >
+                    {tab}
+                  </button>
+
+                  {showNew && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        right: "85px",
+                        transform: "translateY(-50%)",
+
+                        backgroundColor: "#ff0400",
+                        color: "#ffffff",
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        padding: "3px 6px",
+                        borderRadius: "3px",
+                        letterSpacing: "0.5px",
+                        lineHeight: 1,
+
+                        pointerEvents: "none",
+                        zIndex: 2,
+                      }}
+                    >
+                      NEW
+                    </span>
+                  )}
+                </div>
               );
             })}
           </div>
+
         </aside>
       </>
     );
@@ -325,7 +366,37 @@ function Sidebar({
       {/* Nav items */}
       <div style={{ paddingTop: 0 }}>
         {TABS.map((tab) => (
-          <SidebarItem key={tab} tab={tab} active={tab === active} onSelect={onSelect} />
+          <div key={tab} style={{ position: "relative" }}>
+            <SidebarItem
+              tab={tab}
+              active={tab === active}
+              onSelect={onSelect}
+            />
+
+            {( tab === "PROTOCOLS") && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  left: tab === "PROTOCOLS"
+                      ? "125px"
+                      : "140px",
+                  backgroundColor: "#ff0400",
+                  color: "#ffffff",
+                  fontSize: "9px",
+                  fontWeight: 700,
+                  padding: "2px 5px",
+                  borderRadius: "3px",
+                  letterSpacing: "0.5px",
+                  lineHeight: 1,
+                  pointerEvents: "none",
+                  zIndex: 1,
+                }}
+              >
+                NEW
+              </span>
+            )}
+          </div>
         ))}
       </div>
     </aside>
