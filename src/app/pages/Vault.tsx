@@ -1238,7 +1238,7 @@ function BooksContent() {
             <span
               style={{
                 fontFamily: BARLOW,
-                fontWeight: 700,
+                fontWeight: 500,
                 fontSize: 15,
                 color: TV.orange,
                 letterSpacing: "0.8px",

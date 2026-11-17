@@ -1347,6 +1347,16 @@ const WABC_DATA = {
     { title: "Practice in Competition Period", presenter: "Željko Obradović", youtubeUrl: "EVsxVL9jVzA" }
   ],
   DRILLS: [
+    { title: "Progression builds up in drills", presenter: "Jan Stirling", youtubeUrl: "06BcyZ50-zE" },
+    { title: "Shooting the ball", presenter: "Sean Sweeney", youtubeUrl: "3wvW1bwxcAc" },
+    { title: "Developing shooting skills", presenter: "Bruce Fraser", youtubeUrl: "0cPZQIFqSw" },
+    { title: "Finishing", presenter: "Khalid Robinson", youtubeUrl: "ARcqOkng0pY" },
+    { title: "Offensive skills Work - Read & React", presenter: "Jay Heranandez", youtubeUrl: "T6D6MVGyRRM" },
+    { title: "Shooting on the move", presenter: "Chris Finch", youtubeUrl: "6AjFlicrZEQ" },
+    { title: "Workouts for perimeter and inside players", presenter: "Sidney Lowe", youtubeUrl: "SqPWXepj7jE" },
+    { title: "Design and construction workouts and drills for players", presenter: "Brittni Donaldson", youtubeUrl: "Wr_2jXJs-5A" },
+    { title: "Screen passing, Fundamental drills", presenter: "Jennifer Ellen", youtubeUrl: "5wv2YRZ-D0U" },
+    
     { title: "Various Drills to Improve Offence", presenter: "Brian Goorjian", youtubeUrl: "YZe1-wBCTAA" },
     { title: "Drills for Development and Team Game", presenter: "Andrea Trinchieri", youtubeUrl: "oM1gGXXA_Qs" },
     { title: "Shooting (Technique and Drills)", presenter: "Sandy Brondello", youtubeUrl: "tDEKfvLIJ4Q" },
@@ -1399,6 +1409,18 @@ const WABC_DATA = {
     { title: "Shooting and Defensive Drills", presenter: "Brendan Joyce", youtubeUrl: "7AG3rs9lOj8" }
   ],
   OFFENSE: [
+    { title: "Offensive spacing & Decision making for guards", presenter: "Jesse Mermuys", youtubeUrl: "iMLpZIjVCx0" },
+    { title: "Dealing with defensive pressure", presenter: "Cheryl Chambers", youtubeUrl: "xnyvHbJInQ4" },
+    { title: "Off ball screens in offense", presenter: "Chris Demarco", youtubeUrl: "4BuyAX-QEl4" },
+    { title: "5 out offense, reading defense", presenter: "Joshua Longstaff", youtubeUrl: "rE1fMRWHnUE" },
+    { title: "Offense", presenter: "Lindsey Harding", youtubeUrl: "mrbppxQ8Tms" },
+    { title: "DHO Dribbling hand off offense", presenter: "Dutch Gaitley", youtubeUrl: "EC1L7887yuE" },  
+    { title: "Ball handling and defense", presenter: "Mike Weiner", youtubeUrl: "pqHLh4vY2eE" },
+    { title: "Offensive Philosophy", presenter: "Eric Glass", youtubeUrl: "KB93c7Bw-ZY" },
+    { title: "Attacking switches", presenter: "Rick Higgins", youtubeUrl: "tDM7-r9urYk" },
+    { title: "Creating advantages in offence", presenter: "Zach Peterson", youtubeUrl: "iWJRypksT7U" },
+    { title: "Attacking switch defence", presenter: "Ronald Nored", youtubeUrl: "CbMxMt3zPu0" },
+
     { title: "Match-Up Offense", presenter: "Željko Obradović", youtubeUrl: "Wy9ihi-GhCA" },
     { title: "Transition Offense and Early Flow Plays", presenter: "Brian Goorjian", youtubeUrl: "B4SjtLbAbjs" },
     { title: "Special Situations and Out of Bounds Plays", presenter: "Željko Obradović", youtubeUrl: "ggrXyc9UYE4" },
@@ -1495,6 +1517,14 @@ const WABC_DATA = {
     { title: "Match-Up Offense", presenter: "Željko Obradović", youtubeUrl: "Wy9ihi-GhCA" }
   ],
   DEFENSE: [
+    { title: "Pick & Roll defense", presenter: "Stan Van Gundy", youtubeUrl: "7WlwWhegq-s" },
+    { title: "Basics of defense", presenter: "Damian Cotter", youtubeUrl: "9uXjyH54toM" },
+    { title: "Building the Defensive System", presenter: "Stan Van Gundy", youtubeUrl: "RzDoqf4ANl8" },
+    { title: "Maintaining on ball pressure", presenter: "Vinay Bhavnani", youtubeUrl: "9y7PbD9tnrM" },
+    { title: "Defending down screen", presenter: "Tamera Young", youtubeUrl: "MGmkCTalLoM" },
+    { title: "Half court M2M Defence build up", presenter: "Omar Cook", youtubeUrl: "ZWBEAhvqkHk" },
+
+
     { title: "Building a team defense", presenter: "Willie Green", youtubeUrl: "As9gj7Ordf0" },
     { title: "Defensive principles of play", presenter: "Ronald Nored", youtubeUrl: "KOKHdC_wirM" },
     { title: "Offensive Rebounding & Transition defense", presenter: "Charles Lee", youtubeUrl: "zkuet3SkUs8" },
@@ -2091,7 +2121,7 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
 
       {/* Sub-tab content */}
       <div style={{ marginTop: 28 }}>
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 24, }}>
           <div
             style={{
               background: T.orange,
@@ -2110,7 +2140,7 @@ function WabcContent({ isMobile }: { isMobile: boolean }) {
         </div>
 
         {items.length > 0 ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, }}>
             {items.map((item, i) => {
               const ytId = (item as { title: string; presenter: string; youtubeUrl?: string }).youtubeUrl;
               return (
@@ -2153,6 +2183,7 @@ function WabcRow({
         background: "transparent",
         alignItems: "center",
         padding: "8px 0",
+        
       }}
     >
       {/* Title */}
@@ -2162,6 +2193,7 @@ function WabcRow({
           fontSize: 16,
           color: T.orange,
           paddingRight: 16,
+          
         }}
       >
         {item.title}
@@ -2198,7 +2230,7 @@ function WabcRow({
             fontSize: 13,
             letterSpacing: "1.5px",
             padding: "6px 18px",
-            borderRadius: 0,
+            borderRadius: 6,
             cursor: "pointer",
             transition: "background 0.15s, color 0.15s",
             gap: 6,
