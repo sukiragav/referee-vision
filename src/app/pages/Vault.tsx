@@ -816,10 +816,12 @@ const QUIZ_ITEMS = [
   { title: "F: Instant Replay System - Part III", link: "https://docs.google.com/forms/d/e/1FAIpQLSdJEkjKraSMoiRff9c0sF0GWeaV7KKDbPFB5ft3ftQyDQgSLA/viewform?usp=share_link" },
 ];
 
+
 function QuizContent() {
   return (
     <div>
       <VaultBadge label="QUIZ" />
+
       <div style={{ display: "flex", flexDirection: "column" }}>
         {QUIZ_ITEMS.map((item, i) => (
           <div
@@ -834,27 +836,47 @@ function QuizContent() {
               gap: 16,
             }}
           >
-            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: TV.orange, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontWeight: 700,
+                fontSize: 15,
+                color: TV.orange,
+                letterSpacing: "0.8px",
+                textTransform: "uppercase",
+              }}
+            >
               {item.title}
             </span>
+
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = TV.orange;
+                e.currentTarget.style.color = TV.white;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = TV.orange;
+              }}
               style={{
-                background: TV.orange,
-                color: TV.white,
+                background: "transparent",
+                color: TV.orange,
                 fontFamily: BARLOW,
                 fontWeight: 800,
                 fontSize: 13,
                 letterSpacing: "1.5px",
-                border: "none",
+                border: `1px solid ${TV.orange}`,
                 borderRadius: 3,
                 padding: "6px 14px",
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
                 whiteSpace: "nowrap",
+                flexShrink: 0,
+                transition: "background 0.15s, color 0.15s",
               }}
             >
               TAKE QUIZ
@@ -1004,6 +1026,7 @@ const RULEBOOKS_DATA: Record<RulebookSubTab, { title: string; link: string }[]> 
   ],
 };
 
+
 function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
   const [subTab, setSubTab] = useState<RulebookSubTab>("RULES");
   const items = RULEBOOKS_DATA[subTab] ?? [];
@@ -1012,7 +1035,7 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
     <div>
       <VaultBadge label="RULEBOOKS" />
 
-      {/* Subtabs horizontal bar - flex-wrap and responsive minWidth */}
+      {/* Subtabs horizontal bar */}
       <div
         style={{
           display: "flex",
@@ -1057,7 +1080,15 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
       {/* Item list */}
       <div style={{ display: "flex", flexDirection: "column" }}>
         {items.length === 0 ? (
-          <div style={{ padding: "40px", textAlign: "center", color: TV.inactive, fontFamily: BARLOW, fontSize: 16 }}>
+          <div
+            style={{
+              padding: "40px",
+              textAlign: "center",
+              color: TV.inactive,
+              fontFamily: BARLOW,
+              fontSize: 16
+            }}
+          >
             NO RULEBOOKS AVAILABLE IN THIS CATEGORY YET
           </div>
         ) : (
@@ -1074,31 +1105,67 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
                 gap: 16,
               }}
             >
-              <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: TV.orange, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+              <span
+                style={{
+                  fontFamily: BARLOW,
+                  fontWeight: 700,
+                  fontSize: 15,
+                  color: TV.orange,
+                  letterSpacing: "0.8px",
+                  textTransform: "uppercase"
+                }}
+              >
                 {renderWithOrdinals(item.title)}
               </span>
+
               <a
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = TV.orange;
+                  e.currentTarget.style.color = TV.white;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = TV.orange;
+                }}
                 style={{
-                  background: TV.orange,
-                  color: TV.white,
+                  background: "transparent",
+                  color: TV.orange,
                   fontFamily: BARLOW,
                   fontWeight: 800,
-                  fontSize: 13,
+                  fontSize: 12,
                   letterSpacing: "1.5px",
-                  border: "none",
+                  border: `1px solid ${TV.orange}`,
                   borderRadius: 3,
                   padding: "6px 14px",
                   textDecoration: "none",
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 5,
+                  gap: 6,
                   whiteSpace: "nowrap",
+                  flexShrink: 0,
+                  transition: "background 0.15s, color 0.15s",
                 }}
               >
-                📥 DOWNLOAD
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 10V12H12V10"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                DOWNLOAD
               </a>
             </div>
           ))
@@ -1107,6 +1174,7 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
     </div>
   );
 }
+
 
 // ─── BOOKS DATA & CONTENT ──────────────────────────────────────────────────────
 const BOOKS_ITEMS = [
@@ -1147,10 +1215,12 @@ const BOOKS_ITEMS = [
   { title: "2014 - LOW POST PLAY", link: "https://drive.google.com/file/d/10kY6BBdWsTPNVYQQqrD80Lu2DWKRyWnn/view?usp=sharing" },
 ];
 
+
 function BooksContent() {
   return (
     <div>
       <VaultBadge label="BOOKS" />
+
       <div style={{ display: "flex", flexDirection: "column" }}>
         {BOOKS_ITEMS.map((item, i) => (
           <div
@@ -1165,31 +1235,65 @@ function BooksContent() {
               gap: 16,
             }}
           >
-            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: TV.orange, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontWeight: 700,
+                fontSize: 15,
+                color: TV.orange,
+                letterSpacing: "0.8px",
+                textTransform: "uppercase",
+              }}
+            >
               {typeof item === "string" ? item : item.title}
             </span>
+
             <a
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = TV.orange;
+                e.currentTarget.style.color = TV.white;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = TV.orange;
+              }}
               href={typeof item === "string" ? "PLACEHOLDER_link" : item.link}
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background: TV.orange,
-                color: TV.white,
-                fontFamily: BARLOW,
-                fontWeight: 800,
-                fontSize: 13,
-                letterSpacing: "1.5px",
-                border: "none",
-                borderRadius: 3,
+                background: "transparent",
+                border: `1px solid ${TV.orange}`,
+                color: TV.orange,
                 padding: "6px 14px",
+                borderRadius: 3,
                 textDecoration: "none",
+                fontFamily: BARLOW,
+                fontSize: 12,
+                fontWeight: 800,
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 5,
-                whiteSpace: "nowrap",
+                gap: 6,
+                flexShrink: 0,
+                transition: "background 0.15s, color 0.15s",
               }}
             >
-              📥 DOWNLOAD
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M2 10V12H12V10"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              DOWNLOAD
             </a>
           </div>
         ))}
@@ -1628,7 +1732,7 @@ function ToolsContent() {
       manualAvailable: false,
     },
   ];
-
+ const h = useHover();
   return (
     <div>
       <VaultBadge label="TOOLS" />
@@ -1651,18 +1755,94 @@ function ToolsContent() {
                 <div>{tool.version}</div>
                 <div>
                   {tool.appAvailable ? (
-                    <a href={tool.appLink} target="_blank" rel="noopener noreferrer" style={{ background: TV.orange, color: TV.white, padding: "6px 14px", borderRadius: 3, textDecoration: "none", fontSize: 12, fontWeight: 800, display: "inline-flex", alignItems: "center", gap: 4 }}>
-                      📥 DOWNLOAD
-                    </a>
+                          <a
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = TV.orange;
+                              e.currentTarget.style.color = TV.white;
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = TV.white;
+                              e.currentTarget.style.color = TV.orange;
+                            }}
+                            href={tool.appLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              background: TV.white,
+                              border: `1px solid ${TV.orange}`,
+                              color: TV.orange,
+                              padding: "6px 14px",
+                              borderRadius: 3,
+                              textDecoration: "none",
+                              fontSize: 12,
+                              fontWeight: 800,
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 6,
+                            }}
+                          >
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <path
+                              d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M2 10V12H12V10"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                            DOWNLOAD
+                          </a>
                   ) : (
                     <span style={{ color: TV.inactive }}>Coming Soon....</span>
                   )}
                 </div>
                 <div>
                   {tool.manualAvailable ? (
-                    <a href={tool.manualLink} target="_blank" rel="noopener noreferrer" style={{ background: TV.orange, color: TV.white, padding: "6px 14px", borderRadius: 3, textDecoration: "none", fontSize: 12, fontWeight: 800, display: "inline-flex", alignItems: "center", gap: 4 }}>
-                      📥 DOWNLOAD
-                    </a>
+                  <a
+                    onMouseEnter={h.onMouseEnter}
+                    onMouseLeave={h.onMouseLeave}
+                    href={tool.manualLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      background: h.on ? TV.orange : TV.white,
+                      border: `1px solid ${TV.orange}`,
+                      color: h.on ? TV.white : TV.orange,
+                      padding: "6px 14px",
+                      borderRadius: 3,
+                      textDecoration: "none",
+                      fontSize: 12,
+                      fontWeight: 800,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path
+                      d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M2 10V12H12V10"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                    DOWNLOAD
+                  </a>
                   ) : (
                     <span style={{ color: TV.inactive }}>Coming Soon.....</span>
                   )}
