@@ -1751,7 +1751,7 @@ function ToolsContent() {
                 <div>APPLICATION</div>
                 <div>MANUAL</div>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", padding: "14px 0", alignItems: "center", textAlign: "center", fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: TV.white }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", padding: "14px 0", alignItems: "center", textAlign: "center", fontFamily: BARLOW, fontWeight: 700, fontSize: 20, color: TV.white }}>
                 <div>{tool.version}</div>
                 <div>
                   {tool.appAvailable ? (
