@@ -377,9 +377,9 @@ function Sidebar({
               <span
                 style={{
                   position: "absolute",
-                  top: "5px",
+                  top: "10px",
                   left: tab === "PROTOCOLS"
-                      ? "125px"
+                      ? "115px"
                       : "140px",
                   backgroundColor: "#ff0400",
                   color: "#ffffff",

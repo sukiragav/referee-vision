@@ -590,13 +590,13 @@ function WatchBtn({ onClick }: { onClick: () => void }) {
       onMouseLeave={h.onMouseLeave}
       onClick={onClick}
       style={{
-        background: h.on ? "#C5561A" : TV.orange,
-        color: TV.white,
+            background: h.on ? TV.orange : "transparent",
+            border: `1px solid ${TV.orange}`,
+            color: h.on ? TV.white : TV.orange,
         fontFamily: BARLOW,
         fontWeight: 800,
         fontSize: 13,
         letterSpacing: "1.5px",
-        border: "none",
         borderRadius: 3,
         padding: "6px 14px",
         cursor: "pointer",
@@ -609,7 +609,11 @@ function WatchBtn({ onClick }: { onClick: () => void }) {
         flexShrink: 0,
       }}
     >
-      WATCH 📹
+          <span>WATCH</span>
+          <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
+            <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on ? TV.white  : TV.orange} />
+            <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on ? TV.white : TV.orange} />
+          </svg>
     </button>
   );
 }
@@ -657,13 +661,13 @@ function MatchdayBtn({ label, onClick }: { label: string; onClick: () => void })
       onMouseLeave={h.onMouseLeave}
       onClick={onClick}
       style={{
-        background: h.on ? "#C5561A" : TV.orange,
-        color: TV.white,
+            background: h.on ? TV.orange : "transparent",
+            border: `1px solid ${TV.orange}`,
+            color: h.on ? TV.white : TV.orange,
         fontFamily: BARLOW,
         fontWeight: 800,
         fontSize: 14,
         letterSpacing: "1.5px",
-        border: "none",
         borderRadius: 3,
         padding: "10px 22px",
         cursor: "pointer",
