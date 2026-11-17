@@ -1806,15 +1806,21 @@ function ToolsContent() {
                 <div>
                   {tool.manualAvailable ? (
                   <a
-                    onMouseEnter={h.onMouseEnter}
-                    onMouseLeave={h.onMouseLeave}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = TV.orange;
+                              e.currentTarget.style.color = TV.white;
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = TV.white;
+                              e.currentTarget.style.color = TV.orange;
+                            }}
                     href={tool.manualLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      background: h.on ? TV.orange : TV.white,
-                      border: `1px solid ${TV.orange}`,
-                      color: h.on ? TV.white : TV.orange,
+                              background: TV.white,
+                              border: `1px solid ${TV.orange}`,
+                              color: TV.orange,
                       padding: "6px 14px",
                       borderRadius: 3,
                       textDecoration: "none",
