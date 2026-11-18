@@ -594,7 +594,7 @@ function WatchBtn({ onClick }: { onClick: () => void }) {
             border: `1px solid ${TV.orange}`,
             color: h.on ? TV.white : TV.orange,
         fontFamily: BARLOW,
-        fontWeight: 800,
+        fontWeight: 600,
         fontSize: 13,
         letterSpacing: "1.5px",
         borderRadius: 3,
@@ -639,7 +639,7 @@ function MicDUpContent() {
               gap: 16,
             }}
           >
-            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: TV.orange, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 500, fontSize: 15, color: TV.orange, letterSpacing: "0.8px", textTransform: "uppercase" }}>
               {item.title}
             </span>
             <WatchBtn onClick={() => {
@@ -665,7 +665,7 @@ function MatchdayBtn({ label, onClick }: { label: string; onClick: () => void })
             border: `1px solid ${TV.orange}`,
             color: h.on ? TV.white : TV.orange,
         fontFamily: BARLOW,
-        fontWeight: 800,
+        fontWeight: 600,
         fontSize: 14,
         letterSpacing: "1.5px",
         borderRadius: 3,
@@ -839,7 +839,7 @@ function QuizContent() {
             <span
               style={{
                 fontFamily: BARLOW,
-                fontWeight: 700,
+                fontWeight: 500,
                 fontSize: 15,
                 color: TV.orange,
                 letterSpacing: "0.8px",
@@ -865,7 +865,7 @@ function QuizContent() {
                 background: "transparent",
                 color: TV.orange,
                 fontFamily: BARLOW,
-                fontWeight: 800,
+                fontWeight: 600,
                 fontSize: 13,
                 letterSpacing: "1.5px",
                 border: `1px solid ${TV.orange}`,
@@ -1134,7 +1134,7 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
                   background: "transparent",
                   color: TV.orange,
                   fontFamily: BARLOW,
-                  fontWeight: 800,
+                  fontWeight: 600,
                   fontSize: 12,
                   letterSpacing: "1.5px",
                   border: `1px solid ${TV.orange}`,
@@ -1267,9 +1267,10 @@ function BooksContent() {
                 padding: "6px 14px",
                 borderRadius: 3,
                 textDecoration: "none",
+                 letterSpacing: "1.5px",
                 fontFamily: BARLOW,
                 fontSize: 12,
-                fontWeight: 800,
+                fontWeight: 600,
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 6,
@@ -1668,7 +1669,7 @@ const [activeArticle, setActiveArticle] = useState("");
             color: TV.orange,
             border: `1px solid ${TV.orange}`,
             fontFamily: BARLOW,
-            fontWeight: 800,
+            fontWeight: 500,
             fontSize: 12,
             letterSpacing: "0.8px",
             padding: "8px 16px",
@@ -1775,8 +1776,9 @@ function ToolsContent() {
                               borderRadius: 3,
                               textDecoration: "none",
                               fontSize: 12,
-                              fontWeight: 800,
+                              fontWeight: 600,
                               display: "inline-flex",
+                               letterSpacing:"1.5px",
                               alignItems: "center",
                               gap: 6,
                             }}
@@ -1825,7 +1827,8 @@ function ToolsContent() {
                       borderRadius: 3,
                       textDecoration: "none",
                       fontSize: 12,
-                      fontWeight: 800,
+                      fontWeight: 600,
+                      letterSpacing:"1.5px",
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 6,
