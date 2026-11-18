@@ -417,9 +417,27 @@ function DocRow({
           textTransform: "uppercase",
           textDecoration: "none",
           alignSelf: isMobile ? "flex-start" : "center",
+          gap: 6,
         }}
       >
-        ↓ DOWNLOAD
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 10V12H12V10"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>          
+        
+        DOWNLOAD
       </a>
     </div>
   );
@@ -1760,9 +1778,18 @@ function FibaEuropeRow({
             }}
           >
             <span>WATCH</span>
-            <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
-              <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on && onWatch ? T.white : onWatch ? T.orange : "#888"} />
-              <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on && onWatch ? T.white : onWatch ? T.orange : "#888"} />
+            <svg width="15" height="15" viewBox="0 0 14 11" fill="none">
+              <rect
+                x="0"
+                y="2"
+                width="10"
+                height="7"
+                fill={h.on ? T.white : T.orange}
+              />
+              <path
+                d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z"
+                fill={h.on ? T.white : T.orange}
+              />
             </svg>
           </button>
         </div>
@@ -2237,10 +2264,19 @@ function WabcRow({
           }}
         >
           <span>WATCH</span>
-          <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
-            <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on ? T.white : T.orange} />
-            <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on ? T.white : T.orange} />
-          </svg>
+            <svg width="15" height="15" viewBox="0 0 14 11" fill="none">
+              <rect
+                x="0"
+                y="2"
+                width="10"
+                height="7"
+                fill={h.on ? T.white : T.orange}
+              />
+              <path
+                d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z"
+                fill={h.on ? T.white : T.orange}
+              />
+            </svg>
         </button>
       </div>
     </div>

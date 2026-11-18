@@ -519,7 +519,6 @@ function DocRow({ doc, isMobile }: { doc: (typeof DOCS)[number]; isMobile: boole
         <span style={{ color: T.mutedText, fontSize: isMobile ? 11 : 13, fontWeight: 400 }}>({renderWithOrdinals(doc.version)})</span>
         {doc.pinned && " 📌"}
       </span>
-
       {/* Download button */}
       <Tag
         onMouseEnter={h.onMouseEnter}
@@ -545,10 +544,27 @@ function DocRow({ doc, isMobile }: { doc: (typeof DOCS)[number]; isMobile: boole
           textTransform: "uppercase",
           textDecoration: "none",
           alignSelf: isMobile ? "flex-start" : "center",
+          gap: 6,
         }}
       >
-        ↓ DOWNLOAD
-      </Tag>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 10V12H12V10"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+
+      DOWNLOAD      </Tag>
     </div>
   );
 }
@@ -1862,21 +1878,73 @@ function FitnessRow({
       >
         {item.action === "play" ? (
           <>
-            <svg width="10" height="10" viewBox="0 0 10 12" fill="currentColor">
-              <polygon points="0,0 10,6 0,12" />
+          PLAY
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 38 H30 L55 20 V80 L30 62 H12 Z"
+                fill="#FC6502"
+              />
+
+              <path
+                d="M65 35 Q82 50 65 65"
+                stroke="#FC6502"
+                strokeWidth="6"
+                strokeLinecap="round"
+                fill="none"
+              />
+
+              <path
+                d="M76 24 Q100 50 76 76"
+                stroke="#FC6502"
+                strokeWidth="6"
+                strokeLinecap="round"
+                fill="none"
+              />
             </svg>
-            PLAY
           </>
         ) : item.action === "watch" ? (
           <>
-            <svg width="12" height="10" viewBox="0 0 12 10" fill="currentColor">
-              <rect x="0" y="0" width="12" height="10" rx="1" fill="none" stroke="currentColor" strokeWidth="1.2" />
-              <polygon points="4.5,2.5 9,5 4.5,7.5" />
-            </svg>
+
             WATCH
+            <svg width="15" height="15" viewBox="0 0 14 11" fill="none">
+              <rect
+                x="0"
+                y="2"
+                width="10"
+                height="7"
+                fill={h.on ? T.white : T.orange}
+              />
+              <path
+                d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z"
+                fill={h.on ? T.white : T.orange}
+              />
+            </svg>
           </>
         ) : (
-          <>↓ DOWNLOAD</>
+          <>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 10V12H12V10"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>          
+          
+           DOWNLOAD</>
         )}
       </Tag>
     </div>

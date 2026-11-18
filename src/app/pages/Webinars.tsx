@@ -187,8 +187,8 @@ const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
     { title: "WOMEN IN OFFICIATING (Mar 8, 2021)", presenter: "Andreas Zagkklis\nAurellie Vidot\nNadine Crowley (CAN)\nAlejandro Vaquera (ESP)\nDubravka Martinovic", action: "watch", link: "https://library.fibairef.basketball/images/documents/cefd27bad3e651a1377caa09602688c3/W2021_WiO_F1_8March_Recording.mp4?autoplay=1", popup: true }
   ],
   "FIBA MONDAY": [
-    { title: "OBR 2026 - PRACTICAL CASES (Oct 5, 2026) 📌", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4?autoplay=1", popup: true },
-    { title: "2026 FIBA OFFICIAL BASKETBALL RULES CHANGES (Sep 7, 2026) 📌", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording?autoplay=1", popup: true },
+    { title: "OBR 2026 - PRACTICAL CASES (Oct 5, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4?autoplay=1", popup: true },
+    { title: "2026 FIBA OFFICIAL BASKETBALL RULES CHANGES (Sep 7, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording?autoplay=1", popup: true },
     { title: "CLEAR AND CONCLUSIVE - UNSPORTSMANLIKE FOUL (Apr 6, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/9e1587bd388ad4022c52cc9ad3caa52d/Recording_MS2026_S4_Clear__Conclusive_UF.mp4?autoplay=1", popup: true },
     { title: "HOW TO COVER HELP DEFENDER (Mar 2, 2026)", presenter: "Roberto Chiari (ITA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/b47d8cf3a971eb85632cc840d9af8b6c/Recording_MS2026_S3_Cover_Help_Defender.mp4?autoplay=1", popup: true },
     { title: "SCOUTING THE TEAMS (Feb 2, 2026)", presenter: "Wojciech Liszka (POL)\nWaseem Husainy (CAN)", action: "watch", link: "https://library.fibairef.basketball/doc/bnpJVjhjNU1CbU13MDUvSjMzUG5Ydz09?autoplay=1", popup: true },
@@ -803,7 +803,7 @@ function WebinarRow({
             border: `1px solid ${T.orange}`,
             color: h.on ? T.white : T.orange,
             fontFamily: BARLOW,
-            fontWeight: 700,
+            fontWeight: 600,
             fontSize: 13,
             letterSpacing: "1.5px",
             padding: "6px 18px",
@@ -841,25 +841,36 @@ function WebinarRow({
             </svg>
           ) : item.action === "link" ? (
             /* External link icon */
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M14 3h7v7M21 3l-10 10"
-                stroke={h.on ? T.white : T.orange}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M20 13v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7"
-                stroke={h.on ? T.white : T.orange}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M9 3H13V7"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M13 3L7 9"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M11 9V12.5C11 12.78 10.78 13 10.5 13H3.5C3.22 13 3 12.78 3 12.5V5.5C3 5.22 3.22 5 3.5 5H7"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
           ) : (
             /* Video camera icon */
-            <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
+            <svg width="15" height="15" viewBox="0 0 14 11" fill="none">
               <rect
                 x="0"
                 y="2"

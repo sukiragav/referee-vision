@@ -682,36 +682,95 @@ function DocRow({
       </span>
 
       {/* Download button */}
-      <a
-        onMouseEnter={h.onMouseEnter}
-        onMouseLeave={h.onMouseLeave}
-        href={doc.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: h.on ? T.orange : "transparent",
-          border: `1px solid ${T.orange}`,
-          color: h.on ? T.white : T.orange,
-          fontFamily: BARLOW,
-          fontWeight: 600,
-          fontSize: 13,
-          letterSpacing: "2px",
-          padding: "8px 20px",
-          borderRadius: 6,
-          cursor: "pointer",
-          transition: "background 0.15s, color 0.15s",
-          flexShrink: 0,
-          marginLeft: isMobile ? 0 : 16,
-          textTransform: "uppercase",
-          textDecoration: "none",
-          alignSelf: isMobile ? "flex-start" : "center",
-        }}
-      >
-        {doc.buttonType === "link" ? "↗ LINK" : "↓ DOWNLOAD"}
-      </a>
+
+        <a
+          onMouseEnter={h.onMouseEnter}
+          onMouseLeave={h.onMouseLeave}
+          href={doc.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            background: h.on ? T.orange : "transparent",
+            border: `1px solid ${T.orange}`,
+            color: h.on ? T.white : T.orange,
+            fontFamily: BARLOW,
+            fontWeight: 600,
+            fontSize: 13,
+            letterSpacing: "2px",
+            padding: "8px 20px",
+            borderRadius: 6,
+            cursor: "pointer",
+            transition: "background 0.15s, color 0.15s",
+            flexShrink: 0,
+            marginLeft: isMobile ? 0 : 16,
+            textTransform: "uppercase",
+            textDecoration: "none",
+            alignSelf: isMobile ? "flex-start" : "center",
+          }}
+        >
+          {doc.buttonType === "link" ? (
+            <>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M9 3H13V7"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M13 3L7 9"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M11 9V12.5C11 12.78 10.78 13 10.5 13H3.5C3.22 13 3 12.78 3 12.5V5.5C3 5.22 3.22 5 3.5 5H7"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              LINK
+            </>
+          ) : (
+            <>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 14 14"
+                fill="none"
+              >
+                <path
+                  d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M2 10V12H12V10"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              DOWNLOAD
+            </>
+          )}
+        </a>
+
     </div>
   );
 }

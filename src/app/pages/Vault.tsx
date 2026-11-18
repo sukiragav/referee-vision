@@ -610,10 +610,19 @@ function WatchBtn({ onClick }: { onClick: () => void }) {
       }}
     >
           <span>WATCH</span>
-          <svg width="12" height="10" viewBox="0 0 14 11" fill="none">
-            <rect x="0" y="2" width="10" height="7" rx="0" fill={h.on ? TV.white  : TV.orange} />
-            <path d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z" fill={h.on ? TV.white : TV.orange} />
-          </svg>
+            <svg width="15" height="15" viewBox="0 0 14 11" fill="none">
+              <rect
+                x="0"
+                y="2"
+                width="10"
+                height="7"
+                fill={h.on ? TV.white : TV.orange}
+              />
+              <path
+                d="M10 4.5L14 2.5v5.5L10 6.5V4.5Z"
+                fill={h.on ? TV.white : TV.orange}
+              />
+            </svg>
     </button>
   );
 }
