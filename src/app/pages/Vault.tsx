@@ -288,6 +288,7 @@ const TOUGH_CALLS_DATA: Record<string, MatchdayEntry[]> = {
     { label: "WEEK 4", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-4" },
     { label: "WEEK 5", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-5" },
     { label: "WEEK 6", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-6" },
+    { label: "WEEK 7", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-7" },
   ]
 };
 

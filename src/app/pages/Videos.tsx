@@ -5189,6 +5189,12 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
           thumbnail="https://img.youtube.com/vi/JY32dKYDmZ4/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/JY32dKYDmZ4")}
         />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/r2sXfFoKoQ4"
+          thumbnail="https://img.youtube.com/vi/r2sXfFoKoQ4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/r2sXfFoKoQ4")}
+        />
       </div>
 
       {/* CRITERIA 2 */}
@@ -5246,7 +5252,12 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
           thumbnail="https://img.youtube.com/vi/6w9SufPot_g/0.jpg"
           onPlay={() => setActiveVideo("https://youtu.be/6w9SufPot_g")}
         />
-
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/jdPCTLnMv4o"
+          thumbnail="https://img.youtube.com/vi/jdPCTLnMv4o/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/jdPCTLnMv4o")}
+        />
       </div>
 
 
