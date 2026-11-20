@@ -103,6 +103,7 @@ type WebinarItem = {
 
 const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
   RULES: [
+    { title: "RULE CHANGES 2026", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording", popup: true },
     { title: "RULE CHANGES 2024", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/images/documents/4d81a1fc754e37efc5ef54f12f0fdeee/Rec_2024_Rules_Changes.mp4", popup: true },
     { title: "RULE CHANGES 2022", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/images/documents/0d6c5660a964de7951b08de8a6fec868/FIBA_RULE_CHANGES_2022_MS_v2.mp4", popup: true },
     { title: "RULE CHANGES 2020", presenter: "Mike Thomson", action: "watch", link: "https://youtu.be/FlNM0oq_72k", popup: true },
@@ -188,7 +189,7 @@ const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
   ],
   "FIBA MONDAY": [
     { title: "OBR 2026 - PRACTICAL CASES (Oct 5, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4?autoplay=1", popup: true },
-    { title: "2026 FIBA OFFICIAL BASKETBALL RULES CHANGES (Sep 7, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording?autoplay=1", popup: true },
+    { title: "2026 FIBA OFFICIAL BASKETBALL RULE CHANGES (Sep 7, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording?autoplay=1", popup: true },
     { title: "CLEAR AND CONCLUSIVE - UNSPORTSMANLIKE FOUL (Apr 6, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/9e1587bd388ad4022c52cc9ad3caa52d/Recording_MS2026_S4_Clear__Conclusive_UF.mp4?autoplay=1", popup: true },
     { title: "HOW TO COVER HELP DEFENDER (Mar 2, 2026)", presenter: "Roberto Chiari (ITA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/b47d8cf3a971eb85632cc840d9af8b6c/Recording_MS2026_S3_Cover_Help_Defender.mp4?autoplay=1", popup: true },
     { title: "SCOUTING THE TEAMS (Feb 2, 2026)", presenter: "Wojciech Liszka (POL)\nWaseem Husainy (CAN)", action: "watch", link: "https://library.fibairef.basketball/doc/bnpJVjhjNU1CbU13MDUvSjMzUG5Ydz09?autoplay=1", popup: true },
