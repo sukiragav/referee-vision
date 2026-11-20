@@ -989,7 +989,7 @@ function SectionBadge({ label }: { label: string }) {
 }
 
 // ─── Sub-section badge (outline style) ───────────────────────────────────────
-function SubSectionBadge({ label }: { label: string }) {
+function SubSectionBadge({ label }: { label: React.ReactNode }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div
@@ -1007,9 +1007,14 @@ function SubSectionBadge({ label }: { label: string }) {
       >
         <span
           style={{
-            fontFamily: BARLOW, fontWeight: 800, fontSize: 18,
-            color: T.orange, letterSpacing: "2px", textTransform: "uppercase",
-            wordBreak: "break-word",
+            display: "block",
+            fontFamily: BARLOW,
+            fontWeight: 800,
+            fontSize: 18,
+            color: T.orange,
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            whiteSpace: "normal",
           }}
         >
           {label}
@@ -6999,12 +7004,18 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
               /> 
               <VideoThumb
                 index={2}
+                link="https://youtu.be/oyf7jz-7kNw"
+                thumbnail="https://img.youtube.com/vi/oyf7jz-7kNw/0.jpg"
+                onPlay={() => setActiveVideo("https://youtu.be/oyf7jz-7kNw")}
+              />
+              <VideoThumb
+                index={3}
                 link="https://youtu.be/M9W45TByZE0"
                 thumbnail="https://img.youtube.com/vi/M9W45TByZE0/0.jpg"
                 onPlay={() => setActiveVideo("https://youtu.be/M9W45TByZE0")}
               />
               <VideoThumb
-                index={3}
+                index={4}
                 link="https://youtu.be/dzhwIc9bhuA"
                 thumbnail="https://img.youtube.com/vi/dzhwIc9bhuA/0.jpg"
                 onPlay={() => setActiveVideo("https://www.youtube.com/embed/dzhwIc9bhuA?start=372&autoplay=1")}
@@ -7367,7 +7378,7 @@ const OTHERS_SUBTABS: OthersSubTab[] = [
 ];
 
 function FreeThrowsSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveVideo: (u: string) => void }) {
-  const ruleVideos = ["https://youtu.be/lp4E_YYlZ8I", "https://youtu.be/U8Pr-JiZ924"];
+  const ruleVideos = ["https://youtu.be/lp4E_YYlZ8I", "https://youtu.be/U8Pr-JiZ924" , "https://youtu.be/KBZ2Dv0yXMU"];
   const signalCards = [
     "https://www.refereevision.com/ft1_Sig.png",
     "https://www.refereevision.com/ft2_Sig.png",
@@ -7878,7 +7889,92 @@ function MiscSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; setActive
         </div>
       </div>
 
-      {/* Row 2: Game Lost by Forfeit & Game Lost by Default */}
+      {/* Row 2: Free Throws, Excluded player & Team Penalty  & Last 2 Minutes & Overtime */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: 36,
+          justifyContent: "space-around",
+          maxWidth: 900,
+          margin: "16px auto 32px",
+          width: "100%",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+         <SubSectionBadge
+            label={
+              <>
+                FREE THROWS,
+                <br />
+                EXCLUDED PLAYER & TEAM PENALTY
+              </>
+            }
+          />
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 24 }}>
+            <VideoThumb
+              index={0}
+              link="https://youtu.be/KBZ2Dv0yXMU"
+              thumbnail="https://img.youtube.com/vi/KBZ2Dv0yXMU/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/KBZ2Dv0yXMU")}
+            />
+          </div>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <SubSectionBadge label="LAST 2 MINUTES & OVERTIME" />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 24 }}>
+              <VideoThumb
+                index={0}
+                link="https://youtu.be/dsE0qQvGny8"
+                thumbnail="https://img.youtube.com/vi/dsE0qQvGny8/0.jpg"
+                onPlay={() => setActiveVideo("https://youtu.be/dsE0qQvGny8")}
+              />
+            </div>
+        </div>
+      </div>
+
+
+      {/* Row 3: Free Throws, Excluded player & Team Penalty  & Last 2 Minutes & Overtime */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: 36,
+          justifyContent: "space-around",
+          maxWidth: 900,
+          margin: "16px auto 32px",
+          width: "100%",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <SubSectionBadge label="GAME FLOW, START/END & BALL PLAY" />
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 24 }}>
+            <VideoThumb
+              index={0}
+              link="https://youtu.be/1XdKeKBcmuM"
+              thumbnail="https://img.youtube.com/vi/1XdKeKBcmuM/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/1XdKeKBcmuM")}
+            />
+          </div>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <SubSectionBadge label="LOCATION OF REFEREE AND PLAYER" />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 24 }}>
+              <VideoThumb
+                index={0}
+                link="https://youtu.be/Ak71qr5hoHc"
+                thumbnail="https://img.youtube.com/vi/Ak71qr5hoHc/0.jpg"
+                onPlay={() => setActiveVideo("https://youtu.be/Ak71qr5hoHc")}
+              />
+            </div>
+        </div>
+      </div>
+
+
+
+      {/* Row 4: Game Lost by Forfeit & Game Lost by Default */}
       <div
         style={{
           display: "flex",
@@ -8064,7 +8160,7 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
           background: T.charcoal,
           border: `2px solid ${T.orange}`,
           marginTop: 28,
-          marginBottom: 36,
+          marginBottom: 6,
           borderRadius: 8,
         }}
       >

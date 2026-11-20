@@ -104,6 +104,7 @@ type WebinarItem = {
 const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
   RULES: [
     { title: "RULE CHANGES 2026", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording", popup: true },
+    { title: "RULE CHANGES 2026", presenter: "RJ University", action: "watch", link: "https://youtu.be/ihKjDHTY-_I", popup: true },
     { title: "RULE CHANGES 2024", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/images/documents/4d81a1fc754e37efc5ef54f12f0fdeee/Rec_2024_Rules_Changes.mp4", popup: true },
     { title: "RULE CHANGES 2022", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/images/documents/0d6c5660a964de7951b08de8a6fec868/FIBA_RULE_CHANGES_2022_MS_v2.mp4", popup: true },
     { title: "RULE CHANGES 2020", presenter: "Mike Thomson", action: "watch", link: "https://youtu.be/FlNM0oq_72k", popup: true },

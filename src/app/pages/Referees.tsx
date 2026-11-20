@@ -3320,6 +3320,21 @@ function SignalsContent() {
           thumbnail="https://img.youtube.com/vi/CcIVSGmO_24/0.jpg"
           onClick={() => setActiveVideo("https://www.youtube.com/embed/CcIVSGmO_24?autoplay=1")}
         />
+        <SignalsDemoCard
+          title="GAME ADMINISTRATION"
+          thumbnail="https://img.youtube.com/vi/227Hd5tHFUg/0.jpg"
+          onClick={() => setActiveVideo("https://www.youtube.com/embed/227Hd5tHFUg?autoplay=1")}
+        />
+        <SignalsDemoCard
+          title="FOULS & SIGNALS"
+          thumbnail="https://img.youtube.com/vi/sasC2txFxmk/0.jpg"
+          onClick={() => setActiveVideo("https://www.youtube.com/embed/sasC2txFxmk?autoplay=1")}
+        />
+        <SignalsDemoCard
+          title="VIOLATIONS & SIGNALS"
+          thumbnail="https://img.youtube.com/vi/LDwV3PORyhw/0.jpg"
+          onClick={() => setActiveVideo("https://www.youtube.com/embed/LDwV3PORyhw?autoplay=1")}
+        />
       </div>
 
       {/* GAME CLOCK SIGNALS */}
