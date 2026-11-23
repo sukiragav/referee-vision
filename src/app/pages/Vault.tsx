@@ -904,6 +904,8 @@ const RULEBOOK_SUBTABS: RulebookSubTab[] = ["RULES", "INTERPRETATIONS", "TABLE O
 
 const RULEBOOKS_DATA: Record<RulebookSubTab, { title: string; link: string }[]> = {
   "RULES": [
+    { title: "IRS MANUAL (Version 10.1)", link: "https://library.fibairef.basketball/images/documents/f9df19a7c6bb3ebd6c824d019334a3b6/FIBA_IRS_Manual_Mar2026_v10_1.pdf" },    
+    { title: "IRS COMMUNICATION GUIDELINES (Version 2.0a)", link: "https://library.fibairef.basketball/images/documents/ca16079ae324ce0e1ce048992f65f1b5/FIBA_IRS_Communication_Guidelines_FEB2025_v2a.pdf" },    
     { title: "1ST OCTOBER 2024 (Version 1.0a)", link: "https://library.fibairef.basketball/images/documents/f667de451e91e3b83f2ab049a34d957b/FIBAOfficialBasketballRules2024_v1_0a.pdf" },
     { title: "1ST SUMMARY OF RULE CHANGES - OCTOBER 2024 (Version 2.0)", link: "https://library.fibairef.basketball/cdn/OBR_Changes2024" },
     { title: "IRS MANUAL - FEBRUARY 2026 (Version 10.0)", link: "https://library.fibairef.basketball/images/documents/d470af399c53551d6676afb311f9f67f/FIBA_IRS_Manual_Feb2026_v10_0_.pdf" },

@@ -103,13 +103,15 @@ const FIVE_ON_FIVE_DOCS = [
   },
   {
     label: "IRS MANUAL",
-    version: "Version 10.1 - Valid as of March 2026",
-    link: "https://library.fibairef.basketball/images/documents/f9df19a7c6bb3ebd6c824d019334a3b6/FIBA_IRS_Manual_Mar2026_v10_1.pdf",
+    version: "Version 11.0 - Valid as of November 2026",
+    link: "https://library.fibairef.basketball/images/documents/88710143cbe0ae29bec38f30ab552e85/FIBA_IRS_Manual_Nov2026_v11.pdf",
+    pinned: true,
   },
   {
     label: "IRS - COMMUNICATION GUIDELINES FOR REFEREES",
-    version: "Version 2.0a - Valid as of February 2025",
-    link: "https://library.fibairef.basketball/images/documents/ca16079ae324ce0e1ce048992f65f1b5/FIBA_IRS_Communication_Guidelines_FEB2025_v2a.pdf",
+    version: "Version 3.0 - Valid as of November 2026",
+    link: "https://library.fibairef.basketball/images/documents/333fa723f1202353efd3086409306e23/FIBA_IRS_Communication_Guidelines_Nov2026_v3.pdf",
+    pinned: true,
   },
   {
     label: "FIBA UNIFORM APPROVAL GUIDELINES",
