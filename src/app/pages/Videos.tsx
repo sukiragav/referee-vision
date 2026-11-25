@@ -7798,7 +7798,7 @@ const IRS_ITEMS = [
           style={{
             background: T.white,
             color: T.orange,
-            border: `1px solid ${T.orange}`,
+            border: `2px solid ${T.orange}`,
             fontFamily: BARLOW,
             fontWeight: 500,
             fontSize: 16,
