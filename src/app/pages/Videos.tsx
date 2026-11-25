@@ -2453,7 +2453,7 @@ function CylinderSectionHeader({ label }: { label: string }) {
           border: `2px solid ${T.orange}`,
           borderRadius: 6,
           padding: "8px 48px",
-          background: "transparent",
+          background: T.orange,
         }}
       >
         <span
@@ -2461,7 +2461,7 @@ function CylinderSectionHeader({ label }: { label: string }) {
             fontFamily: BARLOW,
             fontWeight: 800,
             fontSize: 18,
-            color: T.orange,
+            color: T.white,
             letterSpacing: "2.5px",
             textTransform: "uppercase",
           }}
@@ -7723,6 +7723,11 @@ function IRSSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveV
     "https://youtu.be/gxtOM04niEI",
   ];
 
+const IRS_ITEMS = [
+  { title: "IRS MANUAL - v11.0", link: "https://library.fibairef.basketball/images/documents/88710143cbe0ae29bec38f30ab552e85/FIBA_IRS_Manual_Nov2026_v11.pdf" },
+  { title: "IRS - COMMUNICATION GUIDELINES FOR REFEREES - v3.0", link: "https://library.fibairef.basketball/images/documents/333fa723f1202353efd3086409306e23/FIBA_IRS_Communication_Guidelines_Nov2026_v3.pdf" },
+];
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <CylinderSectionHeader label="INSTANT REPLAY SYSTEM" />
@@ -7755,6 +7760,10 @@ function IRSSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveV
           <MiniBadge label="ARTICLE" />
           <DocCard link="https://www.refereevision.com/irs_art.jpg" onClick={() => setActiveVideo("https://www.refereevision.com/irs_art.jpg")} />
         </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="REVIEWABLE SITUATIONS" />
+          <DocCard link="https://www.refereevision.com/irs_situations.jpg" onClick={() => setActiveVideo("https://www.refereevision.com/irs_situations.jpg")} />
+        </div>
       </div>
 
       {/* Interpretation documents */}
@@ -7764,6 +7773,50 @@ function IRSSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveV
           <DocCard key={i} link={src} width={120} onClick={() => setActiveVideo(src)} />
         ))}
       </div>
+
+
+  <div     style={{      display: "flex",      flexWrap: "wrap",      gap: 30,      justifyContent: "center",    }}  >
+
+    {IRS_ITEMS.map((item, i) => {
+      const title = typeof item === "string" ? item : item.title;
+      const link = typeof item === "string" ? "PLACEHOLDER_link" : item.link;
+
+     return (
+        <a
+          key={i}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = T.orange;
+            e.currentTarget.style.color = T.white;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = T.white;
+            e.currentTarget.style.color = T.orange;
+          }}
+          style={{
+            background: T.white,
+            color: T.orange,
+            border: `1px solid ${T.orange}`,
+            fontFamily: BARLOW,
+            fontWeight: 500,
+            fontSize: 16,
+            letterSpacing: "0.8px",
+            padding: "8px 16px",
+            borderRadius: 20,
+            textDecoration: "none",
+            textTransform: "uppercase",
+            display: "inline-block",
+            textAlign: "center",
+            transition: "background 0.15s, color 0.15s",
+          }}
+        >
+          {title}
+        </a>
+      );
+    })}
+    </div>
 
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
 
@@ -8222,6 +8275,173 @@ const [activeVideo, setActiveVideo] = useState<string | ActiveVideo | null>(null
   );
 }
 
+function IRSContent({ isMobile }: { isMobile: boolean }) {
+  return (
+    <div>
+      <SectionBadge label="5X5" />
+      <div style={{ marginTop: 36 }}>
+        {IRS_DOCS.map((doc, i) => (
+          <DocRow key={i} doc={doc} isMobile={isMobile} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+// ─── Document row ─────────────────────────────────────────────────────────────
+function DocRow({
+  doc,
+  isMobile,
+}: {
+  doc: {
+  label: string;
+  version: string;
+  link: string;
+  pinned?: boolean;
+  buttonType?: "link" | "download";
+};
+  isMobile: boolean;
+}) {
+  const h = useHover();
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: isMobile ? "flex-start" : "center",
+        flexDirection: isMobile ? "column" : "row",
+        justifyContent: "space-between",
+        minHeight: 56,
+        padding: isMobile ? "12px 8px" : "0 8px",
+        borderBottom: `1px solid ${T.border}`,
+        gap: isMobile ? 8 : 0,
+      }}
+    >
+      {/* Document name */}
+      <span
+        style={{
+          fontFamily: DM,
+          fontWeight: 500,
+          fontSize: isMobile ? 13 : 15,
+          color: T.dimText,
+          flex: 1,
+          minWidth: 0,
+        }}
+      >
+        {renderWithOrdinals(doc.label)}
+        {doc.version && doc.version !== "Valid" && (
+          <>
+            {"  "}
+            <span
+              style={{
+                color: T.mutedText,
+                fontSize: isMobile ? 11 : 13,
+                fontWeight: 400,
+              }}
+            >
+              ({renderWithOrdinals(doc.version)})
+            </span>
+          </>
+        )}
+        {doc.pinned && " 📌"}
+      </span>
+
+      {/* Download button */}
+
+        <a
+          onMouseEnter={h.onMouseEnter}
+          onMouseLeave={h.onMouseLeave}
+          href={doc.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            background: h.on ? T.orange : "transparent",
+            border: `1px solid ${T.orange}`,
+            color: h.on ? T.white : T.orange,
+            fontFamily: BARLOW,
+            fontWeight: 600,
+            fontSize: 13,
+            letterSpacing: "2px",
+            padding: "8px 20px",
+            borderRadius: 6,
+            cursor: "pointer",
+            transition: "background 0.15s, color 0.15s",
+            flexShrink: 0,
+            marginLeft: isMobile ? 0 : 16,
+            textTransform: "uppercase",
+            textDecoration: "none",
+            alignSelf: isMobile ? "flex-start" : "center",
+          }}
+        >
+          {doc.buttonType === "link" ? (
+            <>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M9 3H13V7"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M13 3L7 9"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M11 9V12.5C11 12.78 10.78 13 10.5 13H3.5C3.22 13 3 12.78 3 12.5V5.5C3 5.22 3.22 5 3.5 5H7"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              LINK
+            </>
+          ) : (
+            <>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 14 14"
+                fill="none"
+              >
+                <path
+                  d="M7 1V9M3.5 5.5L7 9L10.5 5.5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M2 10V12H12V10"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              DOWNLOAD
+            </>
+          )}
+        </a>
+
+    </div>
+  );
+}
+
+
 // ─── Generic placeholder tab content ─────────────────────────────────────────
 
 function PlaceholderTabContent({ tab }: { tab: Tab }) {
@@ -8236,6 +8456,7 @@ function PlaceholderTabContent({ tab }: { tab: Tab }) {
     </div>
   );
 }
+
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function Videos() {
