@@ -2453,7 +2453,7 @@ function CylinderSectionHeader({ label }: { label: string }) {
           border: `2px solid ${T.orange}`,
           borderRadius: 6,
           padding: "8px 48px",
-          background: T.orange,
+          background: "transparent",
         }}
       >
         <span
@@ -2461,7 +2461,7 @@ function CylinderSectionHeader({ label }: { label: string }) {
             fontFamily: BARLOW,
             fontWeight: 800,
             fontSize: 18,
-            color: T.white,
+            color: T.orange,
             letterSpacing: "2.5px",
             textTransform: "uppercase",
           }}
@@ -7412,6 +7412,8 @@ function FreeThrowsSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; set
         ))}
       </div>
 
+      <CylinderSectionHeader label="SIGNALS" />
+
       {/* Signal cards under rule explanation */}
       <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", marginBottom: 32 }}>
         {signalCards.map((src, i) => (
@@ -7444,7 +7446,7 @@ function FreeThrowsSubTab({ isMobile, setActiveVideo }: { isMobile: boolean; set
         </div>
       </div>
 
-      <CylinderSectionHeader label="SIGNALS" />
+
     </div>
   );
 }
