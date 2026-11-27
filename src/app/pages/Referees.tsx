@@ -1583,11 +1583,11 @@ function ProtocolCard({
       <div
         style={{
           border: `2px solid ${T.orange}`,
-          background: T.charcoal,
+          background: T.white,
           fontFamily: BARLOW,
           fontWeight: 800,
           fontSize: 15,
-          color: T.white,
+          color: T.orange,
           letterSpacing: "1px",
           textTransform: "uppercase",
           textAlign: "center",
@@ -1696,7 +1696,7 @@ function ProtocolsContent({ isMobile, isTablet }: { isMobile: boolean; isTablet?
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
-          gap: isMobile ? 12 : 20,
+          gap: isMobile ? 12 : 40,
           marginTop: 36,
         }}
       >
@@ -2043,11 +2043,11 @@ function ExerciseCard({
       <div
         style={{
           border: `2px solid ${T.orange}`,
-          background: T.charcoal,
+          background: T.white,
           fontFamily: BARLOW,
           fontWeight: 800,
           fontSize: 15,
-          color: T.white,
+          color: T.orange,
           letterSpacing: "1px",
           textTransform: "uppercase",
           textAlign: "center",
@@ -2165,7 +2165,7 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
-          gap: isMobile ? 12 : 20,
+          gap: isMobile ? 12 : 40,
           marginTop: 36,
         }}
       >
@@ -2188,15 +2188,15 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
         <div
           style={{
             border: `2px solid ${T.orange}`,
-            background: T.charcoal,
+            background: T.white,
             fontFamily: BARLOW,
             fontWeight: 800,
             fontSize: 17,
-            color: T.white,
+            color: T.orange,
             letterSpacing: "1px",
             textTransform: "uppercase",
             textAlign: "center",
-            padding: "12px 48px",
+            padding: "10px 20px",
             borderRadius: 6,
           }}
         >
